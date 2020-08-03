@@ -30,7 +30,7 @@ export default {
   props: {
     // * job.idを受け取る
     id: Number,
-    id: { type: Number },
+    // id: { type: Number },
   },
   data() {
     return {

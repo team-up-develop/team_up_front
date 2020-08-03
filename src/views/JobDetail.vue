@@ -122,7 +122,7 @@ import moment from "moment";
 export default {
   props: {
     id: Number,
-    id: {type: Number},
+    // id: {type: Number},
   },
   data() {
     // const formats = [
@@ -158,8 +158,6 @@ export default {
         if(selfJob.id === this.id){
           console.log("一致")
           this.selfJobPost = false
-        }
-        else{
         }
       }
     })
