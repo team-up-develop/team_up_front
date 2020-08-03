@@ -1,6 +1,6 @@
 # team_dev
 
-## Project setup
+## Docker setup
 ```
  docker-compose up -d --build
 ```
