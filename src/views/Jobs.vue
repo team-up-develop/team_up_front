@@ -5,7 +5,7 @@
         <!-- <Search></Search> -->
       <select v-model="selectedPosition" class="position">
         <option disabled value="" class="position">担当</option>
-        <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.id">
+        <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.positionTagName">
           {{ position.positionTagName }}
         </option>
       </select>
@@ -68,7 +68,6 @@
         </div>
       </div>
     </div>
-    <Ad></Ad>
   </div>
 </template>
 
