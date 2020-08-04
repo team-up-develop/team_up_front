@@ -54,7 +54,7 @@ export default {
       console.log(data)
     })
     // * 案件参加者 & 投稿者を取り出す
-    axios.get('http://localhost:8888/api/v1/apply_job/?job_id=1&apply_status_id=2')
+    axios.get(`http://localhost:8888/api/v1/apply_job/?job_id=${ this.id }&apply_status_id=2`)
     .then(response => {
       console.log(response.data)
       this.chatMembers = response.data
