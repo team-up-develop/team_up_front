@@ -23,10 +23,10 @@
                 <div class="sub-langage" v-for="langage in job.job.programingLanguage" :key="langage.id">
                   {{ langage.programingLanguageName }}
                 </div>
-                <div class="sub-framework" v-for="framework in job.job.programingFramework" :key="framework.id">
+                <div class="sub-framework" v-for="framework in job.job.programingFramework" :key="framework.programingFrameworkName">
                   {{ framework.programingFrameworkName }}
                 </div>
-                <div class="sub-skill" v-for="skill in job.job.skill" :key="skill.id">
+                <div class="sub-skill" v-for="skill in job.job.skill" :key="skill.skillName">
                   {{ skill.skillName }}
                 </div>
               </div>

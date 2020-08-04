@@ -37,7 +37,7 @@
           <div class="lang-area">
             <label for="name" class="name-tag">フレームワーク</label>
             <div class="lang-box">
-              <div class="flame-tag" v-for="framework in job.programingFramework" :key="framework.id">
+              <div class="flame-tag" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
                 {{ framework.programingFrameworkName }}
               </div>
             </div>
@@ -45,7 +45,7 @@
           <div class="lang-area">
             <label for="name" class="name-tag">その他関連スキル</label>
             <div class="lang-box">
-              <div class="other-tag" v-for="skill in job.skill" :key="skill.id">
+              <div class="other-tag" v-for="skill in job.skill" :key="skill.skillName">
                 {{ skill.skillName }}
               </div>
             </div>

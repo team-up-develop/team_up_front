@@ -68,7 +68,7 @@ export default {
         }
         else if(applyData.applyStatusId === 2){
           console.log(applyData)
-          this.assginUser.push(applyData)
+          this.assginUsers.push(applyData)
           console.log(this.assginUser)
         }
         else {
