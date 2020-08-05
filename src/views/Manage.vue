@@ -26,10 +26,6 @@ export default {
       axios.get('http://localhost:8888/api/v1/job/?user_id=1')
       .then(response => {
         this.manageJobs = response.data
-        console.log(this.manageJobs)
-      })
-      .then(data => {
-        console.log(data)
       })
     }
   }

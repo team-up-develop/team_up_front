@@ -72,13 +72,9 @@ export default {
       this.loginFlag = true
       axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
       .then(response => {
-        // setTimeout(() => {
+        setTimeout(() => {
           this.applyJobs = response.data
-          console.log(this.applyJobs)
-        // }, 1000);
-      })
-      .then(data => {
-        console.log(data)
+        }, 1000);
       })
     }
   },

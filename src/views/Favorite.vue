@@ -72,13 +72,9 @@ export default {
       this.loginFlag = true
       axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
       .then(response => {
-        // setTimeout(() => {
+        setTimeout(() => {
           this.favoriteJobs = response.data
-          console.log(this.favoriteJobs)
-        // }, 1000);
-      })
-      .then(data => {
-        console.log(data)
+        }, 1000);
       })
     }
   },

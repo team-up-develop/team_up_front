@@ -64,20 +64,14 @@ export default {
         const applyData = response.data[i];
         if(applyData.applyStatusId === 1){
           this.applyUsers.push(applyData)
-          console.log(this.applyUsers)
         }
         else if(applyData.applyStatusId === 2){
-          console.log(applyData)
           this.assginUsers.push(applyData)
-          console.log(this.assginUser)
         }
         else {
           this.rejectUsers.push(applyData)
         }
       }
-    })
-    .then(data => {
-      console.log(data)
     })
   },
   methods: {

@@ -87,17 +87,11 @@ export default {
           this.languages = response.data
           // console.log(this.languages)
       })
-      .then(data => {
-          console.log(data)
-      })
     // * フレームワーク
     axios.get('http://localhost:8888/api/v1/programing_framework')
       .then(response => {
           this.framworks = response.data
           // console.log(this.framworks)
-      })
-      .then(data => {
-          console.log(data)
       })
     // * 開発ポジション
     axios.get('http://localhost:8888/api/v1/position_tag')
@@ -105,17 +99,11 @@ export default {
           this.positions = response.data
           // console.log(this.positions)
       })
-      .then(data => {
-          console.log(data)
-      })
     // * その他スキル
     axios.get('http://localhost:8888/api/v1/skill')
       .then(response => {
           this.skills = response.data
           // console.log(this.skills)
-      })
-      .then(data => {
-          console.log(data)
       })
   },
   methods: {
@@ -149,11 +137,6 @@ export default {
         programingFramework: this.selectedFramwork , //? フレームワーク
         skill: this.selectedSkill //? その他開発スキル
       };
-      //*確認のため
-      // console.log(data.programingFramework)
-      // console.log(devStartDate)
-      // console.log(data.devStartDate)
-      // console.log(data.devEndDate)
       console.log(data)
       axios.post('http://localhost:8888/api/v1/job', data)
       .then(response => {
