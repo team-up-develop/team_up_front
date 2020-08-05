@@ -104,35 +104,22 @@ export default {
       }
     })
       .then(response => {
-        // setTimeout(() => {
+        setTimeout(() => {
           this.jobs = response.data
-          console.log(response.data)
-        // }, 1000);
-      })
-      .then(data => {
-        console.log(data)
+        }, 1000);
       })
     // * プログラミング言語 取得
     axios.get('http://localhost:8888/api/v1/programing_language')
       .then(response => {
           this.languages = response.data
-          // console.log(this.languages)
-      })
-      .then(data => {
-        console.log(data)
       })
     // * 開発ポジション 取得
     axios.get('http://localhost:8888/api/v1/position_tag')
       .then(response => {
           this.positions = response.data
-          // console.log(this.positions)
-      })
-      .then(data => {
-        console.log(data)
       })
     if(localStorage.LoginName) this.name = localStorage.LoginName;
     if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
-    console.log(localStorage.LoginPassword)
   },
   methods: {
     // * 検索
@@ -142,18 +129,12 @@ export default {
         language: this.selectedLang,
         freeWord: this.freeWord
       }
-      // console.log(data.position)
-      console.log(data.language)
       const URL = 'http://localhost:8888/api/v1/job/?'
 
       // * クエリパラメーター
       axios.get(`${ URL }position_tag_id=${ data.position }&programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
       .then(response => {
         this.jobs = response.data
-        console.log(response.data)
-      })
-      .then(data => {
-        console.log(data)
       })
     }
   }
