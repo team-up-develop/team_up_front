@@ -14,3 +14,8 @@ docker-compose exec app sh
 ```
 npm run serve
 ```
+
+### errorが起きるはずです。
+その際に必要なパッケージをInstallしてくださいと指示があるはずです。
+それらを指示通りbash内でinstallしてください。
+そちらで完了です。
