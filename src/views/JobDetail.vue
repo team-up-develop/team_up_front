@@ -83,13 +83,8 @@
         </div>
         <div v-if="loginFlag === true">
           <div class="button-area" v-if="selfJobPost">
+            <applybtn :jobId='id'></applybtn>
             <!-- <router-link to="/Register" class="register"> -->
-            <div class="btn-box-apply" @click="applyJob" v-if="applyFlug">
-              応募する
-            </div>
-            <div class="btn-box-save-false" v-if="applyFlug == false">
-              応募する
-            </div>
             <!-- </router-link> -->
             <!-- <router-link to="/Register" class="register"> -->
             <div class="btn-box-save" @click="saveJob" v-if="flag">
@@ -119,6 +114,7 @@
 <script>
 import axios from 'axios'
 import moment from "moment";
+import Applybtn from '@/components/Applybtn'
 export default {
   props: {
     id: Number,
@@ -133,7 +129,7 @@ export default {
       flag: true,
       applyFlug: true,
       selfJobPost: true,
-      loginFlag: false
+      loginFlag: false,
     }
   },
   filters: {
@@ -188,24 +184,6 @@ export default {
         console.log(data)
       })
     }
-    // * 応募されているか否かを判断するための処理
-    axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
-    .then(response => {
-      const arrayApply = []
-      for(let c = 0; c < response.data.length; c++){
-        const applyData = response.data[c];
-        arrayApply.push(applyData.job.id)
-      }
-      if(arrayApply.includes(this.job.id)){
-        this.applyFlug = false
-      }
-      else {
-        this.applyFlug = true
-      }
-    })
-    .then(data => {
-      console.log(data)
-    })
   },
   methods: {
     //* 案件保存
@@ -241,22 +219,9 @@ export default {
         console.log(error)
       })
     },
-    // * 案件応募
-    applyJob() {
-      const applyData = {
-        jobId: 1,
-        userId: 1,
-        applyStatusId: 1
-      };
-      axios.post('http://localhost:8888/api/v1/apply_job/', applyData)
-      .then(response => {
-        this.applyFlug = false
-        console.log(response.data)
-      })
-      .catch(error =>{
-        console.log(error)
-      })
-    }
+  },
+  components: {
+    Applybtn
   }
 }
 </script>
