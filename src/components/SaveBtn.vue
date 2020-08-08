@@ -21,6 +21,7 @@ export default {
     }
   },
   mounted() {
+    // * ログインユーザーが保存済みか応募済みではないかを判定する
     axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
     .then(response => {
       const array = []
@@ -28,7 +29,6 @@ export default {
         const likeData = response.data[i]
         array.push(likeData.job.id)
       }
-      // console.log(array)
       if(array.includes(this.jobId)){
         this.flag = false
       }
@@ -38,14 +38,14 @@ export default {
     })
   },
   methods: {
+    // * 案件を保存する
     saveJob(){
       const data = {
-        jobId: this.jobId, //? 案件ID
-        userId: 1 //? User_ID
+        jobId: this.jobId, 
+        userId: 1 
       };
       axios.post('http://localhost:8888/api/v1/favorite_job/', data)
       .then(response => {
-        // ? 案件削除判定
         this.flag = false
         console.log(response)
       })
@@ -53,6 +53,7 @@ export default {
         console.log(error)
       })
     },
+    // * 案件を９削除する
     deleteJob() {
       const data = {
         jobId: this.jobId,
@@ -60,7 +61,6 @@ export default {
       };
       axios.delete('http://localhost:8888/api/v1/favorite_job/',{data: {userId: 1, jobId: data.jobId}})
       .then(response => {
-        // ? 案件削除判定
         this.flag = true
         console.log(response.data)
       })
