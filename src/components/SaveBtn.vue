@@ -53,7 +53,7 @@ export default {
         console.log(error)
       })
     },
-    // * 案件を９削除する
+    // * 案件を削除する
     deleteJob() {
       const data = {
         jobId: this.jobId,
