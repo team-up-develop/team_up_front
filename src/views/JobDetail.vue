@@ -83,11 +83,11 @@
         </div>
         <div v-if="loginFlag === true">
           <div class="button-area" v-if="selfJobPost">
-            <applybtn :jobId='id'></applybtn>
-            <save-btn :jobId='id'></save-btn>
+            自分の案件です
           </div>
           <div class="button-area" v-else>
-            自分の案件です
+            <applybtn :jobId='id'></applybtn>
+            <save-btn :jobId='id'></save-btn>
           </div>
         </div>
       <div v-else>
@@ -117,7 +117,7 @@ export default {
     // ];
     return {
       job: null,
-      selfJobPost: true, //? 自分の案件かを判定
+      selfJobPost: false, //? 自分の案件かを判定
       loginFlag: false, //? ログインしているかを判定
     }
   },
@@ -138,7 +138,7 @@ export default {
       for(let i = 0; i < response.data.length; i++){
         const selfJob = response.data[i]
         if(selfJob.id === this.id){
-          this.selfJobPost = false
+          this.selfJobPost = true
         }
       }
     })
