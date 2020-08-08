@@ -29,7 +29,7 @@ export default {
   width: 100%;
   /* margin: 25px auto; */
   height: 100%;
-  background-color: #f5f5f5;
+  background-color: #F2F6F7;
   /* background-color: #FFFFFF; */
   position: relative;
   /* background-color: rgb(0, 83, 250); */
