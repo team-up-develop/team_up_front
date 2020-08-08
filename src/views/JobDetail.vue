@@ -4,7 +4,7 @@
       <!-- <Search></Search> -->
     </div>
     <div class="main-container">
-      <div class="detail-wrapper" v-if="job" :key="product">
+      <div class="detail-wrapper" v-if="job" :key="job.id">
         <div class="tag-box">投稿者</div>
         <div class="user-detail-area">
           <div class="left-user">
@@ -84,17 +84,7 @@
         <div v-if="loginFlag === true">
           <div class="button-area" v-if="selfJobPost">
             <applybtn :jobId='id'></applybtn>
-            <!-- <router-link to="/Register" class="register"> -->
-            <!-- </router-link> -->
-            <!-- <router-link to="/Register" class="register"> -->
-            <div class="btn-box-save" @click="saveJob" v-if="flag">
-              保存する
-            </div>
-            <div class="btn-box-save-false" @click="deleteJob" v-if="flag == false">
-              削除する
-            </div>
-              <!-- <SaveBtn></SaveBtn> -->
-            <!-- </router-link> -->
+            <save-btn :jobId='id'></save-btn>
           </div>
           <div class="button-area" v-else>
             自分の案件です
@@ -115,6 +105,7 @@
 import axios from 'axios'
 import moment from "moment";
 import Applybtn from '@/components/Applybtn'
+import SaveBtn from '@/components/SaveBtn'
 export default {
   props: {
     id: Number,
@@ -126,10 +117,8 @@ export default {
     // ];
     return {
       job: null,
-      flag: true,
-      applyFlug: true,
-      selfJobPost: true,
-      loginFlag: false,
+      selfJobPost: true, //? 自分の案件かを判定
+      loginFlag: false, //? ログインしているかを判定
     }
   },
   filters: {
@@ -138,90 +127,31 @@ export default {
     }
   },
   created() {
+    // * 詳細画面情報を取得
     axios.get(`${this.$httpPosts}/${this.id}/`)
-        .then(response => {
-          this.job = response.data
-        })
-        .then(data => {
-          console.log(data)
-        })
+      .then(response => {
+        this.job = response.data
+      })
+    // * 自分の案件かを判定
     axios.get('http://localhost:8888/api/v1/job/?user_id=1')
     .then(response => {
       for(let i = 0; i < response.data.length; i++){
-        console.log(response.data[i])
         const selfJob = response.data[i]
-        console.log(selfJob.id)
         if(selfJob.id === this.id){
-          console.log("一致")
           this.selfJobPost = false
         }
       }
     })
   },
   mounted() {
-    // * 保存されているか否かを判断するための処理
-    // ! ログインしている時だけ、ボタンを表示する
+    //* ログインしている時だけ、ボタンを表示する
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
-      axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
-      .then(response => {
-        // console.log(response.data)
-        const array = []
-        for(let i = 0; i < response.data.length; i++){
-          // console.log(response.data[i])
-          const likeData = response.data[i]
-          array.push(likeData.job.id)
-        }
-        // console.log(array)
-        if(array.includes(this.job.id)){
-          this.flag = false
-        }
-        else{
-          this.flag = true
-        }
-      })
-      .then(data => {
-        console.log(data)
-      })
     }
   },
-  methods: {
-    //* 案件保存
-    saveJob(){
-      const data = {
-        jobId: this.job.id, //? 案件ID
-        userId: 1 //? User_ID
-      };
-      axios.post('http://localhost:8888/api/v1/favorite_job/', data)
-      .then(response => {
-        // ? 案件削除判定
-        this.flag = false
-        console.log(response)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-      // console.log(this.job.id)
-    },
-    // * 案件保存削除
-    deleteJob() {
-      const data = {
-        jobId: this.job.id,
-        userId: 1
-      };
-      axios.delete('http://localhost:8888/api/v1/favorite_job/',{data: {userId: 1, jobId: data.jobId}})
-      .then(response => {
-        // ? 案件削除判定
-        this.flag = true
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
-  },
   components: {
-    Applybtn
+    Applybtn,
+    SaveBtn
   }
 }
 </script>
