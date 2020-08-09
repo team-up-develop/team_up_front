@@ -7,10 +7,10 @@ import 'normalize.css'
 Vue.config.productionTip = false
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLaptop, faUser, faBell, faHistory } from '@fortawesome/free-solid-svg-icons'
+import { faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faLaptop, faUser, faBell, faHistory)
+library.add(faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

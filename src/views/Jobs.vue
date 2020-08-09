@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="job-wrapper">
-      <div class="left-container">
-        <!-- <Search></Search> -->
+      <!-- <div class="left-container">
       <select v-model="selectedPosition" class="position">
         <option disabled value="" class="position">担当</option>
         <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.positionTagName">
@@ -23,7 +22,7 @@
       <div class="btn-area" @click="getParams">
         検索する
       </div>
-      </div>
+      </div> -->
 
       <div class="main-container">
         <div class="job-wrapper">
