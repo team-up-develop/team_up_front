@@ -26,14 +26,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #111111;
   position: relative;
   width: 100%;
 }
 .container {
   width: 100%;
   /* margin: 25px auto; */
-  height: 100%;
+  height: 1400px;
   background-color: #F2F6F7;
   /* position: absolute; */
   /* right: 0; */

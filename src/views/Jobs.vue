@@ -1,72 +1,41 @@
 <template>
   <div class="wrapper">
-    <div class="job-wrapper">
-      <!-- <div class="left-container">
-      <select v-model="selectedPosition" class="position">
-        <option disabled value="" class="position">担当</option>
-        <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.positionTagName">
-          {{ position.positionTagName }}
-        </option>
-      </select>
-      <h1>{{ selectedPosition }}</h1>
-      <select v-model="selectedLang" class="position">
-        <option disabled value="" class="position">開発言語</option>
-        <option v-for="lang in languages" v-bind:value="lang.id" v-bind:key="lang.id">
-          {{ lang.programingLanguageName }}
-        </option>
-      </select>
-      <h1>{{ selectedLang }}</h1>
-      <input type="text" v-model="freeWord" placeholder="フリーワード" class="freeword">
-      {{ freeWord }}
-      <h1>{{ freeWord }}</h1>
-      <div class="btn-area" @click="getParams">
-        検索する
+    <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
+    <div class="job-cards">
+      <div class="job-cards-top">
+        {{ job.jobTitle }}
       </div>
-      </div> -->
-
-      <div class="main-container">
-        <div class="job-wrapper">
-          <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
-          <div class="job-box">
-            <div class="left-box">
-                <div class="user-profile-image"></div>
-            </div>
-            <div class="btn-area">
-              <div class="save-btn">保存する</div>
-            </div>
-            <div class="right-box">
-              <div class="username-area">
-                <!-- {{ job.user.userName }} -->
-              </div>
-              <div class="title-area">
-                {{ job.jobTitle }}
-              </div>
-              <div class="bottom-area">
-                <div class="bottom-left">
-                  <!-- <font-awesome-icon icon="laptop" class="icon" /> -->
-                  <div class="sub-langage" v-for="langage in job.programingLanguage" :key="langage.id">
-                    {{ langage.programingLanguageName }}
-                  </div>
-                  <div class="sub-framework" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
-                    {{ framework.programingFrameworkName }}
-                  </div>
-                  <div class="sub-skill" v-for="skill in job.skill" :key="skill.skillName">
-                    {{ skill.skillName }}
-                  </div>
-                </div>
-                <div class="bottom-right">
-                  <font-awesome-icon icon="history" class="icon" />
-                  <div class="sub-times">
-                    {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
-                  </div>
-                </div>
-              </div>
+      <div class="job-cards-center">
+        <div class="langage" v-for="langage in job.programingLanguage" :key="langage.id">
+          {{ langage.programingLanguageName }}
+        </div>
+        <div class="framework" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
+          {{ framework.programingFrameworkName }}
+        </div>
+        <div class="skill" v-for="skill in job.skill" :key="skill.skillName">
+          {{ skill.skillName }}
+        </div>
+      </div>
+      <div class="job-cards-bottom">
+        <div class="product-start-end">
+          <div class="product-start-end-tag">
+            開発期間:
+          </div>
+          <div class="product-start-end-time">
+            {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
+          </div>
+        </div>
+        <div class="post-user-area">
+          <div class="post-user-image"></div>
+          <div class="post-user-name-area">
+            <div class="post-user-name">
+              {{ job.user.userName }}
             </div>
           </div>
-          </router-link>
         </div>
       </div>
     </div>
+    </router-link>
   </div>
 </template>
 
@@ -141,11 +110,117 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 1440px) {
+  .wrapper {
+    width: 82%;
+    /* background-color: #00ff227e; */
+    position: absolute;
+    right: 0;
+  }
+  .job-cards {
+    width: 42%;
+    height: 280px;
+    display: inline-block;
+    margin: 5px;
+    border: solid 1px #B9B9B9;
+    background-color: #ffffff;
+    border-radius: 10px / 10px;
+  }
+  .job-cards-top {
+    width: calc(100% - 60px);
+    height: calc(25% - 60px);
+    text-align: left;
+    padding: 30px;
+    font-weight: bold;
+  }
+  .job-cards-center {
+    width: calc(100% - 40px);
+    height: calc(35% - 20px);
+    padding: 10px 20px;
+    /* background-color: rgba(128, 128, 128, 0.733); */
+    text-align: left;
+  }
+  .job-cards-center .langage{
+    margin: 5px 0px 0px 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #004098;
+    font-size: 12px;
+    border: solid 1px #004098;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+  .job-cards-center .framework{
+    margin: 5px 0px 0 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #00A7EA;
+    font-size: 12px;
+    border: solid 1px #00A7EA;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+  .job-cards-center .skill{
+    margin: 5px 0px 0 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #8D93C8;
+    font-size: 12px;
+    border: solid 1px #8D93C8;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+  .job-cards-bottom {
+    width: calc(100% - 50px);
+    height: calc(38% - 20px);
+    padding: 10px 25px;
+  }
+  .job-cards-bottom .product-start-end {
+    width: 100%;
+    height: 40%;
+    text-align: left;
+  }
+  .job-cards-bottom .product-start-end .product-start-end-tag {
+    display: inline-block;
+  }
+  .job-cards-bottom .product-start-end .product-start-end-time {
+    display: inline-block;
+    padding: 0 20px;
+  }
+  .job-cards-bottom .post-user-area {
+    width: 100%;
+    height: 60%;
+    text-align: left;
+  }
+  .job-cards-bottom .post-user-area .post-user-image {
+    width: 12%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #00A1D6;
+    display: inline-block;
+  }
+  .job-cards-bottom .post-user-area .post-user-name-area {
+    display: inline-block;
+    width: calc(80% - 40px);
+    height: 60%;
+    padding: 0 20px;
+    position: relative;
+  }
+  .job-cards-bottom .post-user-area .post-user-name-area .post-user-name {
+    position: absolute;
+    top: 0;
+  }
+}
+
 .job-wrapper{
   width: 90%;
   margin: 0 auto;
   height: 100%;
 }
+
 .left-container{
   width: 20%;
   height: 500px;
@@ -162,6 +237,7 @@ export default {
   text-decoration: none;
   color: rgb(73, 73, 73);
 }
+
 .job-box{
   background-color: #FFFFFF;
   width: 90%;
@@ -228,39 +304,8 @@ export default {
   color: #2AC1DF;
   font-size: 20px;
 }
-.sub-skill{
-  margin: 0 0px 0 5px ;
-  text-align: left;
-  display: inline-block;
-  color: #ffffff;
-  font-size: 12px;
-  background-color: #00ced1;
-  padding: 7px 10px;
-  border-radius: 5%;
-  font-weight: bold;
-}
-.sub-langage{
-  margin: 0 0px 0 5px ;
-  text-align: left;
-  display: inline-block;
-  color: #ffffff;
-  font-size: 12px;
-  background-color: #00bfff;
-  padding: 7px 10px;
-  border-radius: 5%;
-  font-weight: bold;
-}
-.sub-framework{
-  margin: 0 0px 0 5px ;
-  text-align: left;
-  display: inline-block;
-  color: #ffffff;
-  font-size: 12px;
-  background-color: #1e90ff;
-  padding: 7px 10px;
-  border-radius: 5%;
-  font-weight: bold;
-}
+
+
 .sub-times{
   margin: 20px 0px 0 5px ;
   text-align: left;

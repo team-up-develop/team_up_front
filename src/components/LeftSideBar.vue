@@ -128,6 +128,8 @@ export default {
     right: 0;
     text-align: left;
     padding: 30px 0;
+    text-decoration: none;
+    color: #111111;
   }
 }
 @media screen and (max-width: 959px) {
