@@ -1,5 +1,30 @@
 <template>
   <div class="job-wrapper">
+        <button id="btn">クリックでテキスト挿入</button>
+    <p id="hogehoge"></p>
+    <div class="left-container">
+        <!-- <Search></Search> -->
+      <select v-model="selectedPosition" class="position">
+        <option disabled value="" class="position">担当</option>
+        <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.id">
+          {{ position.positionTagName }}
+        </option>
+      </select>
+      <h1>{{ selectedPosition }}</h1>
+      <select v-model="selectedLang" class="position">
+        <option disabled value="" class="position">開発言語</option>
+        <option v-for="lang in languages" v-bind:value="lang.id" v-bind:key="lang.id">
+          {{ lang.programingLanguageName }}
+        </option>
+      </select>
+      <h1>{{ selectedLang }}</h1>
+      <input type="text" v-model="freeWord" placeholder="フリーワード" class="freeword">
+      {{ freeWord }}
+      <h1>{{ freeWord }}</h1>
+      <div class="btn-area" @click="getParams">
+        検索する
+      </div>
+    </div>
     <div class="job-wrapper-center">
       <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
         <div class="job-cards">
@@ -67,6 +92,9 @@ export default {
     }
   },
   mounted() {
+    $('#btn').click(function() {
+      $("#hogehoge").text("テキスト挿入");
+    });
     // * 投稿一覧取得
     axios.get('http://localhost:8888/api/v1/job', {
       headers: {
