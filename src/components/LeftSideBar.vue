@@ -80,6 +80,7 @@ export default {
   .user-area-left {
     width: 40%;
     height: 100%;
+    background-color: rgba(0, 247, 255, 0.61);
   }
   .user-area-right {
     width: 52%;
@@ -117,8 +118,8 @@ export default {
     margin-left: 5px;
   }
   ul li .menu-list-icon-area .icon {
-    font-size: 25px;
-    padding: 5px 0;
+    font-size: 20px;
+    padding: 7px 0;
     color: #6d6c6c;
   }
   ul li .router-link {
