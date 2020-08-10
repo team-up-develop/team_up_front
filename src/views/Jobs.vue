@@ -22,7 +22,7 @@
         検索する
       </div>
     </div>
-    <div class="job-wrapper-center">
+    <div class="job-wrapper-center" v-show="!loading">
       <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
         <div class="job-cards">
           <div class="job-cards-top">
@@ -60,6 +60,8 @@
         </div>
       </router-link>
     </div>
+    <Loading v-show="loading">
+    </Loading>
   </div>
 </template>
 
@@ -67,6 +69,7 @@
 // import $ from 'jquery';
 import axios from 'axios'
 import moment from "moment";
+import Loading from '@/components/Loading'
 export default {
   data() {
     // const formats = [
@@ -80,7 +83,8 @@ export default {
       languages: [],
       freeWord: '',
       name: '',
-      age: 0
+      age: 0,
+      loading: true,
     }
   },
   filters: {
@@ -95,11 +99,12 @@ export default {
         Authorization: `Bearer ${ localStorage.userId }`
       }
     })
-      .then(response => {
-        setTimeout(() => {
-          this.jobs = response.data
-        }, 1000);
-      })
+    .then(response => {
+      setTimeout(() => {
+        this.loading = false;
+        this.jobs = response.data
+      }, 1500);
+    })
     // * プログラミング言語 取得
     axios.get('http://localhost:8888/api/v1/programing_language')
       .then(response => {
@@ -126,10 +131,16 @@ export default {
       // * クエリパラメーター
       axios.get(`${ URL }position_tag_id=${ data.position }&programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
       .then(response => {
-        this.jobs = response.data
+        setTimeout(() => {
+          this.loading = false;
+          this.jobs = response.data
+        }, 1000);
       })
     }
-  }
+  },
+  components: {
+    Loading,
+  },
 }
 </script>
 
@@ -194,7 +205,7 @@ export default {
   }
   .job-wrapper .top-search-area {
     width: 85%;
-    margin: 0 auto;
+    margin: 0 0 0 4rem;
     /* background-color: #004098; */
   }
   .job-wrapper .top-search-area .serach-btn {
@@ -246,7 +257,7 @@ export default {
     height: 280px;
     /* float: right; */
     float: left;
-    margin: 10px 5px;
+    margin: 10px 8px;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
     border-radius: 10px / 10px;
