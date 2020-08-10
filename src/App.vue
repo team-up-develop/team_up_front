@@ -29,13 +29,12 @@ export default {
   color: #111111;
   position: relative;
   width: 100%;
+  height: 100%;
 }
 .container {
   width: 100%;
-  /* margin: 25px auto; */
-  height: 1400px;
+  height: 100%;
   background-color: #F2F6F7;
-  /* position: absolute; */
   /* right: 0; */
   display: inline-block;
   /* background-color: rgb(0, 83, 250); */
