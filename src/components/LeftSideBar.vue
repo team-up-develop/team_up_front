@@ -100,9 +100,14 @@ export default {
   ul {
     padding: 0;
   }
+  ul :hover {
+    color: #00A1D6;
+    transform: translateX(-2px);
+    opacity: 0.8;
+  }
   /* メニュー１つ１つ */
   ul .menu-list {
-    height: 35px;
+    height: 25px;
     list-style: none;
     width: 100%;
     padding: 20px 0;
@@ -116,11 +121,13 @@ export default {
     width: 25%;
     height: 100%;
     margin-left: 5px;
+    pointer-events: none;
   }
   ul li .menu-list-icon-area .icon {
     font-size: 20px;
     padding: 7px 0;
-    color: #6d6c6c;
+    color: #464646;
+    pointer-events: none;
   }
   ul li .router-link {
     width: 70%;

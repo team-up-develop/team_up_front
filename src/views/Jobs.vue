@@ -164,7 +164,7 @@ export default {
     font-weight: 700; /* 太字に */
     color: #333; /* 文字色 */
     border-radius: 4px; /* 角丸 */
-    background-color: #f7f9fb; /* 背景色 */
+    background-color: #ffffff; /* 背景色 */
     border: solid 1px #e1e8ef; /* 枠線 */
     box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
     /* 👇三角マークを作る */
@@ -190,7 +190,7 @@ export default {
     font-weight: 700; /* 太字に */
     color: #333; /* 文字色 */
     border-radius: 4px; /* 角丸 */
-    background-color: #f7f9fb; /* 背景色 */
+    background-color: #ffffff; /* 背景色 */
     border: solid 1px #e1e8ef; /* 枠線 */
     box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
   }
@@ -245,7 +245,8 @@ export default {
     margin: 0 auto;
   }
   .job-wrapper .job-wrapper-center :hover {
-    background-color: rgb(235, 236, 240);
+    background-color: rgb(250, 248, 248);
+    border: 1px solid #00A1D6;
     box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
     transform: translateY(-4px);
   }
