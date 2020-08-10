@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="create-wrapper">
+  <div class="job-create-wrapper" v-show="!loading">
     <label for="name">案件タイトル: </label>
     <input type="text" v-model="jobTitle">
-    <select v-model="selectedCommunication" class="">
+    <!-- <select v-model="selectedCommunication" class="">
       <option disabled value="" class="">コミュニケーションツール</option>
       <option v-for="communication in communicationToolId" v-bind:value="communication.id" v-bind:key="communication.id">
         {{ communication.name }}
@@ -49,12 +50,16 @@
     <label for="name">概要: </label>
     <textarea type="text" name="" id="" v-model="jobDescription"></textarea>
     <br><br>
-    <button @click="createJob">作成</button>
+    <button @click="createJob">作成</button> -->
+  </div>
+  <Loading v-show="loading">
+  </Loading>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Loading from '@/components/Loading'
 export default {
   data() {
     return{
@@ -78,14 +83,18 @@ export default {
         { id: 2, name: 'Skype' },
         { id: 3, name: 'ChatWork' }
       ],
+      loading: true,
     }
   },
   mounted() {
     // *開発言語
     axios.get('http://localhost:8888/api/v1/programing_language')
       .then(response => {
+        setTimeout(() => {
+          this.loading = false;
           this.languages = response.data
           // console.log(this.languages)
+        }, 1500);
       })
     // * フレームワーク
     axios.get('http://localhost:8888/api/v1/programing_framework')
@@ -150,10 +159,29 @@ export default {
       this.devStartDate = "";
       this.devEndDate = "";
     }
-  }
+  },
+  components: {
+    Loading,
+  },
 }
 </script>
 
-<style>
-
+<style scoped>
+.create-wrapper {
+  width: 82.75%;
+  position: absolute;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  background-color: #F2F6F7;
+}
+.job-create-wrapper {
+  width: 90%;
+  height: 90vh;
+  border-radius: 20px;
+  margin: 2rem 2rem;
+  background-color: #ffffff;
+  float: right;
+  border: solid 1px #B9B9B9;
+}
 </style>
