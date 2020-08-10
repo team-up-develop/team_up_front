@@ -144,7 +144,7 @@ export default {
     /* 👇スタイル */
     display: inline-block;
     width: 100%; /* 幅 */
-    max-width: 250px; /* 最大幅 */
+    max-width: 27%; /* 最大幅 */
     margin: 1em 0; /* 前後の余白 */
     padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
     cursor: pointer; /* カーソルを指に */
@@ -170,7 +170,7 @@ export default {
     /* 👇スタイル */
     display: inline-block;
     width: 100%; /* 幅 */
-    max-width: 360px; /* 最大幅 */
+    max-width: 30%; /* 最大幅 */
     margin: 1em 0; /* 前後の余白 */
     padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
     cursor: pointer; /* カーソルを指に */
@@ -229,7 +229,7 @@ export default {
     padding: 1rem 0 10rem 0;
   }
   .job-wrapper .job-wrapper-center {
-    width: 86%;
+    width: 89%;
     height: 100vh;
     margin: 0 auto;
   }
@@ -354,6 +354,14 @@ export default {
   }
 }
 
+@media screen and (max-width: 1400px) {
+  .job-wrapper .job-wrapper-center {
+    width: 95%;
+    height: 100vh;
+    margin: 0 auto;
+  }
+}
+
 @media screen and (max-width: 1360px) {
   .job-wrapper .job-wrapper-center {
     width: 95%;
@@ -372,7 +380,7 @@ export default {
 
 @media screen and (max-width: 1238px) {
   .job-cards {
-    width: 80%;
+    width: 100%;
     height: 280px;
     display: inline-block;
     margin: 5px;
