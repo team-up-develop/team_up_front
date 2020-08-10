@@ -1,27 +1,24 @@
 <template>
   <div class="job-wrapper">
-        <button id="btn">クリックでテキスト挿入</button>
-    <p id="hogehoge"></p>
-    <div class="left-container">
-        <!-- <Search></Search> -->
-      <select v-model="selectedPosition" class="position">
-        <option disabled value="" class="position">担当</option>
-        <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.id">
+    <div class="top-search-area">
+      <select v-model="selectedPosition" class="styled-select">
+        <option disabled value="">担当</option>
+        <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.id" class="dropdown-menu">
           {{ position.positionTagName }}
         </option>
       </select>
-      <h1>{{ selectedPosition }}</h1>
-      <select v-model="selectedLang" class="position">
+      <!-- <h1>{{ selectedPosition }}</h1> -->
+      <select v-model="selectedLang" class="styled-select">
         <option disabled value="" class="position">開発言語</option>
         <option v-for="lang in languages" v-bind:value="lang.id" v-bind:key="lang.id">
           {{ lang.programingLanguageName }}
         </option>
       </select>
-      <h1>{{ selectedLang }}</h1>
-      <input type="text" v-model="freeWord" placeholder="フリーワード" class="freeword">
-      {{ freeWord }}
-      <h1>{{ freeWord }}</h1>
-      <div class="btn-area" @click="getParams">
+      <!-- <h1>{{ selectedLang }}</h1> -->
+      <input type="text" v-model="freeWord" placeholder="フリーワード" class="styled-select-freewrod">
+      <!-- {{ freeWord }} -->
+      <!-- <h1>{{ freeWord }}</h1> -->
+      <div @click="getParams" class="serach-btn">
         検索する
       </div>
     </div>
@@ -67,7 +64,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+// import $ from 'jquery';
 import axios from 'axios'
 import moment from "moment";
 export default {
@@ -92,9 +89,6 @@ export default {
     }
   },
   mounted() {
-    $('#btn').click(function() {
-      $("#hogehoge").text("テキスト挿入");
-    });
     // * 投稿一覧取得
     axios.get('http://localhost:8888/api/v1/job', {
       headers: {
@@ -141,16 +135,101 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
+  /* 検索欄 */
+  .job-wrapper .top-search-area .styled-select {
+    /* 👇デフォルトのスタイルを解除 */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    /* 👇スタイル */
+    display: inline-block;
+    width: 100%; /* 幅 */
+    max-width: 250px; /* 最大幅 */
+    margin: 1em 0; /* 前後の余白 */
+    padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
+    cursor: pointer; /* カーソルを指に */
+    line-height: 1.4; /* 行高 */
+    font-size: 0.95em; /* フォントサイズ */
+    font-weight: 700; /* 太字に */
+    color: #333; /* 文字色 */
+    border-radius: 4px; /* 角丸 */
+    background-color: #f7f9fb; /* 背景色 */
+    border: solid 1px #e1e8ef; /* 枠線 */
+    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
+    /* 👇三角マークを作る */
+    background-image: linear-gradient(45deg, transparent 50%, rgba(0,0,0,0.4) 50%),  linear-gradient(135deg, rgba(0,0,0,0.4) 50%, transparent 50%);
+    background-size: 5px 5px, 5px 5px;
+    background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
+    background-repeat: no-repeat;
+  }
+  .job-wrapper .top-search-area .styled-select-freewrod {
+    /* 👇デフォルトのスタイルを解除 */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    /* 👇スタイル */
+    display: inline-block;
+    width: 100%; /* 幅 */
+    max-width: 360px; /* 最大幅 */
+    margin: 1em 0; /* 前後の余白 */
+    padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
+    cursor: pointer; /* カーソルを指に */
+    line-height: 1.4; /* 行高 */
+    font-size: 0.95em; /* フォントサイズ */
+    font-weight: 700; /* 太字に */
+    color: #333; /* 文字色 */
+    border-radius: 4px; /* 角丸 */
+    background-color: #f7f9fb; /* 背景色 */
+    border: solid 1px #e1e8ef; /* 枠線 */
+    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
+  }
+  /* フォーカス時 */
+  .styled-select:focus {
+    outline: 0;
+    border-color: #b0c5ff; /* 枠線色を変更 */
+  }
+  /* IEでデフォルトの矢印を消す */
+  .styled-select::-ms-expand {
+    display: none;
+  }
+  .job-wrapper .top-search-area {
+    width: 85%;
+    margin: 0 auto;
+    /* background-color: #004098; */
+  }
+  .job-wrapper .top-search-area .serach-btn {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    /* 👇スタイル */
+    display: inline-block;
+    width: 9%; /* 幅 */
+    max-width: 250px; /* 最大幅 */
+    margin: 1em 0; /* 前後の余白 */
+    padding: 0.65rem; /* 文字周りの余白 */
+    cursor: pointer; /* カーソルを指に */
+    line-height: 1.4; /* 行高 */
+    font-size: 0.95em; /* フォントサイズ */
+    font-weight: 700; /* 太字に */
+    color: #ffffff; /* 文字色 */
+    border-radius: 4px; /* 角丸 */
+    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
+    background: -moz-linear-gradient(top, #FF512F, #DD2476);
+    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
+    background: linear-gradient(to bottom, #FF512F, #DD2476);
+  }
+
+  /* 全体 */
   .job-wrapper {
     width: 82.8%;
     position: absolute;
     background-color: #F2F6F7;
     right: 0;
     top: 0;
-    padding: 3rem 0 10rem 0;
+    padding: 1rem 0 10rem 0;
   }
   .job-wrapper .job-wrapper-center {
-    width: 90%;
+    width: 86%;
     height: 100vh;
     margin: 0 auto;
   }
@@ -166,7 +245,7 @@ export default {
     width: 495px;
     height: 280px;
     /* float: right; */
-    float: right;
+    float: left;
     margin: 10px 5px;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
