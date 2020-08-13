@@ -4,7 +4,7 @@
       応募する
     </div>
     <div class="btn-box-save-false" v-if="applyFlug == false">
-      応募する
+      応募済み
     </div>
   </div>
 </template>
@@ -61,34 +61,41 @@ export default {
 <style scoped>
 .btn-box-apply{
   display: block;
-  padding: 18px 65px;
-  background: linear-gradient(90deg,#ef6443,#f09819);
-  border-radius: 25px;
-  font-size: .875rem;
+  padding: 1.4rem 4.5rem;
+  background: -moz-linear-gradient(top, #FF512F, #DD2476);
+  background: -webkit-linear-gradient(top, #FF512F, #DD2476);
+  background: linear-gradient(to bottom, #FF512F, #DD2476);
+  border-radius: 45px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
   text-align: center;
   max-width: 280px;
   margin: auto;
-  font-size: 1rem;
+  font-size: 1.3rem;
   display: inline-block;
   margin: 0 40px;
+  cursor: pointer;
+}
+.btn-box-apply :hover{
+  font-size: 100px;
 }
 .btn-box-save-false{
   display: block;
-  padding: 18px 65px;
-  background: linear-gradient(90deg,#3d3d3d,#d4d4d4);
-  border-radius: 25px;
-  font-size: .875rem;
+  padding: 1.4rem 4.5rem;
+  background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
+  background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
+  background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
+  border-radius: 45px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
   text-align: center;
   max-width: 280px;
   margin: auto;
-  font-size: 1rem;
+  font-size: 1.3rem;
   display: inline-block;
   margin: 0 40px;
+  cursor: pointer;
 }
 </style>

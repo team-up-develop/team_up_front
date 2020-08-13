@@ -10,11 +10,11 @@
         <input type="date" v-model="devStartDate">
       </div>
       <div class="job-create-time-area">
-      <label for="name" class="label">開発終了時期: </label>
+      <label for="name" class="label">開発終了時期</label>
       <input type="date" v-model="devEndDate">
       </div>
       <div class="job-create-detail-area">
-        <label for="name" class="label">概要: </label>
+        <label for="name" class="label">概要</label>
         <textarea type="text" name="" id="" v-model="jobDescription" placeholder="詳しい内容や現在の状況を詳しく記載してください"></textarea>
       </div>
       <div class="job-create-btn-area">
