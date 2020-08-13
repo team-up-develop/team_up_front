@@ -1,9 +1,115 @@
 <template>
-  <div class="wrapper">
-    <div class="left-container">
-      <!-- <Search></Search> -->
+  <div class="detail-wrapper">
+    <div class="detail-post-user-area">
+      <div class="detail-tag">投稿者</div>
+      <div class="post-user-area">
+        <div class="left-user-area">
+          <div class="user-image"></div>
+        </div>
+        <div class="right-user-area">
+          <div class="user-profile-area">
+            <div class="user-name-are">
+              <div class="user-name-tag">名前</div>
+              <div class="user-name">
+                {{ job.user.userName }}
+              </div>
+            </div>
+            <div class="user-study-area">
+              <div class="study-tag">学習開始</div>
+              <div class="stydy-time">
+                {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
+              </div>
+            </div>
+            <div class="user-introduce-area">
+              <div class="introduce-tag">自己紹介</div>
+              <div class="introduce">
+                {{ job.user.bio }}
+              </div>
+            </div>
+          </div>
+          <div class="user-url-area">
+            <div class="user-github">Github</div>
+            <div class="user-twtter">Twiter</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="main-container">
+    <div class="detail-post-skill-area">
+      <div class="detail-tag">開発技術</div>
+      <div class="skill-detail-area">
+        <div class="lang-area">
+          <label for="name" class="name-tag">開発言語</label>
+          <div class="lang-box">
+            <div class="skill-tag"  v-for="langage in job.programingLanguage" :key="langage.id">
+              {{ langage.programingLanguageName }}
+            </div>
+          </div>
+        </div>
+        <div class="lang-area">
+          <label for="name" class="name-tag">フレームワーク</label>
+          <div class="lang-box">
+            <div class="flame-tag" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
+              {{ framework.programingFrameworkName }}
+            </div>
+          </div>
+        </div>
+        <div class="lang-area">
+          <label for="name" class="name-tag">その他関連スキル</label>
+          <div class="lang-box">
+            <div class="other-tag" v-for="skill in job.skill" :key="skill.skillName">
+              {{ skill.skillName }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-post-detail-area">
+      <div class="detail-area">
+        <div class="detail-tag">開発詳細</div>
+        <div class="dev-detail-area">
+          <div class="detail-leff-area">
+            <div class="detail-information">
+              <div class="tag">募集人数</div>
+              <div class="sub-area">2人</div>
+            </div>
+            <div class="detail-information">
+              <div class="tag">連絡ツール</div>
+              <div class="sub-area">{{ job.communicationTool.toolName }}</div>
+            </div>
+            <div class="detail-information">
+              <div class="tag">応募ケース</div>
+              <div class="sub-area">新規開発</div>
+            </div>
+            <div class="detail-information">
+              <div class="tag">開発期間</div>
+              <div class="sub-area">{{ job.devStartDate | moment("YYYY年 M月 D日") }} ~ {{ job.devEndDate  | moment("YYYY年 M月 D日")}}</div>
+            </div>
+          </div>
+          <div class="detail-right-area">
+            <div class="tag">募集内容詳細</div>
+            <div class="description">
+              {{ job.jobDescription }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-area">
+        <div v-if="loginFlag === true" class="button-action-area">
+          <div class="" v-if="selfJobPost">
+            自分の案件です
+          </div>
+          <div v-else>
+            <applybtn :jobId='id' class="btn"></applybtn>
+            <save-btn :jobId='id' class="btn"></save-btn>
+          </div>
+        </div>
+        <div v-else>
+          ログインが必要です！
+        </div>
+    </div>
+  </div>
+    <!-- <div class="main-container">
       <div class="detail-wrapper" v-if="job" :key="job.id">
         <div class="tag-box">投稿者</div>
         <div class="user-detail-area">
@@ -12,7 +118,7 @@
           </div>
           <div class="right-user">
             <div class="user-name">
-              <!-- {{ job.user.userName }} -->
+              {{ job.user.userName }}
             </div>
             <div class="user-url">
               <div class="user-github">github</div>
@@ -97,8 +203,7 @@
       <div v-else class="load-box">
         <p>ローディング</p>
       </div>
-    </div>
-  </div>
+    </div> -->
 </template>
 
 <script>
@@ -157,6 +262,253 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 1440px) {
+  .detail-wrapper {
+    width: 82.75%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* background-color: #F2F6F7; */
+    background-color: #F2F6F7;
+    padding: 3.5rem 0;
+  }
+  .detail-wrapper .detail-post-user-area {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0 auto;
+  }
+  .detail-tag {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+    color: #00A1D6;
+  }
+  /* 投稿者 カード中身 */
+  .detail-wrapper .detail-post-user-area  .post-user-area {
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid #B9B9B9;
+    padding: 2rem 4rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  /* ユーザー画像 start*/
+  .post-user-area .left-user-area {
+    width: 20%;
+    height: 100%;
+  }
+  .post-user-area .left-user-area .user-image {
+    width: 130px;
+    height: 130px;
+    background-color: #00A1D6;
+    border-radius: 50%;
+  }
+  /* ユーザー画像  end*/
+  /* ユーザー 詳細情報 start */
+  .post-user-area .right-user-area {
+    width: 70%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 2rem 4rem 2rem 2rem;
+    text-align: left;
+  }
+  .post-user-area .right-user-area .user-profile-area {
+    width: 65%;
+    height: 100%;
+    display: inline-block;
+  }
+  .user-profile-area .user-name-are {
+    width: 45%;
+    display: inline-block;
+  }
+  .user-profile-area .user-name-are .user-name-tag {
+    font-weight: bold;
+  }
+  .user-profile-area .user-name-are .user-name{
+    margin-top: 0.2rem;
+  }
+  .user-profile-area .user-study-area {
+    width: 45%;
+    display: inline-block;
+  }
+  .user-profile-area .user-study-area .study-tag {
+    font-weight: bold;
+    width: 45%;
+  }
+  .user-profile-area .user-study-area .stydy-time {
+    margin-top: 0.2rem;
+  }
+  .user-profile-area .user-introduce-area {
+    margin-top: 3.2rem;
+  }
+  .user-profile-area .user-introduce-area .introduce-tag {
+    font-weight: bold;
+  }
+  .user-profile-area .user-introduce-area .introduce {
+    margin-top: 0.2rem;
+  }
+  .post-user-area .right-user-area .user-url-area {
+    display: inline-block;
+    width: 30%;
+    position: absolute;
+    top: 0;
+    padding: 2.2rem 0 0 0 ;
+  }
+  .post-user-area .right-user-area .user-url-area .user-github {
+    width: 55%;
+    padding: 0.8rem 1.8rem;
+    background-color: #24292e;
+    border-radius: 8px;
+    margin-right: 10px;
+    color: #FFFFFF;
+    text-align: center;
+    box-shadow: 10px 5px 5px grey;
+    box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .post-user-area .right-user-area .user-url-area .user-github :hover {
+    opacity: 0.8;
+  }
+  .post-user-area .right-user-area .user-url-area .user-twtter {
+    margin-top: 2rem;
+    width: 68%;
+    padding: 0.8rem;
+    background-color: #1DA1F2;
+    border-radius: 8px;
+    color: #FFFFFF;
+    text-align: center;
+    box-shadow: 10px 5px 5px grey;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .post-user-area .right-user-area .user-url-area .user-twtter :hover {
+    background-color: red;
+  }
+  /* スキル カード */
+  .detail-wrapper .detail-post-skill-area {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0 auto 2rem auto;
+  }
+  .detail-wrapper .detail-post-skill-area .skill-detail-area{
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid #B9B9B9;
+    padding: 2rem 4rem 1rem 4rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .lang-area{
+    width: 100%;
+    position: relative;
+  }
+  .lang-box{
+    width: 95%;
+    text-align: left;
+    /* height: 200px; */
+    padding: 10px 20px 30px 0;
+  }
+  .name-tag{
+    font-weight: bold;
+    text-align: left;
+    position: absolute;
+    left: 0;
+  }
+  .skill-tag{
+    margin-top: 1rem;
+    width: 100px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    margin-right: 10px;
+    color: #004098;
+    display: inline-block;
+    border: 1px solid #004098;
+    text-align: center;
+  }
+  .flame-tag{
+    margin-top: 1rem;
+    width: 100px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    margin-right: 10px;
+    color: #00A7EA;
+    display: inline-block;
+    border: 1px solid #00A7EA;
+    text-align: center;
+  }
+  .other-tag{
+    margin-top: 1rem;
+    width: 100px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    margin-right: 10px;
+    color: #8D93C8;
+    display: inline-block;
+    border: 1px solid #8D93C8;
+    text-align: center;
+  }
+  .detail-wrapper .detail-post-detail-area {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0 auto;
+  }
+  .dev-detail-area{
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid #B9B9B9;
+    padding: 1rem 4rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .detail-leff-area {
+    display: inline-block;
+    width: 50%;
+  }
+  .detail-information {
+    margin-top: 1px;
+    padding: 2rem 0;
+    position: relative;
+  }
+  .tag{
+    font-weight: bold;
+    display: inline-block;
+  }
+  .sub-area{
+    width: 75%;
+    position: absolute;
+    right: 0;
+    display: inline-block;
+  }
+  .detail-right-area {
+    line-height: 1.8;
+    width: calc(50% - 5rem);
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    padding: 2.5rem 5rem 0 0 ;
+  }
+  .button-area{
+    width: 100%;
+  }
+  .button-action-area {
+    margin: 0 auto;
+    width: 80%;
+  }
+  .btn {
+    display: inline-block;
+  }
+}
+
 .wrapper {
   width: 90%;
   margin: 0 auto;
@@ -179,57 +531,12 @@ export default {
   /* position: absolute; */
   display: inline-block;
 }
-.detail-wrapper{
-  width: 90%;
-  margin: 0 auto;
-  /*
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-  padding: 30px;
-  margin-bottom: 20px; */
-}
-.user-detail-area{
-  width: 100%;
-  /* height: 129px; */
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-  padding: 30px;
-  margin-bottom: 40px;
-  position: relative;
-}
 
-.skill-detail-area{
-  width: 100%;
-  height: 300px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-  padding: 30px;
-  margin-bottom: 40px;
-}
-.dev-detail-area{
-  width: 100%;
-  height: 300px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-  padding: 30px;
-  margin-bottom: 40px;
-}
 
-.tag-box{
-  text-align: left;
-  font-weight: bold;
-  color: #00bfff;
-  font-size: 20px;
-  margin-bottom: 4px;
-}
+
+
+
+
 
 
 .left-user{
@@ -248,64 +555,7 @@ export default {
   
 }
 
-.user-image{
-  width: 130px;
-  height: 130px;
-  background-color: grey;
-  border-radius: 50%;
-}
-.user-name{
-  width: 40%;
-  font-size: 22px;
-  color: #818181;
-  display: inline-block;
-  font-weight: bold;
-}
-.user-url{
-  width: 54%;
-  height: 40px;
-  color: #818181;
-  /* float: right; */
-  display: inline-block;
-}
-.user-github{
-  width: 120px;
-  height: 20px;
-  padding: 9px;
-  background-color: #24292e;
-  border-radius: 8px;
-  margin-right: 10px;
-  color: #FFFFFF;
-  display: inline-block;
-  text-align: center;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-}
-.user-twtter{
-  width: 120px;
-  height: 18px;
-  padding: 10px;
-  background-color: #1DA1F2;
-  border-radius: 8px;
-  color: #FFFFFF;
-  display: inline-block;
-  text-align: center;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-}
-.study-tag{
-  color: #818181;
-  margin-top: 33px;
-  font-weight: bold;
-  font-size: 20px;
-}
-.stydy-time{
-  width: 80%;
-  padding: 10px;
-  color: #818181;
-  font-size: 18px;
-  font-weight: bold;
-}
+
 
 .calendar-area{
   width: 100%;
@@ -316,11 +566,6 @@ export default {
   box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
   padding: 30px;
   margin-bottom: 40px;
-}
-.button-area{
-  width: 80%;
-  height: 80px;
-  margin: 0 auto;
 }
 .btn-box-save{
   display: block;
@@ -409,7 +654,7 @@ export default {
   margin-top: 10px;
   right: 0;
 }
-.user-github{
+/* .user-github{
   width: 120px;
   height: 20px;
   padding: 9px;
@@ -431,7 +676,7 @@ export default {
   display: inline-block;
   box-shadow: 10px 5px 5px grey;
   box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-}
+} */
 
 /* タイトル */
 .title-area{
@@ -451,94 +696,13 @@ export default {
   margin: 0 auto;
   position: relative;
 }
-.lang-box{
-  width: 95%;
-  text-align: left;
-  /* height: 200px; */
-  padding: 10px 20px 30px 20px;
-  /* background-color: rgba(0, 128, 0, 0.479); */
-}
 
-
-.lang-area{
-  width: 100%;
-  position: relative;
-}
-.name-tag{
-  font-size: 16px;
-  font-weight: bold;
-  text-align: left;
-  color: rgb(112, 113, 116);
-  position: absolute;
-  left: 0;
-}
-.skill-tag{
-  width: 100px;
-  padding: 9px;
-  margin-top: 20px;
-  background-color: #00bfff;
-  border-radius: 4px;
-  margin-right: 10px;
-  color: #FFFFFF;
-  display: inline-block;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-}
-.flame-tag{
-  width: 100px;
-  padding: 9px;
-  margin-top: 20px;
-  background: #1e90ff;
-  border-radius: 4px;
-  margin-right: 10px;
-  color: #FFFFFF;
-  display: inline-block;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-}
-.other-tag{
-  width: 100px;
-  padding: 9px;
-  margin-top: 20px;
-  background: #00ced1;
-  border-radius: 4px;
-  margin-right: 10px;
-  color: #FFFFFF;
-  display: inline-block;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-}
 
 /* メンバー募集人員 */
 .member-area{
   width: 100%;
   margin: 0 auto;
   height: 200px;
-}
-.sub-engenier{
-  width: 49%;
-  height: 100px;
-  display: inline-block;
-  position: relative;
-}
-.sub-area{
-  text-align: left;
-  margin-top: 30px;
-  color: rgb(112, 113, 116);
-  width: 200px;
-  padding: 9px;
-  background: rgba(255, 255, 255, 0.842);
-  border-radius: 8px;
-  margin-right: 10px;
-  margin-left: 20px;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-}
-.tag{
-  position: absolute;
-  left: 0;
-  font-weight: bold;
-  color: rgb(112, 113, 116);
 }
 
 .content-area{
