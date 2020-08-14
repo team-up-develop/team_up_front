@@ -7,7 +7,7 @@
         </div>
         <footer class="modal-footer">
           <slot name="footer">
-            <button @click="$emit('close')">Close</button>
+            <!-- <button @click="$emit('close')">Close</button> -->
           </slot>
         </footer>
       </div>
@@ -43,7 +43,6 @@
   padding: 1rem;
   text-align: right;
   display: inline-block;
-  position: relative;
 }
 
 .modal-enter-active, .modal-leave-active {
