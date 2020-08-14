@@ -188,10 +188,8 @@ export default {
 <style scoped>
 @media screen and (max-width: 1440px) {
   .create-wrapper {
-    width: 82.75%;
-    position: absolute;
+    width: 92%;
     height: 100vh;
-    right: 0;
     top: 0;
     background-color: #F2F6F7;
   }
