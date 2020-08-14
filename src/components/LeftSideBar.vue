@@ -69,7 +69,7 @@ export default {
     left: 0;
     top: 0;
     position: fixed;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.288);
+    box-shadow: 0px 3px 6px #0000005d;
   }
   /* ユーザー画像 / 名前 */
   .user-area {
@@ -133,9 +133,9 @@ export default {
     width: 70%;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 0; 
     text-align: left;
-    padding: 30px 0;
+    padding: 1.8rem 0;
     text-decoration: none;
     color: #111111;
   }
