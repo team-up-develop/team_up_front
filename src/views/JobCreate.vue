@@ -15,7 +15,7 @@
       </div>
       <div class="job-create-detail-area">
         <label for="name" class="label">概要</label>
-        <textarea type="text" name="" id="" v-model="jobDescription" placeholder="詳しい内容や現在の状況を詳しく記載してください"></textarea>
+        <textarea type="text" name="" id="" v-model="jobDescription" placeholder="詳しい内容や現在の状況を記載してください"></textarea>
       </div>
       <div class="job-create-btn-area">
         <button class="next-btn">
@@ -302,7 +302,9 @@ export default {
   .job-create-wrapper .job-create-btn-area .next-btn {
     display: block;
     padding: 1rem 2.5rem;
-    background: linear-gradient(90deg,#1f5ae8,#2ac1df);
+    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
     border-radius: 25px;
     border: 1px solid #ffffff;
     font-size: .875rem;

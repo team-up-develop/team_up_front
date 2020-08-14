@@ -29,10 +29,10 @@ export default {
   color: #111111;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 .container {
-  width: 80%;
+  width: 100%;
   height: 100%;
   background-color: #F2F6F7;
   /* right: 0; */

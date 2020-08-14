@@ -61,11 +61,11 @@ export default {
 <style scoped>
 .btn-box-apply{
   display: block;
-  padding: 1.4rem 4.5rem;
+  padding: 1.4rem 5rem;
   background: -moz-linear-gradient(top, #FF512F, #DD2476);
   background: -webkit-linear-gradient(top, #FF512F, #DD2476);
   background: linear-gradient(to bottom, #FF512F, #DD2476);
-  border-radius: 45px;
+  border-radius: 50px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
@@ -74,7 +74,6 @@ export default {
   margin: auto;
   font-size: 1.3rem;
   display: inline-block;
-  margin: 0 40px;
   cursor: pointer;
 }
 .btn-box-apply :hover{
@@ -82,11 +81,11 @@ export default {
 }
 .btn-box-save-false{
   display: block;
-  padding: 1.4rem 4.5rem;
+  padding: 1.4rem 5rem;
   background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
   background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
   background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
-  border-radius: 45px;
+  border-radius: 50px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
@@ -95,7 +94,6 @@ export default {
   margin: auto;
   font-size: 1.3rem;
   display: inline-block;
-  margin: 0 40px;
   cursor: pointer;
 }
 </style>

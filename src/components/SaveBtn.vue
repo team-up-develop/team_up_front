@@ -75,11 +75,11 @@ export default {
 <style scoped>
 .btn-box-save{
   display: block;
-  padding: 1.4rem 4.5rem;
+  padding: 1.4rem 5rem;
   background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
   background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
   background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
-  border-radius: 45px;
+  border-radius: 50px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
@@ -88,7 +88,6 @@ export default {
   margin: auto;
   font-size: 1.3rem;
   display: inline-block;
-  margin: 0 40px;
   cursor: pointer;
   border: none;
 }
@@ -98,11 +97,11 @@ export default {
 }
 .btn-box-save-false{
   display: block;
-  padding: 1.4rem 4.5rem;
+  padding: 1.4rem 5rem;
   background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
   background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
   background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
-  border-radius: 45px;
+  border-radius: 50px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
@@ -111,7 +110,6 @@ export default {
   margin: auto;
   font-size: 1.3rem;
   display: inline-block;
-  margin: 0 40px;
   cursor: pointer;
   border: none;
 }

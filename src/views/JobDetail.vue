@@ -1,5 +1,6 @@
 <template>
-  <div class="detail-wrapper">
+<div>
+  <div class="detail-wrapper" v-show="loading">
     <div class="detail-post-user-area">
       <div class="detail-tag">投稿者</div>
       <div class="post-user-area">
@@ -97,7 +98,7 @@
     <div class="button-area">
         <div v-if="loginFlag === true" class="button-action-area">
           <div class="" v-if="selfJobPost">
-            自分の案件です
+            案件管理画面へ遷移先を作成する
           </div>
           <div v-else>
             <applybtn :jobId='id' class="btn"></applybtn>
@@ -109,101 +110,9 @@
         </div>
     </div>
   </div>
-    <!-- <div class="main-container">
-      <div class="detail-wrapper" v-if="job" :key="job.id">
-        <div class="tag-box">投稿者</div>
-        <div class="user-detail-area">
-          <div class="left-user">
-            <div class="user-image"></div>
-          </div>
-          <div class="right-user">
-            <div class="user-name">
-              {{ job.user.userName }}
-            </div>
-            <div class="user-url">
-              <div class="user-github">github</div>
-              <div class="user-twtter">Twiter</div>
-            </div>
-            <div class="study-tag">学習開始</div>
-            <div class="stydy-time">
-              {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
-            </div>
-          </div>
-        </div>
-        <div class="tag-box">開発技術</div>
-        <div class="skill-detail-area">
-          <div class="lang-area">
-            <label for="name" class="name-tag">開発言語</label>
-            <div class="lang-box">
-              <div class="skill-tag"  v-for="langage in job.programingLanguage" :key="langage.id">
-                {{ langage.programingLanguageName }}
-              </div>
-            </div>
-          </div>
-          <div class="lang-area">
-            <label for="name" class="name-tag">フレームワーク</label>
-            <div class="lang-box">
-              <div class="flame-tag" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
-                {{ framework.programingFrameworkName }}
-              </div>
-            </div>
-          </div>
-          <div class="lang-area">
-            <label for="name" class="name-tag">その他関連スキル</label>
-            <div class="lang-box">
-              <div class="other-tag" v-for="skill in job.skill" :key="skill.skillName">
-                {{ skill.skillName }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="tag-box">開発詳細</div>
-        <div class="dev-detail-area">
-          <div class="member-area">
-            <div class="sub-engenier">
-              <div class="tag">募集人数</div>
-              <div class="sub-area">2人</div>
-            </div>
-            <div class="sub-engenier">
-              <div class="tag">連絡ツール</div>
-              <div class="sub-area">{{ job.communicationTool.toolName }}</div>
-            </div>
-            <div class="sub-engenier">
-              <div class="tag">応募ケース</div>
-              <div class="sub-area">新規開発</div>
-            </div>
-            <div class="sub-engenier">
-              <div class="tag">稼働時間</div>
-              <div class="sub-area">4時間</div>
-            </div>
-          </div>
-          <div class="content-area">
-            <div class="tag-content">募集内容詳細</div>
-            <div class="content-detail">
-              {{ job.jobDescription }}
-            </div>
-          </div>
-        </div>
-        <div class="tag-box">開発カレンダー</div>
-        <div class="calendar-area">
-        </div>
-        <div v-if="loginFlag === true">
-          <div class="button-area" v-if="selfJobPost">
-            自分の案件です
-          </div>
-          <div class="button-area" v-else>
-            <applybtn :jobId='id'></applybtn>
-            <save-btn :jobId='id'></save-btn>
-          </div>
-        </div>
-      <div v-else>
-        ログインが必要です！
-      </div>
-      </div>
-      <div v-else class="load-box">
-        <p>ローディング</p>
-      </div>
-    </div> -->
+  <Loading v-show="!loading">
+  </Loading>
+  </div>
 </template>
 
 <script>
@@ -211,10 +120,10 @@ import axios from 'axios'
 import moment from "moment";
 import Applybtn from '@/components/Applybtn'
 import SaveBtn from '@/components/SaveBtn'
+import Loading from '@/components/Loading'
 export default {
   props: {
     id: Number,
-    // id: {type: Number},
   },
   data() {
     // const formats = [
@@ -224,6 +133,7 @@ export default {
       job: null,
       selfJobPost: false, //? 自分の案件かを判定
       loginFlag: false, //? ログインしているかを判定
+      loading: false,
     }
   },
   filters: {
@@ -235,7 +145,10 @@ export default {
     // * 詳細画面情報を取得
     axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
-        this.job = response.data
+        setTimeout(() => {
+          this.loading = true;
+          this.job = response.data
+        }, 100);
       })
     // * 自分の案件かを判定
     axios.get('http://localhost:8888/api/v1/job/?user_id=1')
@@ -256,7 +169,8 @@ export default {
   },
   components: {
     Applybtn,
-    SaveBtn
+    SaveBtn,
+    Loading
   }
 }
 </script>
@@ -501,10 +415,11 @@ export default {
     width: 100%;
   }
   .button-action-area {
-    margin: 0 auto;
+    margin: 2rem auto 1rem auto;
     width: 80%;
   }
   .btn {
+    width: 50%;
     display: inline-block;
   }
 }
