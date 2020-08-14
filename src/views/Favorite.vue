@@ -1,52 +1,44 @@
 <template>
-  <div class="job-wrapper">
-    <div class="job-wrapper-center" v-show="!loading">
-      <router-link :to="`/jobs/${ job.jobId }`" v-for="job in favoriteJobs" class="router" :key="job.id">
-        <div class="job-cards">
-          <div class="job-cards-top">
-            {{ job.job.jobTitle }}
-          </div>
-          <div class="job-cards-center">
-            <div class="langage" v-for="langage in job.job.programingLanguage" :key="langage.id">
-              {{ langage.programingLanguageName }}
+  <div class="manage-wrapper">
+    <div v-if="loginFlag === true" class="job-manage-wrapper">
+      <div class="manage-job-area">
+        <p><router-link to="/manage" class="router-link">管理案件</router-link></p> 
+      </div>
+      <div class="apply-job-area">
+        <p><router-link to="/apply_job" class="router-link">応募案件</router-link></p>
+      </div>
+      <div class="save-job-area">
+        <p><router-link to="/favorite_job" class="router-link">保存案件</router-link></p> 
+      </div>
+      <div class="title-area">案件タイトル</div>
+      <div class="time-area">開発期間</div>
+      <div class="skill-area">開発言語</div>
+        <router-link :to="`/jobs/${ jobs.jobId }`" v-for="jobs in favoriteJobs" :key="jobs.id" class="router">
+          <div class="job-area">
+            <div class="job-area-box">
+              {{ jobs.job.jobTitle }}
             </div>
-            <div class="framework" v-for="framework in job.job.programingFramework" :key="framework.programingFrameworkName">
-              {{ framework.programingFrameworkName }}
+            <div class="job-area-box">
+              {{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}
             </div>
-            <div class="skill" v-for="skill in job.skill" :key="skill.job.skillName">
-              {{ skill.skillName }}
-            </div>
-          </div>
-          <div class="job-cards-bottom">
-            <div class="product-start-end">
-              <div class="product-start-end-tag">
-                開発期間:
-              </div>
-              <div class="product-start-end-time">
-                {{ job.job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
-              </div>
-            </div>
-            <div class="post-user-area">
-              <div class="post-user-image"></div>
-              <div class="post-user-name-area">
-                <div class="post-user-name">
-                  {{ job.job.user.userName }}
-                </div>
+            <div class="job-area-box">
+              <div class="lang" v-for="langage in jobs.job.programingLanguage" :key="langage.id">
+                {{ langage.programingLanguageName }}  ,
               </div>
             </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
     </div>
-    <Loading v-show="loading">
-    </Loading>
+    <div v-else>
+      ログインが必要です！
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from "moment";
-import Loading from '@/components/Loading'
+// import Loading from '@/components/Loading'
 export default {
   data() {
     // const formats = [
@@ -55,7 +47,7 @@ export default {
     return {
       favoriteJobs: [],
       loginFlag: false,
-      loading: true
+      // loading: true
     }
   },
   filters: {
@@ -69,286 +61,126 @@ export default {
       this.loginFlag = true
       axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
       .then(response => {
-        setTimeout(() => {
-          this.loading = false;
+          // this.loading = false;
           this.favoriteJobs = response.data
-        }, 1000);
       })
     }
   },
   components: {
-    Loading,
+    // Loading,
   },
 }
 </script>
 
 <style scoped>
-@media screen and (max-width: 1440px) {
-  /* 検索欄 */
-  .job-wrapper .top-search-area .styled-select {
-    /* 👇デフォルトのスタイルを解除 */
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    /* 👇スタイル */
-    display: inline-block;
-    width: 100%; /* 幅 */
-    max-width: 27%; /* 最大幅 */
-    margin: 1em 0; /* 前後の余白 */
-    padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
-    cursor: pointer; /* カーソルを指に */
-    line-height: 1.4; /* 行高 */
-    font-size: 0.95em; /* フォントサイズ */
-    font-weight: 700; /* 太字に */
-    color: #333; /* 文字色 */
-    border-radius: 4px; /* 角丸 */
-    background-color: #ffffff; /* 背景色 */
-    border: solid 1px #e1e8ef; /* 枠線 */
-    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
-    /* 👇三角マークを作る */
-    background-image: linear-gradient(45deg, transparent 50%, rgba(0,0,0,0.4) 50%),  linear-gradient(135deg, rgba(0,0,0,0.4) 50%, transparent 50%);
-    background-size: 5px 5px, 5px 5px;
-    background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
-    background-repeat: no-repeat;
-  }
-  .job-wrapper .top-search-area .styled-select-freewrod {
-    /* 👇デフォルトのスタイルを解除 */
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    /* 👇スタイル */
-    display: inline-block;
-    width: 100%; /* 幅 */
-    max-width: 30%; /* 最大幅 */
-    margin: 1em 0; /* 前後の余白 */
-    padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
-    cursor: pointer; /* カーソルを指に */
-    line-height: 1.4; /* 行高 */
-    font-size: 0.95em; /* フォントサイズ */
-    font-weight: 700; /* 太字に */
-    color: #333; /* 文字色 */
-    border-radius: 4px; /* 角丸 */
-    background-color: #ffffff; /* 背景色 */
-    border: solid 1px #e1e8ef; /* 枠線 */
-    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
-  }
-  /* フォーカス時 */
-  .styled-select:focus {
-    outline: 0;
-    border-color: #b0c5ff; /* 枠線色を変更 */
-  }
-  /* IEでデフォルトの矢印を消す */
-  .styled-select::-ms-expand {
-    display: none;
-  }
-  .job-wrapper .top-search-area {
-    width: 85%;
-    margin: 0 0 0 4rem;
-    /* background-color: #004098; */
-  }
-  .job-wrapper .top-search-area .serach-btn {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    /* 👇スタイル */
-    display: inline-block;
-    width: 9%; /* 幅 */
-    max-width: 250px; /* 最大幅 */
-    margin: 1em 0; /* 前後の余白 */
-    padding: 0.65rem; /* 文字周りの余白 */
-    cursor: pointer; /* カーソルを指に */
-    line-height: 1.4; /* 行高 */
-    font-size: 0.95em; /* フォントサイズ */
-    font-weight: 700; /* 太字に */
-    color: #ffffff; /* 文字色 */
-    border-radius: 4px; /* 角丸 */
-    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
-    background: -moz-linear-gradient(top, #FF512F, #DD2476);
-    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
-    background: linear-gradient(to bottom, #FF512F, #DD2476);
-  }
-
-  /* 全体 */
-  .job-wrapper {
-    width: 82.8%;
-    position: absolute;
-    background-color: #F2F6F7;
-    right: 0;
-    top: 0;
-    padding: 1rem 0 10rem 0;
-  }
-  .job-wrapper .job-wrapper-center {
-    width: 89%;
-    height: 100vh;
-    margin: 1rem auto 0 auto;
-  }
-  .job-wrapper .job-wrapper-center :hover {
-    background-color: rgb(250, 248, 248);
-    border: 1px solid #00A1D6;
-    box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
-    transform: translateY(-4px);
-  }
-  .router {
-    background-color: red;
-  }
-  .job-cards {
-    width: 495px;
-    height: 280px;
-    /* float: right; */
-    float: left;
-    margin: 10px 8px;
-    border: solid 1px #B9B9B9;
-    background-color: #ffffff;
-    border-radius: 10px / 10px;
-    transition: .3s;
-    color: #111111;
-  }
-  .job-cards-top {
-    width: calc(100% - 60px);
-    height: calc(25% - 60px);
-    text-align: left;
-    padding: 30px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center {
-    width: calc(100% - 40px);
-    height: calc(35% - 20px);
-    padding: 10px 20px;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-center .langage{
-    margin: 5px 0px 0px 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #004098;
-    font-size: 12px;
-    border: solid 1px #004098;
-    padding: 7px 23px;
-    border-radius: 20px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .framework{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #00A7EA;
-    font-size: 12px;
-    border: solid 1px #00A7EA;
-    padding: 7px 23px;
-    border-radius: 20px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .skill{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #8D93C8;
-    font-size: 12px;
-    border: solid 1px #8D93C8;
-    padding: 7px 23px;
-    border-radius: 20px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-bottom {
-    width: calc(100% - 50px);
-    height: calc(38% - 20px);
-    padding: 10px 25px;
-    pointer-events: none;
-  }
-  .job-cards-bottom .product-start-end {
-    width: 100%;
-    height: 40%;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-tag {
-    display: inline-block;
-    pointer-events: none;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-time {
-    display: inline-block;
-    padding: 0 20px;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area {
-    width: 100%;
-    height: 60%;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-image {
-    width: 12%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #00A1D6;
-    display: inline-block;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area {
-    display: inline-block;
-    width: calc(80% - 40px);
-    height: 60%;
-    padding: 0 20px;
-    position: relative;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area .post-user-name {
-    position: absolute;
-    top: 0;
-    pointer-events: none;
-  }
+.router-link {
+  text-decoration: none;
+  color: #ffffff;
+}
+.manage-wrapper {
+  width: 92%;
+  height: 89.5vh;
+  margin: 0 auto;
+  background-color: #F2F6F7;
+}
+.manage-wrapper .job-manage-wrapper {
+  width: 95%;
+  height: calc(90vh - 5rem);
+  border-radius: 20px;
+  margin: 2rem 2rem;
+  background-color: #ffffff;
+  float: right;
+  border: solid 1px #B9B9B9;
+  position: relative;
+  /* padding: 0rem 4rem; */
+}
+.manage-wrapper .job-manage-wrapper .manage-job-area {
+  width: 33.3%;
+  height: calc(68px - 1.6rem);
+  padding: 0.8rem 0;
+  border-radius: 20px 0 0 0 ;
+  background-color: #606060;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+.manage-wrapper .job-manage-wrapper .apply-job-area {
+  width: 33.23%;
+  height: calc(68px - 1.6rem);
+  padding: 0.8rem 0;
+  /* border-radius: 20px 0 0 0 ; */
+  background-color: #606060;
+  display: inline-block;
+  color: #ffffff;
+  border: 0.5px solid #ffffff;
+  font-weight: bold;
+  
+}
+.manage-wrapper .job-manage-wrapper .save-job-area {
+  width: 33.3%;
+  height: calc(68px - 1.6rem);
+  padding: 0.8rem 0;
+  border-radius: 0 20px 0 0 ;
+    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+.title-area {
+  width: 33.3%;
+  height: calc(48px - 1.8rem);
+  padding: 0.8rem 0;
+  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+.time-area {
+  width: 33.2%;
+  height: calc(48px - 1.8rem);
+  padding: 0.8rem 0;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+.skill-area {
+  width: 33.3%;
+  height: calc(48px - 1.8rem);
+  padding: 0.8rem 0;
+  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
 }
 
-@media screen and (max-width: 1400px) {
-  .job-wrapper .job-wrapper-center {
-    width: 95%;
-    height: 100vh;
-    margin: 0 auto;
-  }
+.job-title-area {
+  width: 33.3%;
+  height: 70%;
+  display: inline-block;
+  /* background-color: yellow; */
 }
-
-@media screen and (max-width: 1360px) {
-  .job-wrapper .job-wrapper-center {
-    width: 95%;
-    height: 100vh;
-    margin: 0 auto;
-  }
+.job-area .job-area-box {
+  width: 33.25%;
+  border-bottom: 1px solid #9c9c9c;
+  border-right: 1px solid #9c9c9c;
+  height: calc(48px - 1.6rem);
+  padding: 0.8rem 0;
+  color: #111111;
+  font-weight: bold;
+  display: inline-block;
 }
-
-@media screen and (max-width: 1289px) {
-  .job-wrapper .job-wrapper-center {
-    width: 99%;
-    height: 100vh;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 1238px) {
-  .job-cards {
-    width: 100%;
-    height: 280px;
-    display: inline-block;
-    margin: 5px;
-    border: solid 1px #B9B9B9;
-    background-color: #ffffff;
-    border-radius: 10px / 10px;
-  }
-  .job-wrapper .job-wrapper-center {
-    width: 80%;
-    height: 100vh;
-    margin: 0 auto;
-  }
-  .job-cards-bottom .post-user-area .post-user-image {
-    width: 8%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #00A1D6;
-    display: inline-block;
-  }
+.lang {
+  display: inline-block;
 }
 </style>
