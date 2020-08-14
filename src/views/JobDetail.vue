@@ -101,8 +101,21 @@
             案件管理画面へ遷移先を作成する
           </div>
           <div v-else>
-            <applybtn :jobId='id' class="btn"></applybtn>
+            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
+            <div class="btn-box-apply-false" v-if="applyFlug == false">
+              応募済み
+            </div>
             <save-btn :jobId='id' class="btn"></save-btn>
+            <!-- 応募する モーダル画面 -->
+            <div class="example-modal-window">
+              <ApplyModal @close="closeModal" v-if="modal">
+                <p>応募を完了してよろしいですか？</p>
+                <template slot="footer">
+                  <applybtn :jobId='id'></applybtn>
+                  <button @click="doSend" class="modal-btn">キャンセル</button>
+                </template>
+              </ApplyModal>
+            </div>
           </div>
         </div>
         <div v-else>
@@ -121,6 +134,7 @@ import moment from "moment";
 import Applybtn from '@/components/Applybtn'
 import SaveBtn from '@/components/SaveBtn'
 import Loading from '@/components/Loading'
+import ApplyModal from '@/components/ApplyModal'
 export default {
   props: {
     id: Number,
@@ -134,6 +148,8 @@ export default {
       selfJobPost: false, //? 自分の案件かを判定
       loginFlag: false, //? ログインしているかを判定
       loading: false,
+      applyFlug: true,
+      modal: false,
     }
   },
   filters: {
@@ -165,12 +181,38 @@ export default {
     //* ログインしている時だけ、ボタンを表示する
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
+    // * ログインユーザーが応募済みか応募済みではないかを判定する
+      axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
+      .then(response => {
+        const arrayApply = []
+        for(let c = 0; c < response.data.length; c++){
+          const applyData = response.data[c];
+          arrayApply.push(applyData.job.id)
+        }
+        if (arrayApply.includes(this.id)) {
+          this.applyFlug = false
+        } else {
+          console.log("bbbbbb")
+        }
+      })
     }
+  },
+  methods: {
+    openModal() {
+      this.modal = true
+    },
+    closeModal() {
+      this.modal = false
+    },
+    doSend() {
+        this.closeModal()
+      } 
   },
   components: {
     Applybtn,
     SaveBtn,
-    Loading
+    Loading,
+    ApplyModal
   }
 }
 </script>
@@ -320,23 +362,23 @@ export default {
     margin-bottom: 2rem;
     position: relative;
   }
-  .lang-area{
+  .skill-detail-area .lang-area {
     width: 100%;
     position: relative;
   }
-  .lang-box{
-    width: 95%;
-    text-align: left;
-    /* height: 200px; */
-    padding: 10px 20px 30px 0;
-  }
-  .name-tag{
+  .skill-detail-area .lang-area .name-tag{
     font-weight: bold;
     text-align: left;
     position: absolute;
     left: 0;
   }
-  .skill-tag{
+  .skill-detail-area .lang-area .lang-box{
+    width: 95%;
+    text-align: left;
+    /* height: 200px; */
+    padding: 10px 20px 30px 0;
+  }
+  .skill-detail-area .lang-area .lang-box .skill-tag{
     margin-top: 1rem;
     width: 100px;
     padding: 0.5rem 0.8rem;
@@ -347,7 +389,7 @@ export default {
     border: 1px solid #004098;
     text-align: center;
   }
-  .flame-tag{
+  .skill-detail-area .lang-area .lang-box .flame-tag{
     margin-top: 1rem;
     width: 100px;
     padding: 0.5rem 0.8rem;
@@ -358,7 +400,7 @@ export default {
     border: 1px solid #00A7EA;
     text-align: center;
   }
-  .other-tag{
+  .skill-detail-area .lang-area .lang-box .other-tag{
     margin-top: 1rem;
     width: 100px;
     padding: 0.5rem 0.8rem;
@@ -369,6 +411,7 @@ export default {
     border: 1px solid #8D93C8;
     text-align: center;
   }
+  /* 開発詳細 カード */
   .detail-wrapper .detail-post-detail-area {
     width: 90%;
     display: flex;
@@ -376,7 +419,7 @@ export default {
     text-align: left;
     margin: 0 auto;
   }
-  .dev-detail-area{
+  .detail-wrapper .detail-post-detail-area .dev-detail-area {
     background-color: rgb(255, 255, 255);
     border-radius: 5px;
     border: 1px solid #B9B9B9;
@@ -384,11 +427,11 @@ export default {
     margin-bottom: 2rem;
     position: relative;
   }
-  .detail-leff-area {
+  .dev-detail-area .detail-leff-area {
     display: inline-block;
     width: 50%;
   }
-  .detail-information {
+  .dev-detail-area .detail-leff-area .detail-information {
     margin-top: 1px;
     padding: 2rem 0;
     position: relative;
@@ -397,13 +440,13 @@ export default {
     font-weight: bold;
     display: inline-block;
   }
-  .sub-area{
+  .detail-information .sub-area{
     width: 75%;
     position: absolute;
     right: 0;
     display: inline-block;
   }
-  .detail-right-area {
+  .dev-detail-area .detail-right-area {
     line-height: 1.8;
     width: calc(50% - 5rem);
     display: inline-block;
@@ -411,10 +454,11 @@ export default {
     top: 0;
     padding: 2.5rem 5rem 0 0 ;
   }
-  .button-area{
+  /* ボタン エリア */
+  .button-area {
     width: 100%;
   }
-  .button-action-area {
+  .button-area .button-action-area {
     margin: 2rem auto 1rem auto;
     width: 80%;
   }
@@ -422,225 +466,60 @@ export default {
     width: 50%;
     display: inline-block;
   }
+  /* 応募するボタン */
+  .btn-box-apply{
+    padding: 1.4rem 5rem;
+    background: -moz-linear-gradient(top, #FF512F, #DD2476);
+    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
+    background: linear-gradient(to bottom, #FF512F, #DD2476);
+    border-radius: 50px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1.3rem;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+  }
+  /* 応募済みボタン */
+  .btn-box-apply-false{
+    display: block;
+    padding: 1.4rem 5rem;
+    background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
+    background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
+    background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
+    border-radius: 50px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1.3rem;
+    display: inline-block;
+    cursor: pointer;
+  }
+  /* モーダル内のキャンセルボタン */
+  .modal-btn {
+    padding: 1rem 2.4rem;
+    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    border-radius: 50px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin-left: 1.2rem;
+    font-size: 1rem;
+    float: right;
+    cursor: pointer;
+    border: none;
+  }
 }
-
-.wrapper {
-  width: 90%;
-  margin: 0 auto;
-  height: 100%;
-  /* background-color: #ffffff; */
-  /* position: relative; */
-}
-.left-container{
-  width: 25%;
-  height: 500px;
-  /* display: inline-block; */
-  /* top: 0;
-  left: 0; */
-  float: left;
-}
-.main-container{
-  width: 75%;
-  height: 100%;
-  margin-top: 20px;
-  /* position: absolute; */
-  display: inline-block;
-}
-
-
-
-
-
-
-
-
-.left-user{
-  width: 20%;
-  height: 100%;
-  /* display: inline-block; */
-}
-.right-user{
-  width: 70%;
-  /* display: inline-block; */
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 30px 30px 20px 20px;
-  text-align: left;
-  
-}
-
-
-
-.calendar-area{
-  width: 100%;
-  height: 300px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-  padding: 30px;
-  margin-bottom: 40px;
-}
-.btn-box-save{
-  display: block;
-  padding: 18px 65px;
-  background: linear-gradient(90deg,#1f5ae8,#2ac1df);
-  border-radius: 25px;
-  font-size: .875rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1rem;
-  display: inline-block;
-  margin: 0 40px;
-}
-.btn-box-save-false{
-  display: block;
-  padding: 18px 65px;
-  background: linear-gradient(90deg,#3d3d3d,#d4d4d4);
-  border-radius: 25px;
-  font-size: .875rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1rem;
-  display: inline-block;
-  margin: 0 40px;
-}
-.register{
-  color: #fff;
-  text-decoration: none;
-}
-.btn-box-apply{
-  display: block;
-  padding: 18px 65px;
-  background: linear-gradient(90deg,#ef6443,#f09819);
-  border-radius: 25px;
-  font-size: .875rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1rem;
-  display: inline-block;
-  margin: 0 40px;
-}
-
-
-
-
-
-
-
-.top-area{
-  width: 100%;
-  height: 70px;
-  /* background-color: rgba(0, 92, 128, 0.459); */
-  position: relative;
-}
-.top-left{
-  width: 200px;
-  height: 60%;
-  /* background-color: aqua; */
-  text-align: left;
-}
-/* .user-image{
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgb(136, 136, 136);
-  display: inline-block;
-  margin-top: 10px;
-} */
-.top-right{
-  width: 400px;
-  height: 60%;
-  position: absolute;
-  top: 0;
-  margin-top: 10px;
-  right: 0;
-}
-/* .user-github{
-  width: 120px;
-  height: 20px;
-  padding: 9px;
-  background-color: #24292e;
-  border-radius: 8px;
-  margin-right: 10px;
-  color: #FFFFFF;
-  display: inline-block;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-}
-.user-twtter{
-  width: 120px;
-  height: 18px;
-  padding: 10px;
-  background-color: #1DA1F2;
-  border-radius: 8px;
-  color: #FFFFFF;
-  display: inline-block;
-  box-shadow: 10px 5px 5px grey;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-} */
-
-/* タイトル */
-.title-area{
-  width: 95%;
-  margin: 15px auto;
-  text-align: left;
-  font-size: 20px;
-}
-
-/* スキル欄 */
-.skill-area{
-  width: 93%;
-  /* height: 400px; */
-  /* background-color: rgba(255, 255, 0, 0.685); */
-  text-align: left;
-  padding: 30px 10px 10px 10px;
-  margin: 0 auto;
-  position: relative;
-}
-
-
-/* メンバー募集人員 */
-.member-area{
-  width: 100%;
-  margin: 0 auto;
-  height: 200px;
-}
-
-.content-area{
-  width: 100%;
-  margin: 0 auto;
-  /* height: 100px; */
-  /* background-color: green; */
-  position: relative;
-}
-.tag-content{
-  position: absolute;
-  left: 0;
-  color: rgb(112, 113, 116);
-  font-weight: bold;
-}
-.content-detail{
-  /* height: 50%; */
-  /* background-color: rgba(29, 160, 242, 0.685); */
-  padding: 25px 30px 50px 30px;
-  /* position: absolute;
-  bottom: 0; */
-  text-align: left;
-}
-
 
 </style>
