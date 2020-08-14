@@ -7,17 +7,13 @@
           {{ position.positionTagName }}
         </option>
       </select>
-      <!-- <h1>{{ selectedPosition }}</h1> -->
       <select v-model="selectedLang" class="styled-select">
         <option disabled value="" class="position">開発言語</option>
         <option v-for="lang in languages" v-bind:value="lang.id" v-bind:key="lang.id">
           {{ lang.programingLanguageName }}
         </option>
       </select>
-      <!-- <h1>{{ selectedLang }}</h1> -->
       <input type="text" v-model="freeWord" placeholder="フリーワード" class="styled-select-freewrod">
-      <!-- {{ freeWord }} -->
-      <!-- <h1>{{ freeWord }}</h1> -->
       <div @click="getParams" class="serach-btn">
         検索する
       </div>
@@ -155,9 +151,9 @@ export default {
     /* 👇スタイル */
     display: inline-block;
     width: 100%; /* 幅 */
-    max-width: 27%; /* 最大幅 */
+    max-width: 26%; /* 最大幅 */
     margin: 1em 0; /* 前後の余白 */
-    padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
+    padding: 0.8em 1.5em 0.8em 0.5em; /* 文字周りの余白 */
     cursor: pointer; /* カーソルを指に */
     line-height: 1.4; /* 行高 */
     font-size: 0.95em; /* フォントサイズ */
@@ -181,9 +177,9 @@ export default {
     /* 👇スタイル */
     display: inline-block;
     width: 100%; /* 幅 */
-    max-width: 30%; /* 最大幅 */
+    max-width: 27%; /* 最大幅 */
     margin: 1em 0; /* 前後の余白 */
-    padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
+    padding: 0.8em 1.5em 0.8em 0.5em; /* 文字周りの余白 */
     cursor: pointer; /* カーソルを指に */
     line-height: 1.4; /* 行高 */
     font-size: 0.95em; /* フォントサイズ */
@@ -205,8 +201,18 @@ export default {
   }
   .job-wrapper .top-search-area {
     width: 85%;
-    margin: 0 0 0 4rem;
-    /* background-color: #004098; */
+    margin: 0 auto;
+    /* width: 20%;
+    margin: 0 0 0 0;
+    background-color: #ffffff;
+    border: solid 1px #B9B9B9;
+    border-radius: 4px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 2.5rem;
+    padding: 1.5rem 0; */
   }
   .job-wrapper .top-search-area .serach-btn {
     -moz-appearance: none;
@@ -214,13 +220,11 @@ export default {
     appearance: none;
     /* 👇スタイル */
     display: inline-block;
-    width: 9%; /* 幅 */
-    max-width: 250px; /* 最大幅 */
     margin: 1em 0; /* 前後の余白 */
-    padding: 0.65rem; /* 文字周りの余白 */
+    padding: 0.8rem 3rem; /* 文字周りの余白 */
     cursor: pointer; /* カーソルを指に */
     line-height: 1.4; /* 行高 */
-    font-size: 0.95em; /* フォントサイズ */
+    font-size: 1.1em; /* フォントサイズ */
     font-weight: 700; /* 太字に */
     color: #ffffff; /* 文字色 */
     border-radius: 4px; /* 角丸 */
@@ -232,17 +236,21 @@ export default {
 
   /* 全体 */
   .job-wrapper {
-    width: 82.8%;
-    position: absolute;
+    width: 92.8%;
+    /* position: absolute; */
     background-color: #F2F6F7;
-    right: 0;
-    top: 0;
-    padding: 1rem 0 10rem 0;
+    /* right: 0;
+    top: 0; */
+    margin: 0 auto;
+    padding: 2rem 0 10rem 0;
+    position: relative;
   }
   .job-wrapper .job-wrapper-center {
-    width: 89%;
+    width: 85%;
     height: 100vh;
     margin: 0 auto;
+    /* float: right; */
+    /* background-color: yellow; */
   }
   .job-wrapper .job-wrapper-center :hover {
     background-color: rgb(250, 248, 248);
@@ -254,11 +262,13 @@ export default {
     background-color: red;
   }
   .job-cards {
-    width: 495px;
-    height: 280px;
+    /* width: 525px; */
+    width: 47%;
+    height: 40%;
+    /* height: 292px; */
     /* float: right; */
     float: left;
-    margin: 10px 8px;
+    margin: 10px 1rem;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
     border-radius: 10px / 10px;
@@ -366,7 +376,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1435px) {
   .job-wrapper .job-wrapper-center {
     width: 95%;
     height: 100vh;

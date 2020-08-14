@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- <Header></Header> -->
-    <left-side-bar></left-side-bar>
+    <Header></Header>
+    <!-- <left-side-bar></left-side-bar> -->
     <div class="container">
       <router-view/>
     </div>
@@ -9,13 +9,13 @@
 </template>
 
 <script>
-// import Header from './components/Header.vue'
-import LeftSideBar from '@/components/LeftSideBar'
+import Header from './components/Header.vue'
+// import LeftSideBar from '@/components/LeftSideBar'
 export default {
   name: 'App',
   components: {
-    LeftSideBar
-    // Header,
+    // LeftSideBar
+    Header,
   }
 }
 </script>
@@ -33,10 +33,11 @@ export default {
 }
 .container {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   background-color: #F2F6F7;
   /* right: 0; */
   display: inline-block;
+  position: relative;
   /* background-color: rgb(0, 83, 250); */
 }
 </style>

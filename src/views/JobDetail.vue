@@ -1,5 +1,4 @@
 <template>
-<div>
   <div class="detail-wrapper" v-show="loading">
     <div class="detail-post-user-area">
       <div class="detail-tag">投稿者</div>
@@ -122,7 +121,6 @@
           ログインが必要です！
         </div>
     </div>
-  </div>
   <Loading v-show="!loading">
   </Loading>
   </div>
@@ -220,13 +218,11 @@ export default {
 <style scoped>
 @media screen and (max-width: 1440px) {
   .detail-wrapper {
-    width: 82.75%;
-    position: absolute;
-    right: 0;
-    top: 0;
+    width: 85%;
     /* background-color: #F2F6F7; */
     background-color: #F2F6F7;
-    padding: 3.5rem 0;
+    padding: 3.5rem 7rem;
+    margin: 0 auto;
   }
   .detail-wrapper .detail-post-user-area {
     width: 90%;
@@ -460,10 +456,12 @@ export default {
   }
   .button-area .button-action-area {
     margin: 2rem auto 1rem auto;
-    width: 80%;
+    width: 70%;
+    /* background-color: yellow; */
   }
   .btn {
-    width: 50%;
+    width: 45%;
+    margin-left: 7rem;
     display: inline-block;
   }
   /* 応募するボタン */
