@@ -192,7 +192,7 @@ export default {
         if (arrayApply.includes(this.id)) {
           this.applyFlug = false
         } else {
-          console.log("bbbbbb")
+          console.log("まだ応募していません")
         }
       })
     }
@@ -206,13 +206,13 @@ export default {
     },
     doSend() {
         this.closeModal()
-      } 
+      },
   },
   components: {
     Applybtn,
     SaveBtn,
     Loading,
-    ApplyModal
+    ApplyModal,
   }
 }
 </script>
@@ -516,9 +516,12 @@ export default {
     max-width: 280px;
     margin-left: 1.2rem;
     font-size: 1rem;
-    float: right;
     cursor: pointer;
     border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
   }
 }
 
