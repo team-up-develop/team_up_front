@@ -1,15 +1,21 @@
 <template>
   <div class="manage-wrapper">
     <div v-if="loginFlag === true" class="job-manage-wrapper">
-      <div class="manage-job-area">
-        <p><router-link to="/manage" class="router-link">管理案件</router-link></p> 
-      </div>
-      <div class="apply-job-area">
-        <p><router-link to="/apply_job" class="router-link">応募案件</router-link></p>
-      </div>
-      <div class="save-job-area">
-        <p><router-link to="/favorite_job" class="router-link">保存案件</router-link></p> 
-      </div>
+      <router-link to="/manage" class="router-link">
+        <div class="manage-job-area">
+          <p>管理案件</p> 
+        </div>
+      </router-link>
+      <router-link to="/apply_job" class="router-link">
+        <div class="apply-job-area">
+          <p>応募案件</p>
+        </div>
+      </router-link>
+      <router-link to="/favorite_job" class="router-link">
+        <div class="save-job-area">
+          <p>保存案件</p> 
+        </div>
+      </router-link>
       <div class="title-area">案件タイトル</div>
       <div class="time-area">開発期間</div>
       <div class="skill-area">開発言語</div>
@@ -170,6 +176,9 @@ export default {
   display: inline-block;
   /* background-color: yellow; */
 }
+.router :hover{
+  background-color: rgba(238, 255, 0, 0.74);
+}
 .job-area .job-area-box {
   width: 33.25%;
   border-bottom: 1px solid #9c9c9c;
@@ -179,6 +188,7 @@ export default {
   color: #111111;
   font-weight: bold;
   display: inline-block;
+  pointer-events: none;
 }
 .lang {
   display: inline-block;

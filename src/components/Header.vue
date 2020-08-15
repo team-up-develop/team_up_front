@@ -141,9 +141,8 @@ export default {
     font-weight: bold;
   }
   .header-wrapper .header-main-area .header-main-right {
-    width: 25%;
+    width: 30%;
     height: calc(100% - 2rem);
-    /* background-color: blueviolet; */
     position: absolute;
     right: 0;
     top: 0;
@@ -152,9 +151,9 @@ export default {
   .header-wrapper .header-main-area .header-main-right .user-login-btn {
     display: block;
     padding: 1rem 2rem;
-    background: -moz-linear-gradient(top, #914BE2, #4F5BC6);
-    background: -webkit-linear-gradient(top, #914BE2, #4F5BC6);
-    background: linear-gradient(to bottom, #914BE2, #4F5BC6);
+    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -167,11 +166,11 @@ export default {
     cursor: pointer;
   }
   .header-wrapper .header-main-area .header-main-right  .user-register-btn {
-      display: block;
+    display: block;
     padding: 1rem 2rem;
-    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    background: -moz-linear-gradient(top, #914BE2, #4F5BC6);
+    background: -webkit-linear-gradient(top, #914BE2, #4F5BC6);
+    background: linear-gradient(to bottom, #914BE2, #4F5BC6);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
