@@ -5,17 +5,20 @@
     <div class="container">
       <router-view/>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Footer from '@/components/Footer'
 // import LeftSideBar from '@/components/LeftSideBar'
 export default {
   name: 'App',
   components: {
     // LeftSideBar
     Header,
+    Footer
   }
 }
 </script>

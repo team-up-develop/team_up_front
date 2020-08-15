@@ -28,8 +28,8 @@
             </div>
           </div>
           <div class="user-url-area">
-            <div class="user-github">Github</div>
-            <div class="user-twtter">Twiter</div>
+            <div class="user-github"><a v-bind:href="job.user.githubAccount" class="router">GitHub</a></div>
+            <div class="user-twtter"><a v-bind:href="job.user.twitterAccount" class="router">Twiiter</a></div>
           </div>
         </div>
       </div>
@@ -69,12 +69,12 @@
         <div class="dev-detail-area">
           <div class="detail-leff-area">
             <div class="detail-information">
-              <div class="tag">募集人数</div>
-              <div class="sub-area">2人</div>
+              <div class="tag">タイトル</div>
+              <div class="sub-area">{{ job.jobTitle }}</div>
             </div>
             <div class="detail-information">
-              <div class="tag">連絡ツール</div>
-              <div class="sub-area">{{ job.communicationTool.toolName }}</div>
+              <div class="tag">募集人数</div>
+              <div class="sub-area">{{ job.recruitmentNumbers }}人</div>
             </div>
             <div class="detail-information">
               <div class="tag">応募ケース</div>
@@ -217,6 +217,10 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
+  .router {
+    text-decoration: none;
+    color: #FFFFFF;
+  }
   .detail-wrapper {
     width: 85%;
     /* background-color: #F2F6F7; */
@@ -340,7 +344,7 @@ export default {
     cursor: pointer;
   }
   .post-user-area .right-user-area .user-url-area .user-twtter :hover {
-    background-color: red;
+    opacity: 0.8;
   }
   /* スキル カード */
   .detail-wrapper .detail-post-skill-area {

@@ -236,17 +236,17 @@ export default {
 
   /* 全体 */
   .job-wrapper {
-    width: 92.8%;
+    width: 100%;
     /* position: absolute; */
     background-color: #F2F6F7;
     /* right: 0;
     top: 0; */
     margin: 0 auto;
-    padding: 2rem 0 10rem 0;
+    padding: 2rem 0 2rem 0;
     position: relative;
   }
   .job-wrapper .job-wrapper-center {
-    width: 85%;
+    width: 95%;
     height: 100vh;
     margin: 0 auto;
     /* float: right; */
@@ -263,12 +263,12 @@ export default {
   }
   .job-cards {
     /* width: 525px; */
-    width: 47%;
+    width: 32%;
     height: 40%;
     /* height: 292px; */
     /* float: right; */
     float: left;
-    margin: 10px 1rem;
+    margin: 10px 0.4rem;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
     border-radius: 10px / 10px;
@@ -279,7 +279,7 @@ export default {
     width: calc(100% - 60px);
     height: calc(25% - 60px);
     text-align: left;
-    padding: 30px;
+    padding: 2rem 2rem 1rem 2rem;
     font-weight: bold;
     pointer-events: none;
   }
@@ -331,6 +331,7 @@ export default {
     height: calc(38% - 20px);
     padding: 10px 25px;
     pointer-events: none;
+    margin-top: 0.2rem;
   }
   .job-cards-bottom .product-start-end {
     width: 100%;
@@ -352,9 +353,10 @@ export default {
     height: 60%;
     text-align: left;
     pointer-events: none;
+    /* background-color: yellow; */
   }
   .job-cards-bottom .post-user-area .post-user-image {
-    width: 12%;
+    width: 16%;
     height: 100%;
     border-radius: 50%;
     background-color: #00A1D6;
@@ -363,7 +365,7 @@ export default {
   }
   .job-cards-bottom .post-user-area .post-user-name-area {
     display: inline-block;
-    width: calc(80% - 40px);
+    /* width: calc(80% - 40px); */
     height: 60%;
     padding: 0 20px;
     position: relative;
