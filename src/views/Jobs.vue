@@ -262,13 +262,13 @@ export default {
     background-color: red;
   }
   .job-cards {
-    /* width: 525px; */
+    /* width: 425px; */
     width: 32%;
     height: 40%;
     /* height: 292px; */
     /* float: right; */
     float: left;
-    margin: 10px 0.4rem;
+    margin: 10px 0.5%;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
     border-radius: 10px / 10px;
@@ -380,21 +380,13 @@ export default {
 
 @media screen and (max-width: 1435px) {
   .job-wrapper .job-wrapper-center {
-    width: 95%;
+    /* width: 95%;
     height: 100vh;
-    margin: 0 auto;
+    margin: 0 auto; */
   }
 }
 
-@media screen and (max-width: 1360px) {
-  .job-wrapper .job-wrapper-center {
-    width: 95%;
-    height: 100vh;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 1289px) {
+@media screen and (max-width: 1400px) {
   .job-wrapper .job-wrapper-center {
     width: 99%;
     height: 100vh;
@@ -402,8 +394,31 @@ export default {
   }
 }
 
-@media screen and (max-width: 1238px) {
+@media screen and (max-width: 1289px) {
+  .job-wrapper .job-wrapper-center {
+    width: 80%;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: yellow;
+  }
   .job-cards {
+    width: 405px;
+    /* width: 32%; */
+    height: 40%;
+    /* height: 292px; */
+    /* float: right; */
+    float: left;
+    margin: 10px 2rem;
+    border: solid 1px #B9B9B9;
+    background-color: #ffffff;
+    border-radius: 10px / 10px;
+    transition: .3s;
+    color: #111111;
+  }
+}
+
+@media screen and (max-width: 1238px) {
+  /* .job-cards {
     width: 100%;
     height: 280px;
     display: inline-block;
@@ -411,19 +426,19 @@ export default {
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
     border-radius: 10px / 10px;
-  }
-  .job-wrapper .job-wrapper-center {
+  } */
+  /* .job-wrapper .job-wrapper-center {
     width: 80%;
     height: 100vh;
     margin: 0 auto;
-  }
-  .job-cards-bottom .post-user-area .post-user-image {
+  } */
+  /* .job-cards-bottom .post-user-area .post-user-image {
     width: 8%;
     height: 100%;
     border-radius: 50%;
     background-color: #00A1D6;
     display: inline-block;
-  }
+  } */
 }
 
 </style>

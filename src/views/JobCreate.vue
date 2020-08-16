@@ -189,19 +189,18 @@ export default {
 @media screen and (max-width: 1440px) {
   .create-wrapper {
     width: 92%;
-    height: 100vh;
-    top: 0;
-    background-color: #F2F6F7;
+    height: 90vh;
+    margin: 0 auto;
+    /* background-color: #F2F6F7; */
   }
   .create-wrapper .job-create-wrapper {
     width: calc(90% - 8rem);
-    height: calc(90vh - 8rem);
     border-radius: 20px;
     margin: 2rem 2rem;
     background-color: #ffffff;
     float: right;
     border: solid 1px #B9B9B9;
-    padding: 4rem 4rem;
+    padding: 2.5rem 4rem 0.5rem 4rem;
   }
   .label {
     font-size: 16px;
@@ -292,7 +291,7 @@ export default {
   /* 案件詳細入力欄 end */
   .job-create-wrapper .job-create-btn-area {
     width: 100%;
-    height: 60px; 
+    height: 56px; 
     text-align: left;
     margin-top: 1.5rem;
     position: relative;

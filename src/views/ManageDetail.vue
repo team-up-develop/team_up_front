@@ -1,16 +1,87 @@
 <template>
-  <div>
+  <div class="manage-detail-wrapper">
+    <div class="job-manage-detail-wrapper">
+      <div class="status-area-left">
+        <div class="status-box-click">
+          <div class="status-logo">
+            <font-awesome-icon icon="user" class="icon"/>
+          </div>
+          <div class="status-tag">応募者</div>
+          <div class="status-number">3人</div>
+        </div>
+      </div>
+      <div class="status-area">
+        <div class="status-box">
+          <div class="status-logo">
+            <font-awesome-icon icon="users" class="icon"/>
+          </div>
+          <div class="status-tag">参加者</div>
+          <div class="status-number">3人</div>
+        </div>
+      </div>
+      <div class="status-area">
+        <div class="status-box">
+          <div class="status-logo">
+            <font-awesome-icon icon="user-alt-slash" class="icon"/>
+          </div>
+          <div class="status-tag">拒否者</div>
+          <div class="status-number">3人</div>
+        </div>
+      </div>
+      <div class="status-area">
+        <div class="status-box">
+          <div class="status-logo">
+            <font-awesome-icon icon="eye" class="icon"/>
+          </div>
+          <div class="status-tag">閲覧数</div>
+          <div class="status-number">1000</div>
+        </div>
+      </div>
+      <div class="status-area-right">
+        <div class="status-box-right">
+          <div class="status-logo">
+            <font-awesome-icon icon="thumbs-up" class="icon"/>
+          </div>
+          <div class="status-tag">いいね数</div>
+          <div class="status-number">10</div>
+        </div>
+      </div>
+      <div class="status-tag-area">
+        <div class="status-tag-name">名前</div>
+        <div class="status-tag-study">学習開始</div>
+        <div class="status-tag-skill">スキル</div>
+      </div>
+      <div v-for="assginUser in assginUsers" :key="assginUser.id" class="">
+        <div class="user-area">
+          <div class="user-area-box">
+            {{ assginUser.user.userName }}
+          </div>
+          <div class="user-area-box">
+          {{ assginUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
+          </div>
+          <div class="user-area-skill">
+            {{ assginUser.user.userName }}
+          </div>
+        </div>
+      </div>
+
+
+
+      <div v-for="applyUser in applyUsers" :key="applyUser.id">
+        <p>ID {{ applyUser.userId }} 名前 {{ applyUser.user.userName }}</p>
+      </div>
+    </div>
     <h3>応募者一覧</h3>
     <div v-for="applyUser in applyUsers" :key="applyUser.id">
-      <p>ID: {{ applyUser.userId }} 名前: {{ applyUser.user.userName }}</p>
+      <p>ID {{ applyUser.userId }} 名前 {{ applyUser.user.userName }}</p>
     </div>
     <h3>参加者一覧</h3>
     <div v-for="assginUser in assginUsers" :key="assginUser.id">
-      <p>ID: {{ assginUser.userId }} 名前: {{ assginUser.user.userName }}</p>
+      <p>ID {{ assginUser.userId }} 名前 {{ assginUser.user.userName }}</p>
     </div>
     <h3>参加者拒否一覧</h3>
     <div v-for="rejectUser in rejectUsers" :key="rejectUser.id">
-      <p>ID: {{ rejectUser.userId }} 名前: {{ rejectUser.user.userName }}</p>
+      <p>ID {{ rejectUser.userId }} 名前 {{ rejectUser.user.userName }}</p>
     </div>
     <h2>応募者を参加させる</h2>
     <select v-model="applyUser" class="">
@@ -19,7 +90,7 @@
         {{ user.user.userName  }}
       </option>
     </select>
-    <h3>Selected User:{{ applyUser }}</h3>
+    <h3>Selected User{{ applyUser }}</h3>
     <div @click="applyUserPut" class="btn-box-save">
       参加させる
     </div>
@@ -31,7 +102,7 @@
         {{ user.user.userName  }}
       </option>
     </select>
-    <h3>Selected User:{{ refusalUser }}</h3>
+    <h3>Selected User{{ refusalUser }}</h3>
     <div @click="applyUserRefusal" class="btn-box-save-false">
       拒否する
     </div>
@@ -40,6 +111,7 @@
 
 <script>
 import axios from 'axios'
+import moment from "moment";
 export default {
   props: {
     // * job.idを受け取る
@@ -53,6 +125,11 @@ export default {
       rejectUsers: [], //? applyStatusId === 3 のUserを取り出す
       applyUser: [], //? 参加させる
       refusalUser: [], //? 拒否する
+    }
+  },
+  filters: {
+    moment(value, format) {
+      return moment(value).format(format);
     }
   },
   created() {
@@ -110,36 +187,144 @@ export default {
 </script>
 
 <style scoped>
-.btn-box-save{
-  display: block;
-  padding: 18px 65px;
-  background: linear-gradient(90deg,#1f5ae8,#2ac1df);
-  border-radius: 25px;
-  font-size: .875rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1rem;
-  display: inline-block;
-  margin: 0 40px;
+.manage-detail-wrapper {
+  width: 92%;
+  height: 89.5vh;
+  margin: 0 auto;
+  background-color: #F2F6F7;
 }
-.btn-box-save-false{
-  display: block;
-  padding: 18px 65px;
-  background: linear-gradient(90deg,#3d3d3d,#d4d4d4);
-  border-radius: 25px;
-  font-size: .875rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1rem;
+.job-manage-detail-wrapper {
+  width: 95%;
+  height: calc(90vh - 5rem);
+  border-radius: 20px;
+  margin: 2rem 2rem;
+  background-color: #ffffff;
+  float: right;
+  border: solid 1px #B9B9B9;
+  position: relative;
+}
+.status-area {
+  width: 19.84%;
+  height: 30%;
   display: inline-block;
-  margin: 0 40px;
+  border: solid 1px #B9B9B9;
+}
+.status-area-left {
+  width: 19.84%;
+  height: 30%;
+  display: inline-block;
+  border: solid 1px #B9B9B9;
+  border-radius: 25px 0 0 0 ;
+}
+.status-area-right {
+  width: 19.84%;
+  height: 30%;
+  background-color: rgb(0, 102, 128);
+  display: inline-block;
+  border: solid 1px #B9B9B9;
+  border-radius: 0 25px 0 0 ;
+}
+.status-box-click {
+  width: calc(100% - 8rem);
+  height: 100%;
+  padding: 0 4rem;
+  border-radius: 25px 0 0 0;
+  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+}
+.status-box-right {
+  width: calc(100% - 8rem);
+  height: 100%;
+  padding: 0 4rem;
+  background-color: #606060;
+  border-radius: 0 25px 0 0;
+}
+.status-box {
+  width: calc(100% - 8rem);
+  height: 100%;
+  padding: 0 4rem;
+  background-color: #606060;
+  color: #ffffff;
+}
+.status-logo {
+  width: 100%;
+  height: calc(40% - 1.5rem);
+  padding: 1.5rem 0 0 0 ;
+  /* margin: 0 auto; */
+  color: #ffffff;
+}
+.icon {
+  font-size: 2em;
+}
+
+
+.status-tag {
+  width: 100%;
+  /* height: 40%; */
+  /* margin: 0 auto; */
+  color: #ffffff;
+  font-weight: bold;
+}
+.status-number {
+  width: 100%;
+  padding: 2.5rem 0 0 0;
+  font-size: 1.8em;
+  color: #ffffff;
+  font-weight: bold;
+}
+.status-tag-area {
+  width: 100%;
+  height: 8%;
+  background-color: rgba(0, 255, 234, 0.596);
+  color: #ffffff;
+  font-weight: bold;
+  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+}
+.status-tag-name {
+  width: 19.8%;
+  height: calc(48px - 1.6rem);
+  display: inline-block;
+  border: 1px solid #B9B9B9;
+  padding: 0.8rem 0;
+}
+.status-tag-study {
+  width: 19.8%;
+  height: calc(48px - 1.6rem);
+  display: inline-block;
+  border: 1px solid #B9B9B9;
+  padding: 0.8rem 0;
+} 
+.status-tag-skill {
+  width: 59.8%;
+  height: calc(48px - 1.6rem);
+  display: inline-block;
+  border: 1px solid #B9B9B9;
+  padding: 0.8rem 0;
+} 
+
+.user-area .user-area-box {
+  width: 19.8%;
+  border-bottom: 1px solid #9c9c9c;
+  border-right: 1px solid #9c9c9c;
+  height: calc(48px - 1.6rem);
+  padding: 0.8rem 0;
+  color: #111111;
+  font-weight: bold;
+  display: inline-block;
+  pointer-events: none;
+}
+.user-area  .user-area-skill {
+  width: 60.1%;
+  border-bottom: 1px solid #9c9c9c;
+  border-right: 1px solid #9c9c9c;
+  height: calc(48px - 1.6rem);
+  padding: 0.8rem 0;
+  color: #111111;
+  font-weight: bold;
+  display: inline-block;
+  pointer-events: none;
 }
 </style>
