@@ -19,7 +19,7 @@
       <div class="title-area">案件タイトル</div>
       <div class="time-area">開発期間</div>
       <div class="skill-area">開発言語</div>
-        <router-link :to="`/manage/${ jobs.id }`" v-for="jobs in manageJobs" :key="jobs.id" class="router">
+        <router-link :to="`/manage/apply/${ jobs.id }`" v-for="jobs in manageJobs" :key="jobs.id" class="router">
           <div class="job-area">
             <div class="job-area-box">
               {{ jobs.jobTitle }}

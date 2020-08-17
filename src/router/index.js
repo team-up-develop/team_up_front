@@ -8,7 +8,8 @@ import JobCreate from '../views/JobCreate.vue'
 import Favorite from '../views/Favorite.vue'
 import Apply from '../views/Apply.vue'
 import Manage from '../views/Manage.vue'
-import ManageDetail from '../views/ManageDetail.vue'
+import ManageApplyDetail from '../views/ManageApplyDetail.vue'
+import ManageParticipateDetail from '../views/ManageParticipateDetail.vue'
 import Chat from '../views/Chat.vue'
 import ChatDetail from '../views/ChatDetail.vue'
 Vue.use(Router)
@@ -24,8 +25,15 @@ export default new Router({
       component: Manage
     },
     {
-      path: '/manage/:id',
-      component: ManageDetail,
+      path: '/manage/apply/:id',
+      component: ManageApplyDetail,
+      props: route => ({
+        id: Number(route.params.id),
+      })
+    },
+    {
+      path: '/manage/participate/:id',
+      component: ManageParticipateDetail,
       props: route => ({
         id: Number(route.params.id),
       })
