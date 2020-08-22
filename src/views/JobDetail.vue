@@ -1,5 +1,45 @@
 <template>
   <div class="detail-wrapper" v-show="loading">
+  <div class="job-wrapper-left">
+    <!-- <div v-for="job in jobs" class="router" :key="job.id"> -->
+    <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
+      <div class="job-cards" @click="getJob">
+        <div class="job-cards-top">
+          {{ job.jobTitle }}
+        </div>
+        <div class="job-cards-center">
+          <div class="langage" v-for="langage in job.programingLanguage" :key="langage.id">
+            {{ langage.programingLanguageName }}
+          </div>
+          <div class="framework" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
+            {{ framework.programingFrameworkName }}
+          </div>
+          <div class="skill" v-for="skill in job.skill" :key="skill.skillName">
+            {{ skill.skillName }}
+          </div>
+        </div>
+        <div class="job-cards-bottom">
+          <div class="product-start-end">
+            <div class="product-start-end-tag">
+              開発期間:
+            </div>
+            <div class="product-start-end-time">
+              {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
+            </div>
+          </div>
+          <div class="post-user-area">
+            <div class="post-user-image"></div>
+            <div class="post-user-name-area">
+              <div class="post-user-name">
+                {{ job.user.userName }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    </router-link>
+  </div>
     <div class="detail-post-user-area">
       <div class="detail-tag">投稿者</div>
       <div class="post-user-area">
@@ -148,6 +188,7 @@ export default {
       loading: false,
       applyFlug: true,
       modal: false,
+      jobs: []
     }
   },
   filters: {
@@ -159,10 +200,8 @@ export default {
     // * 詳細画面情報を取得
     axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
-        setTimeout(() => {
           this.loading = true;
           this.job = response.data
-        }, 100);
       })
     // * 自分の案件かを判定
     axios.get('http://localhost:8888/api/v1/job/?user_id=1')
@@ -194,6 +233,15 @@ export default {
         }
       })
     }
+    // * 投稿一覧取得
+    axios.get('http://localhost:8888/api/v1/job', {
+      headers: {
+        Authorization: `Bearer ${ localStorage.userId }`
+      }
+    })
+    .then(response => {
+      this.jobs = response.data
+    })
   },
   methods: {
     openModal() {
@@ -205,6 +253,15 @@ export default {
     doSend() {
         this.closeModal()
       },
+    getJob() {
+      console.log(this.id)
+      axios.get(`${this.$httpPosts}/${this.id}/`)
+        .then(response => {
+          this.loading = true;
+          this.job = response.data
+          console.log(this.job)
+        })
+    }
   },
   components: {
     Applybtn,
@@ -524,6 +581,134 @@ export default {
     top: 0;
     right: 0;
     margin: 1rem;
+  }
+
+
+
+
+
+
+  
+  .job-wrapper-left {
+    width: 40%;
+    /* pointer-events: none; */
+    /* background-color: green; */
+  }
+  .job-cards {
+    /* width: 425px; */
+    width: 100%;
+    /* height: 60%; */
+    height: 292px;
+    /* float: right; */
+    /* float: left; */
+    margin: 10px 0.5%;
+    border: solid 1px #B9B9B9;
+    background-color: #ffffff;
+    border-radius: 10px / 10px;
+    transition: .3s;
+    color: #111111;
+
+  }
+  .job-cards-top {
+    width: calc(100% - 60px);
+    height: calc(25% - 60px);
+    text-align: left;
+    padding: 2rem 2rem 1rem 2rem;
+    font-weight: bold;
+    pointer-events: none;
+  }
+  .job-cards-center {
+    width: calc(100% - 40px);
+    height: calc(35% - 20px);
+    padding: 10px 20px;
+    text-align: left;
+    pointer-events: none;
+  }
+  .job-cards-center .langage{
+    margin: 5px 0px 0px 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #004098;
+    font-size: 12px;
+    border: solid 1px #004098;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+    pointer-events: none;
+  }
+  .job-cards-center .framework{
+    margin: 5px 0px 0 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #00A7EA;
+    font-size: 12px;
+    border: solid 1px #00A7EA;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+    pointer-events: none;
+  }
+  .job-cards-center .skill{
+    margin: 5px 0px 0 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #8D93C8;
+    font-size: 12px;
+    border: solid 1px #8D93C8;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+    pointer-events: none;
+  }
+  .job-cards-bottom {
+    width: calc(100% - 50px);
+    height: calc(38% - 20px);
+    padding: 10px 25px;
+    pointer-events: none;
+    margin-top: 0.2rem;
+  }
+  .job-cards-bottom .product-start-end {
+    width: 100%;
+    height: 40%;
+    text-align: left;
+    pointer-events: none;
+  }
+  .job-cards-bottom .product-start-end .product-start-end-tag {
+    display: inline-block;
+    pointer-events: none;
+  }
+  .job-cards-bottom .product-start-end .product-start-end-time {
+    display: inline-block;
+    padding: 0 20px;
+    pointer-events: none;
+  }
+  .job-cards-bottom .post-user-area {
+    width: 100%;
+    height: 60%;
+    text-align: left;
+    pointer-events: none;
+    /* background-color: yellow; */
+  }
+  .job-cards-bottom .post-user-area .post-user-image {
+    width: 60px;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #00A1D6;
+    display: inline-block;
+    pointer-events: none;
+  }
+  .job-cards-bottom .post-user-area .post-user-name-area {
+    display: inline-block;
+    /* width: calc(80% - 40px); */
+    height: 60%;
+    padding: 0 20px;
+    position: relative;
+    pointer-events: none;
+  }
+  .job-cards-bottom .post-user-area .post-user-name-area .post-user-name {
+    position: absolute;
+    top: 0;
+    pointer-events: none;
   }
 }
 

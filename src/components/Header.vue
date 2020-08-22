@@ -2,7 +2,7 @@
   <div class="header-wrapper">
     <div class="header-logo-area">
       <div class="header-logo">
-        <img class="img" src="../assets/logo.jpg" width="150" />
+        <img class="img" src="../assets/logo.jpg" width="130" />
       </div>
     </div>
     <div class="header-main-area">
@@ -71,22 +71,24 @@ export default {
   }
   .header-wrapper .header-logo-area {
     height: 100%;
-    width: 20%;
+    width: 10%;
+    padding: 0 0 0 2rem;
     /* background-color: rgba(0, 68, 255, 0.527); */
   }
   .header-wrapper .header-logo-area .header-logo {
     width: 60%;
     height: 100%;
-    margin-left: 4rem;
+    /* margin-left: 4rem; */
     padding: 1.5rem 0;
 
   }
   .header-wrapper .header-main-area {
     height: 100%;
-    width: 80%;
+    width: 86%;
     position: absolute;
     right: 0;
     top: 0;
+    /* background-color: red; */
   }
   .header-wrapper .header-main-area .header-main-left {
     width: 60%;
@@ -99,14 +101,15 @@ export default {
     /* background-color: rgba(255, 255, 0, 0.404); */
     padding: 0;
     margin: 0;
+    text-align: left;
   }
   ul :hover {
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
   }
   ul .menu-list {
     height: 25px;
     list-style: none;
-    width: 20%;
+    width: 17%;
     padding: 1rem 0;
     font-size: 14px;
     margin: 6px 0;
@@ -119,17 +122,17 @@ export default {
   ul li .menu-list-icon-area {
     width: 25%;
     height: 100%;
-    margin-left: 5px;
+    /* margin-left: 10px; */
     pointer-events: none;
   }
   ul li .menu-list-icon-area .icon {
-    font-size: 18px;
+    font-size: 16px;
     padding: 0.7rem 0;
     color: #00A1D6;
     pointer-events: none;
   }
   ul li .router-link {
-    width: 70%;
+    width: 80%;
     position: absolute;
     top: 0;
     right: 0; 
@@ -137,7 +140,8 @@ export default {
     padding: 1.7rem 0;
     text-decoration: none;
     color: #00A1D6;
-    font-size: 17px;
+    /* color: #111111; */
+    font-size: 16px;
     font-weight: bold;
   }
   .header-wrapper .header-main-area .header-main-right {
