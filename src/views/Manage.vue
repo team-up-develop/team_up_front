@@ -102,9 +102,7 @@ export default {
   height: calc(68px - 1.6rem);
   padding: 0.8rem 0;
   border-radius: 20px 0 0 0 ;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  background-color: #004098;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -134,9 +132,7 @@ export default {
   width: 33.3%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  background-color: #004098;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -147,9 +143,7 @@ export default {
   padding: 0.8rem 0;
   border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  background-color: #004098;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -158,9 +152,7 @@ export default {
   width: 33.3%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  background-color: #004098;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -173,7 +165,7 @@ export default {
   /* background-color: yellow; */
 }
 .router :hover{
-  background-color: rgba(238, 255, 0, 0.74);
+  background-color: rgba(199, 199, 199, 0.281);
 }
 .job-area .job-area-box {
   width: 33.25%;

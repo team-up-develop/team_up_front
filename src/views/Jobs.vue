@@ -19,42 +19,46 @@
       </div>
     </div>
     <div class="job-wrapper-center" v-show="!loading">
-      <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
-        <div class="job-cards">
-          <div class="job-cards-top">
-            {{ job.jobTitle }}
-          </div>
-          <div class="job-cards-center">
-            <div class="langage" v-for="langage in job.programingLanguage" :key="langage.id">
-              {{ langage.programingLanguageName }}
+      <div class="job-wrapper-left">
+        <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
+        <!-- <div v-for="job in jobs" class="router" :key="job.id" @click="getJob"> -->
+          <div class="job-cards">
+            <div class="job-cards-top">
+              {{ job.jobTitle }}
             </div>
-            <div class="framework" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
-              {{ framework.programingFrameworkName }}
-            </div>
-            <div class="skill" v-for="skill in job.skill" :key="skill.skillName">
-              {{ skill.skillName }}
-            </div>
-          </div>
-          <div class="job-cards-bottom">
-            <div class="product-start-end">
-              <div class="product-start-end-tag">
-                開発期間:
+            <div class="job-cards-center">
+              <div class="langage" v-for="langage in job.programingLanguage" :key="langage.id">
+                {{ langage.programingLanguageName }}
               </div>
-              <div class="product-start-end-time">
-                {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
+              <div class="framework" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
+                {{ framework.programingFrameworkName }}
+              </div>
+              <div class="skill" v-for="skill in job.skill" :key="skill.skillName">
+                {{ skill.skillName }}
               </div>
             </div>
-            <div class="post-user-area">
-              <div class="post-user-image"></div>
-              <div class="post-user-name-area">
-                <div class="post-user-name">
-                  {{ job.user.userName }}
+            <div class="job-cards-bottom">
+              <div class="product-start-end">
+                <div class="product-start-end-tag">
+                  開発期間:
+                </div>
+                <div class="product-start-end-time">
+                  {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
+                </div>
+              </div>
+              <div class="post-user-area">
+                <div class="post-user-image"></div>
+                <div class="post-user-name-area">
+                  <div class="post-user-name">
+                    {{ job.user.userName }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </router-link>
+        <!-- </div> -->
+        </router-link>
+      </div>
     </div>
     <Loading v-show="loading">
     </Loading>
@@ -123,7 +127,6 @@ export default {
         freeWord: this.freeWord
       }
       const URL = 'http://localhost:8888/api/v1/job/?'
-
       // * クエリパラメーター
       axios.get(`${ URL }position_tag_id=${ data.position }&programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
       .then(response => {
@@ -132,6 +135,9 @@ export default {
           this.jobs = response.data
         }, 1000);
       })
+    },
+    getJob() {
+      console.log()
     }
   },
   components: {
@@ -246,34 +252,42 @@ export default {
     position: relative;
   }
   .job-wrapper .job-wrapper-center {
-    width: 95%;
-    height: 100vh;
+    width: 85%;
+    /* height: ; */
     margin: 0 auto;
     /* float: right; */
     /* background-color: yellow; */
+    position: relative;
   }
-  .job-wrapper .job-wrapper-center :hover {
+  .job-wrapper .job-wrapper-center .job-wrapper-left :hover {
     background-color: rgb(250, 248, 248);
     border: 1px solid #00A1D6;
     box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
     transform: translateY(-4px);
   }
-  .router {
-    background-color: red;
+  .job-wrapper-center .router {
+    width: 100%;
+    height: 100%;
+  }
+  .job-wrapper-left {
+    width: 40%;
+    /* pointer-events: none; */
+    /* background-color: green; */
   }
   .job-cards {
     /* width: 425px; */
-    width: 32%;
-    height: 40%;
-    /* height: 292px; */
+    width: 100%;
+    /* height: 60%; */
+    height: 292px;
     /* float: right; */
-    float: left;
+    /* float: left; */
     margin: 10px 0.5%;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
     border-radius: 10px / 10px;
     transition: .3s;
     color: #111111;
+
   }
   .job-cards-top {
     width: calc(100% - 60px);
@@ -356,7 +370,7 @@ export default {
     /* background-color: yellow; */
   }
   .job-cards-bottom .post-user-area .post-user-image {
-    width: 16%;
+    width: 60px;
     height: 100%;
     border-radius: 50%;
     background-color: #00A1D6;
