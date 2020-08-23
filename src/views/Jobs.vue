@@ -20,8 +20,8 @@
     </div>
     <div class="job-wrapper-center" v-show="!loading">
       <div class="job-wrapper-left">
-        <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
-        <!-- <div v-for="job in jobs" class="router" :key="job.id" @click="getJob"> -->
+        <!-- <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id"> -->
+        <div v-for="job in jobs" class="router" :key="job.id"  :value="job.id" @click="getJob(job)" :jobId='job'>
           <div class="job-cards">
             <div class="job-cards-top">
               {{ job.jobTitle }}
@@ -56,8 +56,66 @@
               </div>
             </div>
           </div>
-        <!-- </div> -->
-        </router-link>
+        </div>
+        <!-- </router-link> -->
+      </div>
+      <div class="job-wrapper-right" v-if="detailFlag === true">
+        <div class="top-job-detail-area">
+          <div class="top-job-detail-top">
+            {{ jobDetail.jobTitle }}
+          </div>
+          <div class="top-job-detail-bottom">
+            応募ボタン
+          </div>
+        </div>
+        <div class="main-job-detail-area">
+          <div class="tag-are">
+            投稿者
+          </div>
+          <div class="post-user-area">
+            {{ jobDetail.user.userName }}
+          </div>
+          <div class="tag-are">
+            開発言語
+          </div>
+          <div class="post-user-area">
+            <div class="detail-langage" v-for="langage in jobDetail.programingLanguage" :key="langage.id">
+              {{ langage.programingLanguageName }}
+            </div>
+          </div>
+          <div class="tag-are">
+            フレームワーク
+          </div>
+          <div class="post-user-area">
+            <div class="detail-framework" v-for="framework in jobDetail.programingFramework" :key="framework.programingFrameworkName">
+              {{ framework.programingFrameworkName }}
+            </div>
+          </div>
+          <div class="tag-are">
+            その他スキル
+          </div>
+          <div class="post-user-area">
+            Docker
+          </div>
+          <div class="tag-are">
+            開発期間
+          </div>
+          <div class="post-user-area">
+            {{ jobDetail.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobDetail.devEndDate | moment("YYYY年 M月 D日")}}
+          </div>
+          <div class="tag-are">
+            募集人数
+          </div>
+          <div class="post-user-area">
+            {{ jobDetail.recruitmentNumbers }}
+          </div>
+          <div class="tag-are">
+            開発詳細
+          </div>
+          <div class="post-user-area">
+            {{ jobDetail.jobDescription }}
+          </div>
+        </div>
       </div>
     </div>
     <Loading v-show="loading">
@@ -85,6 +143,8 @@ export default {
       name: '',
       age: 0,
       loading: true,
+      jobDetail: null,
+      detailFlag: false
     }
   },
   filters: {
@@ -136,8 +196,11 @@ export default {
         }, 1000);
       })
     },
-    getJob() {
-      console.log()
+    // * click して案件を取得 === 詳細
+    getJob(job) {
+      this.jobDetail = job
+      this.detailFlag = true
+      console.log(this.jobDetail)
     }
   },
   components: {
@@ -256,7 +319,7 @@ export default {
     /* height: ; */
     margin: 0 auto;
     /* float: right; */
-    /* background-color: yellow; */
+    background-color: rgba(255, 255, 0, 0.349);
     position: relative;
   }
   .job-wrapper .job-wrapper-center .job-wrapper-left :hover {
@@ -273,7 +336,84 @@ export default {
     width: 40%;
     /* pointer-events: none; */
     /* background-color: green; */
+    /* display: inline-block; */
+    background-color: rgba(102, 51, 153, 0.493);
   }
+  .job-wrapper-right{
+    width: 50%;
+    height: 80vh;
+    background-color: #ffffff;
+    /* display: inline-block; */
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 5px / 5px;
+    color: #111111;
+    border: solid 1px #B9B9B9;
+    text-align: left;
+  }
+  .top-job-detail-area {
+    width: calc(100% - 4rem);
+    height: calc(17% - 2.5rem);
+    border-bottom: solid 1px #B9B9B9;
+    font-weight: bold;
+    padding: 1.5rem 2rem 1rem 2rem;
+  }
+  .top-job-detail-top {
+    width: 100%;
+    height: 50%;
+    font-size: 1.2em;
+  }
+  .top-job-detail-bottom {
+    width: 100%;
+    height: 50%;
+    background-color: rgba(0, 128, 107, 0.658);
+  }
+  .main-job-detail-area {
+    width: calc(100% - 4rem);
+    height: calc(80% - 1rem);
+    /* background-color: yellow; */
+    overflow: scroll;
+    padding: 0 2rem 1rem 2rem ;
+  }
+  .tag-are {
+    font-weight: bold;
+    margin: 1rem 0 0.5rem 0;
+  }
+  .detail-langage {
+    margin:0 0px 0px 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #004098;
+    font-size: 12px;
+    border: solid 1px #004098;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+    pointer-events: none;
+  }
+  .detail-framework {
+    margin: 0px 0px 0 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #00A7EA;
+    font-size: 12px;
+    border: solid 1px #00A7EA;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+    pointer-events: none;
+  }
+
+
+
+
+
+
+
+
+
+
   .job-cards {
     /* width: 425px; */
     width: 100%;
@@ -284,10 +424,9 @@ export default {
     margin: 10px 0.5%;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
-    border-radius: 10px / 10px;
+    border-radius: 5px / 5px;
     transition: .3s;
     color: #111111;
-
   }
   .job-cards-top {
     width: calc(100% - 60px);
