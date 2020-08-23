@@ -201,7 +201,9 @@ export default {
     axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
           this.loading = true;
+          // console.log(response.data)
           this.job = response.data
+          console.log("よまれてるよ")
       })
     // * 自分の案件かを判定
     axios.get('http://localhost:8888/api/v1/job/?user_id=1')
@@ -254,12 +256,12 @@ export default {
         this.closeModal()
       },
     getJob() {
-      console.log(this.id)
       axios.get(`${this.$httpPosts}/${this.id}/`)
         .then(response => {
           this.loading = true;
           this.job = response.data
           console.log(this.job)
+          console.log(this.id)
         })
     }
   },
@@ -588,7 +590,12 @@ export default {
 
 
 
-  
+  .job-wrapper-left :hover {
+    background-color: rgb(250, 248, 248);
+    border: 1px solid #00A1D6;
+    box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
+    transform: translateY(-4px);
+  }
   .job-wrapper-left {
     width: 40%;
     /* pointer-events: none; */
