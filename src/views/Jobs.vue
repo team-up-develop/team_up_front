@@ -64,8 +64,14 @@
           <div class="top-job-detail-top">
             {{ jobDetail.jobTitle }}
           </div>
-          <div class="top-job-detail-bottom">
-            応募ボタン
+          <div class="top-job-detail-bottom" v-if="selfJobPost === false">
+            <button  class="btn-box-apply" v-if="applyFlug">応募する</button>
+            <div class="btn-box-apply-false" v-if="applyFlug === false">
+              応募済み
+            </div>
+          </div>
+          <div v-else>
+            自分の案件です
           </div>
         </div>
         <div class="main-job-detail-area">
@@ -95,7 +101,9 @@
             その他スキル
           </div>
           <div class="post-user-area">
-            Docker
+            <div class="detail-skill" v-for="skill in jobDetail.skill" :key="skill.skillName">
+              {{ skill.skillName }}
+            </div>
           </div>
           <div class="tag-are">
             開発期間
@@ -144,7 +152,11 @@ export default {
       age: 0,
       loading: true,
       jobDetail: null,
-      detailFlag: false
+      detailFlag: false,
+      selfJobPost: false, //? 自分の案件かを判定
+      selfJob: null,  //? 自分の案件を格納する
+      applyFlug: true, //?応募済みかの判定フラグ
+      id: Number //? clickした案件のIdを取得
     }
   },
   filters: {
@@ -198,9 +210,37 @@ export default {
     },
     // * click して案件を取得 === 詳細
     getJob(job) {
-      this.jobDetail = job
-      this.detailFlag = true
-      console.log(this.jobDetail)
+      this.jobDetail = job //? clickした案件を取得
+      this.detailFlag = true //? 詳細画面を表示するか否かを判定する
+      this.id = job.id  //? clickしたIdを this.idに格納する
+      this.selfJobPost = false //? clickする度に 自分の案件では無くする
+      this.applyFlug = true //? clickする度に 応募済み案件にする
+      // * 自分の案件かを判定
+      axios.get('http://localhost:8888/api/v1/job/?user_id=1')
+      .then(response => {
+        for(let i = 0; i < response.data.length; i++) {
+          this.selfJob = response.data[i]
+          console.log(this.id)
+          if(this.selfJob.id === this.id) {
+            console.log("aaaaa")
+            this.selfJobPost = true
+          }
+        }
+      })
+      console.log(this.jobDetail.id)
+      axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
+      .then(response => {
+        const arrayApply = []
+        for(let c = 0; c < response.data.length; c++){
+          const applyData = response.data[c];
+          arrayApply.push(applyData.job.id)
+        }
+        if (arrayApply.includes(this.jobDetail.id)) {
+          this.applyFlug = false
+        } else {
+          console.log("まだ応募していません")
+        }
+      })
     }
   },
   components: {
@@ -319,28 +359,25 @@ export default {
     /* height: ; */
     margin: 0 auto;
     /* float: right; */
-    background-color: rgba(255, 255, 0, 0.349);
     position: relative;
   }
   .job-wrapper .job-wrapper-center .job-wrapper-left :hover {
-    background-color: rgb(250, 248, 248);
-    border: 1px solid #00A1D6;
+    /* background-color: rgb(250, 248, 248); */
+    /* border: 1px solid #00A1D6; */
     box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
-    transform: translateY(-4px);
+    /* transform: translateY(-4px); */
   }
   .job-wrapper-center .router {
     width: 100%;
     height: 100%;
   }
   .job-wrapper-left {
-    width: 40%;
-    /* pointer-events: none; */
-    /* background-color: green; */
-    /* display: inline-block; */
-    background-color: rgba(102, 51, 153, 0.493);
+    width: 43%;
   }
-  .job-wrapper-right{
-    width: 50%;
+
+  /* 案件詳細画面 */
+  .job-wrapper-right {
+    width: 52%;
     height: 80vh;
     background-color: #ffffff;
     /* display: inline-block; */
@@ -352,31 +389,31 @@ export default {
     border: solid 1px #B9B9B9;
     text-align: left;
   }
-  .top-job-detail-area {
+  .job-wrapper-right .top-job-detail-area {
     width: calc(100% - 4rem);
     height: calc(17% - 2.5rem);
     border-bottom: solid 1px #B9B9B9;
     font-weight: bold;
     padding: 1.5rem 2rem 1rem 2rem;
   }
-  .top-job-detail-top {
+  .job-wrapper-right .top-job-detail-area .top-job-detail-top {
     width: 100%;
     height: 50%;
     font-size: 1.2em;
   }
-  .top-job-detail-bottom {
+  .job-wrapper-right .top-job-detail-area .top-job-detail-bottom {
     width: 100%;
     height: 50%;
     background-color: rgba(0, 128, 107, 0.658);
   }
-  .main-job-detail-area {
+  .job-wrapper-right .main-job-detail-area {
     width: calc(100% - 4rem);
     height: calc(80% - 1rem);
     /* background-color: yellow; */
     overflow: scroll;
     padding: 0 2rem 1rem 2rem ;
   }
-  .tag-are {
+  .job-wrapper-right .main-job-detail-area .tag-are {
     font-weight: bold;
     margin: 1rem 0 0.5rem 0;
   }
@@ -399,6 +436,18 @@ export default {
     color: #00A7EA;
     font-size: 12px;
     border: solid 1px #00A7EA;
+    padding: 7px 23px;
+    border-radius: 20px;
+    font-weight: bold;
+    pointer-events: none;
+  }
+  .detail-skill {
+    margin: 0px 0px 0 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #8D93C8;
+    font-size: 12px;
+    border: solid 1px #8D93C8;
     padding: 7px 23px;
     border-radius: 20px;
     font-weight: bold;
