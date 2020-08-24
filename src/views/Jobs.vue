@@ -65,9 +65,19 @@
             {{ jobDetail.jobTitle }}
           </div>
           <div class="top-job-detail-bottom" v-if="selfJobPost === false">
-            <button  class="btn-box-apply" v-if="applyFlug">応募する</button>
+            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
             <div class="btn-box-apply-false" v-if="applyFlug === false">
               応募済み
+            </div>
+            <!-- 応募する モーダル画面 -->
+            <div class="example-modal-window">
+              <ApplyModal @close="closeModal" v-if="modal">
+                <p>応募を完了してよろしいですか？</p>
+                <template slot="footer">
+                  <applybtn :jobId='id'></applybtn>
+                  <button @click="doSend" class="modal-btn">キャンセル</button>
+                </template>
+              </ApplyModal>
             </div>
           </div>
           <div v-else>
@@ -136,6 +146,8 @@
 import axios from 'axios'
 import moment from "moment";
 import Loading from '@/components/Loading'
+import ApplyModal from '@/components/ApplyModal'
+import Applybtn from '@/components/Applybtn'
 export default {
   data() {
     // const formats = [
@@ -156,7 +168,8 @@ export default {
       selfJobPost: false, //? 自分の案件かを判定
       selfJob: null,  //? 自分の案件を格納する
       applyFlug: true, //?応募済みかの判定フラグ
-      id: Number //? clickした案件のIdを取得
+      id: Number, //? clickした案件のIdを取得
+      modal: false,
     }
   },
   filters: {
@@ -208,6 +221,7 @@ export default {
         }, 1000);
       })
     },
+
     // * click して案件を取得 === 詳細
     getJob(job) {
       this.jobDetail = job //? clickした案件を取得
@@ -220,14 +234,11 @@ export default {
       .then(response => {
         for(let i = 0; i < response.data.length; i++) {
           this.selfJob = response.data[i]
-          console.log(this.id)
           if(this.selfJob.id === this.id) {
-            console.log("aaaaa")
             this.selfJobPost = true
           }
         }
       })
-      console.log(this.jobDetail.id)
       axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
       .then(response => {
         const arrayApply = []
@@ -241,10 +252,23 @@ export default {
           console.log("まだ応募していません")
         }
       })
-    }
+    },
+
+    // * モーダル
+    openModal() {
+      this.modal = true
+    },
+    closeModal() {
+      this.modal = false
+    },
+    doSend() {
+        this.closeModal()
+      },
   },
   components: {
     Loading,
+    Applybtn,
+    ApplyModal,
   },
 }
 </script>
@@ -373,17 +397,23 @@ export default {
   }
   .job-wrapper-left {
     width: 43%;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
   }
 
   /* 案件詳細画面 */
   .job-wrapper-right {
     width: 52%;
-    height: 80vh;
+    height: 85vh;
     background-color: #ffffff;
     /* display: inline-block; */
-    position: absolute;
-    top: 0;
-    right: 0;
+    /* position: absolute; */
+    position: sticky;
+    display: inline-block;
+    margin-left: 1rem;
+    bottom: 0;
     border-radius: 5px / 5px;
     color: #111111;
     border: solid 1px #B9B9B9;
@@ -403,8 +433,8 @@ export default {
   }
   .job-wrapper-right .top-job-detail-area .top-job-detail-bottom {
     width: 100%;
-    height: 50%;
-    background-color: rgba(0, 128, 107, 0.658);
+    height: 65%;
+    /* background-color: rgba(0, 128, 107, 0.658); */
   }
   .job-wrapper-right .main-job-detail-area {
     width: calc(100% - 4rem);
@@ -452,6 +482,63 @@ export default {
     border-radius: 20px;
     font-weight: bold;
     pointer-events: none;
+  }
+  /* 応募するボタン */
+  .btn-box-apply{
+    padding: 0.8rem 3rem;
+    background: -moz-linear-gradient(top, #FF512F, #DD2476);
+    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
+    background: linear-gradient(to bottom, #FF512F, #DD2476);
+    border-radius: 6px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1em;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+  }
+  /* 応募済みボタン */
+  .btn-box-apply-false{
+    display: block;
+    padding: 0.8rem 3rem;
+    background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
+    background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
+    background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
+    border-radius: 6px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1em;
+    display: inline-block;
+    cursor: pointer;
+  }
+  /* モーダル内のキャンセルボタン */
+  .modal-btn {
+    padding: 1rem 2.4rem;
+    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    border-radius: 50px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin-left: 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
   }
 
 
