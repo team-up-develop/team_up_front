@@ -67,9 +67,9 @@
             {{ jobDetail.jobTitle }}
           </div>
           <div class="top-job-detail-bottom" v-if="selfJobPost === false">
-            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリー</button>
+            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
             <div class="btn-box-apply-false" v-if="applyFlug === false">
-              エントリー
+              エントリー済み
             </div>
             <div class="btn-box-save">
               <!-- <save-btn :jobId='id' class="btn"></save-btn> -->
@@ -95,7 +95,7 @@
           <div class="tag-area">
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 投稿者
           </div>
-          <div class="post-user-area">
+          <div class="post-user-name-area">
             {{ jobDetail.user.userName }}
           </div>
           <div class="tag-area">
@@ -507,6 +507,7 @@ export default {
     border-bottom: solid 1px #B9B9B9;
     font-weight: bold;
     padding: 1.5rem 2rem 1rem 2rem;
+    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
   }
   .job-wrapper-right .top-job-detail-area .top-job-detail-top {
     width: 100%;
@@ -545,6 +546,16 @@ export default {
   .post-user-area {
     line-height: 1.8;
     font-size: 14px;
+  }
+  .post-user-name-area {
+    line-height: 1.8;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .post-user-name-area:hover {
+    color: #2ac1df;
+    transition: .3s;
   }
   .detail-langage {
     margin:0 0px 0px 5px ;
@@ -601,7 +612,12 @@ export default {
     cursor: pointer;
     border: none;
     margin-top: 4px;
-
+  }
+  .btn-box-apply:hover {
+    background: -moz-linear-gradient(top, #DD2476, #DD2476);
+    background: -webkit-linear-gradient(top, #DD2476, #DD2476);
+    background: linear-gradient(to bottom, #DD2476, #DD2476);
+    transition: .3s;
   }
   /* 応募済みボタン */
   .btn-box-apply-false{

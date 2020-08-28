@@ -1,45 +1,5 @@
 <template>
   <div class="detail-wrapper" v-show="loading">
-  <div class="job-wrapper-left">
-    <!-- <div v-for="job in jobs" class="router" :key="job.id"> -->
-    <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id">
-      <div class="job-cards" @click="getJob">
-        <div class="job-cards-top">
-          {{ job.jobTitle }}
-        </div>
-        <div class="job-cards-center">
-          <div class="langage" v-for="langage in job.programingLanguage" :key="langage.id">
-            {{ langage.programingLanguageName }}
-          </div>
-          <div class="framework" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
-            {{ framework.programingFrameworkName }}
-          </div>
-          <div class="skill" v-for="skill in job.skill" :key="skill.skillName">
-            {{ skill.skillName }}
-          </div>
-        </div>
-        <div class="job-cards-bottom">
-          <div class="product-start-end">
-            <div class="product-start-end-tag">
-              開発期間:
-            </div>
-            <div class="product-start-end-time">
-              {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
-            </div>
-          </div>
-          <div class="post-user-area">
-            <div class="post-user-image"></div>
-            <div class="post-user-name-area">
-              <div class="post-user-name">
-                {{ job.user.userName }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <!-- </div> -->
-    </router-link>
-  </div>
     <div class="detail-post-user-area">
       <div class="detail-tag">投稿者</div>
       <div class="post-user-area">

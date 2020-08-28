@@ -31,6 +31,7 @@ export default {
         const array = [];
         for(let i = 0; i < response.data.length; i++){
           const applyData = response.data[i]
+          console.log(applyData)
           if(applyData.applyStatusId === 2){
             array.push(applyData)
             this.chatGroups = array
@@ -41,6 +42,7 @@ export default {
         }
       })
     }
+    // console.log(this.chatGroups)
   }
 }
 </script>
