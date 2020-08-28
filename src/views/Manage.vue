@@ -98,7 +98,7 @@ export default {
   /* padding: 0rem 4rem; */
 }
 .manage-wrapper .job-manage-wrapper .manage-job-area {
-  width: 33.3%;
+  width: 33%;
   height: calc(68px - 1.6rem);
   padding: 0.8rem 0;
   border-radius: 20px 0 0 0 ;
@@ -108,7 +108,7 @@ export default {
   font-weight: bold;
 }
 .manage-wrapper .job-manage-wrapper .apply-job-area {
-  width: 33.23%;
+  width: 33%;
   height: calc(68px - 1.6rem);
   padding: 0.8rem 0;
   /* border-radius: 20px 0 0 0 ; */
@@ -119,7 +119,7 @@ export default {
   font-weight: bold;
 }
 .manage-wrapper .job-manage-wrapper .save-job-area {
-  width: 33.3%;
+  width: 33%;
   height: calc(68px - 1.6rem);
   padding: 0.8rem 0;
   border-radius: 0 20px 0 0 ;
@@ -129,7 +129,7 @@ export default {
   font-weight: bold;
 }
 .title-area {
-  width: 33.3%;
+  width: 33%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
   background-color: #004098;
@@ -138,7 +138,7 @@ export default {
   font-weight: bold;
 }
 .time-area {
-  width: 33.2%;
+  width: 33%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
   border-left: 1px solid #ffffff;
@@ -149,7 +149,7 @@ export default {
   font-weight: bold;
 }
 .skill-area {
-  width: 33.3%;
+  width: 33%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
   background-color: #004098;
@@ -168,7 +168,7 @@ export default {
   background-color: rgba(199, 199, 199, 0.281);
 }
 .job-area .job-area-box {
-  width: 33.25%;
+  width: 33%;
   border-bottom: 1px solid #9c9c9c;
   border-right: 1px solid #9c9c9c;
   height: calc(48px - 1.6rem);

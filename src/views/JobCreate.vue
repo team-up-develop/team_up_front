@@ -24,55 +24,6 @@
           次へ 2/1
         </button>
       </router-link>
-      <!-- </div> -->
-      <!-- <select v-model="selectedCommunication" class="">
-        <option disabled value="" class="">コミュニケーションツール</option>
-        <option v-for="communication in communicationToolId" v-bind:value="communication.id" v-bind:key="communication.id">
-          {{ communication.name }}
-        </option>
-      </select>
-      <span>コミュニケーションツール: {{ selectedCommunication }}</span>
-      <label for="name">開発開始時期: </label>
-      <input type="date" v-model="devStartDate">
-      <label for="name">開発終了時期: </label>
-      <input type="date" v-model="devEndDate">
-
-        <select v-model="selectedLang" class="" multiple>
-          <option disabled value="" class="">開発言語</option>
-          <option v-for="lang in languages" v-bind:value="{ id:lang.id }" v-bind:key="lang.id">
-            {{ lang.programingLanguageName }}
-          </option>
-        </select>
-        <h1>Selected 言語:{{ selectedLang }}</h1>
-
-        <select v-model="selectedPosition" class="position" multiple>
-          <option disabled value="" class="position">担当</option>
-          <option v-for="position in positions " v-bind:value="{ id:position.id }" v-bind:key="position.id">
-            {{ position.positionTagName }}
-          </option>
-        </select>
-        <h1>Selected ポジション:{{ selectedPosition }}</h1>
-
-        <select v-model="selectedFramwork" class="position" multiple>
-          <option disabled value="" class="position">フレームワーク</option>
-          <option v-for="framwork in framworks" v-bind:value="{ id: framwork.id }" v-bind:key="framwork.id">
-            {{ framwork.programingFrameworkName }}
-          </option>
-        </select>
-        <h1>Selected フレームワーク: {{ selectedFramwork }}</h1>
-
-        <select v-model="selectedSkill" class="position" multiple>
-          <option disabled value="" class="position">その他技術</option>
-          <option v-for="skill in skills" v-bind:value="{id: skill.id}" v-bind:key="skill.id">
-            {{ skill.skillName }}
-          </option>
-        </select>
-        <h1>Selected その他スキル: {{ selectedSkill }}</h1>
-
-      <label for="name">概要: </label>
-      <textarea type="text" name="" id="" v-model="jobDescription"></textarea>
-      <br><br>
-      <button @click="createJob">作成</button> -->
     </div>
   <Loading v-show="loading">
   </Loading>
@@ -85,26 +36,11 @@ import Loading from '@/components/Loading'
 export default {
   data() {
     return{
-      selectedLang: [], //? プログラミング言語
-      languages: [],
-      selectedFramwork: [], //? フレームワーク
-      framworks: [],
-      selectedPosition: [], //? 開発ポジション
-      positionTag: [], //? 開発ポジション
-      positions: [],
-      selectedSkill: [], //? その他開発スキル
-      skills: [],
       jobTitle: "", //? タイトル
       jobDescription: "", //? 詳細
       devStartDate: null, //? 開始日
       devEndDate: null, //? 終了日
       // publicationPeriod: "", //? 掲載終了
-      selectedCommunication: 0, //? コミュニケーションツール
-      communicationToolId: [
-        { id: 1, name: 'Slack'},
-        { id: 2, name: 'Skype' },
-        { id: 3, name: 'ChatWork' }
-      ],
       loading: true,
     }
   },
@@ -136,34 +72,19 @@ export default {
           this.skills = response.data
           // console.log(this.skills)
       })
-      var jobTitle = sessionStorage.getItem('jobTitle');
-      var jobDescription = sessionStorage.getItem('jobDescription');
-      var devStartDateString = sessionStorage.getItem('devStartDateString');
-      var devEndDateString = sessionStorage.getItem('devEndDateString');
-      this.jobTitle = jobTitle;
-      this.devStartDate = devStartDateString;
-      this.devEndDate = devEndDateString;
-      this.jobDescription = jobDescription;
+    // * ローカルストレージの値をフォームに格納する
+    var jobTitle = sessionStorage.getItem('jobTitle');
+    var jobDescription = sessionStorage.getItem('jobDescription');
+    var devStartDateString = sessionStorage.getItem('devStartDateString');
+    var devEndDateString = sessionStorage.getItem('devEndDateString');
+    this.jobTitle = jobTitle;
+    this.devStartDate = devStartDateString;
+    this.devEndDate = devEndDateString;
+    this.jobDescription = jobDescription;
 
   },
   methods: {
     nextCreateBtn() {
-      // * date型に変換のための data用意
-      // const dateConversion = {
-      //   devStartDate: this.devStartDate,
-      //   devEndDate: this.devEndDate,
-      // };
-      // // * date型変換 関数
-      // function toDate (str, delim) {
-      //   var arr = str.split(delim)
-      //   return new Date(arr[0], arr[1] - 1, arr[2]);
-      // }
-      // //* 開始日
-      // var devStart = dateConversion.devStartDate
-      // var devStartDate = toDate(devStart, '-');
-      // // *終了日
-      // var devEnd = dateConversion.devEndDate
-      // var devEndDate = toDate(devEnd, '-');
       // * PostData
       const data = {
         jobTitle : this.jobTitle,  //? タイトル
@@ -177,55 +98,8 @@ export default {
       sessionStorage.setItem('devEndDateString', data.devEndDate);
       var jobTitle = sessionStorage.getItem('jobTitle');
       this.jobTitle = jobTitle;
-      console.log(this.jobTitle)
+      // console.log(this.jobTitle)
     },
-
-
-
-
-    createJob() {
-      // * date型に変換のための data用意
-      const dateConversion = {
-        devStartDate: this.devStartDate,
-        devEndDate: this.devEndDate,
-      };
-      // * date型変換 関数
-      function toDate (str, delim) {
-        var arr = str.split(delim)
-        return new Date(arr[0], arr[1] - 1, arr[2]);
-      }
-      //* 開始日
-      var devStart = dateConversion.devStartDate
-      var devStartDate = toDate(devStart, '-');
-      // *終了日
-      var devEnd = dateConversion.devEndDate
-      var devEndDate = toDate(devEnd, '-');
-      // * PostData
-      const data = {
-        jobTitle : this.jobTitle,  //? タイトル
-        jobDescription: this.jobDescription, //? 詳細
-        devStartDate: devStartDate,  //? 開始日
-        devEndDate: devEndDate, //? 終了日
-        // publicationPeriod: this.publicationPeriod,  //? 掲載終了
-        communicationToolId: this.selectedCommunication, //? コミュニケーションツール
-        programingLanguage: this.selectedLang,  //? プログラミング言語
-        positionTag: this.selectedPosition , //? 開発ポジション
-        programingFramework: this.selectedFramwork , //? フレームワーク
-        skill: this.selectedSkill //? その他開発スキル
-      };
-      console.log(data)
-      axios.post('http://localhost:8888/api/v1/job', data)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      this.jobTitle = "";
-      this.jobDescription = "";
-      this.devStartDate = "";
-      this.devEndDate = "";
-    }
   },
   components: {
     Loading,
@@ -292,6 +166,7 @@ export default {
     display: flex;
     flex-direction: column;
     text-align: left;
+    /* display: inline-block; */
   }
   .job-create-wrapper .job-create-time-area input[type='date'] {
     font: 16px/24px sans-serif;
@@ -341,15 +216,17 @@ export default {
   }
   /* 案件詳細入力欄 end */
   .job-create-wrapper .job-create-btn-area {
-    width: 100%;
+    width: 1000px;
     height: 56px; 
     text-align: left;
     margin-top: 1.5rem;
-    position: relative;
+    /* position: relative; */
+    background-color: yellow;
   }
   .job-create-wrapper .job-create-btn-area .next-btn {
+    text-align: left;
     display: block;
-    padding: 1rem 2.5rem;
+    padding: 1.1rem 4rem;
     background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
     background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
     background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
@@ -363,8 +240,10 @@ export default {
     max-width: 280px;
     margin: auto;
     font-size: 1rem;
-    position:absolute;
-    right: 0;
+    float: right;
+    margin-top: 1.5rem;
+    /* position:absolute;
+    right: 0; */
   }
 }
 </style>
