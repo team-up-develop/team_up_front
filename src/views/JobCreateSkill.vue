@@ -45,6 +45,9 @@
       <h1>Selected その他スキル: {{ selectedSkill }}</h1>
     <br><br>
     <button @click="createJob">作成</button>
+    <router-link to='/jobcreate' class="job-create-btn-area">
+    戻る
+    </router-link>
   </div>
 </template>
 

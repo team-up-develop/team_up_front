@@ -4,6 +4,7 @@
       <div class="job-create-title-area">
         <label for="name" class="label">案件タイトル</label>
         <input type="text" v-model="jobTitle" placeholder="Go と Vue.js で 未経験エンジニアのためのサービスを作りたい">
+        <!-- {{ sessionStorage.jobTitle }} -->
       </div>
       <div class="job-create-time-area">
         <label for="name" class="label">開発開始時期</label>
@@ -135,6 +136,15 @@ export default {
           this.skills = response.data
           // console.log(this.skills)
       })
+      var jobTitle = sessionStorage.getItem('jobTitle');
+      var jobDescription = sessionStorage.getItem('jobDescription');
+      var devStartDateString = sessionStorage.getItem('devStartDateString');
+      var devEndDateString = sessionStorage.getItem('devEndDateString');
+      this.jobTitle = jobTitle;
+      this.devStartDate = devStartDateString;
+      this.devEndDate = devEndDateString;
+      this.jobDescription = jobDescription;
+
   },
   methods: {
     nextCreateBtn() {
@@ -161,11 +171,13 @@ export default {
         devStartDate: this.devStartDate, //? 開発開始
         devEndDate: this.devEndDate, //? 開発終了
       };
-      console.log(data.jobTitle)
       sessionStorage.setItem('jobTitle', data.jobTitle);
       sessionStorage.setItem('jobDescription', data.jobDescription);
       sessionStorage.setItem('devStartDateString', data.devStartDate);
       sessionStorage.setItem('devEndDateString', data.devEndDate);
+      var jobTitle = sessionStorage.getItem('jobTitle');
+      this.jobTitle = jobTitle;
+      console.log(this.jobTitle)
     },
 
 
