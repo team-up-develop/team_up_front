@@ -184,8 +184,8 @@ export default {
       selfJob: null,  //? 自分の案件を格納する
       applyFlug: true, //?応募済みかの判定フラグ
       id: Number, //? clickした案件のIdを取得
-      modal: false,
-      saveFlag: true
+      modal: false, //?モーダルを開いてるか否か
+      saveFlag: true //? 案件保存しているかを判定
     }
   },
   filters: {
