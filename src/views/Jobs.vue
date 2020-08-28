@@ -1,5 +1,7 @@
 <template>
   <div class="job-wrapper">
+    <div class="search-area">
+    </div>
     <div class="top-search-area">
       <select v-model="selectedPosition" class="styled-select">
         <option disabled value="">担当</option>
@@ -65,9 +67,14 @@
             {{ jobDetail.jobTitle }}
           </div>
           <div class="top-job-detail-bottom" v-if="selfJobPost === false">
-            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
+            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリー</button>
             <div class="btn-box-apply-false" v-if="applyFlug === false">
-              応募済み
+              エントリー
+            </div>
+            <div class="btn-box-save">
+              <!-- <save-btn :jobId='id' class="btn"></save-btn> -->
+              <font-awesome-icon icon="heart" class="save-icon" @click="saveJob" v-if="saveFlag"/>
+              <font-awesome-icon icon="heart" class="save-end-icon" @click="deleteJob" v-if="saveFlag == false"/>
             </div>
             <!-- 応募する モーダル画面 -->
             <div class="example-modal-window">
@@ -85,54 +92,61 @@
           </div>
         </div>
         <div class="main-job-detail-area">
-          <div class="tag-are">
-            投稿者
+          <div class="tag-area">
+            <font-awesome-icon icon="chevron-circle-right" class="icon"/> 投稿者
           </div>
           <div class="post-user-area">
             {{ jobDetail.user.userName }}
           </div>
-          <div class="tag-are">
-            開発言語
+          <div class="tag-area">
+            <font-awesome-icon icon="chevron-circle-right" class="icon"/> 開発言語
           </div>
           <div class="post-user-area">
             <div class="detail-langage" v-for="langage in jobDetail.programingLanguage" :key="langage.id">
               {{ langage.programingLanguageName }}
             </div>
           </div>
-          <div class="tag-are">
-            フレームワーク
+          <div class="tag-area">
+            <font-awesome-icon icon="chevron-circle-right" class="icon"/> フレームワーク
           </div>
           <div class="post-user-area">
             <div class="detail-framework" v-for="framework in jobDetail.programingFramework" :key="framework.programingFrameworkName">
               {{ framework.programingFrameworkName }}
             </div>
           </div>
-          <div class="tag-are">
-            その他スキル
+          <div class="tag-area">
+            <font-awesome-icon icon="chevron-circle-right" class="icon"/> その他スキル
           </div>
           <div class="post-user-area">
             <div class="detail-skill" v-for="skill in jobDetail.skill" :key="skill.skillName">
               {{ skill.skillName }}
             </div>
           </div>
-          <div class="tag-are">
-            開発期間
+          <div class="tag-area">
+            <font-awesome-icon icon="chevron-circle-right" class="icon"/> 開発期間
           </div>
           <div class="post-user-area">
             {{ jobDetail.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobDetail.devEndDate | moment("YYYY年 M月 D日")}}
           </div>
-          <div class="tag-are">
-            募集人数
+          <div class="tag-area">
+            <font-awesome-icon icon="chevron-circle-right" class="icon"/> 募集人数
           </div>
           <div class="post-user-area">
-            {{ jobDetail.recruitmentNumbers }}
+            {{ jobDetail.recruitmentNumbers }} 人
           </div>
-          <div class="tag-are">
-            開発詳細
+          <div class="tag-area">
+            <font-awesome-icon icon="chevron-circle-right" class="icon"/> 開発詳細
           </div>
           <div class="post-user-area">
             {{ jobDetail.jobDescription }}
           </div>
+        </div>
+      </div>
+      <div class="job-wrapper-right-false" v-else>
+        <div class="false-user-login">
+        </div>
+        <div class="false-user-Advertisement">
+
         </div>
       </div>
     </div>
@@ -148,6 +162,7 @@ import moment from "moment";
 import Loading from '@/components/Loading'
 import ApplyModal from '@/components/ApplyModal'
 import Applybtn from '@/components/Applybtn'
+// import SaveBtn from '@/components/SaveBtn'
 export default {
   data() {
     // const formats = [
@@ -170,6 +185,7 @@ export default {
       applyFlug: true, //?応募済みかの判定フラグ
       id: Number, //? clickした案件のIdを取得
       modal: false,
+      saveFlag: true
     }
   },
   filters: {
@@ -204,7 +220,7 @@ export default {
     if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
   },
   methods: {
-    // * 検索
+    // * 検索する
     getParams(){
       const data = {
         position: this.selectedPosition,
@@ -219,6 +235,36 @@ export default {
           this.loading = false;
           this.jobs = response.data
         }, 1000);
+      })
+    },
+    // * 案件を保存する
+    saveJob(){
+      const data = {
+        jobId: this.jobDetail.id, 
+        userId: 1 
+      };
+      axios.post('http://localhost:8888/api/v1/favorite_job/', data)
+      .then(response => {
+        this.saveFlag = false
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    // * 案件保存を削除する
+    deleteJob() {
+      const data = {
+        jobId: this.jobDetail.id,
+        userId: 1
+      };
+      axios.delete('http://localhost:8888/api/v1/favorite_job/',{data: {userId: 1, jobId: data.jobId}})
+      .then(response => {
+        this.saveFlag = true
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.log(error)
       })
     },
 
@@ -239,6 +285,8 @@ export default {
           }
         }
       })
+
+      // * 応募済みか応募済みでないかを判断
       axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
       .then(response => {
         const arrayApply = []
@@ -250,6 +298,23 @@ export default {
           this.applyFlug = false
         } else {
           console.log("まだ応募していません")
+        }
+      })
+
+    // * 保存済みか保存済みではないかを判定する
+      axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
+      .then(response => {
+        const array = []
+        for(let i = 0; i < response.data.length; i++){
+          const likeData = response.data[i]
+          array.push(likeData.job.id)
+          console.log(array)
+        }
+        if(array.includes(this.jobDetail.id)){
+          this.saveFlag = false
+        }
+        else{
+          this.saveFlag = true
         }
       })
     },
@@ -269,6 +334,7 @@ export default {
     Loading,
     Applybtn,
     ApplyModal,
+    // SaveBtn
   },
 }
 </script>
@@ -367,6 +433,18 @@ export default {
     background: linear-gradient(to bottom, #FF512F, #DD2476);
   }
 
+  /* 詳細検索 */
+  .search-area {
+    width: 100%;
+    height: 52px;
+    background-color: #ffffff;
+    border: 1px solid #B9B9B9;
+    position: absolute;
+    top: 0;
+    position: sticky;
+    z-index: 10;
+  }
+
   /* 全体 */
   .job-wrapper {
     width: 100%;
@@ -375,25 +453,28 @@ export default {
     /* right: 0;
     top: 0; */
     margin: 0 auto;
-    padding: 2rem 0 2rem 0;
+    padding: 0rem 0 2rem 0;
     position: relative;
   }
   .job-wrapper .job-wrapper-center {
-    width: 85%;
+    width: 90%;
     /* height: ; */
     margin: 0 auto;
     /* float: right; */
     position: relative;
   }
-  .job-wrapper .job-wrapper-center .job-wrapper-left :hover {
-    /* background-color: rgb(250, 248, 248); */
-    /* border: 1px solid #00A1D6; */
+  .job-wrapper .job-wrapper-center .router :hover {
+    background-color: #00a0d605;
+    border: 1px solid #00A1D6;
     box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
-    /* transform: translateY(-4px); */
+    transform: translateY(-4px);
+    cursor: pointer;
   }
   .job-wrapper-center .router {
-    width: 100%;
-    height: 100%;
+    /* width: 75%;
+    height: 55%;
+    background-color: yellow; */
+    /* pointer-events: none; */
   }
   .job-wrapper-left {
     width: 43%;
@@ -406,13 +487,14 @@ export default {
   /* 案件詳細画面 */
   .job-wrapper-right {
     width: 52%;
-    height: 85vh;
+    height: 88vh;
     background-color: #ffffff;
     /* display: inline-block; */
     /* position: absolute; */
     position: sticky;
     display: inline-block;
     margin-left: 1rem;
+    margin-bottom: 0.2rem;
     bottom: 0;
     border-radius: 5px / 5px;
     color: #111111;
@@ -430,11 +512,20 @@ export default {
     width: 100%;
     height: 50%;
     font-size: 1.2em;
+    text-decoration: underline;
   }
   .job-wrapper-right .top-job-detail-area .top-job-detail-bottom {
     width: 100%;
     height: 65%;
-    /* background-color: rgba(0, 128, 107, 0.658); */
+    display: inline-block;
+    position: relative;
+  }
+  .btn-box-save {
+    display: inline-block;
+    height:calc(100% - 1rem);
+    padding: 0.3rem 0 0 1.2rem;
+    position: absolute;
+    top: 0;
   }
   .job-wrapper-right .main-job-detail-area {
     width: calc(100% - 4rem);
@@ -443,19 +534,27 @@ export default {
     overflow: scroll;
     padding: 0 2rem 1rem 2rem ;
   }
-  .job-wrapper-right .main-job-detail-area .tag-are {
+  .job-wrapper-right .main-job-detail-area .tag-area {
     font-weight: bold;
     margin: 1rem 0 0.5rem 0;
+    font-size: 1em;
+  }
+  .job-wrapper-right .main-job-detail-area .tag-area .icon {
+    color: #2ac1df;
+  }
+  .post-user-area {
+    line-height: 1.8;
+    font-size: 14px;
   }
   .detail-langage {
     margin:0 0px 0px 5px ;
     text-align: left;
     display: inline-block;
     color: #004098;
-    font-size: 12px;
+    font-size: 14px;
     border: solid 1px #004098;
-    padding: 7px 23px;
-    border-radius: 20px;
+    padding: 3px 23px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
@@ -464,10 +563,10 @@ export default {
     text-align: left;
     display: inline-block;
     color: #00A7EA;
-    font-size: 12px;
+    font-size: 14px;
     border: solid 1px #00A7EA;
-    padding: 7px 23px;
-    border-radius: 20px;
+    padding: 3px 23px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
@@ -476,16 +575,17 @@ export default {
     text-align: left;
     display: inline-block;
     color: #8D93C8;
-    font-size: 12px;
+    font-size: 14px;
     border: solid 1px #8D93C8;
-    padding: 7px 23px;
-    border-radius: 20px;
+    padding: 3px 23px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
+
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 0.8rem 3rem;
+    padding: 0.75rem 2rem;
     background: -moz-linear-gradient(top, #FF512F, #DD2476);
     background: -webkit-linear-gradient(top, #FF512F, #DD2476);
     background: linear-gradient(to bottom, #FF512F, #DD2476);
@@ -496,18 +596,20 @@ export default {
     text-align: center;
     max-width: 280px;
     margin: auto;
-    font-size: 1em;
+    font-size: 1.1em;
     display: inline-block;
     cursor: pointer;
     border: none;
+    margin-top: 4px;
+
   }
   /* 応募済みボタン */
   .btn-box-apply-false{
     display: block;
-    padding: 0.8rem 3rem;
-    background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
-    background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
-    background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
+    padding: 0.75rem 2rem;
+    background: -moz-linear-gradient(top, #636363, #afafaf);
+    background: -webkit-linear-gradient(top, #636363, #afafaf);
+    background: linear-gradient(to bottom, #636363, #afafaf);
     border-radius: 6px;
     font-weight: 600;
     color: #fff;
@@ -515,10 +617,12 @@ export default {
     text-align: center;
     max-width: 280px;
     margin: auto;
-    font-size: 1em;
+    margin-top: 4px;
+    font-size: 1.1em;
     display: inline-block;
     cursor: pointer;
   }
+
   /* モーダル内のキャンセルボタン */
   .modal-btn {
     padding: 1rem 2.4rem;
@@ -541,7 +645,60 @@ export default {
     margin: 1rem;
   }
 
+  /* 保存アイコン */
+  .save-icon {
+    font-size: 30px;
+    padding: 10px;
+    width: 20px;
+    height: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #d8d6d6;
+    border-radius: 5px / 5px;
+  }
+  .save-end-icon {
+    font-size: 30px;
+    padding: 10px;
+    width: 20px;
+    height: 20px;
+    color: red;
+    cursor: pointer;
+    background-color: #d8d6d6;
+    border-radius: 5px / 5px;
+  }
 
+
+/* 右側 詳細を表示しない際に */
+  .job-wrapper-right-false{
+    width: 52%;
+    height: 88vh;
+    /* display: inline-block; */
+    /* position: absolute; */
+    position: sticky;
+    display: inline-block;
+    margin-left: 1rem;
+    margin-bottom: 0.2rem;
+    bottom: 0;
+    border-radius: 5px / 5px;
+    color: #111111;
+    text-align: left;
+  }
+  .false-user-login {
+    width: 100%;
+    height: 50%;
+    background-color: #ffffff;
+    border: solid 1px #B9B9B9;
+    border-radius: 5px / 5px;
+    margin-bottom: 1rem;
+  }
+  .false-user-Advertisement {
+    width: 100%;
+    height: 50%;
+    background-color: #ffffff;
+    border: solid 1px #B9B9B9;
+    border-radius: 5px / 5px;
+    margin-bottom: 1rem;
+  }
 
 
 
@@ -568,14 +725,16 @@ export default {
     width: calc(100% - 60px);
     height: calc(25% - 60px);
     text-align: left;
-    padding: 2rem 2rem 1rem 2rem;
+    padding: 2rem 2rem 1rem 1.5rem;
     font-weight: bold;
     pointer-events: none;
+    font-size: 17px;
+    text-decoration: underline;
   }
   .job-cards-center {
     width: calc(100% - 40px);
     height: calc(35% - 20px);
-    padding: 10px 20px;
+    padding: 10px 1.5rem;
     text-align: left;
     pointer-events: none;
   }
@@ -587,7 +746,7 @@ export default {
     font-size: 12px;
     border: solid 1px #004098;
     padding: 7px 23px;
-    border-radius: 20px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
@@ -599,7 +758,7 @@ export default {
     font-size: 12px;
     border: solid 1px #00A7EA;
     padding: 7px 23px;
-    border-radius: 20px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
@@ -611,7 +770,7 @@ export default {
     font-size: 12px;
     border: solid 1px #8D93C8;
     padding: 7px 23px;
-    border-radius: 20px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
@@ -627,6 +786,7 @@ export default {
     height: 40%;
     text-align: left;
     pointer-events: none;
+    font-weight: bold;
   }
   .job-cards-bottom .product-start-end .product-start-end-tag {
     display: inline-block;
@@ -636,16 +796,18 @@ export default {
     display: inline-block;
     padding: 0 20px;
     pointer-events: none;
+    font-size: 14px;
   }
   .job-cards-bottom .post-user-area {
     width: 100%;
     height: 60%;
     text-align: left;
     pointer-events: none;
+    font-weight: bold;
     /* background-color: yellow; */
   }
   .job-cards-bottom .post-user-area .post-user-image {
-    width: 60px;
+    width: 55px;
     height: 100%;
     border-radius: 50%;
     background-color: #00A1D6;
