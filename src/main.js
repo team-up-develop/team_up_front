@@ -13,10 +13,10 @@ window.$ = window.jQuery = require('jquery')
 Vue.config.productionTip = false
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp, faChevronCircleRight, faHeart, faSearch} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp)
+library.add(faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp, faChevronCircleRight, faHeart, faSearch)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
