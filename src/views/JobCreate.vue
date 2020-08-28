@@ -17,11 +17,13 @@
         <label for="name" class="label">概要</label>
         <textarea type="text" name="" id="" v-model="jobDescription" placeholder="詳しい内容や現在の状況を記載してください"></textarea>
       </div>
-      <div class="job-create-btn-area">
-        <button class="next-btn">
+      <!-- <div class="job-create-btn-area"> -->
+      <router-link to='/jobcreate/session2' class="job-create-btn-area">
+        <button class="next-btn" @click="nextCreateBtn">
           次へ 2/1
         </button>
-      </div>
+      </router-link>
+      <!-- </div> -->
       <!-- <select v-model="selectedCommunication" class="">
         <option disabled value="" class="">コミュニケーションツール</option>
         <option v-for="communication in communicationToolId" v-bind:value="communication.id" v-bind:key="communication.id">
@@ -135,6 +137,40 @@ export default {
       })
   },
   methods: {
+    nextCreateBtn() {
+      // * date型に変換のための data用意
+      // const dateConversion = {
+      //   devStartDate: this.devStartDate,
+      //   devEndDate: this.devEndDate,
+      // };
+      // // * date型変換 関数
+      // function toDate (str, delim) {
+      //   var arr = str.split(delim)
+      //   return new Date(arr[0], arr[1] - 1, arr[2]);
+      // }
+      // //* 開始日
+      // var devStart = dateConversion.devStartDate
+      // var devStartDate = toDate(devStart, '-');
+      // // *終了日
+      // var devEnd = dateConversion.devEndDate
+      // var devEndDate = toDate(devEnd, '-');
+      // * PostData
+      const data = {
+        jobTitle : this.jobTitle,  //? タイトル
+        jobDescription: this.jobDescription, //? 詳細
+        devStartDate: this.devStartDate, //? 開発開始
+        devEndDate: this.devEndDate, //? 開発終了
+      };
+      console.log(data.jobTitle)
+      sessionStorage.setItem('jobTitle', data.jobTitle);
+      sessionStorage.setItem('jobDescription', data.jobDescription);
+      sessionStorage.setItem('devStartDateString', data.devStartDate);
+      sessionStorage.setItem('devEndDateString', data.devEndDate);
+    },
+
+
+
+
     createJob() {
       // * date型に変換のための data用意
       const dateConversion = {

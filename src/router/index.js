@@ -5,6 +5,7 @@ import JobDetail from '../views/JobDetail.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import JobCreate from '../views/JobCreate.vue'
+import JobCreateSkill from '../views/JobCreateSkill.vue'
 import Favorite from '../views/Favorite.vue'
 import Apply from '../views/Apply.vue'
 import Manage from '../views/Manage.vue'
@@ -67,6 +68,11 @@ export default new Router({
       path: '/jobcreate',
       name: 'JobCreate',
       component: JobCreate
+    },
+    {
+      path: '/jobcreate/session2',
+      name: 'JobCreateSkill',
+      component: JobCreateSkill
     },
     {
       path: '/chat',
