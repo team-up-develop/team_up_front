@@ -105,7 +105,7 @@ export default {
   width: 92%;
   height: 89.5vh;
   margin: 0 auto;
-  background-color: #F2F6F7;
+  /* background-color: #F2F6F7; */
 }
 .manage-wrapper .job-manage-wrapper {
   width: 95%;
@@ -115,6 +115,8 @@ export default {
   background-color: #ffffff;
   float: right;
   border-bottom: solid 1px #B9B9B9;
+  border-right: solid 1px #B9B9B9;
+  border-left: solid 1px #B9B9B9;
   position: relative;
   font-size: 14px;
   /* padding: 0rem 4rem; */
@@ -124,7 +126,7 @@ export default {
   height: calc(68px - 1.6rem);
   padding: 0.8rem 0;
   border-radius: 20px 0 0 0 ;
-  background-color: #004098;
+  background-color: #3700B3;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -156,7 +158,7 @@ export default {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background-color: #004098;
+  background-color: #3700B3;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -167,7 +169,7 @@ export default {
   padding: 0.8rem 0;
   border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
-  background-color: #004098;
+  background-color: #3700B3;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -176,7 +178,7 @@ export default {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background-color: #004098;
+  background-color: #3700B3;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;

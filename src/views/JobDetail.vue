@@ -28,8 +28,12 @@
             </div>
           </div>
           <div class="user-url-area">
-            <div class="user-github"><a v-bind:href="job.user.githubAccount" class="router">GitHub</a></div>
-            <div class="user-twtter"><a v-bind:href="job.user.twitterAccount" class="router">Twiiter</a></div>
+            <div class="user-github" @click="gitTab">
+              GitHub
+              </div>
+            <div class="user-twtter" @click="twitterTab">
+              Twiiter
+            </div>
           </div>
         </div>
       </div>
@@ -84,13 +88,17 @@
               <div class="tag">開発期間</div>
               <div class="sub-area">{{ job.devStartDate | moment("YYYY年 M月 D日") }} ~ {{ job.devEndDate  | moment("YYYY年 M月 D日")}}</div>
             </div>
+            <div class="detail-information">
+              <div class="tag">応募ケース</div>
+              <div class="sub-area">{{ job.jobDescription }}</div>
+            </div>
           </div>
-          <div class="detail-right-area">
+          <!-- <div class="detail-right-area">
             <div class="tag">募集内容詳細</div>
             <div class="description">
               {{ job.jobDescription }}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -100,9 +108,9 @@
             案件管理画面へ遷移先を作成する
           </div>
           <div v-else>
-            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
+            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
             <div class="btn-box-apply-false" v-if="applyFlug == false">
-              応募済み
+              エントリー済み
             </div>
             <save-btn :jobId='id' class="btn"></save-btn>
             <!-- 応募する モーダル画面 -->
@@ -206,6 +214,7 @@ export default {
     })
   },
   methods: {
+
     openModal() {
       this.modal = true
     },
@@ -223,7 +232,23 @@ export default {
           console.log(this.job)
           console.log(this.id)
         })
-    }
+    },
+    // * Twitter をタブで開く
+    twitterTab() {
+      axios.get(`${this.$httpPosts}/${this.id}/`)
+      .then(response => {
+        this.job = response.data
+        return window.open(this.job.user.twitterAccount)
+      })
+    },
+    gitTab() {
+      axios.get(`${this.$httpPosts}/${this.id}/`)
+      .then(response => {
+        this.job = response.data
+        console.log(this.job)
+        return window.open(this.job.user.githubAccount)
+      })
+    },
   },
   components: {
     Applybtn,
@@ -243,8 +268,8 @@ export default {
   .detail-wrapper {
     width: 85%;
     /* background-color: #F2F6F7; */
-    background-color: #F2F6F7;
-    padding: 3.5rem 7rem;
+    /* background-color: #F2F6F7; */
+    padding: 3.5rem 0rem;
     margin: 0 auto;
   }
   .detail-wrapper .detail-post-user-area {
@@ -256,7 +281,7 @@ export default {
   }
   .detail-tag {
     text-align: left;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     margin-bottom: 0.7rem;
     color: #00A1D6;
@@ -264,7 +289,7 @@ export default {
   /* 投稿者 カード中身 */
   .detail-wrapper .detail-post-user-area  .post-user-area {
     background-color: rgb(255, 255, 255);
-    border-radius: 5px;
+    border-radius: 4px;
     border: 1px solid #B9B9B9;
     padding: 2rem 4rem;
     margin-bottom: 2rem;
@@ -375,7 +400,7 @@ export default {
   }
   .detail-wrapper .detail-post-skill-area .skill-detail-area{
     background-color: rgb(255, 255, 255);
-    border-radius: 5px;
+    border-radius: 4px;
     border: 1px solid #B9B9B9;
     padding: 2rem 4rem 1rem 4rem;
     margin-bottom: 2rem;
@@ -399,36 +424,36 @@ export default {
   }
   .skill-detail-area .lang-area .lang-box .skill-tag{
     margin-top: 1rem;
-    width: 100px;
-    padding: 0.5rem 0.8rem;
-    border-radius: 20px;
+    padding: 0.5rem 1.4rem;
+    border-radius: 5px / 5px;
     margin-right: 10px;
     color: #004098;
     display: inline-block;
     border: 1px solid #004098;
     text-align: center;
+    font-weight: bold;
   }
   .skill-detail-area .lang-area .lang-box .flame-tag{
     margin-top: 1rem;
-    width: 100px;
-    padding: 0.5rem 0.8rem;
-    border-radius: 20px;
+    padding: 0.5rem 1.4rem;
+    border-radius: 5px / 5px;
     margin-right: 10px;
     color: #00A7EA;
     display: inline-block;
     border: 1px solid #00A7EA;
     text-align: center;
+    font-weight: bold;
   }
   .skill-detail-area .lang-area .lang-box .other-tag{
     margin-top: 1rem;
-    width: 100px;
-    padding: 0.5rem 0.8rem;
-    border-radius: 20px;
+    padding: 0.5rem 1.4rem;
+    border-radius: 5px / 5px;
     margin-right: 10px;
     color: #8D93C8;
     display: inline-block;
     border: 1px solid #8D93C8;
     text-align: center;
+    font-weight: bold;
   }
   /* 開発詳細 カード */
   .detail-wrapper .detail-post-detail-area {
@@ -440,15 +465,17 @@ export default {
   }
   .detail-wrapper .detail-post-detail-area .dev-detail-area {
     background-color: rgb(255, 255, 255);
-    border-radius: 5px;
+    border-radius: 4px;
     border: 1px solid #B9B9B9;
-    padding: 1rem 4rem;
+    padding: 1rem 4rem 8rem 4rem;
     margin-bottom: 2rem;
     position: relative;
+    line-height: 1.8;
   }
   .dev-detail-area .detail-leff-area {
     display: inline-block;
-    width: 50%;
+    width: 100%;
+    height: 100%;
   }
   .dev-detail-area .detail-leff-area .detail-information {
     margin-top: 1px;
@@ -460,7 +487,7 @@ export default {
     display: inline-block;
   }
   .detail-information .sub-area{
-    width: 75%;
+    width: 88%;
     position: absolute;
     right: 0;
     display: inline-block;
@@ -489,7 +516,7 @@ export default {
   }
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 1.4rem 5rem;
+    padding: 1.4rem 4rem;
     background: -moz-linear-gradient(top, #FF512F, #DD2476);
     background: -webkit-linear-gradient(top, #FF512F, #DD2476);
     background: linear-gradient(to bottom, #FF512F, #DD2476);
@@ -498,9 +525,9 @@ export default {
     color: #fff;
     line-height: 1;
     text-align: center;
-    max-width: 280px;
+    max-width: 320px;
     margin: auto;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     display: inline-block;
     cursor: pointer;
     border: none;

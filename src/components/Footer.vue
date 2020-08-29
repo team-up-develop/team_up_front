@@ -13,6 +13,7 @@ export default {
 .footer-wrapper {
   width: 100%;
   height: 260px;
-  background-color: #000000d2;
+  /* background-color: #ffffff; */
+    background-color: #FAFAFA;
 }
 </style>

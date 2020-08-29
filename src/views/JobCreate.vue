@@ -228,11 +228,12 @@ export default {
     text-align: left;
     display: block;
     padding: 1.1rem 4rem;
-    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
+    background: -moz-linear-gradient(top, #2196F3, #4FC3F7);
+    background: -webkit-linear-gradient(top, #2196F3, #4FC3F7);
+    background: linear-gradient(to bottom, #2196F3, #4FC3F7);
     border-radius: 25px;
-    border: 1px solid #ffffff;
+    border: none;
     font-size: .875rem;
     font-weight: 600;
     color: #fff;
@@ -243,8 +244,13 @@ export default {
     font-size: 1rem;
     float: right;
     margin-top: 1.5rem;
+    cursor: pointer;
+    transition: .3s;
     /* position:absolute;
     right: 0; */
   }
+    .job-create-wrapper .job-create-btn-area .next-btn:hover {
+      box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
+    }
 }
 </style>
