@@ -3,7 +3,7 @@
     <div class="job-create-wrapper" v-show="!loading">
       <div class="job-create-title-area">
         <label for="name" class="label">案件タイトル</label>
-        <input type="text" v-model="jobTitle" placeholder="Go と Vue.js で 未経験エンジニアのためのサービスを作りたい">
+        <input type="text" v-model="jobTitle" placeholder="Go と Vue.js で 未経験エンジニアのためのサービスを作りたい(60文字以内で入力してください)" maxlength="60" >
         <!-- {{ sessionStorage.jobTitle }} -->
       </div>
       <div class="job-create-time-area">
@@ -16,7 +16,8 @@
       </div>
       <div class="job-create-detail-area">
         <label for="name" class="label">概要</label>
-        <textarea type="text" name="" id="" v-model="jobDescription" placeholder="詳しい内容や現在の状況を記載してください"></textarea>
+        <textarea type="text" name="" id="" v-model="jobDescription" placeholder="詳しい内容や現在の状況を記載してください(250文字以内)" maxlength="250"></textarea>
+        <!-- <div class='panel-footer'>{{250 - jobDescription.length}} 文字</div> -->
       </div>
       <!-- <div class="job-create-btn-area"> -->
       <router-link to='/jobcreate/session2' class="job-create-btn-area">

@@ -5,13 +5,22 @@
     <div class="top-search-area">
       <select v-model="selectedPosition" class="styled-select">
         <option disabled value="">担当</option>
-        <option v-for="position in positions" v-bind:value="position.id" v-bind:key="position.id" class="dropdown-menu">
+        <option 
+          v-for="position in positions" 
+          v-bind:value="position.id" 
+          v-bind:key="position.id" 
+          class="dropdown-menu"
+        >
           {{ position.positionTagName }}
         </option>
       </select>
       <select v-model="selectedLang" class="styled-select">
         <option disabled value="" class="position">開発言語</option>
-        <option v-for="lang in languages" v-bind:value="lang.id" v-bind:key="lang.id">
+        <option 
+        v-for="lang in languages" 
+        v-bind:value="lang.id" 
+        v-bind:key="lang.id"
+        >
           {{ lang.programingLanguageName }}
         </option>
       </select>
@@ -36,13 +45,19 @@
               {{ job.jobTitle | truncateTitle }}
             </div>
             <div class="job-cards-center">
-              <div class="langage" v-for="langage in job.programingLanguage.slice(0,3)" :key="langage.id">
+              <div class="langage" 
+                v-for="langage in job.programingLanguage.slice(0,3)" 
+                :key="langage.id">
                 {{ langage.programingLanguageName | truncateSkill }}
               </div>
-              <div class="framework" v-for="framework in job.programingFramework.slice(0,3)" :key="framework.programingFrameworkName">
+              <div class="framework" 
+              v-for="framework in job.programingFramework.slice(0,3)" 
+              :key="framework.programingFrameworkName">
                 {{ framework.programingFrameworkName }}
               </div>
-              <div class="skill" v-for="skill in job.skill.slice(0,4)" :key="skill.skillName">
+              <div class="skill" 
+              v-for="skill in job.skill.slice(0,4)" 
+              :key="skill.skillName">
                 {{ skill.skillName }}
               </div>
             </div>
@@ -109,7 +124,10 @@
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 開発言語
           </div>
           <div class="post-user-area">
-            <div class="detail-langage" v-for="langage in jobDetail.programingLanguage.slice(0,5)" :key="langage.id">
+            <div 
+              class="detail-langage" 
+              v-for="langage in jobDetail.programingLanguage.slice(0,5)" 
+              :key="langage.id">
               {{ langage.programingLanguageName }}
             </div>
           </div>
@@ -117,7 +135,9 @@
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> フレームワーク
           </div>
           <div class="post-user-area">
-            <div class="detail-framework" v-for="framework in jobDetail.programingFramework.slice(0,5)" :key="framework.programingFrameworkName">
+            <div class="detail-framework" 
+              v-for="framework in jobDetail.programingFramework.slice(0,5)" 
+              :key="framework.programingFrameworkName">
               {{ framework.programingFrameworkName }}
             </div>
           </div>
@@ -125,7 +145,10 @@
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> その他スキル
           </div>
           <div class="post-user-area">
-            <div class="detail-skill" v-for="skill in jobDetail.skill.slice(0,5)" :key="skill.skillName">
+            <div class="detail-skill" 
+              v-for="skill in jobDetail.skill.slice(0,5)" 
+              :key="skill.skillName"
+            >
               {{ skill.skillName }}
             </div>
           </div>
@@ -146,6 +169,9 @@
           </div>
           <div class="post-user-area">
             {{ jobDetail.jobDescription }}
+          </div>
+          <div class="jobDetail-time-area">
+            投稿期日   {{ jobDetail.createdAt | moment("YYYY年 M月 D日") }}
           </div>
         </div>
       </div>
@@ -530,7 +556,7 @@ export default {
   }
   .job-wrapper-right .top-job-detail-area {
     width: calc(100% - 4rem);
-    height: calc(17% - 2.5rem);
+    height: calc(17.5% - 2.5rem);
     border-bottom: solid 1px #B9B9B9;
     font-weight: bold;
     padding: 1.5rem 2rem 1rem 2rem;
@@ -541,7 +567,7 @@ export default {
     height: 50%;
     font-size: 1.2em;
     text-decoration: underline;
-    margin-bottom: 2px;
+    margin-bottom: 0.3rem;
   }
   .job-wrapper-right .top-job-detail-area .top-job-detail-bottom {
     width: 100%;
@@ -562,6 +588,7 @@ export default {
     /* background-color: yellow; */
     overflow: scroll;
     padding: 0 2rem 1rem 2rem ;
+    position: relative;
   }
   .job-wrapper-right .main-job-detail-area .tag-area {
     font-weight: bold;
@@ -574,6 +601,12 @@ export default {
   .post-user-area {
     line-height: 1.8;
     font-size: 14px;
+  }
+  .jobDetail-time-area {
+    margin-top: 1rem;
+    font-size: 12px;
+    color: #7c7c7c;
+    float: right;
   }
   .post-user-name-area {
     line-height: 1.8;
@@ -744,13 +777,7 @@ export default {
     margin-bottom: 1rem;
   }
 
-
-
-
-
-
-
-
+  /* 案件のカード */
   .job-cards {
     /* width: 425px; */
     width: 100%;
@@ -767,13 +794,14 @@ export default {
   }
   .job-cards-top {
     width: calc(100% - 60px);
-    height: calc(25% - 60px);
+    height: calc(30% - 60px);
     text-align: left;
     padding: 2rem 2rem 1rem 1.5rem;
     font-weight: bold;
     pointer-events: none;
     font-size: 17px;
     text-decoration: underline;
+    /* background-color: yellow; */
   }
   .job-cards-center {
     width: calc(100% - 40px);
@@ -835,6 +863,7 @@ export default {
   .job-cards-bottom .product-start-end .product-start-end-tag {
     display: inline-block;
     pointer-events: none;
+    font-size: 14px;
   }
   .job-cards-bottom .product-start-end .product-start-end-time {
     display: inline-block;
@@ -882,15 +911,15 @@ export default {
 }
 
 @media screen and (max-width: 1400px) {
-  .job-wrapper .job-wrapper-center {
+  /* .job-wrapper .job-wrapper-center {
     width: 99%;
     height: 100vh;
     margin: 0 auto;
-  }
+  } */
 }
 
 @media screen and (max-width: 1289px) {
-  .job-wrapper .job-wrapper-center {
+  /* .job-wrapper .job-wrapper-center {
     width: 80%;
     height: 100vh;
     margin: 0 auto;
@@ -898,10 +927,7 @@ export default {
   }
   .job-cards {
     width: 405px;
-    /* width: 32%; */
     height: 40%;
-    /* height: 292px; */
-    /* float: right; */
     float: left;
     margin: 10px 2rem;
     border: solid 1px #B9B9B9;
@@ -909,7 +935,7 @@ export default {
     border-radius: 10px / 10px;
     transition: .3s;
     color: #111111;
-  }
+  } */
 }
 
 @media screen and (max-width: 1238px) {
