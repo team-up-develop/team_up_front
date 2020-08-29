@@ -7,7 +7,7 @@
             class="static"
             v-bind:class="{ active: isActive, 'text-danger': hasError }"
           ></div>
-          <img class="img" src="../assets/logo.jpg" width="130" />
+          <!-- <img class="img" src="../assets/logo.jpg" width="130" /> -->
         </div>
       </div>
       <div class="header-main-area">
@@ -76,19 +76,19 @@ export default {
   .router-link-active {
     /* color: #00A1D6; */
     /* background-color: #00A1D6; */
-    border-bottom: 4px solid #00A1D6;
+    border-bottom: 4px solid #2196F3;
     font-weight: bold;
   }
   .header-wrapper {
     width: 100%;
     height: 66px;
-    box-shadow: 0px 4px 3px -3px rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 4px 3px -3px rgba(216, 216, 216, 0.6);
     margin-bottom:2px;
     /* position: fixed; */
     top: 0px;                
     left: 0px;
-    z-index: 1000;
     background-color: #ffffff;
+    /* border: 1px solid #B9B9B9; */
   }
   .header-wrapper-area {
     width: 100%;                
@@ -98,15 +98,13 @@ export default {
   .header-wrapper .header-logo-area {
     height: 100%;
     width: 10%;
-    padding: 0 0 0 2rem;
-    /* background-color: rgba(0, 68, 255, 0.527); */
+    padding: 0 0 0rem 2rem;
   }
   .header-wrapper .header-logo-area .header-logo {
     width: 60%;
-    height: 100%;
-    /* margin-left: 4rem; */
-    padding: 1.5rem 0;
-
+    height: calc(100% - 2.8rem);
+    background-color: rgba(94, 94, 94, 0.226);
+    padding: 1.2rem 0;
   }
   .header-wrapper .header-main-area {
     height: 100%;
@@ -176,14 +174,16 @@ export default {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 1rem 0;
+    padding: 0.8rem 0;
+    /* background-color: #00A1D6; */
   }
   .header-wrapper .header-main-area .header-main-right .user-login-btn {
     display: block;
-    padding: 1rem 2rem;
-    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    padding: 0.9rem 2rem;
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
+    background: -moz-linear-gradient(top, #2196F3, #4FC3F7);
+    background: -webkit-linear-gradient(top, #2196F3, #4FC3F7);
+    background: linear-gradient(to bottom, #2196F3, #4FC3F7);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -194,13 +194,14 @@ export default {
     font-size: 1rem;
     display: inline-block;
     cursor: pointer;
+    transition: .3s;
   }
   .header-wrapper .header-main-area .header-main-right  .user-register-btn {
     display: block;
-    padding: 1rem 2rem;
-    background: -moz-linear-gradient(top, #FF512F, #DD2476);
-    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
-    background: linear-gradient(to bottom, #FF512F, #DD2476);
+    padding: 0.9rem 2rem;
+    background: -moz-linear-gradient(top, #E91E63, #EC407A);
+    background: -webkit-linear-gradient(top, #E91E63, #EC407A);
+    background: linear-gradient(to bottom, #E91E63, #EC407A);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -213,6 +214,7 @@ export default {
     cursor: pointer;
     border: none;
     margin-left: 10px;
+    transition: .3s;
   }
   .user-rooter {
     text-decoration: none;

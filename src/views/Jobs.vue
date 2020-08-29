@@ -454,6 +454,7 @@ export default {
   .job-wrapper .top-search-area {
     width: 85%;
     margin: 0 auto;
+    display: none;
     /* width: 20%;
     margin: 0 0 0 0;
     background-color: #ffffff;
@@ -491,7 +492,7 @@ export default {
     width: 100%;
     height: 52px;
     background-color: #ffffff;
-    border: 1px solid #B9B9B9;
+    border-bottom: 1px solid #B9B9B9;
     position: absolute;
     top: 0;
     position: sticky;
@@ -502,7 +503,7 @@ export default {
   .job-wrapper {
     width: 100%;
     /* position: absolute; */
-    background-color: #F2F6F7;
+    /* background-color: #FAFAFA; */
     /* right: 0;
     top: 0; */
     margin: 0 auto;
@@ -517,9 +518,9 @@ export default {
     position: relative;
   }
   .job-wrapper .job-wrapper-center .router :hover {
-    background-color: #00a0d605;
-    border: 1px solid #00A1D6;
-    box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
+    background-color: #2195f318;
+    border: 1px solid #2196F3;
+    box-shadow: 0 15px 30px -5px #2195f357, 0 0 5px #2195f357;
     transform: translateY(-4px);
     cursor: pointer;
   }
@@ -567,7 +568,6 @@ export default {
     height: 50%;
     font-size: 1.2em;
     text-decoration: underline;
-    margin-bottom: 0.3rem;
   }
   .job-wrapper-right .top-job-detail-area .top-job-detail-bottom {
     width: 100%;
@@ -596,7 +596,7 @@ export default {
     font-size: 1em;
   }
   .job-wrapper-right .main-job-detail-area .tag-area .icon {
-    color: #2ac1df;
+    color: #2196F3;
   }
   .post-user-area {
     line-height: 1.8;
@@ -613,18 +613,19 @@ export default {
     font-size: 14px;
     text-decoration: underline;
     cursor: pointer;
+    margin-bottom: 0.3rem;
   }
   .post-user-name-area:hover {
-    color: #2ac1df;
+    color: #2196F3;
     transition: .3s;
   }
   .detail-langage {
     margin:0 0px 0px 5px ;
     text-align: left;
     display: inline-block;
-    color: #004098;
+    color: #3F51B5;
     font-size: 14px;
-    border: solid 1px #004098;
+    border: solid 1px #3F51B5;
     padding: 3px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -634,9 +635,9 @@ export default {
     margin: 0px 0px 0 5px ;
     text-align: left;
     display: inline-block;
-    color: #00A7EA;
+    color: #2196F3;
     font-size: 14px;
-    border: solid 1px #00A7EA;
+    border: solid 1px #2196F3;
     padding: 3px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -646,9 +647,9 @@ export default {
     margin: 0px 0px 0 5px ;
     text-align: left;
     display: inline-block;
-    color: #8D93C8;
+    color: #00BCD4;
     font-size: 14px;
-    border: solid 1px #8D93C8;
+    border: solid 1px #00BCD4;
     padding: 3px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -658,9 +659,9 @@ export default {
   /* 応募するボタン */
   .btn-box-apply{
     padding: 0.75rem 2rem;
-    background: -moz-linear-gradient(top, #FF512F, #DD2476);
-    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
-    background: linear-gradient(to bottom, #FF512F, #DD2476);
+    background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
+    background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
+    background: linear-gradient(to bottom, #E91E63, #e91e62ce);
     border-radius: 6px;
     font-weight: 600;
     color: #fff;
@@ -673,12 +674,14 @@ export default {
     cursor: pointer;
     border: none;
     margin-top: 4px;
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
   }
   .btn-box-apply:hover {
     background: -moz-linear-gradient(top, #DD2476, #DD2476);
     background: -webkit-linear-gradient(top, #DD2476, #DD2476);
     background: linear-gradient(to bottom, #DD2476, #DD2476);
     transition: .3s;
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685);
   }
   /* 応募済みボタン */
   .btn-box-apply-false{
@@ -814,9 +817,9 @@ export default {
     margin: 5px 0px 0px 5px ;
     text-align: left;
     display: inline-block;
-    color: #004098;
+    color: #3F51B5;
     font-size: 12px;
-    border: solid 1px #004098;
+    border: solid 1px #3F51B5;
     padding: 7px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -826,9 +829,9 @@ export default {
     margin: 5px 0px 0 5px ;
     text-align: left;
     display: inline-block;
-    color: #00A7EA;
+    color: #2196F3;
     font-size: 12px;
-    border: solid 1px #00A7EA;
+    border: solid 1px #2196F3;
     padding: 7px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -838,9 +841,9 @@ export default {
     margin: 5px 0px 0 5px ;
     text-align: left;
     display: inline-block;
-    color: #8D93C8;
+    color: #00BCD4;
     font-size: 12px;
-    border: solid 1px #8D93C8;
+    border: solid 1px #00BCD4;
     padding: 7px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -883,7 +886,7 @@ export default {
     width: 55px;
     height: 100%;
     border-radius: 50%;
-    background-color: #00A1D6;
+    background-color: #2196F3;
     display: inline-block;
     pointer-events: none;
   }

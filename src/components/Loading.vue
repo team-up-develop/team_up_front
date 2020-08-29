@@ -4,7 +4,7 @@
         <div class="loading-spacer"></div>
         <vue-loading 
           type="bubbles"
-          color="#00A1D6"
+          color="#2196F3"
           :size="{ width: '200px', height: '105px' }"
           >
         </vue-loading>
