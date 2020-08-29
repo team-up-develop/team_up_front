@@ -21,7 +21,7 @@
       <!-- <div class="job-create-btn-area"> -->
       <router-link to='/jobcreate/session2' class="job-create-btn-area">
         <button class="next-btn" @click="nextCreateBtn">
-          次へ 2/1
+          次へ 1/2
         </button>
       </router-link>
     </div>

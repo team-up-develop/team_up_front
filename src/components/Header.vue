@@ -74,13 +74,14 @@ export default {
 <style scoped>
 @media screen and (max-width: 1440px) {
   .router-link-active {
-    color: #00A1D6;
+    /* color: #00A1D6; */
     /* background-color: #00A1D6; */
     border-bottom: 4px solid #00A1D6;
+    font-weight: bold;
   }
   .header-wrapper {
     width: 100%;
-    height: 76px;
+    height: 66px;
     box-shadow: 0px 4px 3px -3px rgba(255, 255, 255, 0.6);
     margin-bottom:2px;
     /* position: fixed; */
@@ -162,12 +163,12 @@ export default {
     top: 0;
     right: 0; 
     text-align: left;
-    padding: 1.65rem  0;
+    padding: 1.3rem  0;
     text-decoration: none;
-    color: #00A1D6;
-    /* color: #111111; */
+    /* color: #00A1D6; */
+    color: #111111;
     font-size: 14px;
-    font-weight: bold;
+    /* font-weight: bold; */
   }
   .header-wrapper .header-main-area .header-main-right {
     width: 30%;
@@ -197,9 +198,9 @@ export default {
   .header-wrapper .header-main-area .header-main-right  .user-register-btn {
     display: block;
     padding: 1rem 2rem;
-    background: -moz-linear-gradient(top, #914BE2, #4F5BC6);
-    background: -webkit-linear-gradient(top, #914BE2, #4F5BC6);
-    background: linear-gradient(to bottom, #914BE2, #4F5BC6);
+    background: -moz-linear-gradient(top, #FF512F, #DD2476);
+    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
+    background: linear-gradient(to bottom, #FF512F, #DD2476);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
