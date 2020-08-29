@@ -124,7 +124,7 @@ export default {
       var devEndDate = toDate(devEnd, '-');
 
       const data = {
-        userId: 1, //? 仮でUser_idを置いている
+        userId: 4, //? 仮でUser_idを置いている
         jobTitle : jobTitle,  //? タイトル
         jobDescription: jobDescription, //? 詳細
         devStartDate: devStartDate,  //? 開始日
