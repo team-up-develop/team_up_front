@@ -23,19 +23,26 @@
     <div class="job-wrapper-center" v-show="!loading">
       <div class="job-wrapper-left">
         <!-- <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id"> -->
-        <div v-for="job in jobs" class="router" :key="job.id"  :value="job.id" @click="getJob(job)" :jobId='job'>
+        <div 
+          v-for="job in jobs" 
+          class="router" 
+          :key="job.id"  
+          :value="job.id"
+          @click="getJob(job)" 
+          :jobId='job'
+        >
           <div class="job-cards">
             <div class="job-cards-top">
-              {{ job.jobTitle }}
+              {{ job.jobTitle | truncateTitle }}
             </div>
             <div class="job-cards-center">
-              <div class="langage" v-for="langage in job.programingLanguage" :key="langage.id">
-                {{ langage.programingLanguageName }}
+              <div class="langage" v-for="langage in job.programingLanguage.slice(0,3)" :key="langage.id">
+                {{ langage.programingLanguageName | truncateSkill }}
               </div>
-              <div class="framework" v-for="framework in job.programingFramework" :key="framework.programingFrameworkName">
+              <div class="framework" v-for="framework in job.programingFramework.slice(0,3)" :key="framework.programingFrameworkName">
                 {{ framework.programingFrameworkName }}
               </div>
-              <div class="skill" v-for="skill in job.skill" :key="skill.skillName">
+              <div class="skill" v-for="skill in job.skill.slice(0,4)" :key="skill.skillName">
                 {{ skill.skillName }}
               </div>
             </div>
@@ -64,7 +71,7 @@
       <div class="job-wrapper-right" v-if="detailFlag === true">
         <div class="top-job-detail-area">
           <div class="top-job-detail-top">
-            {{ jobDetail.jobTitle }}
+            {{ jobDetail.jobTitle | truncateDetailTitle }}
           </div>
           <div class="top-job-detail-bottom" v-if="selfJobPost === false">
             <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
@@ -102,7 +109,7 @@
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 開発言語
           </div>
           <div class="post-user-area">
-            <div class="detail-langage" v-for="langage in jobDetail.programingLanguage" :key="langage.id">
+            <div class="detail-langage" v-for="langage in jobDetail.programingLanguage.slice(0,5)" :key="langage.id">
               {{ langage.programingLanguageName }}
             </div>
           </div>
@@ -110,7 +117,7 @@
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> フレームワーク
           </div>
           <div class="post-user-area">
-            <div class="detail-framework" v-for="framework in jobDetail.programingFramework" :key="framework.programingFrameworkName">
+            <div class="detail-framework" v-for="framework in jobDetail.programingFramework.slice(0,5)" :key="framework.programingFrameworkName">
               {{ framework.programingFrameworkName }}
             </div>
           </div>
@@ -118,7 +125,7 @@
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> その他スキル
           </div>
           <div class="post-user-area">
-            <div class="detail-skill" v-for="skill in jobDetail.skill" :key="skill.skillName">
+            <div class="detail-skill" v-for="skill in jobDetail.skill.slice(0,5)" :key="skill.skillName">
               {{ skill.skillName }}
             </div>
           </div>
@@ -185,13 +192,33 @@ export default {
       applyFlug: true, //?応募済みかの判定フラグ
       id: Number, //? clickした案件のIdを取得
       modal: false, //?モーダルを開いてるか否か
-      saveFlag: true //? 案件保存しているかを判定
+      saveFlag: true, //? 案件保存しているかを判定
+      limitationList:1
     }
   },
   filters: {
+    // * date型を文字に変換
     moment(value, format) {
       return moment(value).format(format);
-    }
+    },
+    //* 案件タイトル 文字制限
+    truncateTitle: function(value) {
+      var length = 60;
+      var ommision = "...";
+      if (value.length <= length) {
+        return value;
+      }
+      return value.substring(0, length) + ommision;
+    },
+    //* 案件タイトル 詳細 文字制限
+    truncateDetailTitle: function(value) {
+      var length = 70;
+      var ommision = "...";
+      if (value.length <= length) {
+        return value;
+      }
+      return value.substring(0, length) + ommision;
+    },
   },
   mounted() {
     // * 投稿一覧取得
@@ -514,6 +541,7 @@ export default {
     height: 50%;
     font-size: 1.2em;
     text-decoration: underline;
+    margin-bottom: 2px;
   }
   .job-wrapper-right .top-job-detail-area .top-job-detail-bottom {
     width: 100%;
