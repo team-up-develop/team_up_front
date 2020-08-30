@@ -3,15 +3,15 @@
     <div class="header-wrapper-area">
       <div class="header-logo-area">
         <div class="header-logo">
-          <div
+          <!-- <div
             class="static"
             v-bind:class="{ active: isActive, 'text-danger': hasError }"
-          ></div>
+          ></div> -->
           <!-- <img class="img" src="../assets/logo.jpg" width="130" /> -->
         </div>
       </div>
       <div class="header-main-area">
-        <div class="header-main-left">
+        <div class="header-main-left" v-bind:class="{ active: isActive, 'text-danger': hasError }">
           <ul>
             <li class="menu-list">
               <div class="menu-list-icon-area">
@@ -76,7 +76,7 @@ export default {
   .router-link-active {
     /* color: #00A1D6; */
     /* background-color: #00A1D6; */
-    border-bottom: 4px solid #2196F3;
+    border-bottom: 4px solid #3700B3;
     font-weight: bold;
   }
   .header-wrapper {
@@ -87,7 +87,7 @@ export default {
     /* position: fixed; */
     top: 0px;                
     left: 0px;
-    background-color: #ffffff;
+    /* background-color: #2196F3; */
     /* border: 1px solid #B9B9B9; */
   }
   .header-wrapper-area {
@@ -181,9 +181,9 @@ export default {
     display: block;
     padding: 0.9rem 2rem;
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: -moz-linear-gradient(top, #2196F3, #4FC3F7);
-    background: -webkit-linear-gradient(top, #2196F3, #4FC3F7);
-    background: linear-gradient(to bottom, #2196F3, #4FC3F7);
+    background: -moz-linear-gradient(top, #3700B3, #7986CB);
+    background: -webkit-linear-gradient(top, #3700B3, #7986CB);
+    background: linear-gradient(to bottom, #3700B3, #7986CB);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -199,6 +199,7 @@ export default {
   .header-wrapper .header-main-area .header-main-right  .user-register-btn {
     display: block;
     padding: 0.9rem 2rem;
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
     background: -moz-linear-gradient(top, #E91E63, #EC407A);
     background: -webkit-linear-gradient(top, #E91E63, #EC407A);
     background: linear-gradient(to bottom, #E91E63, #EC407A);

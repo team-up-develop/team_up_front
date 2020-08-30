@@ -14,16 +14,16 @@
                 {{ job.user.userName }}
               </div>
             </div>
-            <div class="user-study-area">
+            <!-- <div class="user-study-area">
               <div class="study-tag">学習開始</div>
               <div class="stydy-time">
                 {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
               </div>
-            </div>
+            </div> -->
             <div class="user-introduce-area">
-              <div class="introduce-tag">自己紹介</div>
+              <div class="introduce-tag">学習開始</div>
               <div class="introduce">
-                {{ job.user.bio }}
+                {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
               </div>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default {
     })
   },
   methods: {
-
+    // * モーダルを開く
     openModal() {
       this.modal = true
     },
@@ -241,6 +241,7 @@ export default {
         return window.open(this.job.user.twitterAccount)
       })
     },
+    // * Github をタブで開く
     gitTab() {
       axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
@@ -284,7 +285,7 @@ export default {
     font-size: 17px;
     font-weight: bold;
     margin-bottom: 0.7rem;
-    color: #00A1D6;
+    color: #3700B3;
   }
   /* 投稿者 カード中身 */
   .detail-wrapper .detail-post-user-area  .post-user-area {
@@ -303,7 +304,7 @@ export default {
   .post-user-area .left-user-area .user-image {
     width: 130px;
     height: 130px;
-    background-color: #00A1D6;
+    background-color: #3700B3;
     border-radius: 50%;
   }
   /* ユーザー画像  end*/
@@ -362,7 +363,7 @@ export default {
     width: 55%;
     padding: 0.8rem 1.8rem;
     background-color: #24292e;
-    border-radius: 8px;
+    border-radius: 5px / 5px;
     margin-right: 10px;
     color: #FFFFFF;
     text-align: center;
@@ -379,7 +380,7 @@ export default {
     width: 68%;
     padding: 0.8rem;
     background-color: #1DA1F2;
-    border-radius: 8px;
+    border-radius: 5px / 5px;
     color: #FFFFFF;
     text-align: center;
     box-shadow: 10px 5px 5px grey;
@@ -427,9 +428,9 @@ export default {
     padding: 0.5rem 1.4rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
-    color: #004098;
+    color: #3700B3;
     display: inline-block;
-    border: 1px solid #004098;
+    border: 1px solid #3700B3;
     text-align: center;
     font-weight: bold;
   }
@@ -438,9 +439,9 @@ export default {
     padding: 0.5rem 1.4rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
-    color: #00A7EA;
+    color: #2196F3;
     display: inline-block;
-    border: 1px solid #00A7EA;
+    border: 1px solid #2196F3;
     text-align: center;
     font-weight: bold;
   }
@@ -449,9 +450,9 @@ export default {
     padding: 0.5rem 1.4rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
-    color: #8D93C8;
+    color: #00BCD4;
     display: inline-block;
-    border: 1px solid #8D93C8;
+    border: 1px solid #00BCD4;
     text-align: center;
     font-weight: bold;
   }
@@ -479,7 +480,7 @@ export default {
   }
   .dev-detail-area .detail-leff-area .detail-information {
     margin-top: 1px;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
     position: relative;
   }
   .tag{
@@ -517,9 +518,7 @@ export default {
   /* 応募するボタン */
   .btn-box-apply{
     padding: 1.4rem 4rem;
-    background: -moz-linear-gradient(top, #FF512F, #DD2476);
-    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
-    background: linear-gradient(to bottom, #FF512F, #DD2476);
+    background-color: #E91E63;
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -626,7 +625,7 @@ export default {
     font-size: 12px;
     border: solid 1px #004098;
     padding: 7px 23px;
-    border-radius: 20px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
@@ -638,7 +637,7 @@ export default {
     font-size: 12px;
     border: solid 1px #00A7EA;
     padding: 7px 23px;
-    border-radius: 20px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
@@ -650,7 +649,7 @@ export default {
     font-size: 12px;
     border: solid 1px #8D93C8;
     padding: 7px 23px;
-    border-radius: 20px;
+    border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }

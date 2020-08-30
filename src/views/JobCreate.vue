@@ -3,8 +3,8 @@
     <div class="job-create-wrapper" v-show="!loading">
       <div class="job-create-title-area">
         <label for="name" class="label">案件タイトル</label>
-        <input type="text" v-model="jobTitle" placeholder="Go と Vue.js で 未経験エンジニアのためのサービスを作りたい(60文字以内で入力してください)" maxlength="60" >
-        <!-- {{ sessionStorage.jobTitle }} -->
+        <input type="text" v-model="jobTitle" @input="onInputTitle" placeholder="Go と Vue.js で 未経験エンジニアのためのサービスを作りたい(60文字以内で入力してください)" maxlength="60" >
+          <small id="rem">残り{{60 - titleLimit }}文字</small>
       </div>
       <div class="job-create-time-area">
         <label for="name" class="label">開発開始時期</label>
@@ -16,10 +16,9 @@
       </div>
       <div class="job-create-detail-area">
         <label for="name" class="label">概要</label>
-        <textarea type="text" name="" id="" v-model="jobDescription" placeholder="詳しい内容や現在の状況を記載してください(250文字以内)" maxlength="250"></textarea>
-        <!-- <div class='panel-footer'>{{250 - jobDescription.length}} 文字</div> -->
+        <textarea type="text" name="" @input="onTextJobDescription" v-model="jobDescription" placeholder="詳しい内容や現在の状況を記載してください(250文字以内)" maxlength="250"></textarea>
+        <small id="rem">残り{{250 - jobDescriptionLimit }}文字</small>
       </div>
-      <!-- <div class="job-create-btn-area"> -->
       <router-link to='/jobcreate/session2' class="job-create-btn-area">
         <button class="next-btn" @click="nextCreateBtn">
           次へ 1/2
@@ -43,6 +42,8 @@ export default {
       devEndDate: null, //? 終了日
       // publicationPeriod: "", //? 掲載終了
       loading: true,
+      titleLimit: null,
+      jobDescriptionLimit: null
     }
   },
   mounted() {
@@ -82,8 +83,10 @@ export default {
     this.devStartDate = devStartDateString;
     this.devEndDate = devEndDateString;
     this.jobDescription = jobDescription;
-
   },
+  // computed: {
+
+  // },
   methods: {
     nextCreateBtn() {
       // * PostData
@@ -101,6 +104,14 @@ export default {
       this.jobTitle = jobTitle;
       // console.log(this.jobTitle)
     },
+    // * タイトル文字制限
+    onInputTitle: function() {
+      this.titleLimit = this.jobTitle.length;
+    },
+    // * 詳細文字制限
+    onTextJobDescription: function() {
+      this.jobDescriptionLimit = this.jobDescription.length
+    }
   },
   components: {
     Loading,
@@ -110,6 +121,10 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
+  #rem {
+    color: #7c7c7c;
+    margin-top: 2px;
+  }
   .create-wrapper {
     width: 85%;
     height: 90vh;
@@ -155,9 +170,9 @@ export default {
     background-color: #EFEFEF;
   }
   .job-create-wrapper .job-create-title-area input[type='text']:focus {
-    border: 1px solid #00A1D6;
+    border: 1px solid #3700B3;
     outline: none;
-    box-shadow: 0 0 5px 1px #00a0d64b;
+    box-shadow: 0 0 5px 1px #3600b363;
   }
   /* 案件タイトル入力欄 end */
   /* 案件開始・終了時間 start */
@@ -183,9 +198,9 @@ export default {
     background-color: #EFEFEF;
   }
   .job-create-wrapper .job-create-time-area input[type='date']:focus {
-    border: 1px solid #00A1D6;
+    border: 1px solid #3700B3;
     outline: none;
-    box-shadow: 0 0 5px 1px #00a0d64b;
+    box-shadow: 0 0 5px 1px #3600b363;
   }
   /* 案件開始時間 end */
   /* 案件詳細入力欄 start */
@@ -211,9 +226,9 @@ export default {
     background-color: #EFEFEF;
   }
   .job-create-wrapper .job-create-detail-area textarea[type='text']:focus {
-    border: 1px solid #00A1D6;
+    border: 1px solid #3700B3;
     outline: none;
-    box-shadow: 0 0 5px 1px #00a0d64b;
+    box-shadow: 0 0 5px 1px #3600b363;
   }
   /* 案件詳細入力欄 end */
   .job-create-wrapper .job-create-btn-area {
@@ -228,10 +243,11 @@ export default {
     text-align: left;
     display: block;
     padding: 1.1rem 4rem;
+    /* background-color: #2196F3; */
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: -moz-linear-gradient(top, #2196F3, #4FC3F7);
-    background: -webkit-linear-gradient(top, #2196F3, #4FC3F7);
-    background: linear-gradient(to bottom, #2196F3, #4FC3F7);
+    background: -moz-linear-gradient(top, #3700B3, #7986CB);
+    background: -webkit-linear-gradient(top, #3700B3, #7986CB);
+    background: linear-gradient(to bottom, #3700B3, #7986CB);
     border-radius: 25px;
     border: none;
     font-size: .875rem;
