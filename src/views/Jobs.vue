@@ -219,7 +219,9 @@ export default {
       id: Number, //? clickした案件のIdを取得
       modal: false, //?モーダルを開いてるか否か
       saveFlag: true, //? 案件保存しているかを判定
-      limitationList:1
+      limitationList:1,
+      isActive: false,
+      hasError: true
     }
   },
   filters: {
@@ -323,11 +325,11 @@ export default {
 
     // * click して案件を取得 === 詳細
     getJob(job) {
-      this.jobDetail = job //? clickした案件を取得
-      this.detailFlag = true //? 詳細画面を表示するか否かを判定する
-      this.id = job.id  //? clickしたIdを this.idに格納する
-      this.selfJobPost = false //? clickする度に 自分の案件では無くする
-      this.applyFlug = true //? clickする度に 応募済み案件にする
+      this.jobDetail = job; //? clickした案件を取得
+      this.detailFlag = true; //? 詳細画面を表示するか否かを判定する
+      this.id = job.id;  //? clickしたIdを this.idに格納する
+      this.selfJobPost = false; //? clickする度に 自分の案件では無くする
+      this.applyFlug = true; //? clickする度に 応募済み案件にする
       // * 自分の案件かを判定
       axios.get('http://localhost:8888/api/v1/job/?user_id=1')
       .then(response => {
@@ -518,9 +520,9 @@ export default {
     position: relative;
   }
   .job-wrapper .job-wrapper-center .router :hover {
-    background-color: #2195f318;
-    border: 1px solid #2196F3;
-    box-shadow: 0 15px 30px -5px #2195f357, 0 0 5px #2195f357;
+    background-color: #3600b30a;
+    border: 1px solid #3700B3;
+    box-shadow: 0 15px 30px -5px #3600b333, 0 0 5px #3600b333;
     transform: translateY(-4px);
     cursor: pointer;
   }
@@ -542,12 +544,13 @@ export default {
   .job-wrapper-right {
     width: 52%;
     height: 88vh;
+    margin-left: 2rem;
     background-color: #ffffff;
     /* display: inline-block; */
     /* position: absolute; */
     position: sticky;
     display: inline-block;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
     margin-bottom: 0.2rem;
     bottom: 0;
     border-radius: 5px / 5px;
@@ -567,7 +570,7 @@ export default {
     width: 100%;
     height: 50%;
     font-size: 1.2em;
-    text-decoration: underline;
+    /* text-decoration: underline; */
   }
   .job-wrapper-right .top-job-detail-area .top-job-detail-bottom {
     width: 100%;
@@ -596,7 +599,7 @@ export default {
     font-size: 1em;
   }
   .job-wrapper-right .main-job-detail-area .tag-area .icon {
-    color: #2196F3;
+    color: #3700B3;
   }
   .post-user-area {
     line-height: 1.8;
@@ -616,7 +619,7 @@ export default {
     margin-bottom: 0.3rem;
   }
   .post-user-name-area:hover {
-    color: #2196F3;
+    color: #3700B3;
     transition: .3s;
   }
   .detail-langage {
@@ -658,10 +661,11 @@ export default {
 
   /* 応募するボタン */
   .btn-box-apply{
+    background-color: #E91E63;
     padding: 0.75rem 2rem;
-    background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
+    /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
     background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
-    background: linear-gradient(to bottom, #E91E63, #e91e62ce);
+    background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
     border-radius: 6px;
     font-weight: 600;
     color: #fff;
@@ -706,9 +710,9 @@ export default {
   /* モーダル内のキャンセルボタン */
   .modal-btn {
     padding: 1rem 2.4rem;
-    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    background: -moz-linear-gradient(top, #2196F3, #4FC3F7);
+    background: -webkit-linear-gradient(top, #2196F3, #4FC3F7);
+    background: linear-gradient(to bottom, #2196F3, #4FC3F7);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -756,7 +760,7 @@ export default {
     /* position: absolute; */
     position: sticky;
     display: inline-block;
-    margin-left: 1rem;
+    margin-left: 2rem;
     margin-bottom: 0.2rem;
     bottom: 0;
     border-radius: 5px / 5px;
@@ -781,6 +785,9 @@ export default {
   }
 
   /* 案件のカード */
+  .job-cards.active {
+    background-color: red;
+  }
   .job-cards {
     /* width: 425px; */
     width: 100%;
@@ -886,7 +893,7 @@ export default {
     width: 55px;
     height: 100%;
     border-radius: 50%;
-    background-color: #2196F3;
+    background-color: #3700B3;
     display: inline-block;
     pointer-events: none;
   }

@@ -20,7 +20,7 @@
       <div class="time-area">開発期間</div>
       <div class="skill-area">開発言語</div>
       <div class="job-wrapper-area">
-        <router-link :to="`/jobs/${ jobs.jobId }`" v-for="jobs in favoriteJobs" :key="jobs.id" class="router">
+        <router-link :to="`/manage/favorite_job/${ jobs.jobId }`" v-for="jobs in favoriteJobs" :key="jobs.id" class="router">
           <div class="job-area">
             <div class="job-area-box">
               {{ jobs.job.jobTitle | truncateTitle }}
@@ -99,6 +99,9 @@ export default {
 </script>
 
 <style scoped>
+.router-link :hover{
+  opacity: 0.8;
+}
 .router-link {
   text-decoration: none;
   color: #ffffff;
@@ -130,6 +133,7 @@ export default {
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
+  transition: .3s;
 }
 .manage-wrapper .job-manage-wrapper .apply-job-area {
   width: 33.2%;
@@ -141,6 +145,7 @@ export default {
   color: #ffffff;
   border: 0.5px solid #ffffff;
   font-weight: bold;
+  transition: .3s;
   
 }
 .manage-wrapper .job-manage-wrapper .save-job-area {
@@ -196,6 +201,9 @@ export default {
   width: 100%;
   height: 81%;
   overflow: scroll;
+}
+.job-area {
+  transition: .2s;
 }
 .job-area .job-area-box {
   width: 33%;

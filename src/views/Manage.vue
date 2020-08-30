@@ -11,7 +11,7 @@
           <p>応募案件</p>
         </div>
       </router-link>
-      <router-link to="/favorite_job" class="router-link">
+      <router-link to="/manage/favorite_job" class="router-link">
         <div class="save-job-area">
           <p>保存案件</p> 
         </div>

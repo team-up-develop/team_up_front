@@ -60,9 +60,7 @@ export default {
 .btn-apply{
   display: block;
   padding: 1rem 3rem;
-  background: -moz-linear-gradient(top, #FF512F, #DD2476);
-  background: -webkit-linear-gradient(top, #FF512F, #DD2476);
-  background: linear-gradient(to bottom, #FF512F, #DD2476);
+  background-color: #E91E63;
   border-radius: 50px;
   font-weight: 600;
   color: #fff;

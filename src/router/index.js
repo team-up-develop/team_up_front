@@ -40,7 +40,7 @@ export default new Router({
       })
     },
     {
-      path: '/favorite_job',
+      path: '/manage/favorite_job',
       component: Favorite
     },
     {
@@ -48,7 +48,7 @@ export default new Router({
       component: Apply
     },
     {
-      path: '/jobs/:id/',
+      path: '/manage/favorite_job/:id/',
       component: JobDetail,
       props: route => ({
         id: Number(route.params.id),
