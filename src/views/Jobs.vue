@@ -520,9 +520,9 @@ export default {
     position: relative;
   }
   .job-wrapper .job-wrapper-center .router :hover {
-    background-color: #3600b30a;
-    border: 1px solid #3700B3;
-    box-shadow: 0 15px 30px -5px #3600b333, 0 0 5px #3600b333;
+    background-color: #2195f310;
+    border: 1px solid #2196F3;
+    box-shadow: 0 15px 30px -5px #2195f357, 0 0 5px #2195f357;
     transform: translateY(-4px);
     cursor: pointer;
   }
@@ -599,7 +599,7 @@ export default {
     font-size: 1em;
   }
   .job-wrapper-right .main-job-detail-area .tag-area .icon {
-    color: #3700B3;
+    color: #2196F3;
   }
   .post-user-area {
     line-height: 1.8;
@@ -619,7 +619,7 @@ export default {
     margin-bottom: 0.3rem;
   }
   .post-user-name-area:hover {
-    color: #3700B3;
+    color: #2196F3;
     transition: .3s;
   }
   .detail-langage {
@@ -681,9 +681,9 @@ export default {
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
   }
   .btn-box-apply:hover {
-    background: -moz-linear-gradient(top, #DD2476, #DD2476);
-    background: -webkit-linear-gradient(top, #DD2476, #DD2476);
-    background: linear-gradient(to bottom, #DD2476, #DD2476);
+    background: -moz-linear-gradient(top, #8C1BAB, #F761A1);
+    background: -webkit-linear-gradient(top, #8C1BAB, #F761A1);
+    background: linear-gradient(to bottom, #8C1BAB, #F761A1);
     transition: .3s;
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685);
   }
@@ -893,7 +893,7 @@ export default {
     width: 55px;
     height: 100%;
     border-radius: 50%;
-    background-color: #3700B3;
+    background-color: #2196F3;
     display: inline-block;
     pointer-events: none;
   }
