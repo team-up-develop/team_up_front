@@ -170,9 +170,9 @@ export default {
     background-color: #EFEFEF;
   }
   .job-create-wrapper .job-create-title-area input[type='text']:focus {
-    border: 1px solid #3700B3;
+    border: 1px solid #2196F3;
     outline: none;
-    box-shadow: 0 0 5px 1px #3600b363;
+    box-shadow: 0 0 5px 1px #2195f348;
   }
   /* 案件タイトル入力欄 end */
   /* 案件開始・終了時間 start */
@@ -198,9 +198,9 @@ export default {
     background-color: #EFEFEF;
   }
   .job-create-wrapper .job-create-time-area input[type='date']:focus {
-    border: 1px solid #3700B3;
+    border: 1px solid #2196F3;
     outline: none;
-    box-shadow: 0 0 5px 1px #3600b363;
+    box-shadow: 0 0 5px 1px #2195f348;
   }
   /* 案件開始時間 end */
   /* 案件詳細入力欄 start */
@@ -226,9 +226,9 @@ export default {
     background-color: #EFEFEF;
   }
   .job-create-wrapper .job-create-detail-area textarea[type='text']:focus {
-    border: 1px solid #3700B3;
+    border: 1px solid #2196F3;
     outline: none;
-    box-shadow: 0 0 5px 1px #3600b363;
+    box-shadow: 0 0 5px 1px #2195f348;
   }
   /* 案件詳細入力欄 end */
   .job-create-wrapper .job-create-btn-area {
@@ -245,9 +245,9 @@ export default {
     padding: 1.1rem 4rem;
     /* background-color: #2196F3; */
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: -moz-linear-gradient(top, #3700B3, #7986CB);
-    background: -webkit-linear-gradient(top, #3700B3, #7986CB);
-    background: linear-gradient(to bottom, #3700B3, #7986CB);
+    background: -moz-linear-gradient(top, #3C8CE7, #00EAFF);
+    background: -webkit-linear-gradient(top, #3C8CE7, #00EAFF);
+    background: linear-gradient(to bottom, #3C8CE7, #00EAFF);
     border-radius: 25px;
     border: none;
     font-size: .875rem;

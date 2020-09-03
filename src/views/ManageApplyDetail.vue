@@ -28,7 +28,7 @@
           <div class="status-number">3人</div>
         </div>
       </div>
-      <div class="status-area">
+      <!-- <div class="status-area">
         <div class="status-box">
           <div class="status-logo">
             <font-awesome-icon icon="eye" class="icon"/>
@@ -36,7 +36,7 @@
           <div class="status-tag">閲覧数</div>
           <div class="status-number">1000</div>
         </div>
-      </div>
+      </div> -->
       <div class="status-area-right">
         <div class="status-box-right">
           <div class="status-logo">
@@ -70,11 +70,11 @@
 
 
 
-      <div v-for="applyUser in applyUsers" :key="applyUser.id">
+      <!-- <div v-for="applyUser in applyUsers" :key="applyUser.id">
         <p>ID {{ applyUser.userId }} 名前 {{ applyUser.user.userName }}</p>
-      </div>
+      </div> -->
     </div>
-    <h3>応募者一覧</h3>
+    <!-- <h3>応募者一覧</h3>
     <div v-for="applyUser in applyUsers" :key="applyUser.id">
       <p>ID {{ applyUser.userId }} 名前 {{ applyUser.user.userName }}</p>
     </div>
@@ -108,7 +108,7 @@
     <h3>Selected User{{ refusalUser }}</h3>
     <div @click="applyUserRefusal" class="btn-box-save-false">
       拒否する
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -188,13 +188,13 @@ export default {
     }
   },
   mounted() {
-    if( localStorage.userId !== undefined) {
-      this.loginFlag = true
-      axios.get('http://localhost:8888/api/v1/job/?user_id=1')
-      .then(response => {
-        this.manageJobs = response.data
-      })
-    }
+    // if( localStorage.userId !== undefined) {
+    //   this.loginFlag = true
+    //   axios.get('http://localhost:8888/api/v1/job/?user_id=1')
+    //   .then(response => {
+    //     this.manageJobs = response.data
+    //   })
+    // }
   }
 }
 </script>
@@ -204,11 +204,11 @@ export default {
   width: 92%;
   height: 89.5vh;
   margin: 0 auto;
-  background-color: #F2F6F7;
+  /* background-color: #F2F6F7; */
 }
 .manage-detail-wrapper .job-manage-detail-wrapper {
   width: 95%;
-  height: calc(68vh - 5rem);
+  height: calc(90vh - 5rem);
   border-radius: 20px;
   margin: 2rem 2rem;
   background-color: #ffffff;
@@ -217,21 +217,21 @@ export default {
   position: relative;
 }
 .job-manage-detail-wrapper .status-area {
-  width: 19.84%;
-  height: 32%;
+  width: 24.8%;
+  height: 20%;
   display: inline-block;
   border: solid 1px #B9B9B9;
 }
 .job-manage-detail-wrapper .status-area-left {
-  width: 19.84%;
-  height: 32%;
+  width: 24.8%;
+  height: 20%;
   display: inline-block;
   border: solid 1px #B9B9B9;
   border-radius: 25px 0 0 0 ;
 }
 .job-manage-detail-wrapper .status-area-right {
-  width: 19.84%;
-  height: 32%;
+  width: 24.8%;
+  height: 20%;
   background-color: rgb(0, 102, 128);
   display: inline-block;
   border: solid 1px #B9B9B9;
@@ -242,9 +242,7 @@ export default {
   height: 100%;
   padding: 0 4rem;
   border-radius: 25px 0 0 0;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  background-color: #3700B3;
 }
 .status-box-right {
   width: calc(100% - 8rem);
@@ -263,7 +261,7 @@ export default {
 .status-logo {
   width: 100%;
   height: calc(40% - 1.3rem);
-  padding: 1.3rem 0 0 0 ;
+  padding: 1rem 0 0 0 ;
   /* margin: 0 auto; */
   color: #ffffff;
 }
@@ -279,7 +277,7 @@ export default {
 }
 .status-number {
   width: 100%;
-  padding: 2rem 0 0 0;
+  padding: 1rem 0 0 0;
   font-size: 1.8em;
   color: #ffffff;
   font-weight: bold;
@@ -287,57 +285,49 @@ export default {
 /* ユーザー一覧のタグ */
 .job-manage-detail-wrapper .status-tag-area {
   width: 100%;
-  height: 8%;
-  background-color: rgba(0, 255, 234, 0.596);
+  height: 6%;
+  /* background-color: rgba(0, 255, 234, 0.596); */
   color: #ffffff;
   font-weight: bold;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  background-color: #3700B3;
 }
 .job-manage-detail-wrapper .status-tag-area .status-tag-name {
-  width: 19.8%;
-  height: calc(34px - 1rem);
+  width: 24.8%;
+  height: 10%;
   display: inline-block;
   /* border: 1px solid #B9B9B9; */
-  border-right: 1px solid #9c9c9c;
-  padding: 0.5rem 0;
+  /* border-right: 1px solid #9c9c9c; */
+  padding: 0.6rem 0;
 }
 .job-manage-detail-wrapper .status-tag-area .status-tag-study {
-  width: 19.8%;
+  width: 24.8%;
   height: calc(34px - 1rem);
   display: inline-block;
-  border-right: 1px solid #9c9c9c;
-  padding: 0.5rem 0;
+  /* border-right: 1px solid #9c9c9c; */
+  padding: 0.6rem 0;
 } 
 .job-manage-detail-wrapper .status-tag-area .status-tag-skill {
-  width: 59.8%;
+  width: calc(100% - 50%);
   height: calc(34px - 1rem);
   display: inline-block;
-  border-bottom: 1px solid #9c9c9c;
-  padding: 0.5rem 0;
+  /* border-bottom: 1px solid #9c9c9c; */
+  padding: 0.6rem 0;
 } 
 
-
+.user-area {
+  border-bottom: 1px solid  #9c9c9c;
+}
 .user-area .user-area-box {
-  width: 19.8%;
-  border-bottom: 1px solid #9c9c9c;
-  border-right: 1px solid #9c9c9c;
-  height: calc(48px - 1.6rem);
+  width: 25%;
   padding: 0.8rem 0;
   color: #111111;
-  font-weight: bold;
   display: inline-block;
   pointer-events: none;
 }
 .user-area  .user-area-skill {
-  width: 60.1%;
-  border-bottom: 1px solid #9c9c9c;
-  border-right: 1px solid #9c9c9c;
-  height: calc(48px - 1.6rem);
+  width: 50%;
   padding: 0.8rem 0;
   color: #111111;
-  font-weight: bold;
   display: inline-block;
   pointer-events: none;
 }

@@ -44,12 +44,12 @@
           </ul>
         </div>
         <div class="header-main-right">
-          <div class="user-login-btn">
+          <!-- <div class="user-login-btn">
             <router-link to="/login" class="user-rooter">ログイン</router-link>
           </div>
           <div class="user-register-btn">
             <router-link to="/register" class="user-rooter">登録する</router-link>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@ export default {
   .router-link-active {
     /* color: #00A1D6; */
     /* background-color: #00A1D6; */
-    border-bottom: 4px solid #3700B3;
+    border-bottom: 4px solid #2196F3;
     font-weight: bold;
   }
   .header-wrapper {
@@ -181,9 +181,9 @@ export default {
     display: block;
     padding: 0.9rem 2rem;
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: -moz-linear-gradient(top, #3700B3, #7986CB);
-    background: -webkit-linear-gradient(top, #3700B3, #7986CB);
-    background: linear-gradient(to bottom, #3700B3, #7986CB);
+    background: -moz-linear-gradient(top, #3C8CE7, #00EAFF);
+    background: -webkit-linear-gradient(top, #3C8CE7, #00EAFF);
+    background: linear-gradient(to bottom, #3C8CE7, #00EAFF);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
