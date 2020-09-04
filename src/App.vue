@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from '@/components/Footer'
+import Header from '@/components/common/Header.vue'
+import Footer from '@/components/common/Footer'
 // import LeftSideBar from '@/components/LeftSideBar'
 export default {
   name: 'App',

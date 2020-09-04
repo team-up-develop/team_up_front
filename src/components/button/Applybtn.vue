@@ -13,7 +13,7 @@
 
 <script>
 import axios from 'axios'
-import CompliteModal from '@/components/CompliteModal'
+import CompliteModal from '@/components/modal/CompliteModal'
 export default {
   props: {
     jobId: Number,

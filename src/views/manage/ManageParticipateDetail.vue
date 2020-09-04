@@ -2,21 +2,23 @@
   <div class="manage-detail-wrapper">
     <div class="job-manage-detail-wrapper">
       <div class="status-area-left">
-        <div class="status-box-click">
-          <div class="status-logo">
-            <font-awesome-icon icon="user" class="icon"/>
+        <router-link :to="`/manage/apply/${ id }`">
+          <div class="status-box-click">
+            <div class="status-logo">
+              <font-awesome-icon icon="user" class="icon"/>
+            </div>
+            <div class="status-tag">応募者</div>
+            <div class="status-number">{{ applyUsersNum }}人</div>
           </div>
-          <div class="status-tag">応募者</div>
-          <div class="status-number">3人</div>
-        </div>
+        </router-link>
       </div>
-      <div class="status-area">
-        <div class="status-box">
+      <div class="status-area-apply">
+        <div class="status-box-apply">
           <div class="status-logo">
             <font-awesome-icon icon="users" class="icon"/>
           </div>
           <div class="status-tag">参加者</div>
-          <div class="status-number">3人</div>
+          <div class="status-number">{{ assginUsersNum }}人</div>
         </div>
       </div>
       <div class="status-area">
@@ -25,7 +27,7 @@
             <font-awesome-icon icon="user-alt-slash" class="icon"/>
           </div>
           <div class="status-tag">拒否者</div>
-          <div class="status-number">3人</div>
+          <div class="status-number">{{ rejectUsersNum }}人</div>
         </div>
       </div>
       <!-- <div class="status-area">
@@ -124,8 +126,11 @@ export default {
   data() {
     return {
       applyUsers: [], //? applyStatusId === 1 のUserを取り出す
+      applyUsersNum: 0,
       assginUsers: [], //? applyStatusId === 2 のUserを取り出す
+      assginUsersNum: 0,
       rejectUsers: [], //? applyStatusId === 3 のUserを取り出す
+      rejectUsersNum: 0,
       applyUser: [], //? 参加させる
       refusalUser: [], //? 拒否する
       manageJobs: []
@@ -145,12 +150,15 @@ export default {
         const applyData = response.data[i];
         if(applyData.applyStatusId === 1){
           this.applyUsers.push(applyData)
+          this.applyUsersNum = this.applyUsers.length;
         }
         else if(applyData.applyStatusId === 2){
           this.assginUsers.push(applyData)
+          this.assginUsersNum = this.assginUsers.length;
         }
         else {
           this.rejectUsers.push(applyData)
+          this.rejectUsersNum = this.rejectUsers.length;
         }
       }
     })
@@ -216,11 +224,18 @@ export default {
   border: solid 1px #B9B9B9;
   position: relative;
 }
+.status-area-apply {
+  width: 24.8%;
+  height: 20%;
+  display: inline-block;
+  border: solid 1px #B9B9B9;
+}
 .job-manage-detail-wrapper .status-area {
   width: 24.8%;
   height: 20%;
   display: inline-block;
   border: solid 1px #B9B9B9;
+  /* background-color: #3700B3; */
 }
 .job-manage-detail-wrapper .status-area-left {
   width: 24.8%;
@@ -242,7 +257,7 @@ export default {
   height: 100%;
   padding: 0 4rem;
   border-radius: 25px 0 0 0;
-  background-color: #3700B3;
+  background-color: #606060;
 }
 .status-box-right {
   width: calc(100% - 8rem);
@@ -250,6 +265,13 @@ export default {
   padding: 0 4rem;
   background-color: #606060;
   border-radius: 0 25px 0 0;
+}
+.status-box-apply {
+  width: calc(100% - 8rem);
+  height: 100%;
+  padding: 0 4rem;
+  background-color: #3700B3;
+  color: #ffffff;
 }
 .status-box {
   width: calc(100% - 8rem);
