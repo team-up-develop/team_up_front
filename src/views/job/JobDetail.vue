@@ -137,10 +137,10 @@
 <script>
 import axios from 'axios'
 import moment from "moment";
-import Applybtn from '@/components/Applybtn'
-import SaveBtn from '@/components/SaveBtn'
-import Loading from '@/components/Loading'
-import ApplyModal from '@/components/ApplyModal'
+import Applybtn from '@/components/button/Applybtn'
+import SaveBtn from '@/components/button/SaveBtn'
+import Loading from '@/components/common/Loading'
+import ApplyModal from '@/components/modal/ApplyModal'
 export default {
   props: {
     id: Number,

@@ -32,7 +32,7 @@
 
 <script>
 import axios from 'axios'
-import Loading from '@/components/Loading'
+import Loading from '@/components/common/Loading'
 export default {
   data() {
     return{

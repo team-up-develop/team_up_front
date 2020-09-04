@@ -57,13 +57,13 @@
 </template>
 
 <script>
-import LogoImage from '../assets/logo.jpg'
+// import LogoImage from '.../assets/logo.jpg'
 export default {
   data() {
     return {
-      assetsImage: LogoImage,
-      assetsImage_NG: '../assets/logo.jpg',
-      staticImage: '../assets/logo.jpg',
+      // assetsImage: LogoImage,
+      // assetsImage_NG: '.../assets/logo.jpg',
+      // staticImage: '.../assets/logo.jpg',
       isActive: true,
       hasError: false
     }
