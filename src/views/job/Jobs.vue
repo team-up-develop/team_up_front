@@ -85,7 +85,6 @@
             </div>
           </div>
         </div>
-        <!-- </router-link> -->
       </div>
       <div class="job-wrapper-right" v-if="detailFlag === true">
         <div class="top-job-detail-area">
