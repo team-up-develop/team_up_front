@@ -151,8 +151,8 @@ export default {
   },
   created() {
     //* 応募者を一覧で取り出す。
-    const URL = 'http://localhost:8888/api/v1/apply_job/?'
-    axios.get(`${ URL }job_id=${ this.id }`)
+    // const URL = 'http://localhost:8888/api/v1/apply_job/?'
+    axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }`)
     .then(response => {
       for(let i = 0; i < response.data.length; i++){
         const applyData = response.data[i];
@@ -179,7 +179,7 @@ export default {
         userId: this.applyUser,
         applyStatusId: 2
       };
-      axios.put('http://localhost:8888/api/v1/apply_job/', data)
+      axios.put(`${this.$baseURL}/apply_job/`, data)
       .then(response => {
         console.log(response.data)
       })
@@ -194,7 +194,7 @@ export default {
         userId: this.refusalUser,
         applyStatusId: 3
       };
-      axios.put('http://localhost:8888/api/v1/apply_job/', data)
+      axios.put(`${this.$baseURL}/apply_job/`, data)
       .then(response => {
         console.log(response.data)
       })

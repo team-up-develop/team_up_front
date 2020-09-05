@@ -85,7 +85,7 @@ export default {
     // * 現時点はuser_id を指定して入れている
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
-      axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
+      axios.get(`${this.$baseURL}favorite_job/?user_id=1`)
       .then(response => {
           // this.loading = false;
           this.favoriteJobs = response.data

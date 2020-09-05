@@ -48,7 +48,7 @@ export default {
   },
   mounted() {
     // *開発言語
-    axios.get('http://localhost:8888/api/v1/programing_language')
+    axios.get(`${this.$baseURL}programing_language`)
       .then(response => {
         setTimeout(() => {
           this.loading = false;
@@ -57,19 +57,19 @@ export default {
         }, 1500);
       })
     // * フレームワーク
-    axios.get('http://localhost:8888/api/v1/programing_framework')
+    axios.get(`${this.$baseURL}programing_framework`)
       .then(response => {
           this.framworks = response.data
           // console.log(this.framworks)
       })
     // * 開発ポジション
-    axios.get('http://localhost:8888/api/v1/position_tag')
+    axios.get(`${this.$baseURL}position_tag`)
       .then(response => {
           this.positions = response.data
           // console.log(this.positions)
       })
     // * その他スキル
-    axios.get('http://localhost:8888/api/v1/skill')
+    axios.get(`${this.$baseURL}skill`)
       .then(response => {
           this.skills = response.data
           // console.log(this.skills)
