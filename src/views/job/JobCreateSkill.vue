@@ -117,26 +117,26 @@ export default {
   },
   mounted() {
     // *開発言語
-    axios.get('http://localhost:8888/api/v1/programing_language')
+    axios.get(`${this.$baseURL}programing_language`)
       .then(response => {
           this.loading = false;
           // const array = [];
           this.languages = response.data
       })
     // * フレームワーク
-    axios.get('http://localhost:8888/api/v1/programing_framework')
+    axios.get(`${this.$baseURL}programing_framework`)
       .then(response => {
           this.framworks = response.data
           // console.log(this.framworks)
       })
     // * 開発ポジション
-    axios.get('http://localhost:8888/api/v1/position_tag')
+    axios.get(`${this.$baseURL}position_tag`)
       .then(response => {
           this.positions = response.data
           // console.log(this.positions)
       })
     // * その他スキル
-    axios.get('http://localhost:8888/api/v1/skill')
+    axios.get(`${this.$baseURL}skill`)
       .then(response => {
           this.skills = response.data
           // console.log(this.skills)
@@ -176,7 +176,7 @@ export default {
         programingFramework: this.selectedFramwork , //? フレームワーク
         skill: this.selectedSkill //? その他開発スキル
       };
-      axios.post('http://localhost:8888/api/v1/job', data)
+      axios.post(`${this.$baseURL}job`, data)
       .then(response => {
         console.log(response);
         sessionStorage.removeItem('jobTitle');
