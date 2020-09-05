@@ -198,9 +198,6 @@ import Applybtn from '@/components/button/Applybtn'
 // import SaveBtn from '@/components/button/SaveBtn'
 export default {
   data() {
-    // const formats = [
-    //   "YYYY年 M月 D日",
-    // ];
     return {
       jobs: [],
       selectedPosition: [],
