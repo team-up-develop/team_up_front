@@ -48,7 +48,7 @@
               <div class="langage" 
                 v-for="langage in job.programingLanguage.slice(0,3)" 
                 :key="langage.id">
-                {{ langage.programingLanguageName | truncateSkill }}
+                {{ langage.programingLanguageName }}
               </div>
               <div class="framework" 
               v-for="framework in job.programingFramework.slice(0,3)" 
@@ -247,7 +247,7 @@ export default {
   },
   mounted() {
     // * 投稿一覧取得
-    axios.get('http://localhost:8888/api/v1/job', {
+    axios.get(`${this.$baseURL}/job`, {
       headers: {
         Authorization: `Bearer ${ localStorage.userId }`
       }
@@ -258,13 +258,16 @@ export default {
         this.jobs = response.data
       }, 1500);
     })
+    .catch(error => {
+      console.log(error)
+    })
     // * プログラミング言語 取得
-    axios.get('http://localhost:8888/api/v1/programing_language')
+    axios.get(`${this.$baseURL}/programing_language`)
       .then(response => {
           this.languages = response.data
       })
     // * 開発ポジション 取得
-    axios.get('http://localhost:8888/api/v1/position_tag')
+    axios.get(`${this.$baseURL}/position_tag`)
       .then(response => {
           this.positions = response.data
       })
@@ -279,9 +282,9 @@ export default {
         language: this.selectedLang,
         freeWord: this.freeWord
       }
-      const URL = 'http://localhost:8888/api/v1/job/?'
+      // const URL = 'http://localhost:8888/api/v1/job/?'
       // * クエリパラメーター
-      axios.get(`${ URL }position_tag_id=${ data.position }&programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
+      axios.get(`${this.$baseURL}/job/?position_tag_id=${ data.position }&programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
       .then(response => {
         setTimeout(() => {
           this.loading = false;
@@ -295,7 +298,7 @@ export default {
         jobId: this.jobDetail.id, 
         userId: 1 
       };
-      axios.post('http://localhost:8888/api/v1/favorite_job/', data)
+      axios.post(`${this.$baseURL}/favorite_job/`, data)
       .then(response => {
         this.saveFlag = false
         console.log(response)
@@ -310,7 +313,7 @@ export default {
         jobId: this.jobDetail.id,
         userId: 1
       };
-      axios.delete('http://localhost:8888/api/v1/favorite_job/',{data: {userId: 1, jobId: data.jobId}})
+      axios.delete(`${this.$baseURL}/favorite_job/`,{data: {userId: 1, jobId: data.jobId}})
       .then(response => {
         this.saveFlag = true
         console.log(response.data)
@@ -328,7 +331,7 @@ export default {
       this.selfJobPost = false; //? clickする度に 自分の案件では無くする
       this.applyFlug = true; //? clickする度に 応募済み案件にする
       // * 自分の案件かを判定
-      axios.get('http://localhost:8888/api/v1/job/?user_id=1')
+      axios.get(`${this.$baseURL}/job/?user_id=1`)
       .then(response => {
         for(let i = 0; i < response.data.length; i++) {
           this.selfJob = response.data[i]
@@ -339,7 +342,7 @@ export default {
       })
 
       // * 応募済みか応募済みでないかを判断
-      axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
+      axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
       .then(response => {
         const arrayApply = []
         for(let c = 0; c < response.data.length; c++){
@@ -354,13 +357,13 @@ export default {
       })
 
     // * 保存済みか保存済みではないかを判定する
-      axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
+      axios.get(`${this.$baseURL}/favorite_job/?user_id=1`)
       .then(response => {
         const array = []
         for(let i = 0; i < response.data.length; i++){
           const likeData = response.data[i]
           array.push(likeData.job.id)
-          console.log(array)
+          // console.log(array)
         }
         if(array.includes(this.jobDetail.id)){
           this.saveFlag = false

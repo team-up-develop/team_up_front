@@ -10,9 +10,9 @@
           <div class="status-number">{{ applyUsersNum }}人</div>
         </div>
       </div>
-      <div class="status-area">
+      <div class="status-area-participate">
       <router-link :to="`/manage/participate/${ id }`" class="router">
-        <div class="status-box">
+        <div class="status-box-participate">
           <div class="status-logo">
             <font-awesome-icon icon="users" class="icon"/>
           </div>
@@ -53,7 +53,11 @@
         <div class="status-tag-study">学習開始</div>
         <div class="status-tag-skill">スキル</div>
       </div>
-      <div v-for="applyUser in applyUsers" :key="applyUser.id" >
+      <div 
+        v-for="applyUser in applyUsers" 
+        :key="applyUser.id" 
+        class="router-user-area"
+      >
         <div class="user-area">
           <div class="user-area-box">
             {{ applyUser.user.userName }}
@@ -112,7 +116,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 import moment from "moment";
 export default {
   props: {
@@ -223,15 +227,28 @@ export default {
   border: solid 1px #B9B9B9;
   position: relative;
 }
+.job-manage-detail-wrapper .status-area-participate {
+  width: 24.8%;
+  height: 20%;
+  display: inline-block;
+  border: solid 1px #B9B9B9;
+}
 .job-manage-detail-wrapper .status-area {
   width: 24.8%;
   height: 20%;
   display: inline-block;
   border: solid 1px #B9B9B9;
 }
+.job-manage-detail-wrapper .status-area-participate :hover {
+  opacity: 0.8;
+}
+.job-manage-detail-wrapper .status-area  :hover {
+  opacity: 0.8;
+}
 .router {
   text-decoration: none;
 }
+/* 応募者ボックス */
 .job-manage-detail-wrapper .status-area-left {
   width: 24.8%;
   height: 20%;
@@ -260,6 +277,13 @@ export default {
   padding: 0 4rem;
   background-color: #606060;
   border-radius: 0 25px 0 0;
+}
+.status-box-participate {
+  width: calc(100% - 8rem);
+  height: 100%;
+  padding: 0 4rem;
+  background-color: #606060;
+  color: #ffffff;
 }
 .status-box {
   width: calc(100% - 8rem);
@@ -327,6 +351,9 @@ export default {
 
 .user-area {
   border-bottom: 1px solid  #9c9c9c;
+}
+.router-user-area :hover {
+  background-color: rgba(199, 199, 199, 0.281);
 }
 .user-area .user-area-box {
   width: 25%;
