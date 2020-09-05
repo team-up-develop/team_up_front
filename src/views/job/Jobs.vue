@@ -36,7 +36,6 @@
     </div>
     <div class="job-wrapper-center" v-show="!loading">
       <div class="job-wrapper-left">
-        <!-- <router-link :to="`/jobs/${ job.id }`" v-for="job in jobs" class="router" :key="job.id"> -->
         <div 
           v-for="job in jobs" 
           class="router" 
