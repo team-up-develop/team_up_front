@@ -20,7 +20,9 @@ export default {
   },
   data() {
     return {
-      compliteModal: false
+      compliteModal: false,
+      applyFlag: true,
+      message: 'welcome'
     }
   },
   methods: {
@@ -35,6 +37,8 @@ export default {
       .then(response => {
         console.log(response.data)
         this.compliteModal = true
+        this.applyFlag = false
+        this.$emit('compliteEntry', this.message)
       })
       .catch(error =>{
         console.log(error)
@@ -45,7 +49,7 @@ export default {
     },
     closeCompliteModal() {
       this.compliteModal = false
-    }
+    },
   },
   components: {
     CompliteModal
