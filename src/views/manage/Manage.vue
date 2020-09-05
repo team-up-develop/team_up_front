@@ -80,7 +80,7 @@ export default {
   mounted() {
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
-      axios.get(`${this.$baseURL}job/?user_id=1`)
+      axios.get(`${this.$baseURL}/job/?user_id=1`)
       .then(response => {
         this.manageJobs = response.data
       })
