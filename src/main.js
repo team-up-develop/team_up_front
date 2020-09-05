@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import 'normalize.css'
 import jQuery from 'jquery'
-import Axios from 'axios'
 
 
 global.jquery = jQuery
