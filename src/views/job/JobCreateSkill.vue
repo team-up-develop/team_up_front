@@ -117,26 +117,26 @@ export default {
   },
   mounted() {
     // *開発言語
-    axios.get(`${this.$baseURL}programing_language`)
+    axios.get(`${this.$baseURL}/programing_language`)
       .then(response => {
           this.loading = false;
           // const array = [];
           this.languages = response.data
       })
     // * フレームワーク
-    axios.get(`${this.$baseURL}programing_framework`)
+    axios.get(`${this.$baseURL}/programing_framework`)
       .then(response => {
           this.framworks = response.data
           // console.log(this.framworks)
       })
     // * 開発ポジション
-    axios.get(`${this.$baseURL}position_tag`)
+    axios.get(`${this.$baseURL}/position_tag`)
       .then(response => {
           this.positions = response.data
           // console.log(this.positions)
       })
     // * その他スキル
-    axios.get(`${this.$baseURL}skill`)
+    axios.get(`${this.$baseURL}/skill`)
       .then(response => {
           this.skills = response.data
           // console.log(this.skills)
