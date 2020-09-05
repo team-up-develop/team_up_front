@@ -24,7 +24,12 @@
           {{ lang.programingLanguageName }}
         </option>
       </select>
-      <input type="text" v-model="freeWord" placeholder="フリーワード" class="styled-select-freewrod">
+      <input 
+        type="text" 
+        v-model="freeWord" 
+        placeholder="フリーワード" 
+        class="styled-select-freewrod"
+      >
       <div @click="getParams" class="serach-btn">
         検索する
       </div>
