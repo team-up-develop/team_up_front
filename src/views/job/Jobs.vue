@@ -255,10 +255,10 @@ export default {
       }
     })
     .then(response => {
-      setTimeout(() => {
-        this.loading = false;
+      // setTimeout(() => {
+        // this.loading = false;
         this.jobs = response.data
-      }, 1500);
+      // }, 1500);
     })
     .catch(error => {
       console.log(error)
