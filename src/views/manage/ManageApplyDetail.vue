@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="status-area">
-      <router-link :to="`/manage/participate/${ id }`">
+      <router-link :to="`/manage/participate/${ id }`" class="router">
         <div class="status-box">
           <div class="status-logo">
             <font-awesome-icon icon="users" class="icon"/>
@@ -44,7 +44,7 @@
           <div class="status-logo">
             <font-awesome-icon icon="thumbs-up" class="icon"/>
           </div>
-          <div class="status-tag">いいね数</div>
+          <div class="status-tag">いいね</div>
           <div class="status-number">10</div>
         </div>
       </div>
@@ -53,7 +53,7 @@
         <div class="status-tag-study">学習開始</div>
         <div class="status-tag-skill">スキル</div>
       </div>
-      <div v-for="applyUser in applyUsers" :key="applyUser.id" class="">
+      <div v-for="applyUser in applyUsers" :key="applyUser.id" >
         <div class="user-area">
           <div class="user-area-box">
             {{ applyUser.user.userName }}
@@ -122,15 +122,15 @@ export default {
   },
   data() {
     return {
-      applyUsers: [], //? applyStatusId === 1 のUserを取り出す
-      applyUsersNum: 0,
-      assginUsers: [], //? applyStatusId === 2 のUserを取り出す
-      assginUsersNum: 0,
-      rejectUsers: [], //? applyStatusId === 3 のUserを取り出す
-      rejectUsersNum: 0,
+      applyUsers: [], //? 応募者
+      applyUsersNum: 0,//? 応募者人数
+      assginUsers: [], //? 参加者
+      assginUsersNum: 0, //? 参加者人数
+      rejectUsers: [], //? 拒否者
+      rejectUsersNum: 0, //? 拒否者人数
       applyUser: [], //? 参加させる
       refusalUser: [], //? 拒否する
-      manageJobs: [],
+      manageJobs: [], //? 管理
       assginUsersId: null
     }
   },
@@ -229,6 +229,9 @@ export default {
   display: inline-block;
   border: solid 1px #B9B9B9;
 }
+.router {
+  text-decoration: none;
+}
 .job-manage-detail-wrapper .status-area-left {
   width: 24.8%;
   height: 20%;
@@ -277,6 +280,7 @@ export default {
 }
 .status-tag {
   width: 100%;
+  padding: 0.5rem 0;
   /* height: 40%; */
   /* margin: 0 auto; */
   color: #ffffff;
@@ -284,7 +288,7 @@ export default {
 }
 .status-number {
   width: 100%;
-  padding: 1rem 0 0 0;
+  padding: 0.5rem 0 0 0;
   font-size: 1.8em;
   color: #ffffff;
   font-weight: bold;

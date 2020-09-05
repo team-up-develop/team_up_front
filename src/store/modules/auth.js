@@ -14,7 +14,7 @@ const mutations = {
   updateIdToken(state, idToken) {
     state.idToken = idToken;
   },
-  // * localStorageにUserNameを保存し、判定する
+  // * localStorageにuserIdを保存し、判定する
   createLocalStorage(state, userId) {
     state.userId = userId
     localStorage.userId = state.userId
