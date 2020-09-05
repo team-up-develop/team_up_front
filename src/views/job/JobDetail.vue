@@ -285,7 +285,7 @@ export default {
     font-size: 17px;
     font-weight: bold;
     margin-bottom: 0.7rem;
-    color: #3700B3;
+    color: #2196F3;
   }
   /* 投稿者 カード中身 */
   .detail-wrapper .detail-post-user-area  .post-user-area {
@@ -304,7 +304,7 @@ export default {
   .post-user-area .left-user-area .user-image {
     width: 130px;
     height: 130px;
-    background-color: #3700B3;
+    background-color: #2196F3;
     border-radius: 50%;
   }
   /* ユーザー画像  end*/

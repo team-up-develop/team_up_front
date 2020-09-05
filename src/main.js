@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import 'normalize.css'
 import jQuery from 'jquery'
+import Axios from 'axios'
 
 
 global.jquery = jQuery
@@ -29,3 +30,5 @@ new Vue({
 Vue.prototype.$http = (url, opts) => fetch(url, opts)
 Vue.prototype.$httpPosts = 'http://localhost:8888/api/v1/job'
 Vue.prototype.$httpCategories = 'http://localhost:8888/api/v1/job'
+
+Vue.prototype.$baseURL= 'http://localhost:8888/api/v1'
