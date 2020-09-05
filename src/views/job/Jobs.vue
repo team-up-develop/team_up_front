@@ -106,7 +106,7 @@
               <ApplyModal @close="closeModal" v-if="modal">
                 <p>応募を完了してよろしいですか？</p>
                 <template slot="footer">
-                  <applybtn :jobId='id'></applybtn>
+                  <applybtn @compliteEntry="compliteEntry" :jobId='id' ></applybtn>
                   <button @click="doSend" class="modal-btn">キャンセル</button>
                 </template>
               </ApplyModal>
@@ -247,7 +247,7 @@ export default {
       return value.substring(0, length) + ommision;
     },
   },
-  mounted() {
+  created() {
     // * 投稿一覧取得
     axios.get(`${this.$baseURL}/job`, {
       headers: {
@@ -255,10 +255,10 @@ export default {
       }
     })
     .then(response => {
-      // setTimeout(() => {
-        // this.loading = false;
+      setTimeout(() => {
+        this.loading = false;
         this.jobs = response.data
-      // }, 1500);
+      }, 1000);
     })
     .catch(error => {
       console.log(error)
@@ -342,7 +342,6 @@ export default {
           }
         }
       })
-
       // * 応募済みか応募済みでないかを判断
       axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
       .then(response => {
@@ -357,7 +356,6 @@ export default {
           console.log("まだ応募していません")
         }
       })
-
     // * 保存済みか保存済みではないかを判定する
       axios.get(`${this.$baseURL}/favorite_job/?user_id=1`)
       .then(response => {
@@ -374,6 +372,11 @@ export default {
           this.saveFlag = true
         }
       })
+    },
+
+    // * エントリーが完了したら応募済みにする
+    compliteEntry(){
+      this.applyFlug = false;
     },
 
     // * モーダル
