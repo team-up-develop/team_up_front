@@ -54,7 +54,7 @@ export default {
           this.loading = false;
           this.languages = response.data
           // console.log(this.languages)
-        }, 1500);
+        }, 500);
       })
     // * フレームワーク
     axios.get(`${this.$baseURL}/programing_framework`)
