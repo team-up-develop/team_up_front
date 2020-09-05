@@ -2,7 +2,7 @@
   <div class="manage-detail-wrapper">
     <div class="job-manage-detail-wrapper">
       <div class="status-area-left">
-        <router-link :to="`/manage/apply/${ id }`">
+        <router-link :to="`/manage/apply/${ id }`" class="router">
           <div class="status-box-click">
             <div class="status-logo">
               <font-awesome-icon icon="user" class="icon"/>
@@ -12,8 +12,8 @@
           </div>
         </router-link>
       </div>
-      <div class="status-area-apply">
-        <div class="status-box-apply">
+      <div class="status-area-participate">
+        <div class="status-box-participate">
           <div class="status-logo">
             <font-awesome-icon icon="users" class="icon"/>
           </div>
@@ -44,7 +44,7 @@
           <div class="status-logo">
             <font-awesome-icon icon="thumbs-up" class="icon"/>
           </div>
-          <div class="status-tag">いいね数</div>
+          <div class="status-tag">いいね</div>
           <div class="status-number">10</div>
         </div>
       </div>
@@ -53,7 +53,7 @@
         <div class="status-tag-study">学習開始</div>
         <div class="status-tag-skill">スキル</div>
       </div>
-      <div v-for="assginUser in assginUsers" :key="assginUser.id" class="">
+      <div v-for="assginUser in assginUsers" :key="assginUser.id" >
         <div class="user-area">
           <div class="user-area-box">
             {{ assginUser.user.userName }}
@@ -125,15 +125,16 @@ export default {
   },
   data() {
     return {
-      applyUsers: [], //? applyStatusId === 1 のUserを取り出す
-      applyUsersNum: 0,
-      assginUsers: [], //? applyStatusId === 2 のUserを取り出す
-      assginUsersNum: 0,
-      rejectUsers: [], //? applyStatusId === 3 のUserを取り出す
-      rejectUsersNum: 0,
+      applyUsers: [], //? 応募者
+      applyUsersNum: 0,//? 応募者人数
+      assginUsers: [], //? 参加者
+      assginUsersNum: 0, //? 参加者人数
+      rejectUsers: [], //? 拒否者
+      rejectUsersNum: 0, //? 拒否者人数
       applyUser: [], //? 参加させる
       refusalUser: [], //? 拒否する
-      manageJobs: []
+      manageJobs: [], //? 管理
+      assginUsersId: null
     }
   },
   filters: {
@@ -208,6 +209,9 @@ export default {
 </script>
 
 <style scoped>
+.job-manage-detail-wrapper .status-area :hover{
+  background-color: #60606062;
+}
 .manage-detail-wrapper {
   width: 92%;
   height: 89.5vh;
@@ -224,7 +228,7 @@ export default {
   border: solid 1px #B9B9B9;
   position: relative;
 }
-.status-area-apply {
+.status-area-participate {
   width: 24.8%;
   height: 20%;
   display: inline-block;
@@ -236,6 +240,9 @@ export default {
   display: inline-block;
   border: solid 1px #B9B9B9;
   /* background-color: #3700B3; */
+}
+.router {
+  text-decoration: none;
 }
 .job-manage-detail-wrapper .status-area-left {
   width: 24.8%;
@@ -258,6 +265,7 @@ export default {
   padding: 0 4rem;
   border-radius: 25px 0 0 0;
   background-color: #606060;
+  pointer-events: none;
 }
 .status-box-right {
   width: calc(100% - 8rem);
@@ -265,13 +273,15 @@ export default {
   padding: 0 4rem;
   background-color: #606060;
   border-radius: 0 25px 0 0;
+  pointer-events: none;
 }
-.status-box-apply {
+.status-box-participate {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
   background-color: #3700B3;
   color: #ffffff;
+  pointer-events: none;
 }
 .status-box {
   width: calc(100% - 8rem);
@@ -279,6 +289,7 @@ export default {
   padding: 0 4rem;
   background-color: #606060;
   color: #ffffff;
+  pointer-events: none;
 }
 .status-logo {
   width: 100%;
@@ -286,9 +297,11 @@ export default {
   padding: 1rem 0 0 0 ;
   /* margin: 0 auto; */
   color: #ffffff;
+  pointer-events: none;
 }
 .icon {
   font-size: 2em;
+  pointer-events: none;
 }
 .status-tag {
   width: 100%;
