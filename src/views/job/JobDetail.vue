@@ -146,9 +146,6 @@ export default {
     id: Number,
   },
   data() {
-    // const formats = [
-    //   "YYYY年 M月 D日",
-    // ];
     return {
       job: null,
       selfJobPost: false, //? 自分の案件かを判定
