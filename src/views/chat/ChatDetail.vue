@@ -42,15 +42,15 @@ export default {
   },
   created() {
     // * チャット詳細画面実装
-    const URL = 'http://localhost:8888/api/v1/chat_message/?'
-    axios.get(`${ URL }job_id=${this.id}`)
+    // const URL = 'http://localhost:8888/api/v1/chat_message/?'
+    axios.get(`${this.$baseURL}/chat_message/?job_id=${this.id}`)
     .then(response => {
       setTimeout(() => {
         this.chats = response.data
       }, 1000)
     })
     // * 案件参加者 & 投稿者を取り出す
-    axios.get(`http://localhost:8888/api/v1/apply_job/?job_id=${ this.id }&apply_status_id=2`)
+    axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=2`)
     .then(response => {
       console.log(response.data)
       this.chatMembers = response.data
@@ -63,7 +63,7 @@ export default {
           "userID": 3,
           "jobID": this.id
       }
-      axios.post('http://localhost:8888/api/v1/chat_message', data)
+      axios.post(`${this.$baseURL}/chat_message`, data)
       .then(response => {
         console.log(response.data)
       })

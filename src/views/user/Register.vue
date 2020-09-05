@@ -30,7 +30,7 @@ export default {
         LoginName: this.LoginName,
         LoginPassword: this.LoginPassword,
       }
-      axios.post('http://localhost:8888/api/v1/signup', data)
+      axios.post(`${this.$baseURL}/signup`, data)
       .then(response => {
         console.log(response)
       });

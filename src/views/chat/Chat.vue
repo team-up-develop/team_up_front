@@ -26,7 +26,7 @@ export default {
     // * 参加案件のみを取得する
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
-      axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
+      axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
       .then(response => {
         const array = [];
         for(let i = 0; i < response.data.length; i++){

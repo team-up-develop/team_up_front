@@ -171,7 +171,7 @@ export default {
           console.log("よまれてるよ")
       })
     // * 自分の案件かを判定
-    axios.get('http://localhost:8888/api/v1/job/?user_id=1')
+    axios.get(`${this.$baseURL}/job/?user_id=1`)
     .then(response => {
       for(let i = 0; i < response.data.length; i++){
         const selfJob = response.data[i]
@@ -186,7 +186,7 @@ export default {
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
     // * ログインユーザーが応募済みか応募済みではないかを判定する
-      axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
+      axios.get(`${this.$baseURL}apply_job/?user_id=1`)
       .then(response => {
         const arrayApply = []
         for(let c = 0; c < response.data.length; c++){
@@ -201,7 +201,7 @@ export default {
       })
     }
     // * 投稿一覧取得
-    axios.get('http://localhost:8888/api/v1/job', {
+    axios.get(`${this.$baseURL}/job`, {
       headers: {
         Authorization: `Bearer ${ localStorage.userId }`
       }

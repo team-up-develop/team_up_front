@@ -174,7 +174,7 @@ export default {
         userId: this.applyUser,
         applyStatusId: 2
       };
-      axios.put('http://localhost:8888/api/v1/apply_job/', data)
+      axios.put(`${this.$baseURL}/apply_job/`, data)
       .then(response => {
         console.log(response.data)
       })
@@ -189,7 +189,7 @@ export default {
         userId: this.refusalUser,
         applyStatusId: 3
       };
-      axios.put('http://localhost:8888/api/v1/apply_job/', data)
+      axios.put(`${this.$baseURL}/apply_job/`, data)
       .then(response => {
         console.log(response.data)
       })
@@ -201,7 +201,7 @@ export default {
   mounted() {
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
-      axios.get('http://localhost:8888/api/v1/job/?user_id=1')
+      axios.get(`${this.$baseURL}/job/?user_id=1`)
       .then(response => {
         this.manageJobs = response.data
       })
