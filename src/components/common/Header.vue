@@ -41,6 +41,11 @@
               </div>
               <router-link to="/manage" class="router-link">管理する</router-link>
             </li>
+            <!-- <li class="menu-list">
+              <div class="menu-list-icon-area">
+              </div>
+              <router-link to="/manage/ManageRejectDetail" class="router-link">pagination</router-link>
+            </li> -->
           </ul>
         </div>
         <div class="header-main-right">
