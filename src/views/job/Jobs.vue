@@ -895,7 +895,6 @@ export default {
     text-align: left;
     pointer-events: none;
     font-weight: bold;
-    /* background-color: yellow; */
   }
   .job-cards-bottom .post-user-area .post-user-image {
     width: 55px;
@@ -907,7 +906,7 @@ export default {
   }
   .job-cards-bottom .post-user-area .post-user-name-area {
     display: inline-block;
-    /* width: calc(80% - 40px); */
+    width: 80%;
     height: 60%;
     padding: 0 20px;
     position: relative;
