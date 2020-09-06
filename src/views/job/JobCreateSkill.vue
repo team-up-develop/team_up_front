@@ -40,12 +40,12 @@
       <div class="job-create-area">
         <label for="name" class="label">募集人数</label>
         <div class="job-create-radio">
-        <label class="radio-btn"><input type="radio" v-model="checkWeather" value="0">未定</label>
-        <label class="radio-btn"><input type="radio" v-model="checkWeather" value="1">1人</label>
-        <label class="radio-btn"><input type="radio" v-model="checkWeather" value="2">2人</label>
-        <label class="radio-btn"><input type="radio" v-model="checkWeather" value="3">3人</label>
-        <label class="radio-btn"><input type="radio" v-model="checkWeather" value="4">4人</label>
-        <!-- <p>{{ checkWeather }}</p> -->
+        <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="0">未定</label>
+        <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="1">1人</label>
+        <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="2">2人</label>
+        <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="3">3人</label>
+        <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="4">4人</label>
+        <p>{{ recruitNumber }}</p>
       </div>
       </div>
       <!-- <select v-model="selectedCommunication" class="">
@@ -92,8 +92,6 @@
 import axios from 'axios'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
-// import VueSimpleSuggest from "vue-simple-suggest";
-// import "vue-simple-suggest/dist/styles.css";
 export default {
   data() {
     return {
@@ -112,7 +110,7 @@ export default {
         { id: 2, name: 'Skype' },
         { id: 3, name: 'ChatWork' }
       ],
-      checkWeather: '晴れ',
+      // recruitNumber: 0,
     }
   },
   mounted() {
@@ -172,11 +170,12 @@ export default {
         // publicationPeriod: this.publicationPeriod,  //? 掲載終了
         communicationToolId: this.selectedCommunication, //? コミュニケーションツール
         programingLanguage: this.selectedLang,  //? プログラミング言語
-        positionTag: this.selectedPosition , //? 開発ポジション
+        // positionTag: this.selectedPosition , //? 開発ポジション
         programingFramework: this.selectedFramwork , //? フレームワーク
-        skill: this.selectedSkill //? その他開発スキル
+        skill: this.selectedSkill, //? その他開発スキル,
+        // recruitmentNumbers: this.recruitNumber //募集人数
       };
-      axios.post(`${this.$baseURL}job`, data)
+      axios.post(`${this.$baseURL}/job`, data)
       .then(response => {
         console.log(response);
         sessionStorage.removeItem('jobTitle');
@@ -195,7 +194,6 @@ export default {
     }
   },
   components: {
-    // VueSimpleSuggest
     vSelect
   }
 }

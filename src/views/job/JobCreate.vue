@@ -62,12 +62,12 @@ export default {
           this.framworks = response.data
           // console.log(this.framworks)
       })
-    // * 開発ポジション
-    axios.get(`${this.$baseURL}/position_tag`)
-      .then(response => {
-          this.positions = response.data
-          // console.log(this.positions)
-      })
+    // // * 開発ポジション
+    // axios.get(`${this.$baseURL}/position_tag`)
+    //   .then(response => {
+    //       this.positions = response.data
+    //       // console.log(this.positions)
+    //   })
     // * その他スキル
     axios.get(`${this.$baseURL}/skill`)
       .then(response => {
