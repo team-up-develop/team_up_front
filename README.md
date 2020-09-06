@@ -20,7 +20,7 @@ npm run serve
 それらを指示通りbash内でinstallしてください。
 そちらで完了です。
 
-### vue cli not found
+### vue cli not found と出た場合
 ```
 rm -rf node_modules package-lock.json && npm install
 ```
