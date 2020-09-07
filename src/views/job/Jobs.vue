@@ -220,7 +220,7 @@ export default {
       saveFlag: true, //? 案件保存しているかを判定
       limitationList:1,
       isActive: false,
-      hasError: true
+      hasError: true,
     }
   },
   filters: {
@@ -401,6 +401,9 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
+.className {
+  background-color: red;
+}
   /* 検索欄 */
   .job-wrapper .top-search-area .styled-select {
     /* 👇デフォルトのスタイルを解除 */
@@ -690,7 +693,7 @@ export default {
     background: -webkit-linear-gradient(top, #8C1BAB, #F761A1);
     background: linear-gradient(to bottom, #8C1BAB, #F761A1);
     transition: .3s;
-    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685);
+    /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
   }
   /* 応募済みボタン */
   .btn-box-apply-false{
@@ -892,7 +895,6 @@ export default {
     text-align: left;
     pointer-events: none;
     font-weight: bold;
-    /* background-color: yellow; */
   }
   .job-cards-bottom .post-user-area .post-user-image {
     width: 55px;
@@ -904,7 +906,7 @@ export default {
   }
   .job-cards-bottom .post-user-area .post-user-name-area {
     display: inline-block;
-    /* width: calc(80% - 40px); */
+    width: 80%;
     height: 60%;
     padding: 0 20px;
     position: relative;
