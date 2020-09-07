@@ -2,16 +2,25 @@
   <div class="create-wrapper">
     <div class="job-create-wrapper" v-show="!loading">
       <div class="job-create-title-area">
-        <label for="name" class="label">案件タイトル</label>
+        <label for="name" class="label">案件タイトル</label><label for="name" class="label-required"> *</label>
+          <label v-if="errors.length" class="error-label">
+            <p v-for="error in errors" :key="error" class="error-message">{{ error }}</p>
+          </label>
         <input type="text" v-model="jobTitle" @input="onInputTitle" placeholder="Go と Vue.js で 未経験エンジニアのためのサービスを作りたい(60文字以内で入力してください)" maxlength="60" >
           <small id="rem">残り{{60 - titleLimit }}文字</small>
       </div>
       <div class="job-create-time-area">
-        <label for="name" class="label">開発開始時期</label>
+        <label for="name" class="label">開発開始時期</label><label for="name" class="label-required"> *</label>
+          <label v-if="errors.length" class="error-label">
+            <p v-for="errorsDevStartDate in errorsDevStartDates" :key="errorsDevStartDate" class="error-message">{{ errorsDevStartDate }}</p>
+          </label>
         <input type="date" v-model="devStartDate">
       </div>
       <div class="job-create-time-area">
-      <label for="name" class="label">開発終了時期</label>
+      <label for="name" class="label">開発終了時期</label><label for="name" class="label-required"> *</label>
+        <label v-if="errors.length" class="error-label">
+          <p v-for="errorDevEndDate in errorDevEndDates" :key="errorDevEndDate" class="error-message">{{ errorDevEndDate }}</p>
+        </label>
       <input type="date" v-model="devEndDate">
       </div>
       <div class="job-create-detail-area">
@@ -43,7 +52,10 @@ export default {
       // publicationPeriod: "", //? 掲載終了
       loading: true,
       titleLimit: null,
-      jobDescriptionLimit: null
+      jobDescriptionLimit: null,
+      errors: [],
+      errorsDevStartDates: [],
+      errorDevEndDates: []
     }
   },
   mounted() {
@@ -74,7 +86,7 @@ export default {
           this.skills = response.data
           // console.log(this.skills)
       })
-    // * ローカルストレージの値をフォームに格納する
+    // * セッションストレージの値をフォームに格納する
     var jobTitle = sessionStorage.getItem('jobTitle');
     var jobDescription = sessionStorage.getItem('jobDescription');
     var devStartDateString = sessionStorage.getItem('devStartDateString');
@@ -88,21 +100,34 @@ export default {
 
   // },
   methods: {
-    nextCreateBtn() {
+    nextCreateBtn(e) {
+      if(!this.jobTitle || !this.devStartDate || !this.devEndDate) {
+        this.errors = [];
+        this.errorsDevStartDates = [];
+        this.errorDevEndDates = [];
+        console.log(this.jobTitle)
+        console.log(this.errorsDevStartDates)
+        console.log(this.errorDevEndDates)
+        if(!this.jobTitle) this.errors.push("案件タイトルを入力してください");
+        if(!this.devStartDate) this.errorsDevStartDates.push("開発終了時期を入力してください");
+        if(!this.devEndDate) this.errorDevEndDates.push("開発終了時期を入力してください");
+        e.preventDefault();
+      }
       // * PostData
-      const data = {
-        jobTitle : this.jobTitle,  //? タイトル
-        jobDescription: this.jobDescription, //? 詳細
-        devStartDate: this.devStartDate, //? 開発開始
-        devEndDate: this.devEndDate, //? 開発終了
-      };
-      sessionStorage.setItem('jobTitle', data.jobTitle);
-      sessionStorage.setItem('jobDescription', data.jobDescription);
-      sessionStorage.setItem('devStartDateString', data.devStartDate);
-      sessionStorage.setItem('devEndDateString', data.devEndDate);
-      var jobTitle = sessionStorage.getItem('jobTitle');
-      this.jobTitle = jobTitle;
-      // console.log(this.jobTitle)
+      if(this.jobTitle && this.devStartDate && this.devEndDate) {
+        const data = {
+          jobTitle : this.jobTitle,  //? タイトル
+          jobDescription: this.jobDescription, //? 詳細
+          devStartDate: this.devStartDate, //? 開発開始
+          devEndDate: this.devEndDate, //? 開発終了
+        };
+        sessionStorage.setItem('jobTitle', data.jobTitle);
+        sessionStorage.setItem('jobDescription', data.jobDescription);
+        sessionStorage.setItem('devStartDateString', data.devStartDate);
+        sessionStorage.setItem('devEndDateString', data.devEndDate);
+        var jobTitle = sessionStorage.getItem('jobTitle');
+        this.jobTitle = jobTitle;
+      }
     },
     // * タイトル文字制限
     onInputTitle: function() {
@@ -147,13 +172,30 @@ export default {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 0.7rem;
+    display: inline-block;
+    /* width: 10%; */
+    /* height: 14%; */
+    /* background-color: yellow; */
+  }
+  .label-required {
+    color: red;
+  }
+  .error-label {
+    display: inline-block;
+    color: #DD2476;
+    list-style: none;
+    font-weight: bold;
+  }
+  .error-message {
+    margin: 0;
+    padding-left: 10px;
   }
   /* 案件タイトル入力欄 start*/
   .job-create-wrapper .job-create-title-area {
     width: 100%;
     height: 100px; 
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     text-align: left;
   }
   .job-create-wrapper .job-create-title-area input[type='text'] {
@@ -179,8 +221,8 @@ export default {
   .job-create-wrapper .job-create-time-area {
     width: 100%;
     height: 100px; 
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     text-align: left;
     /* display: inline-block; */
   }
@@ -188,6 +230,7 @@ export default {
     font: 16px/24px sans-serif;
     box-sizing: border-box;
     width: 40%;
+    display: flex;
     padding: 0.3em;
     transition: 0.3s;
     letter-spacing: 1px;
@@ -232,8 +275,8 @@ export default {
   }
   /* 案件詳細入力欄 end */
   .job-create-wrapper .job-create-btn-area {
-    width: 1000px;
-    height: 56px; 
+    width: 100px;
+    height: 100px; 
     text-align: left;
     margin-top: 1.5rem;
     /* position: relative; */
