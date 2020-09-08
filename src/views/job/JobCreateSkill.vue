@@ -70,9 +70,9 @@
             {{ framwork.programingFrameworkName }}
           </option>
         </select>
-        <h1>Selected フレームワーク: {{ selectedFramwork }}</h1> -->
+        <h1>Selected フレームワーク: {{ selectedFramwork }}</h1>
 
-        <!-- <select v-model="selectedSkill" class="position" multiple>
+        <select v-model="selectedSkill" class="position" multiple>
           <option disabled value="" class="position">その他技術</option>
           <option v-for="skill in skills" v-bind:value="{id: skill.id}" v-bind:key="skill.id">
             {{ skill.skillName }}
@@ -110,7 +110,7 @@ export default {
         { id: 2, name: 'Skype' },
         { id: 3, name: 'ChatWork' }
       ],
-      // recruitNumber: 0,
+      recruitNumber: 0,
     }
   },
   mounted() {
@@ -141,8 +141,30 @@ export default {
       })
   },
   methods: {
+    // * 案件投稿
     createJob() {
-      // * PostData
+      // * 応募者人数を文字列から数値に変換
+      var recruitNum = Number(this.recruitNumber);
+      console.log(recruitNum)
+      // * 言語を {id: Number}に変換
+      const languageArray = [];
+      for(var i = 0; i < this.selectedLang.length; i++) {
+        // console.log({id: this.selectedLang[i]})
+        languageArray.push({id: this.selectedLang[i]})
+      }
+      // * フレームワークを{id: Number}に変換
+      const framworksArray = [];
+      for(var c = 0; c < this.selectedFramwork.length; c++) {
+        // console.log({id: this.selectedLang[i]})
+        framworksArray.push({id: this.selectedFramwork[c]})
+      }
+      // * その他スキルを {id: Number}に変換
+      const skillArray = [];
+      for(var d = 0; d < this.selectedSkill.length; d++) {
+        // console.log({id: this.selectedLang[i]})
+        skillArray.push({id: this.selectedSkill[d]})
+      }
+      // * settion 1のデータを変数に格納する
       var jobTitle = sessionStorage.getItem('jobTitle');
       var jobDescription = sessionStorage.getItem('jobDescription');
       var devStartDateString = sessionStorage.getItem('devStartDateString');
@@ -168,12 +190,12 @@ export default {
         devStartDate: devStartDate,  //? 開始日
         devEndDate: devEndDate, //? 終了日
         // publicationPeriod: this.publicationPeriod,  //? 掲載終了
-        communicationToolId: this.selectedCommunication, //? コミュニケーションツール
-        programingLanguage: this.selectedLang,  //? プログラミング言語
+        // communicationToolId: this.selectedCommunication, //? コミュニケーションツール
+        programingLanguage: languageArray,  //? プログラミング言語
         // positionTag: this.selectedPosition , //? 開発ポジション
-        programingFramework: this.selectedFramwork , //? フレームワーク
-        skill: this.selectedSkill, //? その他開発スキル,
-        // recruitmentNumbers: this.recruitNumber //募集人数
+        programingFramework: framworksArray , //? フレームワーク
+        skill: skillArray, //? その他開発スキル,
+        recruitmentNumbers: recruitNum //募集人数
       };
       axios.post(`${this.$baseURL}/job`, data)
       .then(response => {

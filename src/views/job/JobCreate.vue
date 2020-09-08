@@ -53,9 +53,9 @@ export default {
       loading: true,
       titleLimit: null,
       jobDescriptionLimit: null,
-      errors: [],
-      errorsDevStartDates: [],
-      errorDevEndDates: []
+      errors: [], //? タイトルエラー格納先
+      errorsDevStartDates: [], //? 開発開始時期エラー格納先
+      errorDevEndDates: [] //? 開発終了時期エラー格納先
     }
   },
   mounted() {
@@ -101,6 +101,7 @@ export default {
   // },
   methods: {
     nextCreateBtn(e) {
+      // * タイトル, 開発開始時期, 開発終了時期がnullだったらエラーをだす
       if(!this.jobTitle || !this.devStartDate || !this.devEndDate) {
         this.errors = [];
         this.errorsDevStartDates = [];
