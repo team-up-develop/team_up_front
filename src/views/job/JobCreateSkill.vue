@@ -116,8 +116,8 @@ export default {
       selectedFramwork: [], //? フレームワーク
       framworks: [],
       selectedPosition: [], //? 開発ポジション
-      positionTag: [], //? 開発ポジション
-      positions: [],
+      // positionTag: [], //? 開発ポジション
+      // positions: [],
       selectedSkill: [], //? その他開発スキル
       skills: [],
       selectedCommunication: 0, //? コミュニケーションツール
@@ -147,12 +147,12 @@ export default {
           this.framworks = response.data
           // console.log(this.framworks)
       })
-    // * 開発ポジション
-    axios.get(`${this.$baseURL}/position_tag`)
-      .then(response => {
-          this.positions = response.data
-          // console.log(this.positions)
-      })
+    // // * 開発ポジション
+    // axios.get(`${this.$baseURL}/position_tag`)
+    //   .then(response => {
+    //       this.positions = response.data
+    //       // console.log(this.positions)
+    //   })
     // * その他スキル
     axios.get(`${this.$baseURL}/skill`)
       .then(response => {
@@ -164,9 +164,6 @@ export default {
     // * 案件投稿
     createJob(error) {
       //* エラーメッセージ
-      console.log(this.selectedLang.length)
-      console.log(this.selectedFramwork.length)
-      console.log(this.selectedSkill.length)
       if(this.selectedLang.length == 0 || this.selectedFramwork.length == 0 || this.selectedSkill.length == 0) {
         console.log('入力必須項目を入力してください')
         this.selectedLangErrors = [];
@@ -259,10 +256,10 @@ export default {
       .catch(error => {
         console.log(error);
       });
-      this.jobTitle = "";
-      this.jobDescription = "";
-      this.devStartDate = "";
-      this.devEndDate = "";
+      this.selectedLang = "";
+      this.selectedFramwork = "";
+      this.selectedSkill = "";
+      this.recruitNumber = "";
     }
   },
   components: {
