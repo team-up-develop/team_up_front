@@ -2,7 +2,11 @@
   <div class="create-wrapper">
     <div class="job-create-wrapper">
       <div class="job-create-area">
-        <label for="name" class="label">開発言語</label>
+        <label for="name" class="label">開発言語</label><label for="name" class="label-required"> *</label>
+        <label v-if="selectedLangErrors.length" class="error-label">
+          <p v-for="selectedLangError in selectedLangErrors" :key="selectedLangError" class="error-message">
+            {{ selectedLangError }}</p>
+        </label>
         <v-select
           class="input-area"
           multiple
@@ -14,7 +18,11 @@
         <!-- <h1>Selected 言語:{{ selectedLang }}</h1> -->
       </div>
       <div class="job-create-area">
-        <label for="name" class="label">開発フレームワーク</label>
+        <label for="name" class="label">開発フレームワーク</label><label for="name" class="label-required"> *</label>
+        <label v-if="selectedFramworkErrors.length" class="error-label">
+          <p v-for="selectedFramworkError in selectedFramworkErrors" :key="selectedFramworkError" class="error-message">
+            {{ selectedFramworkError }}</p>
+        </label>
         <v-select
             class="input-area"
             multiple
@@ -26,7 +34,11 @@
         <!-- <h1>Selected フレームワーク: {{ selectedFramwork }}</h1> -->
       </div>
       <div class="job-create-area">
-        <label for="name" class="label">その他技術</label>
+        <label for="name" class="label">その他技術</label><label for="name" class="label-required"> *</label>
+        <label v-if="selectedSkillErrors.length" class="error-label">
+          <p v-for="selectedSkillError in selectedSkillErrors" :key="selectedSkillError" class="error-message">
+            {{ selectedSkillError }}</p>
+        </label>
         <v-select
             class="input-area"
             multiple
@@ -38,14 +50,18 @@
         <!-- <h1>Selected フレームワーク: {{ selectedFramwork }}</h1> -->
       </div>
       <div class="job-create-area">
-        <label for="name" class="label">募集人数</label>
+        <label for="name" class="label">募集人数</label><label for="name" class="label-required"> *</label>
+        <!-- <label v-if="recruitNumberErrors.length" class="error-label">
+          <p v-for="recruitNumberError in recruitNumberErrors" :key="recruitNumberError" class="error-message">
+            {{ recruitNumberError }}</p>
+        </label> -->
         <div class="job-create-radio">
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="0">未定</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="1">1人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="2">2人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="3">3人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="4">4人</label>
-        <p>{{ recruitNumber }}</p>
+        <!-- <p>{{ recruitNumber }}</p> -->
       </div>
       </div>
       <!-- <select v-model="selectedCommunication" class="">
@@ -111,6 +127,10 @@ export default {
         { id: 3, name: 'ChatWork' }
       ],
       recruitNumber: 0,
+      selectedLangErrors: [],
+      selectedFramworkErrors: [],
+      selectedSkillErrors: [],
+      // recruitNumberErrors: []
     }
   },
   mounted() {
@@ -142,10 +162,39 @@ export default {
   },
   methods: {
     // * 案件投稿
-    createJob() {
+    createJob(error) {
+      //* エラーメッセージ
+      console.log(this.selectedLang.length)
+      console.log(this.selectedFramwork.length)
+      console.log(this.selectedSkill.length)
+      if(this.selectedLang.length == 0 || this.selectedFramwork.length == 0 || this.selectedSkill.length == 0) {
+        console.log('入力必須項目を入力してください')
+        this.selectedLangErrors = [];
+        this.selectedFramworkErrors = [];
+        this.selectedSkillErrors = [];
+        // this.recruitNumberErrors = [];
+        if(this.selectedLang.length == 0){
+          this.selectedLangErrors.push("開発言語を選択してください");
+          this.selectedLang = [];
+        } 
+        if(this.selectedFramwork.length == 0){
+          this.selectedFramworkErrors.push("開発フレームワークを選択してください");
+          this.selectedFramwork = [];
+        } 
+        if(this.selectedSkill.length == 0){
+          this.selectedSkillErrors.push("開発その他スキルを選択してください");
+          this.selectedSkill = [];
+        } 
+        // if(!this.recruitNumber){
+        //   console.log('aaaaaaaaaaaaaaaaaaaaa')
+        //   this.recruitNumberErrors.push("募集人数を選択してください");
+        //   this.recruitNumber = [];
+        // } 
+        return error;
+      }
+
       // * 応募者人数を文字列から数値に変換
       var recruitNum = Number(this.recruitNumber);
-      console.log(recruitNum)
       // * 言語を {id: Number}に変換
       const languageArray = [];
       for(var i = 0; i < this.selectedLang.length; i++) {
@@ -197,6 +246,7 @@ export default {
         skill: skillArray, //? その他開発スキル,
         recruitmentNumbers: recruitNum //募集人数
       };
+      console.log(data)
       axios.post(`${this.$baseURL}/job`, data)
       .then(response => {
         console.log(response);
@@ -254,14 +304,27 @@ export default {
     font-weight: bold;
     margin-bottom: 0.7rem;
   }
+  .label-required {
+    color: red;
+  }
+  .error-label {
+    display: inline-block;
+    color: #DD2476;
+    list-style: none;
+    font-weight: bold;
+  }
+  .error-message {
+    margin: 0;
+    padding-left: 10px;
+  }
   .job-create-area {
     width: 100%;
-    height: 120px; 
-    display: flex;
-    flex-direction: column;
+    height: 23%; 
+    /* display: flex; */
     text-align: left;
   }
   .input-area {
+    margin: 0.7rem 0rem;
     font: 16px/24px sans-serif;
     box-sizing: border-box;
     width: 100%;
@@ -273,6 +336,7 @@ export default {
     background-color: #EFEFEF;
   }
   .radio-btn {
+    margin: 0.7rem 0rem;
     margin-left: 0.5rem;
   }
   input[type='serach'] {
