@@ -11,14 +11,14 @@
       </div>
       <div class="job-create-time-area">
         <label for="name" class="label">開発開始時期</label><label for="name" class="label-required"> *</label>
-          <label v-if="errors.length" class="error-label">
+          <label v-if="errorsDevStartDates.length" class="error-label">
             <p v-for="errorsDevStartDate in errorsDevStartDates" :key="errorsDevStartDate" class="error-message">{{ errorsDevStartDate }}</p>
           </label>
         <input type="date" v-model="devStartDate">
       </div>
       <div class="job-create-time-area">
       <label for="name" class="label">開発終了時期</label><label for="name" class="label-required"> *</label>
-        <label v-if="errors.length" class="error-label">
+        <label v-if="errorDevEndDates.length" class="error-label">
           <p v-for="errorDevEndDate in errorDevEndDates" :key="errorDevEndDate" class="error-message">{{ errorDevEndDate }}</p>
         </label>
       <input type="date" v-model="devEndDate">
@@ -53,9 +53,9 @@ export default {
       loading: true,
       titleLimit: null,
       jobDescriptionLimit: null,
-      errors: [],
-      errorsDevStartDates: [],
-      errorDevEndDates: []
+      errors: [], //? タイトルエラー格納先
+      errorsDevStartDates: [], //? 開発開始時期エラー格納先
+      errorDevEndDates: [] //? 開発終了時期エラー格納先
     }
   },
   mounted() {
@@ -74,12 +74,6 @@ export default {
           this.framworks = response.data
           // console.log(this.framworks)
       })
-    // // * 開発ポジション
-    // axios.get(`${this.$baseURL}/position_tag`)
-    //   .then(response => {
-    //       this.positions = response.data
-    //       // console.log(this.positions)
-    //   })
     // * その他スキル
     axios.get(`${this.$baseURL}/skill`)
       .then(response => {
@@ -101,16 +95,14 @@ export default {
   // },
   methods: {
     nextCreateBtn(e) {
+      //* エラーメッセージ
       if(!this.jobTitle || !this.devStartDate || !this.devEndDate) {
         this.errors = [];
         this.errorsDevStartDates = [];
         this.errorDevEndDates = [];
-        console.log(this.jobTitle)
-        console.log(this.errorsDevStartDates)
-        console.log(this.errorDevEndDates)
-        if(!this.jobTitle) this.errors.push("案件タイトルを入力してください");
-        if(!this.devStartDate) this.errorsDevStartDates.push("開発終了時期を入力してください");
-        if(!this.devEndDate) this.errorDevEndDates.push("開発終了時期を入力してください");
+        if(this.jobTitle == null || !this.jobTitle ) this.errors.push("案件タイトルを入力してください");
+        if(this.devStartDate == null) this.errorsDevStartDates.push("開発終了時期を入力してください");
+        if(this.devEndDate == null) this.errorDevEndDates.push("開発終了時期を入力してください");
         e.preventDefault();
       }
       // * PostData
