@@ -269,10 +269,10 @@ export default {
           this.languages = response.data
       })
     // * 開発ポジション 取得
-    axios.get(`${this.$baseURL}/position_tag`)
-      .then(response => {
-          this.positions = response.data
-      })
+    // axios.get(`${this.$baseURL}/position_tag`)
+    //   .then(response => {
+    //       this.positions = response.data
+    //   })
     if(localStorage.LoginName) this.name = localStorage.LoginName;
     if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
   },
