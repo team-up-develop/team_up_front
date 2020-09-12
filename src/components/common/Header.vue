@@ -12,22 +12,18 @@
       </div>
       <div class="header-main-area">
         <div class="header-main-left" v-bind:class="{ active: isActive, 'text-danger': hasError }">
-          <ul>
+          <ul v-if="loginFlag == true">
             <li class="menu-list">
               <div class="menu-list-icon-area">
                 <!-- <font-awesome-icon icon="search" class="icon"/> -->
               </div>
-              <router-link to="/jobs" class="router-link">
-                案件を探す
-              </router-link>
+              <router-link to="/jobs" class="router-link">案件を探す</router-link>
             </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">
                 <!-- <font-awesome-icon icon="user-plus" class="icon"/> -->
               </div>
-              <router-link to="/jobcreate" class="router-link">
-                募集する
-              </router-link>
+              <router-link to="/jobcreate" class="router-link">募集する</router-link>
             </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">
@@ -47,12 +43,45 @@
               <router-link to="/manage/ManageRejectDetail" class="router-link">pagination</router-link>
             </li> -->
           </ul>
+          <ul v-else>
+            <li class="menu-list">
+              <div class="menu-list-icon-area">
+                <!-- <font-awesome-icon icon="search" class="icon"/> -->
+              </div>
+              <router-link to="/jobs" class="router-link">案件を探す</router-link>
+            </li>
+            <li class="menu-list">
+              <div class="menu-list-icon-area">
+                <!-- <font-awesome-icon icon="user-plus" class="icon"/> -->
+              </div>
+              <router-link to="/jobcreate" class="router-link">募集する</router-link>
+            </li>
+            <li class="menu-list-about">
+              <div class="menu-list-icon-area">
+                <!-- <font-awesome-icon icon="comments" class="icon"/> -->
+              </div>
+              <router-link to="/manage" class="router-link-about">チームアップとは</router-link>
+            </li>
+            <li class="menu-list">
+              <div class="menu-list-icon-area">
+                <!-- <font-awesome-icon icon="comments" class="icon"/> -->
+              </div>
+              <router-link to="/login" class="router-link">ログイン</router-link>
+            </li>
+            <li class="menu-list">
+              <div class="menu-list-icon-area">
+                <!-- <font-awesome-icon icon="comments" class="icon"/> -->
+              </div>
+              <router-link to="/register" class="router-link">登録する</router-link>
+            </li>
+          </ul>
         </div>
         <div class="header-main-right">
-          <!-- <div class="user-login-btn">
-            <router-link to="/login" class="user-rooter">ログイン</router-link>
+          <div class="user-login-btn">
+            <!-- {{ message }} -->
+            <!-- <router-link to="/login" class="user-rooter">ログイン</router-link> -->
           </div>
-          <div class="user-register-btn">
+          <!-- <div class="user-register-btn">
             <router-link to="/register" class="user-rooter">登録する</router-link>
           </div> -->
         </div>
@@ -63,16 +92,57 @@
 
 <script>
 // import LogoImage from '.../assets/logo.jpg'
+
 export default {
+  props: {
+    flag: Boolean
+  },
   data() {
     return {
       // assetsImage: LogoImage,
       // assetsImage_NG: '.../assets/logo.jpg',
       // staticImage: '.../assets/logo.jpg',
       isActive: true,
-      hasError: false
+      hasError: false,
+      loginFlag: false,
+      // userName: null,
+      // message: ""
     }
   },
+  mounted() {
+    if( localStorage.userId !== undefined) {
+      this.loginFlag = true;
+    }
+  },
+  // computed() {
+  //   console.log("-----------------------")
+  //   console.log(this.$store);
+  //   console.log("-----------------------")
+  // }
+  // computed: {
+  //   userId() {
+  //     console.log(this.$store.getters.userId);
+  //     return this.$store.getters.userId;
+  //   },
+  //   doneLogin() {
+  //     console.log("aaaaaaaaaaaaaaaaa")
+  //     this.$store.getters.doneLogin;
+  //     return this.$store.getters.doneLogin;
+  //   },
+  //   message(){
+  //     console.log(this.$store.state.auth.userId);
+  //     if(!this.$store.state.auth.userId) {
+  //       // console.log(this.loginFlag);
+  //       // this.loginFlag = false;
+  //       return '未ログイン';
+  //     }
+  //     else {
+  //       console.log('ログインしてるよん');
+  //       // this.loginFlag = true;
+  //       return this.$store.state.auth.userId;
+  //     }
+  //   },
+  // },
 }
 </script>
 
@@ -146,6 +216,7 @@ export default {
     cursor: pointer;
     transition: all 0.3s ease 0s;
     display: inline-block;
+    text-align: center;
     /* background-color: yellow; */
   }
   ul li .menu-list-icon-area {
@@ -161,17 +232,44 @@ export default {
     pointer-events: none;
   }
   ul li .router-link {
-    width: 65%;
+    width: 100%;
     position: absolute;
     top: 0;
     right: 0; 
-    text-align: left;
+    text-align: center;
     padding: 1.3rem  0;
     text-decoration: none;
     /* color: #00A1D6; */
     color: #111111;
     font-size: 14px;
+    margin: 0 auto;
     /* font-weight: bold; */
+  }
+  ul .menu-list-about {
+    height: 25px;
+    list-style: none;
+    width: 20%;
+    padding: 1rem 0;
+    font-size: 14px;
+    margin: 6px 0;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    display: inline-block;
+    text-align: center;
+    margin-left: 1rem;
+  }
+  ul li .router-link-about {
+    width: 105%;
+    position: absolute;
+    top: 0;
+    right: 0; 
+    padding: 1.3rem  0;
+    text-decoration: none;
+    /* color: #00A1D6; */
+    color: #111111;
+    font-size: 14px;
+    margin: 0 auto;
   }
   .header-wrapper .header-main-area .header-main-right {
     width: 30%;

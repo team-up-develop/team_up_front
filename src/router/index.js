@@ -20,7 +20,8 @@ export default new Router({
   routes: [
     {
       path: '/jobs',
-      component: Jobs
+      component: Jobs,
+      name: 'jobs'
     },
     {
       path: '/manage',
