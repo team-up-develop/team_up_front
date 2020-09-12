@@ -145,26 +145,41 @@ export default {
   },
   created() {
     //* 応募者を一覧で取り出す。
-    const URL = 'http://localhost:8888/api/v1/apply_job/?'
-    axios.get(`${ URL }job_id=${ this.id }`)
+    // axios.get(`${ URL }job_id=${ this.id }`)
+    // .then(response => {
+    axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
     .then(response => {
-      for(let i = 0; i < response.data.length; i++){
-        const applyData = response.data[i];
-        // console.log(applyData)
-        if(applyData.applyStatusId === 1){
-          this.applyUsers.push(applyData)
-          this.applyUsersNum = this.applyUsers.length;
-        }
-        else if(applyData.applyStatusId === 2){
-          this.assginUsers.push(applyData)
-          this.assginUsersNum = this.assginUsers.length;
-        }
-        else {
-          this.rejectUsers.push(applyData)
-          this.rejectUsersNum = this.rejectUsers.length;
-        }
-      }
+      this.applyUsers = response.data
+      this.applyUsersNum = response.data.length
     })
+    axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=2`)
+    .then(response => {
+      this.assginUsers = response.data
+      this.assginUsersNum = response.data.length
+    })
+    axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=3`)
+    .then(response => {
+      this.rejectUsers = response.data
+      this.rejectUsersNum = response.data.length
+    })
+      // for(let i = 0; i < response.data.length; i++){
+      //   const applyData = response.data[i];
+      //   // console.log(applyData)
+      //   if(applyData.applyStatusId === 1){
+      //     this.applyUsers.push(applyData)
+      //     this.applyUsersNum = this.applyUsers.length;
+      //   }
+      //   else if(applyData.applyStatusId === 2){
+      //     this.assginUsers.push(applyData)
+      //     this.assginUsersNum = this.assginUsers.length;
+      //   }
+      //   else {
+      //     this.rejectUsers.push(applyData)
+      //     this.rejectUsersNum = this.rejectUsers.length;
+      //   }
+    //   }
+    // })
+    
   },
   methods: {
     // * 参加させる

@@ -27,12 +27,12 @@ export default {
     login() {
       this.$store.dispatch('login', {
         LoginName: this.LoginName,
-        LoginPassword: this.LoginPassword
+        LoginPassword: this.LoginPassword,
       })
       this.LoginName = "";
       this.LoginPassword = "";
-    }
-  }
+    },
+  },
 }
 </script>
 

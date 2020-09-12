@@ -249,10 +249,10 @@ export default {
   },
   created() {
     // * 投稿一覧取得
-    axios.get(`${this.$baseURL}/job`, {
-      headers: {
-        Authorization: `Bearer ${ localStorage.userId }`
-      }
+    axios.get('http://localhost:8888/api/v1/job', {
+      // headers: {
+      //   Authorization: `Bearer ${ localStorage.userId }`
+      // }
     })
     .then(response => {
       setTimeout(() => {
@@ -264,15 +264,15 @@ export default {
       console.log(error)
     })
     // * プログラミング言語 取得
-    axios.get(`${this.$baseURL}/programing_language`)
+    axios.get('http://localhost:8888/api/v1/programing_language')
       .then(response => {
           this.languages = response.data
       })
     // * 開発ポジション 取得
-    axios.get(`${this.$baseURL}/position_tag`)
-      .then(response => {
-          this.positions = response.data
-      })
+    // axios.get(`${this.$baseURL}/position_tag`)
+    //   .then(response => {
+    //       this.positions = response.data
+    //   })
     if(localStorage.LoginName) this.name = localStorage.LoginName;
     if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
   },
@@ -333,7 +333,7 @@ export default {
       this.selfJobPost = false; //? clickする度に 自分の案件では無くする
       this.applyFlug = true; //? clickする度に 応募済み案件にする
       // * 自分の案件かを判定
-      axios.get(`${this.$baseURL}/job/?user_id=1`)
+      axios.get('http://localhost:8888/api/v1//job/?user_id=1')
       .then(response => {
         for(let i = 0; i < response.data.length; i++) {
           this.selfJob = response.data[i]
@@ -343,21 +343,19 @@ export default {
         }
       })
       // * 応募済みか応募済みでないかを判断
-      axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
+      axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
       .then(response => {
         const arrayApply = []
         for(let c = 0; c < response.data.length; c++){
           const applyData = response.data[c];
-          arrayApply.push(applyData.job.id)
+          arrayApply.push(applyData.id)
         }
-        if (arrayApply.includes(this.jobDetail.id)) {
+        if(arrayApply.includes(this.jobDetail.id)) {
           this.applyFlug = false
-        } else {
-          console.log("まだ応募していません")
-        }
+        } 
       })
-    // * 保存済みか保存済みではないかを判定する
-      axios.get(`${this.$baseURL}/favorite_job/?user_id=1`)
+      // * 保存済みか保存済みではないかを判定する
+      axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
       .then(response => {
         const array = []
         for(let i = 0; i < response.data.length; i++){
