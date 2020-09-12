@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <!-- <left-side-bar></left-side-bar> -->
+    <Header v-if="$store.state.auth.userId || this.loginFlag == true"/>
+    <not-login v-else />
     <div class="container">
       <router-view/>
     </div>
@@ -10,15 +10,33 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header.vue'
-import Footer from '@/components/common/Footer'
+import Header from '@/components/common/Header.vue';
+import Footer from '@/components/common/Footer';
+import NotLogin from '@/components/common/NotLogin';
 // import LeftSideBar from '@/components/LeftSideBar'
 export default {
   name: 'App',
+  data() {
+    return {
+      loginFlag: false
+    }
+  },
   components: {
     // LeftSideBar
     Header,
-    Footer
+    Footer,
+    NotLogin,
+    // login
+  },
+  mounted() {
+    console.log(localStorage.userId)
+    if(localStorage.userId) {
+      this.loginFlag = true;
+      console.log("ログイン中です")
+    }
+    else {
+      console.log("ログアウト中")
+    }
   }
 }
 </script>
