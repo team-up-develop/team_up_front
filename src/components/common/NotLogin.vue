@@ -25,23 +25,24 @@
               </div>
               <router-link to="/jobcreate" class="router-link">募集する</router-link>
             </li>
+            <li class="menu-list-about">
+              <div class="menu-list-icon-area">
+                <!-- <font-awesome-icon icon="comments" class="icon"/> -->
+              </div>
+              <router-link to="/manage" class="router-link-about">チームアップとは</router-link>
+            </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">
                 <!-- <font-awesome-icon icon="comments" class="icon"/> -->
               </div>
-              <router-link to="/chat" class="router-link">連絡する</router-link>
+              <router-link to="/login" class="router-link">ログイン</router-link>
             </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">
-                <!-- <font-awesome-icon icon="address-card" class="icon"/> -->
+                <!-- <font-awesome-icon icon="comments" class="icon"/> -->
               </div>
-              <router-link to="/manage" class="router-link">管理する</router-link>
+              <router-link to="/register" class="router-link">登録する</router-link>
             </li>
-            <!-- <li class="menu-list">
-              <div class="menu-list-icon-area">
-              </div>
-              <router-link to="/manage/ManageRejectDetail" class="router-link">pagination</router-link>
-            </li> -->
           </ul>
         </div>
         <div class="header-main-right">
