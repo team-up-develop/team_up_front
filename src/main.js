@@ -5,7 +5,7 @@ import store from './store'
 import 'normalize.css'
 import jQuery from 'jquery' //? jQueryの導入
 import VuePaginate from 'vue-paginate'//? ページネーションの導入
-import axios from 'axios'
+// import axios from 'axios'
 
 global.jquery = jQuery //? jQueryの導入
 global.$ = jQuery //? jQueryの導入
@@ -33,6 +33,3 @@ Vue.prototype.$httpPosts = 'http://localhost:8888/api/v1/job'
 Vue.prototype.$httpCategories = 'http://localhost:8888/api/v1/job'
 
 Vue.prototype.$baseURL= 'http://localhost:8888/api/v1'
-
-axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
