@@ -71,12 +71,25 @@ export default {
     content: "";
     display: block;
     height: 4px;
-    background: -webkit-linear-gradient(to right, #1142e2, transparent);
-    background: linear-gradient(to right, #19bde6, transparent);
+    /* background: -webkit-linear-gradient(to right, #1142e2, transparent);
+    background: linear-gradient(to right, #19bde6, transparent); */
+  }
+  .top-login-title:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    content: '';
+    border-radius: 3px;
+    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
+    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
+    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
   }
   .register-form-area {
     width: 100%;
     height: 65%;
+    margin-top: 0.5rem;
     /* background-color: yellow; */
   }
   .input {

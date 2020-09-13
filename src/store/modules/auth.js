@@ -4,7 +4,6 @@ import router from '@/router/index.js' // Vue router instance
 const state = {
   idToken: null,
   userId: null,
-  message: 'hello vuex',
 }
 
 const getters = {
@@ -32,9 +31,9 @@ const actions = {
     }
     axios.post('http://localhost:8888/api/v1/login', data)
     .then(response => {
-      console.log("----------------------")
+      // console.log("----------------------")
       router.push('/jobs');
-      console.log("----------------------")
+      // console.log("----------------------")
       commit('updateIdToken', response.data.idToken)
       commit('createLocalStorage', response.data.userId)
     })
