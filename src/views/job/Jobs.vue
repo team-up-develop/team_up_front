@@ -44,46 +44,8 @@
           @click="getJob(job)" 
           :jobId='job'
         >
-          <div class="job-cards" :value="job.id">
-            <div class="job-cards-top">
-              {{ job.jobTitle | truncateTitle }}
-            </div>
-            <div class="job-cards-center">
-              <div class="langage" 
-                v-for="langage in job.programingLanguage.slice(0,3)" 
-                :key="langage.id">
-                {{ langage.programingLanguageName }}
-              </div>
-              <div class="framework" 
-              v-for="framework in job.programingFramework.slice(0,3)" 
-              :key="framework.programingFrameworkName">
-                {{ framework.programingFrameworkName }}
-              </div>
-              <div class="skill" 
-              v-for="skill in job.skill.slice(0,4)" 
-              :key="skill.skillName">
-                {{ skill.skillName }}
-              </div>
-            </div>
-            <div class="job-cards-bottom">
-              <div class="product-start-end">
-                <div class="product-start-end-tag">
-                  開発期間:
-                </div>
-                <div class="product-start-end-time">
-                  {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
-                </div>
-              </div>
-              <div class="post-user-area">
-                <div class="post-user-image"></div>
-                <div class="post-user-name-area">
-                  <div class="post-user-name">
-                    {{ job.user.userName }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- 案件カード コンポーネント -->
+          <card-job :job="job"></card-job>
         </div>
       </div>
       <div class="job-wrapper-right" v-if="detailFlag === true">
@@ -179,7 +141,8 @@
         </div>
       </div>
       <div class="job-wrapper-right-false" v-else>
-        <FalseUserLogin/>
+        <!-- 右側の登録コンポーネント -->
+        <job-register-false/>
       </div>
     </div>
     <Loading v-show="loading">
@@ -194,7 +157,8 @@ import moment from "moment";
 import Loading from '@/components/common/Loading'
 import ApplyModal from '@/components/modal/ApplyModal'
 import Applybtn from '@/components/button/Applybtn'
-import FalseUserLogin from '@/components/common/FalseUserLogin'
+import JobRegisterFalse from '@/components/job/JobRegisterFalse'
+import CardJob from '@/components/job/CardJob'
 // import SaveBtn from '@/components/button/SaveBtn'
 export default {
   data() {
@@ -388,7 +352,8 @@ export default {
     Loading,
     Applybtn,
     ApplyModal,
-    FalseUserLogin
+    JobRegisterFalse,
+    CardJob,
     // SaveBtn
   },
 }
@@ -780,128 +745,6 @@ export default {
     justify-content: center;
     display: inline-block;
     margin-top: 1rem;
-  }
-  .job-cards {
-    /* width: 425px; */
-    width: 97%;
-    /* height: 60%; */
-    height: 292px;
-    /* float: right; */
-    /* float: left; */
-    margin: 10px 0.5%;
-    border: solid 1px #B9B9B9;
-    background-color: #ffffff;
-    border-radius: 8px;
-    transition: .3s;
-    color: #111111;
-  }
-  .job-cards-top {
-    width: calc(100% - 60px);
-    height: calc(30% - 60px);
-    text-align: left;
-    padding: 2rem 2rem 1rem 1.5rem;
-    font-weight: bold;
-    pointer-events: none;
-    font-size: 17px;
-    text-decoration: underline;
-    /* background-color: yellow; */
-  }
-  .job-cards-center {
-    width: calc(100% - 40px);
-    height: calc(35% - 20px);
-    padding: 10px 1.5rem;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-center .langage{
-    margin: 5px 0px 0px 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #3F51B5;
-    font-size: 12px;
-    border: solid 1px #3F51B5;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .framework{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #2196F3;
-    font-size: 12px;
-    border: solid 1px #2196F3;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .skill{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #00BCD4;
-    font-size: 12px;
-    border: solid 1px #00BCD4;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-bottom {
-    width: calc(100% - 50px);
-    height: calc(38% - 20px);
-    padding: 10px 25px;
-    pointer-events: none;
-    margin-top: 0.2rem;
-  }
-  .job-cards-bottom .product-start-end {
-    width: 100%;
-    height: 40%;
-    text-align: left;
-    pointer-events: none;
-    font-weight: bold;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-tag {
-    display: inline-block;
-    pointer-events: none;
-    font-size: 14px;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-time {
-    display: inline-block;
-    padding: 0 20px;
-    pointer-events: none;
-    font-size: 14px;
-  }
-  .job-cards-bottom .post-user-area {
-    width: 100%;
-    height: 60%;
-    text-align: left;
-    pointer-events: none;
-    font-weight: bold;
-  }
-  .job-cards-bottom .post-user-area .post-user-image {
-    width: 55px;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #2196F3;
-    display: inline-block;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area {
-    display: inline-block;
-    width: 50%;
-    /* background-color: yellow; */
-    height: 60%;
-    padding: 0 20px;
-    position: relative;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area .post-user-name {
-    position: absolute;
-    top: 0;
-    pointer-events: none;
   }
 }
 
