@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header v-if="$store.state.auth.userId || this.loginFlag == true"/>
-    <not-login v-else />
+    <header-login-false v-else />
     <div class="container">
       <router-view/>
     </div>
@@ -12,7 +12,7 @@
 <script>
 import Header from '@/components/common/Header.vue';
 import Footer from '@/components/common/Footer';
-import NotLogin from '@/components/common/NotLogin';
+import HeaderLoginFalse from '@/components/common/HeaderLoginFalse';
 // import LeftSideBar from '@/components/LeftSideBar'
 export default {
   name: 'App',
@@ -25,7 +25,7 @@ export default {
     // LeftSideBar
     Header,
     Footer,
-    NotLogin,
+    HeaderLoginFalse,
     // login
   },
   mounted() {
