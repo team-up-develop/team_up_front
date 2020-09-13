@@ -44,7 +44,7 @@
           @click="getJob(job)" 
           :jobId='job'
         >
-          <div class="job-cards">
+          <div class="job-cards" :value="job.id">
             <div class="job-cards-top">
               {{ job.jobTitle | truncateTitle }}
             </div>
@@ -219,8 +219,6 @@ export default {
       modal: false, //?モーダルを開いてるか否か
       saveFlag: true, //? 案件保存しているかを判定
       limitationList:1,
-      isActive: false,
-      hasError: true,
     }
   },
   filters: {
@@ -230,7 +228,7 @@ export default {
     },
     //* 案件タイトル 文字制限
     truncateTitle: function(value) {
-      var length = 60;
+      var length = 55;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -239,7 +237,7 @@ export default {
     },
     //* 案件タイトル 詳細 文字制限
     truncateDetailTitle: function(value) {
-      var length = 70;
+      var length = 61;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -399,6 +397,12 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
+    .job-cards.sample-active {
+    /* color: #00A1D6; */
+    /* background-color: #00A1D6; */
+    border-bottom: 4px solid #ff0800;
+    font-weight: bold;
+  }
 .className {
   background-color: red;
 }
@@ -498,13 +502,14 @@ export default {
   /* 詳細検索 */
   .search-area {
     width: 100%;
-    height: 52px;
+    height: 48px;
     background-color: #ffffff;
-    border-bottom: 1px solid #B9B9B9;
+    /* border-bottom: 1px solid #B9B9B9; */
     position: absolute;
     top: 0;
     position: sticky;
     z-index: 10;
+    box-shadow: 0 2px 3px 0px rgb(197, 197, 197);
   }
 
   /* 全体 */
@@ -559,7 +564,7 @@ export default {
     /* margin-left: 1rem; */
     margin-bottom: 0.2rem;
     bottom: 0;
-    border-radius: 5px / 5px;
+    border-radius: 8px;
     color: #111111;
     border: solid 1px #B9B9B9;
     text-align: left;
@@ -667,12 +672,11 @@ export default {
 
   /* 応募するボタン */
   .btn-box-apply{
-    background-color: #E91E63;
     padding: 0.75rem 2rem;
     /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
     background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
     background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
     color: #fff;
     line-height: 1;
@@ -684,12 +688,21 @@ export default {
     cursor: pointer;
     border: none;
     margin-top: 4px;
-    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
+    background: #F4157E;
+    color: #F8FAFF;
+    appearance: none;
+    border: none;
+    box-shadow: 0 0px 5px 2px #d4d4d4;
   }
   .btn-box-apply:hover {
-    background: -moz-linear-gradient(top, #8C1BAB, #F761A1);
-    background: -webkit-linear-gradient(top, #8C1BAB, #F761A1);
-    background: linear-gradient(to bottom, #8C1BAB, #F761A1);
+    background: #F4157E;
+    color: #F8FAFF;
+    appearance: none;
+    border: none;
+    box-shadow: 0 5px 20px -3px #CD106E;
+    /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
+    /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
+    /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
     transition: .3s;
     /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
   }
@@ -700,7 +713,7 @@ export default {
     background: -moz-linear-gradient(top, #636363, #afafaf);
     background: -webkit-linear-gradient(top, #636363, #afafaf);
     background: linear-gradient(to bottom, #636363, #afafaf);
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
     color: #fff;
     line-height: 1;
@@ -796,7 +809,7 @@ export default {
   }
   .job-cards {
     /* width: 425px; */
-    width: 100%;
+    width: 97%;
     /* height: 60%; */
     height: 292px;
     /* float: right; */
@@ -804,7 +817,7 @@ export default {
     margin: 10px 0.5%;
     border: solid 1px #B9B9B9;
     background-color: #ffffff;
-    border-radius: 5px / 5px;
+    border-radius: 8px;
     transition: .3s;
     color: #111111;
   }
@@ -904,7 +917,8 @@ export default {
   }
   .job-cards-bottom .post-user-area .post-user-name-area {
     display: inline-block;
-    width: 80%;
+    width: 50%;
+    /* background-color: yellow; */
     height: 60%;
     padding: 0 20px;
     position: relative;
