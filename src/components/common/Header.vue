@@ -44,12 +44,12 @@
           </ul>
         </div>
         <div class="header-main-right">
-          <!-- <div class="user-login-btn">
+          <div class="user-login-btn">
             <router-link to="/login" class="user-rooter">ログイン</router-link>
           </div>
           <div class="user-register-btn">
             <router-link to="/register" class="user-rooter">登録する</router-link>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
