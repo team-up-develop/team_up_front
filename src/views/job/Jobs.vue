@@ -179,10 +179,7 @@
         </div>
       </div>
       <div class="job-wrapper-right-false" v-else>
-        <div class="false-user-login">
-        </div>
-        <div class="false-user-Advertisement">
-        </div>
+        <FalseUserLogin/>
       </div>
     </div>
     <Loading v-show="loading">
@@ -197,6 +194,7 @@ import moment from "moment";
 import Loading from '@/components/common/Loading'
 import ApplyModal from '@/components/modal/ApplyModal'
 import Applybtn from '@/components/button/Applybtn'
+import FalseUserLogin from '@/components/common/FalseUserLogin'
 // import SaveBtn from '@/components/button/SaveBtn'
 export default {
   data() {
@@ -390,6 +388,7 @@ export default {
     Loading,
     Applybtn,
     ApplyModal,
+    FalseUserLogin
     // SaveBtn
   },
 }
@@ -537,25 +536,12 @@ export default {
     transform: translateY(-4px);
     cursor: pointer;
   }
-  .job-wrapper-center .router {
-    /* width: 75%;
-    height: 55%;
-    background-color: yellow; */
-    /* pointer-events: none; */
-  }
-  .job-wrapper-left {
-    width: 43%;
-    flex: 1 0 auto;
-    align-items: center;
-    justify-content: center;
-    display: inline-block;
-  }
-
   /* 案件詳細画面 */
   .job-wrapper-right {
     width: 52%;
     height: 88vh;
     margin-left: 2rem;
+    margin-top: 1rem;
     background-color: #ffffff;
     /* display: inline-block; */
     /* position: absolute; */
@@ -774,7 +760,7 @@ export default {
 /* 右側 詳細を表示しない際に */
   .job-wrapper-right-false{
     width: 52%;
-    height: 88vh;
+    /* height: 60vh; */
     /* display: inline-block; */
     /* position: absolute; */
     position: sticky;
@@ -782,30 +768,18 @@ export default {
     margin-left: 2rem;
     margin-bottom: 0.2rem;
     bottom: 0;
-    border-radius: 5px / 5px;
+    border-radius: 8px;
     color: #111111;
     text-align: left;
   }
-  .false-user-login {
-    width: 100%;
-    height: 50%;
-    background-color: #ffffff;
-    border: solid 1px #B9B9B9;
-    border-radius: 5px / 5px;
-    margin-bottom: 1rem;
-  }
-  .false-user-Advertisement {
-    width: 100%;
-    height: 50%;
-    background-color: #ffffff;
-    border: solid 1px #B9B9B9;
-    border-radius: 5px / 5px;
-    margin-bottom: 1rem;
-  }
-
-  /* 案件のカード */
-  .job-cards.active {
-    background-color: red;
+  /* 案件カード側 */
+  .job-wrapper-left {
+    width: 43%;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
+    margin-top: 1rem;
   }
   .job-cards {
     /* width: 425px; */
