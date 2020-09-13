@@ -88,7 +88,7 @@ export default {
   }
   .header-wrapper {
     width: 100%;
-    height: 66px;
+    height: 58px;
     box-shadow: 0px 4px 3px -3px rgba(216, 216, 216, 0.6);
     margin-bottom:2px;
     /* position: fixed; */
@@ -169,13 +169,13 @@ export default {
     top: 0;
     right: 0; 
     text-align: center;
-    padding: 1.3rem  0;
+    padding: 1rem  0;
     text-decoration: none;
     /* color: #00A1D6; */
-    color: #111111;
+    color: #444444;
     font-size: 14px;
     margin: 0 auto;
-    /* font-weight: bold; */
+    font-weight: bold;
   }
   ul .menu-list-about {
     height: 25px;
@@ -190,6 +190,8 @@ export default {
     display: inline-block;
     text-align: center;
     margin-left: 1rem;
+    color: #444444;
+    font-weight: bold;
   }
   ul li .router-link-about {
     width: 105%;
