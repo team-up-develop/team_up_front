@@ -46,12 +46,6 @@
           </ul>
         </div>
         <div class="header-main-right">
-          <div class="user-login-btn">
-            <!-- <router-link to="/login" class="user-rooter">ログイン</router-link> -->
-          </div>
-          <!-- <div class="user-register-btn">
-            <router-link to="/register" class="user-rooter">登録する</router-link>
-          </div> -->
         </div>
       </div>
     </div>
@@ -134,9 +128,6 @@ export default {
     padding: 0;
     margin: 0;
     text-align: left;
-  }
-  ul :hover {
-    /* transform: translateY(-2px); */
   }
   ul .menu-list {
     height: 25px;

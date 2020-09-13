@@ -96,10 +96,12 @@
         </select>
         <h1>Selected その他スキル: {{ selectedSkill }}</h1>
       <br><br> -->
-      <router-link to='/jobcreate' class="job-create-btn-area">
-      戻る
-      </router-link>
-      <button @click="createJob">作成</button>
+      <div class="button-are">
+        <button @click="createJob" class="post-job-btn">案件投稿する</button>
+        <router-link to='/jobcreate' class="post-job-back">
+          戻る 1/2
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -291,7 +293,7 @@ export default {
   }
   .create-wrapper .job-create-radio {
     width: 100%;
-    height: 120px; 
+    height: 80px; 
     display: flex;
     flex-direction: row;
     text-align: left;
@@ -332,22 +334,82 @@ export default {
     background-color: #ffffff;
     background-color: #EFEFEF;
   }
+  .vs--searchable .vs__dropdown-toggle  {
+    background-color: green;
+    height: 10px;
+    widows: 10px;
+    display: none;
+  }
   .radio-btn {
     margin: 0.7rem 0rem;
     margin-left: 0.5rem;
   }
-  input[type='serach'] {
-    font: 16px/24px sans-serif;
-    box-sizing: border-box;
-    width: 40%;
-    padding: 0.3em;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    color: #111111;
-    border: 1px solid #A3A1A1;
-    border-radius: 4px;
-    padding: 0.5rem;
-    background-color: #EFEFEF;
+  input[type='search']:focus {
+    border: 1px solid #2196F3;
+    outline: none;
+    box-shadow: 0 0 5px 1px #2195f348;
+  }
+  .button-are {
+    width: 100%;
+    height: 10%;
+    position: relative;
+    margin: 0 auto;
+  }
+  .post-job-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: left;
+    display: block;
+    padding: 1.1rem 3rem;
+    /* background-color: #2196F3; */
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
+    background: linear-gradient(60deg,#1142e2,#19bde6);
+    border-radius: 25px;
+    border: none;
+    font-size: .875rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1rem;
+    float: right;
+    cursor: pointer;
+    transition: .3s;
+    /* position:absolute;
+    right: 0; */
+  }
+  .post-job-btn:hover {
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
+  }
+  .post-job-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: left;
+    display: block;
+    padding: 1.1rem 4rem;
+    /* background-color: #2196F3; */
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
+    background: linear-gradient(60deg,#525252,#6e6e6e);
+    border-radius: 25px;
+    border: none;
+    font-size: .875rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1rem;
+    float: right;
+    cursor: pointer;
+    transition: .3s;
+    text-decoration: none;
+    /* position:absolute;
+    right: 0; */
   }
 }
 </style>

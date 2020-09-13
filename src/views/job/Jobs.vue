@@ -53,29 +53,39 @@
           <div class="top-job-detail-top">
             {{ jobDetail.jobTitle | truncateDetailTitle }}
           </div>
-          <div class="top-job-detail-bottom" v-if="selfJobPost === false">
-            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
-            <div class="btn-box-apply-false" v-if="applyFlug === false">
-              エントリー済み
+          <div v-if="entryRedirect == false">
+            <div class="top-job-detail-bottom" v-if="selfJobPost === false">
+              <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
+              <div class="btn-box-apply-false" v-if="applyFlug === false">
+                エントリー済み
+              </div>
+              <div class="btn-box-save">
+                <!-- <save-btn :jobId='id' class="btn"></save-btn> -->
+                <font-awesome-icon icon="heart" class="save-icon" @click="saveJob" v-if="saveFlag"/>
+                <font-awesome-icon icon="heart" class="save-end-icon" @click="deleteJob" v-if="saveFlag == false"/>
+              </div>
+              <!-- 応募する モーダル画面 -->
+              <div class="example-modal-window">
+                <ApplyModal @close="closeModal" v-if="modal">
+                  <p>応募を完了してよろしいですか？</p>
+                  <template slot="footer">
+                    <applybtn @compliteEntry="compliteEntry" :jobId='id' ></applybtn>
+                    <button @click="doSend" class="modal-btn">キャンセル</button>
+                  </template>
+                </ApplyModal>
+              </div>
             </div>
-            <div class="btn-box-save">
-              <!-- <save-btn :jobId='id' class="btn"></save-btn> -->
-              <font-awesome-icon icon="heart" class="save-icon" @click="saveJob" v-if="saveFlag"/>
-              <font-awesome-icon icon="heart" class="save-end-icon" @click="deleteJob" v-if="saveFlag == false"/>
-            </div>
-            <!-- 応募する モーダル画面 -->
-            <div class="example-modal-window">
-              <ApplyModal @close="closeModal" v-if="modal">
-                <p>応募を完了してよろしいですか？</p>
-                <template slot="footer">
-                  <applybtn @compliteEntry="compliteEntry" :jobId='id' ></applybtn>
-                  <button @click="doSend" class="modal-btn">キャンセル</button>
-                </template>
-              </ApplyModal>
+            <div v-else>
+              自分の案件です
             </div>
           </div>
           <div v-else>
-            自分の案件です
+            <div class="top-job-detail-bottom">
+              <button class="btn-box-apply" @click="registerRedirect">エントリーする</button>
+              <div class="btn-box-save">
+                <font-awesome-icon icon="heart" class="save-icon" @click="registerRedirect"/>
+              </div>
+            </div>
           </div>
         </div>
         <div class="main-job-detail-area">
@@ -181,6 +191,8 @@ export default {
       modal: false, //?モーダルを開いてるか否か
       saveFlag: true, //? 案件保存しているかを判定
       limitationList:1,
+      userId: 0, //? ローカルストレージの値を保存する
+      entryRedirect: false //? 非ログイン時にエントリー押下後 登録にリダイレクトするためのフラグ
     }
   },
   filters: {
@@ -233,10 +245,20 @@ export default {
     //   .then(response => {
     //       this.positions = response.data
     //   })
-    if(localStorage.LoginName) this.name = localStorage.LoginName;
-    if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
+    // if(localStorage.LoginName) this.name = localStorage.LoginName;
+    // if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
+    // * ローカルストレージの値をログイン判定できるように格納
+    this.userId = localStorage.userId
+    if(!this.userId) {
+      this.entryRedirect = true //* 非ログイン時表示に
+    }
   },
   methods: {
+    // * 非ログイン時 登録リダイレクト
+    registerRedirect() {
+      alert("登録が必要です");
+      this.$router.push('/register');
+    },
     // * 検索する
     getParams(){
       const data = {
@@ -275,7 +297,7 @@ export default {
         jobId: this.jobDetail.id,
         userId: 1
       };
-      axios.delete(`${this.$baseURL}/favorite_job/`,{data: {userId: 1, jobId: data.jobId}})
+      axios.delete(`${this.$baseURL}/favorite_job/`,{data: {userId: this.userId, jobId: data.jobId}})
       .then(response => {
         this.saveFlag = true
         console.log(response.data)
@@ -284,7 +306,6 @@ export default {
         console.log(error)
       })
     },
-
     // * click して案件を取得 === 詳細
     getJob(job) {
       this.jobDetail = job; //? clickした案件を取得
@@ -292,44 +313,50 @@ export default {
       this.id = job.id;  //? clickしたIdを this.idに格納する
       this.selfJobPost = false; //? clickする度に 自分の案件では無くする
       this.applyFlug = true; //? clickする度に 応募済み案件にする
-      // * 自分の案件かを判定
-      axios.get('http://localhost:8888/api/v1//job/?user_id=1')
-      .then(response => {
-        for(let i = 0; i < response.data.length; i++) {
-          this.selfJob = response.data[i]
-          if(this.selfJob.id === this.id) {
-            this.selfJobPost = true
+
+      // * ログインしていれば以下の処理が走る
+      if(this.userId) {
+        // * 自分の案件かを判定
+        axios.get(`http://localhost:8888/api/v1//job/?user_id=${ this.userId }`)
+        .then(response => {
+          for(let i = 0; i < response.data.length; i++) {
+            this.selfJob = response.data[i]
+            if(this.selfJob.id === this.id) {
+              this.selfJobPost = true
+            }
           }
-        }
-      })
-      // * 応募済みか応募済みでないかを判断
-      axios.get('http://localhost:8888/api/v1/apply_job/?user_id=1')
-      .then(response => {
-        const arrayApply = []
-        for(let c = 0; c < response.data.length; c++){
-          const applyData = response.data[c];
-          arrayApply.push(applyData.id)
-        }
-        if(arrayApply.includes(this.jobDetail.id)) {
-          this.applyFlug = false
-        } 
-      })
-      // * 保存済みか保存済みではないかを判定する
-      axios.get('http://localhost:8888/api/v1/favorite_job/?user_id=1')
-      .then(response => {
-        const array = []
-        for(let i = 0; i < response.data.length; i++){
-          const likeData = response.data[i]
-          array.push(likeData.job.id)
-          // console.log(array)
-        }
-        if(array.includes(this.jobDetail.id)){
-          this.saveFlag = false
-        }
-        else{
-          this.saveFlag = true
-        }
-      })
+        })
+          // * 応募済みか応募済みでないかを判断
+        axios.get(`http://localhost:8888/api/v1/apply_job/?user_id=${ this.userId }`)
+        .then(response => {
+          const arrayApply = []
+          for(let c = 0; c < response.data.length; c++){
+            const applyData = response.data[c];
+            arrayApply.push(applyData.id)
+          }
+          if(arrayApply.includes(this.jobDetail.id)) {
+            this.applyFlug = false
+          } 
+        })
+          // * 保存済みか保存済みではないかを判定する
+        axios.get(`http://localhost:8888/api/v1/favorite_job/?user_id=${ this.userId }`)
+        .then(response => {
+          const array = []
+          for(let i = 0; i < response.data.length; i++){
+            const likeData = response.data[i]
+            array.push(likeData.job.id)
+            // console.log(array)
+          }
+          if(array.includes(this.jobDetail.id)){
+            this.saveFlag = false
+          }
+          else{
+            this.saveFlag = true
+          }
+        })
+      } else {
+        console.log("登録してからご利用いただけます")
+      }
     },
 
     // * エントリーが完了したら応募済みにする
@@ -522,7 +549,7 @@ export default {
   }
   .job-wrapper-right .top-job-detail-area {
     width: calc(100% - 4rem);
-    height: calc(17.5% - 2.5rem);
+    /* height: calc(17.5% - 2.5rem); */
     border-bottom: solid 1px #B9B9B9;
     font-weight: bold;
     padding: 1.5rem 2rem 1rem 2rem;
@@ -539,6 +566,7 @@ export default {
     height: 65%;
     display: inline-block;
     position: relative;
+    margin-top: 1rem;
   }
   .btn-box-save {
     display: inline-block;
@@ -549,7 +577,7 @@ export default {
   }
   .job-wrapper-right .main-job-detail-area {
     width: calc(100% - 4rem);
-    height: calc(80% - 1rem);
+    height: calc(75% - 1rem);
     /* background-color: yellow; */
     overflow: scroll;
     padding: 0 2rem 1rem 2rem ;
@@ -623,7 +651,7 @@ export default {
 
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 3.5rem;
     /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
     background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
     background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
@@ -660,7 +688,7 @@ export default {
   /* 応募済みボタン */
   .btn-box-apply-false{
     display: block;
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 3.5rem;
     background: -moz-linear-gradient(top, #636363, #afafaf);
     background: -webkit-linear-gradient(top, #636363, #afafaf);
     background: linear-gradient(to bottom, #636363, #afafaf);
