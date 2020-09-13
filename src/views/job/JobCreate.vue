@@ -280,9 +280,7 @@ export default {
     padding: 1.1rem 4rem;
     /* background-color: #2196F3; */
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: -moz-linear-gradient(top, #3C8CE7, #00EAFF);
-    background: -webkit-linear-gradient(top, #3C8CE7, #00EAFF);
-    background: linear-gradient(to bottom, #3C8CE7, #00EAFF);
+    background: linear-gradient(60deg,#1142e2,#19bde6);
     border-radius: 25px;
     border: none;
     font-size: .875rem;
