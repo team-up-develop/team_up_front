@@ -11,15 +11,18 @@ import Apply from '../views/apply/Apply.vue'
 import Manage from '../views/manage/Manage.vue'
 import ManageApplyDetail from '../views/manage/ManageApplyDetail.vue'
 import ManageParticipateDetail from '../views/manage/ManageParticipateDetail.vue'
+import ManageRejectDetail from '../views/manage/ManageRejectDetail.vue'
 import Chat from '../views/chat/Chat.vue'
 import ChatDetail from '../views/chat/ChatDetail.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: "history",
   routes: [
     {
       path: '/jobs',
-      component: Jobs
+      component: Jobs,
+      name: 'jobs'
     },
     {
       path: '/manage',
@@ -38,6 +41,10 @@ export default new Router({
       props: route => ({
         id: Number(route.params.id),
       })
+    },
+    {
+      path: '/manage/ManageRejectDetail',
+      component: ManageRejectDetail,
     },
     {
       path: '/manage/favorite_job',

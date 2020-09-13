@@ -25,32 +25,33 @@
               </div>
               <router-link to="/jobcreate" class="router-link">募集する</router-link>
             </li>
+            <li class="menu-list-about">
+              <div class="menu-list-icon-area">
+                <!-- <font-awesome-icon icon="comments" class="icon"/> -->
+              </div>
+              <router-link to="/manage" class="router-link-about">チームアップとは</router-link>
+            </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">
                 <!-- <font-awesome-icon icon="comments" class="icon"/> -->
               </div>
-              <router-link to="/chat" class="router-link">連絡する</router-link>
+              <router-link to="/login" class="router-link">ログイン</router-link>
             </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">
-                <!-- <font-awesome-icon icon="address-card" class="icon"/> -->
+                <!-- <font-awesome-icon icon="comments" class="icon"/> -->
               </div>
-              <router-link to="/manage" class="router-link">管理する</router-link>
+              <router-link to="/register" class="router-link">登録する</router-link>
             </li>
-            <!-- <li class="menu-list">
-              <div class="menu-list-icon-area">
-              </div>
-              <router-link to="/manage/ManageRejectDetail" class="router-link">pagination</router-link>
-            </li> -->
           </ul>
         </div>
         <div class="header-main-right">
           <div class="user-login-btn">
-  　　　　 <router-link to="/login" class="user-rooter">ログイン</router-link>
+            <!-- <router-link to="/login" class="user-rooter">ログイン</router-link> -->
           </div>
           <!-- <div class="user-register-btn">
             <router-link to="/register" class="user-rooter">登録する</router-link>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -172,7 +173,7 @@ export default {
     padding: 1rem  0;
     text-decoration: none;
     /* color: #00A1D6; */
-    color: #444444;
+    color: #666666;
     font-size: 14px;
     margin: 0 auto;
     font-weight: bold;
@@ -186,11 +187,11 @@ export default {
     margin: 6px 0;
     position: relative;
     cursor: pointer;
+    color: #666666;
     transition: all 0.3s ease 0s;
     display: inline-block;
     text-align: center;
     margin-left: 1rem;
-    color: #444444;
     font-weight: bold;
   }
   ul li .router-link-about {
@@ -198,10 +199,10 @@ export default {
     position: absolute;
     top: 0;
     right: 0; 
-    padding: 1.3rem  0;
+    padding: 1rem  0;
     text-decoration: none;
     /* color: #00A1D6; */
-    color: #111111;
+    color: #666666;
     font-size: 14px;
     margin: 0 auto;
   }

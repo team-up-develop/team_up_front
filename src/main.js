@@ -3,12 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'normalize.css'
-import jQuery from 'jquery'
+import jQuery from 'jquery' //? jQueryの導入
+import VuePaginate from 'vue-paginate'//? ページネーションの導入
+// import axios from 'axios'
 
-
-global.jquery = jQuery
-global.$ = jQuery
-window.$ = window.jQuery = require('jquery')
+global.jquery = jQuery //? jQueryの導入
+global.$ = jQuery //? jQueryの導入
+window.$ = window.jQuery = require('jquery') //? jQueryの導入
+Vue.use(VuePaginate) //? ページネーションの導入
 
 Vue.config.productionTip = false
 
