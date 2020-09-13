@@ -17,6 +17,7 @@ import ChatDetail from '../views/chat/ChatDetail.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: "history",
   routes: [
     {
       path: '/jobs',
