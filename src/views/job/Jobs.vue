@@ -76,7 +76,11 @@
               </div>
             </div>
             <div v-else>
-              自分の案件です
+              <div class="top-job-detail-bottom">
+                <router-link :to="`/manage/apply/${ jobDetail.id }`">
+                  <button class="btn-box-manage">管理画面へ</button>
+                </router-link>
+              </div>
             </div>
           </div>
           <div v-else>
@@ -524,8 +528,8 @@ export default {
   .job-wrapper .job-wrapper-center .router :hover {
     background-color: #2195f310;
     border: 1px solid #2196F3;
-    box-shadow: 0 15px 30px -5px #2195f357, 0 0 5px #2195f357;
-    transform: translateY(-4px);
+    box-shadow: 0 15px 30px -5px #2195f32d, 0 0 5px #2195f357;
+    transform: translateY(-2px);
     cursor: pointer;
   }
   /* 案件詳細画面 */
@@ -648,10 +652,34 @@ export default {
     font-weight: bold;
     pointer-events: none;
   }
-
+  .btn-box-manage {
+    padding: 0.75rem 3rem;
+    /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
+    background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
+    background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
+    border-radius: 8px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1.1em;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    margin-top: 4px;
+    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
+    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
+    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
+    color: #F8FAFF;
+    appearance: none;
+    border: none;
+    box-shadow: 0 0px 5px 2px #d4d4d4;
+  }
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 0.75rem 3.5rem;
+    padding: 0.75rem 2rem;
     /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
     background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
     background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
@@ -668,6 +696,9 @@ export default {
     border: none;
     margin-top: 4px;
     background: #F4157E;
+    background-image: -webkit-gradient(linear, right top, left top, from(#EC407A), to(#D81B60));
+    background-image: -webkit-linear-gradient(right, #EC407A 0%, #D81B60 100%);
+    background-image: linear-gradient(to left, #EC407A 0%, #D81B60 100%);
     color: #F8FAFF;
     appearance: none;
     border: none;
@@ -688,7 +719,7 @@ export default {
   /* 応募済みボタン */
   .btn-box-apply-false{
     display: block;
-    padding: 0.75rem 3.5rem;
+    padding: 0.75rem 2rem;
     background: -moz-linear-gradient(top, #636363, #afafaf);
     background: -webkit-linear-gradient(top, #636363, #afafaf);
     background: linear-gradient(to bottom, #636363, #afafaf);
