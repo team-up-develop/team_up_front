@@ -11,11 +11,11 @@
           <p>応募案件</p>
         </div>
       </router-link>
-      <router-link to="/favorite_job" class="router-link">
-        <div class="save-job-area">
-          <p>保存案件</p> 
-        </div>
-      </router-link>
+      <!-- <router-link to="/favorite_job" class="router-link"> -->
+      <div class="save-job-area">
+        <p>保存案件</p> 
+      </div>
+      <!-- </router-link> -->
       <div class="title-area">案件タイトル</div>
       <div class="time-area">開発期間</div>
       <div class="skill-area">開発言語</div>

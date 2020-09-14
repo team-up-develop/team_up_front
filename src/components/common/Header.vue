@@ -163,7 +163,7 @@ export default {
     padding: 1rem  0;
     text-decoration: none;
     /* color: #00A1D6; */
-    color: #444444;
+    color: #666666;
     font-size: 14px;
     margin: 0 auto;
     font-weight: bold;
