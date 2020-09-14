@@ -231,13 +231,13 @@ export default {
 }
 .status-area-participate {
   width: 24.8%;
-  height: 20%;
+  /* height: 20%; */
   display: inline-block;
   border: solid 1px #B9B9B9;
 }
 .job-manage-detail-wrapper .status-area {
   width: 24.8%;
-  height: 20%;
+  /* height: 20%; */
   display: inline-block;
   border: solid 1px #B9B9B9;
   /* background-color: #3700B3; */
@@ -247,7 +247,7 @@ export default {
 }
 .job-manage-detail-wrapper .status-area-left {
   width: 24.8%;
-  height: 20%;
+  /* height: 20%; */
   display: inline-block;
   border: solid 1px #B9B9B9;
   border-radius: 25px 0 0 0 ;
@@ -257,7 +257,7 @@ export default {
 }
 .job-manage-detail-wrapper .status-area-right {
   width: 24.8%;
-  height: 20%;
+  /* height: 20%; */
   background-color: rgb(0, 102, 128);
   display: inline-block;
   border: solid 1px #B9B9B9;

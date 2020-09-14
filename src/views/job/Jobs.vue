@@ -204,18 +204,9 @@ export default {
     moment(value, format) {
       return moment(value).format(format);
     },
-    //* 案件タイトル 文字制限
-    truncateTitle: function(value) {
-      var length = 55;
-      var ommision = "...";
-      if (value.length <= length) {
-        return value;
-      }
-      return value.substring(0, length) + ommision;
-    },
     //* 案件タイトル 詳細 文字制限
     truncateDetailTitle: function(value) {
-      var length = 61;
+      var length = 60;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -244,13 +235,6 @@ export default {
       .then(response => {
           this.languages = response.data
       })
-    // * 開発ポジション 取得
-    // axios.get(`${this.$baseURL}/position_tag`)
-    //   .then(response => {
-    //       this.positions = response.data
-    //   })
-    // if(localStorage.LoginName) this.name = localStorage.LoginName;
-    // if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
     // * ローカルストレージの値をログイン判定できるように格納
     this.userId = localStorage.userId
     if(!this.userId) {
@@ -623,7 +607,7 @@ export default {
     color: #3F51B5;
     font-size: 14px;
     border: solid 1px #3F51B5;
-    padding: 3px 23px;
+    padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
@@ -635,7 +619,7 @@ export default {
     color: #2196F3;
     font-size: 14px;
     border: solid 1px #2196F3;
-    padding: 3px 23px;
+    padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
@@ -647,7 +631,7 @@ export default {
     color: #00BCD4;
     font-size: 14px;
     border: solid 1px #00BCD4;
-    padding: 3px 23px;
+    padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;

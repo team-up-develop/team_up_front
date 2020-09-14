@@ -2,7 +2,7 @@
   <div class="create-wrapper">
     <div class="job-create-wrapper">
       <div class="job-create-area">
-        <label for="name" class="label">開発言語</label><label for="name" class="label-required"> *</label>
+        <label for="name" class="label">開発言語</label><label for="name" class="label-required">必須</label>
         <label v-if="selectedLangErrors.length" class="error-label">
           <p v-for="selectedLangError in selectedLangErrors" :key="selectedLangError" class="error-message">
             {{ selectedLangError }}</p>
@@ -18,7 +18,7 @@
         <!-- <h1>Selected 言語:{{ selectedLang }}</h1> -->
       </div>
       <div class="job-create-area">
-        <label for="name" class="label">開発フレームワーク</label><label for="name" class="label-required"> *</label>
+        <label for="name" class="label">開発フレームワーク</label><label for="name" class="label-required">必須</label>
         <label v-if="selectedFramworkErrors.length" class="error-label">
           <p v-for="selectedFramworkError in selectedFramworkErrors" :key="selectedFramworkError" class="error-message">
             {{ selectedFramworkError }}</p>
@@ -34,7 +34,7 @@
         <!-- <h1>Selected フレームワーク: {{ selectedFramwork }}</h1> -->
       </div>
       <div class="job-create-area">
-        <label for="name" class="label">その他技術</label><label for="name" class="label-required"> *</label>
+        <label for="name" class="label">その他技術</label><label for="name" class="label-required">必須</label>
         <label v-if="selectedSkillErrors.length" class="error-label">
           <p v-for="selectedSkillError in selectedSkillErrors" :key="selectedSkillError" class="error-message">
             {{ selectedSkillError }}</p>
@@ -50,7 +50,7 @@
         <!-- <h1>Selected フレームワーク: {{ selectedFramwork }}</h1> -->
       </div>
       <div class="job-create-area">
-        <label for="name" class="label">募集人数</label><label for="name" class="label-required"> *</label>
+        <label for="name" class="label">募集人数</label><label for="name" class="label-required">必須</label>
         <!-- <label v-if="recruitNumberErrors.length" class="error-label">
           <p v-for="recruitNumberError in recruitNumberErrors" :key="recruitNumberError" class="error-message">
             {{ recruitNumberError }}</p>
@@ -304,7 +304,15 @@ export default {
     margin-bottom: 0.7rem;
   }
   .label-required {
-    color: red;
+    color: #ffffff;
+    background-color: #f44336;
+    font-size: 12px;
+    font-weight: bold;
+    /* background-color: #19bde6; */
+    border-radius: 25px;
+    padding: 0.25rem 0.9rem;
+    text-align: center;
+    margin-left: 10px;
   }
   .error-label {
     display: inline-block;
@@ -333,12 +341,6 @@ export default {
     border-radius: 4px;
     background-color: #ffffff;
     background-color: #EFEFEF;
-  }
-  .vs--searchable .vs__dropdown-toggle  {
-    background-color: green;
-    height: 10px;
-    widows: 10px;
-    display: none;
   }
   .radio-btn {
     margin: 0.7rem 0rem;
@@ -393,7 +395,9 @@ export default {
     padding: 1.1rem 4rem;
     /* background-color: #2196F3; */
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: linear-gradient(60deg,#525252,#6e6e6e);
+    background: -moz-linear-gradient(top, #636363, #afafaf);
+    background: -webkit-linear-gradient(top, #636363, #afafaf);
+    background: linear-gradient(to bottom, #636363, #afafaf);
     border-radius: 25px;
     border: none;
     font-size: .875rem;
