@@ -106,7 +106,7 @@ export default {
     height: 40%;
     text-align: left;
     pointer-events: none;
-    font-weight: bold;
+    /* font-weight: bold; */
   }
   .job-cards-bottom .product-start-end .product-start-end-tag {
     display: inline-block;
@@ -124,7 +124,7 @@ export default {
     height: 60%;
     text-align: left;
     pointer-events: none;
-    font-weight: bold;
+    /* font-weight: bold; */
   }
   .job-cards-bottom .post-user-area .post-user-image {
     width: 55px;

@@ -19,12 +19,6 @@
               </div>
               <router-link to="/jobs" class="router-link">案件を探す</router-link>
             </li>
-            <li class="menu-list">
-              <div class="menu-list-icon-area">
-                <!-- <font-awesome-icon icon="user-plus" class="icon"/> -->
-              </div>
-              <router-link to="/jobcreate" class="router-link">募集する</router-link>
-            </li>
             <li class="menu-list-about">
               <div class="menu-list-icon-area">
                 <!-- <font-awesome-icon icon="comments" class="icon"/> -->
