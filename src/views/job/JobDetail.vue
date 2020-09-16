@@ -514,8 +514,8 @@ export default {
   }
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 1.4rem 4rem;
-    background-color: #E91E63;
+    padding: 1.3rem 3.8rem;
+    background: linear-gradient(60deg,#D81B60,#EC407A);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -523,7 +523,7 @@ export default {
     text-align: center;
     max-width: 320px;
     margin: auto;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: inline-block;
     cursor: pointer;
     border: none;

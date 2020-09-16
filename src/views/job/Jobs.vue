@@ -554,7 +554,7 @@ export default {
     height: 65%;
     display: inline-block;
     position: relative;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
   }
   .btn-box-save {
     display: inline-block;
@@ -679,17 +679,15 @@ export default {
     cursor: pointer;
     border: none;
     margin-top: 4px;
-    background: #F4157E;
-    background-image: -webkit-gradient(linear, right top, left top, from(#EC407A), to(#D81B60));
-    background-image: -webkit-linear-gradient(right, #EC407A 0%, #D81B60 100%);
-    background-image: linear-gradient(to left, #EC407A 0%, #D81B60 100%);
+    background: linear-gradient(60deg,#D81B60,#EC407A);
     color: #F8FAFF;
     appearance: none;
     border: none;
     box-shadow: 0 0px 5px 2px #d4d4d4;
+    transition: .3s;
   }
   .btn-box-apply:hover {
-    background: #F4157E;
+    background: linear-gradient(60deg,#D81B60,#EC407A);
     color: #F8FAFF;
     appearance: none;
     border: none;
@@ -717,7 +715,6 @@ export default {
     margin-top: 4px;
     font-size: 1.1em;
     display: inline-block;
-    cursor: pointer;
   }
 
   /* モーダル内のキャンセルボタン */
