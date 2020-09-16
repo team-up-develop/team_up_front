@@ -21,14 +21,16 @@
           <div class="status-number">{{ assginUsersNum }}人</div>
         </div>
       </div>
-      <div class="status-area">
-        <div class="status-box">
-          <div class="status-logo">
-            <font-awesome-icon icon="user-alt-slash" class="icon"/>
+      <div class="status-area-reject">
+        <router-link :to="`/manage/reject/${ id }`" class="router">
+          <div class="status-box-reject">
+            <div class="status-logo">
+              <font-awesome-icon icon="user-alt-slash" class="icon"/>
+            </div>
+            <div class="status-tag">拒否者</div>
+            <div class="status-number">{{ rejectUsersNum }}人</div>
           </div>
-          <div class="status-tag">拒否者</div>
-          <div class="status-number">{{ rejectUsersNum }}人</div>
-        </div>
+        </router-link>
       </div>
       <!-- <div class="status-area">
         <div class="status-box">
@@ -255,6 +257,12 @@ export default {
 .job-manage-detail-wrapper .status-area-left :hover {
   opacity: 0.8;
 }
+.job-manage-detail-wrapper .status-area-reject {
+  width: 24.8%;
+  /* height: 20%; */
+  display: inline-block;
+  border: solid 1px #B9B9B9;
+}
 .job-manage-detail-wrapper .status-area-right {
   width: 24.8%;
   /* height: 20%; */
@@ -287,6 +295,16 @@ export default {
   color: #ffffff;
   pointer-events: none;
 }
+.status-box-reject {
+  width: calc(100% - 8rem);
+  height: 100%;
+  padding: 0 4rem;
+  background-color: #606060;
+  color: #ffffff;
+}
+.status-box-reject:hover {
+  opacity: 0.8;
+}
 .status-box {
   width: calc(100% - 8rem);
   height: 100%;
@@ -314,6 +332,7 @@ export default {
   /* margin: 0 auto; */
   color: #ffffff;
   font-weight: bold;
+  pointer-events: none;
 }
 .status-number {
   width: 100%;
@@ -321,6 +340,7 @@ export default {
   font-size: 1.8em;
   color: #ffffff;
   font-weight: bold;
+  pointer-events: none;
 }
 /* ユーザー一覧のタグ */
 .job-manage-detail-wrapper .status-tag-area {

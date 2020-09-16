@@ -43,8 +43,11 @@ export default new Router({
       })
     },
     {
-      path: '/manage/ManageRejectDetail',
+      path: '/manage/reject/:id',
       component: ManageRejectDetail,
+      props: route => ({
+        id: Number(route.params.id),
+      })
     },
     {
       path: '/manage/favorite_job',

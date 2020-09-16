@@ -18,7 +18,7 @@
         <!-- <h1>Selected 言語:{{ selectedLang }}</h1> -->
       </div>
       <div class="job-create-area">
-        <label for="name" class="label">開発フレームワーク</label><label for="name" class="label-required">必須</label>
+        <label for="name" class="label">フレームワーク</label><label for="name" class="label-required">必須</label>
         <label v-if="selectedFramworkErrors.length" class="error-label">
           <p v-for="selectedFramworkError in selectedFramworkErrors" :key="selectedFramworkError" class="error-message">
             {{ selectedFramworkError }}</p>
