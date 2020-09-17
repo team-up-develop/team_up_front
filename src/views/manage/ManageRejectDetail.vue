@@ -55,20 +55,22 @@
         <div class="status-tag-study">学習開始</div>
         <div class="status-tag-skill">スキル</div>
       </div>
-      <div 
-        v-for="rejectUser in rejectUsers" 
-        :key="rejectUser.id" 
-        class="router-user-area"
-      >
-        <div class="user-area">
-          <div class="user-area-box">
-            {{ rejectUser.user.userName }}
-          </div>
-          <div class="user-area-box">
-          {{ rejectUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
-          </div>
-          <div class="user-area-skill">
-            {{ rejectUser.user.userName }}
+      <div class="user-list-area">
+        <div 
+          v-for="rejectUser in rejectUsers" 
+          :key="rejectUser.id" 
+          class="router-user-area"
+        >
+          <div class="user-area">
+            <div class="user-area-box">
+              {{ rejectUser.user.userName }}
+            </div>
+            <div class="user-area-box">
+            {{ rejectUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
+            </div>
+            <div class="user-area-skill">
+              {{ rejectUser.user.userName }}
+            </div>
           </div>
         </div>
       </div>
@@ -347,6 +349,9 @@ export default {
   padding: 0.6rem 0;
 } 
 
+.user-list-area {
+  overflow: scroll;
+}
 .user-area {
   border-bottom: 1px solid  #9c9c9c;
 }
