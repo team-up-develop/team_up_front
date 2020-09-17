@@ -69,7 +69,7 @@ export default {
     },
     //* 案件タイトル 文字制限
     truncateTitle: function(value) {
-      var length = 30;
+      var length = 25;
       var ommision = "...";
       if (value.length <= length) {
         return value;
