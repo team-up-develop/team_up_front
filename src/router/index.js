@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Jobs from '../views/job/Jobs.vue'
-import JobDetail from '../views/job/JobDetail.vue'
 import Login from '../views/user/Login.vue'
 import Register from '../views/user/Register.vue'
 import JobCreate from '../views/job/JobCreate.vue'
 import JobCreateSkill from '../views/job/JobCreateSkill.vue'
 import Favorite from '../views/favorite/Favorite.vue'
+import FavoriteJobDetail from '../views/favorite/FavoriteJobDetail.vue'
 import Apply from '../views/apply/Apply.vue'
+import ApplyJobDetail from '@/views/apply/ApplyJobDetail'
 import Manage from '../views/manage/Manage.vue'
 import ManageApplyDetail from '../views/manage/ManageApplyDetail.vue'
 import ManageParticipateDetail from '../views/manage/ManageParticipateDetail.vue'
@@ -54,12 +55,19 @@ export default new Router({
       component: Favorite
     },
     {
-      path: '/apply_job',
+      path: '/manage/apply_job',
       component: Apply
     },
     {
+      path: '/manage/apply_job/:id/',
+      component: ApplyJobDetail,
+      props: route => ({
+        id: Number(route.params.id),
+      })
+    },
+    {
       path: '/manage/favorite_job/:id/',
-      component: JobDetail,
+      component: FavoriteJobDetail,
       props: route => ({
         id: Number(route.params.id),
       })

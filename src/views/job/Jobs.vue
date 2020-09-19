@@ -3,7 +3,7 @@
     <div class="search-area">
     </div>
     <div class="top-search-area">
-      <select v-model="selectedPosition" class="styled-select">
+      <!-- <select v-model="selectedPosition" class="styled-select">
         <option disabled value="">担当</option>
         <option 
           v-for="position in positions" 
@@ -12,9 +12,16 @@
           class="dropdown-menu"
         >
           {{ position.positionTagName }}
-        </option>
-      </select>
-      <select v-model="selectedLang" class="styled-select">
+        </option> -->
+      <!-- </select> -->
+        <select v-model="selectedLang" class="position" multiple>
+          <option disabled value="" class="position">担当</option>
+          <option v-for="lang in languages " v-bind:value="lang.id" v-bind:key="lang.id">
+            {{ lang.programingLanguageName }}
+          </option>
+        </select>
+        <h1>Selected ポジション:{{ selectedLang }}</h1>
+      <!-- <select v-model="selectedLang" class="styled-select">
         <option disabled value="" class="position">開発言語</option>
         <option 
         v-for="lang in languages" 
@@ -23,7 +30,7 @@
         >
           {{ lang.programingLanguageName }}
         </option>
-      </select>
+      </select> -->
       <input 
         type="text" 
         v-model="freeWord" 
@@ -178,8 +185,8 @@ export default {
   data() {
     return {
       jobs: [],
-      selectedPosition: [],
-      positions: [],
+      // selectedPosition: [],
+      // positions: [],
       selectedLang: [],
       languages: [],
       freeWord: '',
@@ -196,7 +203,8 @@ export default {
       saveFlag: true, //? 案件保存しているかを判定
       limitationList:1,
       userId: 0, //? ローカルストレージの値を保存する
-      entryRedirect: false //? 非ログイン時にエントリー押下後 登録にリダイレクトするためのフラグ
+      entryRedirect: false, //? 非ログイン時にエントリー押下後 登録にリダイレクトするためのフラグ
+      a: ''
     }
   },
   filters: {
@@ -247,30 +255,42 @@ export default {
       alert("登録が必要です");
       this.$router.push('/register');
     },
-    // * 検索する
+    // * 開発言語検索
     getParams(){
+      var array = [];
       const data = {
-        position: this.selectedPosition,
         language: this.selectedLang,
-        freeWord: this.freeWord
       }
-      // const URL = 'http://localhost:8888/api/v1/job/?'
-      // * クエリパラメーター
-      axios.get(`${this.$baseURL}/job/?position_tag_id=${ data.position }&programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
-      .then(response => {
-        setTimeout(() => {
+      for(var i =0; i < data.language.length; i++) {
+        var languageParams = data.language[i];
+        var queryParams =  'programing_language_id' + '[' + Number(languageParams - 1) + ']' + '=' + languageParams + '&';
+        array.push(queryParams)
+      }
+      var result = array.join('');
+      console.log( result );
+        axios.get(`http://localhost:8888/api/v1/job/?${result}`)
+        .then(response => {
           this.loading = false;
           this.jobs = response.data
-        }, 1000);
-      })
+        })
+      // console.log(languageParams);
+      // console.log(programing_language_id[data.language]=data.language)
+      // const URL = 'http://localhost:8888/api/v1/job/?'
+      // * クエリパラメーター
+      // axios.get(`${this.$baseURL}/job/?programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
+      // axios.get(`http://localhost:8888/api/v1/job/?programing_language_id[0]=${data.language}&programing_language_id[1]=2`)
+      // .then(response => {
+      //   this.loading = false;
+      //   this.jobs = response.data
+      // })
     },
     // * 案件を保存する
     saveJob(){
-      const data = {
+      const params = {
         jobId: this.jobDetail.id, 
         userId: 1 
       };
-      axios.post(`${this.$baseURL}/favorite_job/`, data)
+      axios.post(`${this.$baseURL}/favorite_job/`, params)
       .then(response => {
         this.saveFlag = false
         console.log(response)
@@ -281,11 +301,11 @@ export default {
     },
     // * 案件保存を削除する
     deleteJob() {
-      const data = {
+      const params = {
         jobId: this.jobDetail.id,
         userId: 1
       };
-      axios.delete(`${this.$baseURL}/favorite_job/`,{data: {userId: this.userId, jobId: data.jobId}})
+      axios.delete(`${this.$baseURL}/favorite_job/`,{params: {userId: this.userId, jobId: params.jobId}})
       .then(response => {
         this.saveFlag = true
         console.log(response.data)
@@ -445,7 +465,7 @@ export default {
   .job-wrapper .top-search-area {
     width: 85%;
     margin: 0 auto;
-    display: none;
+    /* display: none; */
     /* width: 20%;
     margin: 0 0 0 0;
     background-color: #ffffff;

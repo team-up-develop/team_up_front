@@ -6,7 +6,7 @@
           <p>管理案件</p> 
         </div>
       </router-link>
-      <router-link to="/apply_job" class="router-link">
+      <router-link to="/manage/apply_job" class="router-link">
         <div class="apply-job-area">
           <p>応募案件</p>
         </div>
