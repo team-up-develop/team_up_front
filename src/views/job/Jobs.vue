@@ -794,7 +794,8 @@ export default {
   label.checkbox {
     position: absolute;
     top: 0;
-    margin-top: 0.4rem;
+    font-size: 16px;
+    margin-top: 0.3rem;
     color: #666666;
     margin-left: 0.4rem;
   }
