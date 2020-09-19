@@ -18,7 +18,7 @@
       <div class="time-area">開発期間</div>
       <div class="skill-area">開発言語</div>
       <div class="job-wrapper-area">
-        <router-link :to="`/manage/favorite_job/${ applyJob.jobId }`" v-for="applyJob in applyJobArray" :key="applyJob.id" class="router">
+        <router-link :to="`/manage/apply_job/${ applyJob.jobId }`" v-for="applyJob in applyJobArray" :key="applyJob.id" class="router">
           <div class="job-area">
             <div class="job-area-box">
               {{ applyJob.job.jobTitle | truncateTitle }}

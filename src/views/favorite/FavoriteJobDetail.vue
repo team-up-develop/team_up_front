@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-wrapper" v-show="loading">
+  <div class="detail-wrapper">
     <div class="detail-post-user-area">
       <div class="detail-tag">投稿者</div>
       <div class="post-user-area">
@@ -14,12 +14,12 @@
                 {{ job.user.userName }}
               </div>
             </div>
-            <!-- <div class="user-study-area">
+            <div class="user-study-area">
               <div class="study-tag">学習開始</div>
               <div class="stydy-time">
                 {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
               </div>
-            </div> -->
+            </div>
             <div class="user-introduce-area">
               <div class="introduce-tag">学習開始</div>
               <div class="introduce">
@@ -129,8 +129,6 @@
           ログインが必要です！
         </div>
     </div>
-  <Loading v-show="!loading">
-  </Loading>
   </div>
 </template>
 
@@ -139,7 +137,7 @@ import axios from 'axios'
 import moment from "moment";
 import Applybtn from '@/components/button/Applybtn'
 import SaveBtn from '@/components/button/SaveBtn'
-import Loading from '@/components/common/Loading'
+// import Loading from '@/components/common/Loading'
 import ApplyModal from '@/components/modal/ApplyModal'
 export default {
   props: {
@@ -147,7 +145,7 @@ export default {
   },
   data() {
     return {
-      job: null,
+      job: {},
       selfJobPost: false, //? 自分の案件かを判定
       loginFlag: false, //? ログインしているかを判定
       loading: false,
@@ -165,8 +163,8 @@ export default {
     // * 詳細画面情報を取得
     axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
-          this.loading = true;
-          // console.log(response.data)
+          // this.loading = true;
+          console.log(response.data)
           this.job = response.data
           console.log("よまれてるよ")
       })
@@ -182,32 +180,20 @@ export default {
     })
   },
   mounted() {
-    //* ログインしている時だけ、ボタンを表示する
-    if( localStorage.userId !== undefined) {
-      this.loginFlag = true
-    // * ログインユーザーが応募済みか応募済みではないかを判定する
-      axios.get(`${this.$baseURL}apply_job/?user_id=1`)
-      .then(response => {
-        const arrayApply = []
-        for(let c = 0; c < response.data.length; c++){
-          const applyData = response.data[c];
-          arrayApply.push(applyData.job.id)
-        }
-        if (arrayApply.includes(this.id)) {
-          this.applyFlug = false
-        } else {
-          console.log("まだ応募していません")
-        }
-      })
-    }
-    // * 投稿一覧取得
-    axios.get(`${this.$baseURL}/job`, {
-      headers: {
-        Authorization: `Bearer ${ localStorage.userId }`
-      }
-    })
+    this.loginFlag = true
+  // * ログインユーザーが応募済みか応募済みではないかを判定する
+    axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
     .then(response => {
-      this.jobs = response.data
+      const arrayApply = []
+      for(let c = 0; c < response.data.length; c++){
+        const applyData = response.data[c];
+        arrayApply.push(applyData.job.id)
+      }
+      if (arrayApply.includes(this.id)) {
+        this.applyFlug = false
+      } else {
+        console.log("まだ応募していません")
+      }
     })
   },
   methods: {
@@ -224,7 +210,7 @@ export default {
     getJob() {
       axios.get(`${this.$httpPosts}/${this.id}/`)
         .then(response => {
-          this.loading = true;
+          // this.loading = true;
           this.job = response.data
           console.log(this.job)
           console.log(this.id)
@@ -251,7 +237,7 @@ export default {
   components: {
     Applybtn,
     SaveBtn,
-    Loading,
+    // Loading,
     ApplyModal,
   }
 }
