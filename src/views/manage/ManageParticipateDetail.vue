@@ -212,14 +212,14 @@ export default {
   methods: {
     // * 参加させる
     applyUserPut() {
-      const data = {
+      const params = {
         jobId: 1,
         userId: this.applyUser,
         applyStatusId: 2
       };
-      axios.put(`${this.$baseURL}/apply_job/`, data)
+      axios.put(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
-        console.log(response.data)
+        console.log(response.params)
       })
       .catch(error => {
         console.log(error)
@@ -227,14 +227,14 @@ export default {
     },
     // * 拒否する
     applyUserRefusal() {
-      const data = {
+      const params = {
         jobId: 1,
         userId: this.refusalUser,
         applyStatusId: 3
       };
-      axios.put(`${this.$baseURL}/apply_job/`, data)
+      axios.put(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
-        console.log(response.data)
+        console.log(response.params)
       })
       .catch(error => {
         console.log(error)

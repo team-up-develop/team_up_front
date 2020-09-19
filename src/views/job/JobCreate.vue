@@ -107,16 +107,16 @@ export default {
       }
       // * PostData
       if(this.jobTitle && this.devStartDate && this.devEndDate) {
-        const data = {
+        const params = {
           jobTitle : this.jobTitle,  //? タイトル
           jobDescription: this.jobDescription, //? 詳細
           devStartDate: this.devStartDate, //? 開発開始
           devEndDate: this.devEndDate, //? 開発終了
         };
-        sessionStorage.setItem('jobTitle', data.jobTitle);
-        sessionStorage.setItem('jobDescription', data.jobDescription);
-        sessionStorage.setItem('devStartDateString', data.devStartDate);
-        sessionStorage.setItem('devEndDateString', data.devEndDate);
+        sessionStorage.setItem('jobTitle', params.jobTitle);
+        sessionStorage.setItem('jobDescription', params.jobDescription);
+        sessionStorage.setItem('devStartDateString', params.devStartDate);
+        sessionStorage.setItem('devEndDateString', params.devEndDate);
         var jobTitle = sessionStorage.getItem('jobTitle');
         this.jobTitle = jobTitle;
       }

@@ -28,11 +28,11 @@ export default {
   },
   methods: {
     register() {
-      const data = {
+      const params = {
         LoginName: this.LoginName,
         LoginPassword: this.LoginPassword,
       }
-      axios.post(`${this.$baseURL}/signup`, data)
+      axios.post(`${this.$baseURL}/signup`, params)
       .then(response => {
         console.log(response)
       });

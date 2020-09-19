@@ -58,12 +58,12 @@ export default {
   },
   methods: {
     chatCreate() {
-      const data = {
+      const params = {
           "message": this.chatMessage,
           "userID": 3,
           "jobID": this.id
       }
-      axios.post(`${this.$baseURL}/chat_message`, data)
+      axios.post(`${this.$baseURL}/chat_message`, params)
       .then(response => {
         console.log(response.data)
       })

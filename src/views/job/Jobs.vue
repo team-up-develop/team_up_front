@@ -323,7 +323,7 @@ export default {
         jobId: this.jobDetail.id,
         userId: 1
       };
-      axios.delete(`${this.$baseURL}/favorite_job/`,{params: {userId: this.userId, jobId: params.jobId}})
+      axios.delete(`${this.$baseURL}/favorite_job/`,{data: params})
       .then(response => {
         this.saveFlag = true
         console.log(response.data)

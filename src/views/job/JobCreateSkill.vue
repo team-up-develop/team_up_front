@@ -231,7 +231,7 @@ export default {
       var devEnd = devEndDateString
       var devEndDate = toDate(devEnd, '-');
 
-      const data = {
+      const params = {
         userId: 4, //? 仮でUser_idを置いている
         jobTitle : jobTitle,  //? タイトル
         jobDescription: jobDescription, //? 詳細
@@ -245,8 +245,8 @@ export default {
         skill: skillArray, //? その他開発スキル,
         recruitmentNumbers: recruitNum //募集人数
       };
-      console.log(data)
-      axios.post(`${this.$baseURL}/job`, data)
+      console.log(params)
+      axios.post(`${this.$baseURL}/job`, params)
       .then(response => {
         console.log(response);
         sessionStorage.removeItem('jobTitle');
