@@ -28,11 +28,11 @@ export default {
   },
   methods: {
     register() {
-      const data = {
+      const params = {
         LoginName: this.LoginName,
         LoginPassword: this.LoginPassword,
       }
-      axios.post(`${this.$baseURL}/signup`, data)
+      axios.post(`${this.$baseURL}/signup`, params)
       .then(response => {
         console.log(response)
       });
@@ -62,7 +62,7 @@ export default {
     padding: 1rem 0;
     text-align: center;
     position: relative;
-    color: #2196F3;
+    color: #AB47BC;
     font-weight: bold;
     font-size: 20px;
     letter-spacing: 0.5rem;
@@ -82,9 +82,9 @@ export default {
     height: 6px;
     content: '';
     border-radius: 3px;
-    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
-    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
-    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
+    background-image: -webkit-gradient(linear, right top, left top, from(#AB47BC), to(#673AB7));
+    background-image: -webkit-linear-gradient(right, #AB47BC 0%, #673AB7 100%);
+    background-image: linear-gradient(to left, #AB47BC 0%, #673AB7 100%);
   }
   .register-form-area {
     width: 100%;
@@ -122,7 +122,7 @@ export default {
   .register-btn{
     display: block;
     padding: 1rem 2rem;
-    background: linear-gradient(60deg,#1142e2,#19bde6);
+    background: linear-gradient(60deg,#AB47BC,#673AB7);
     /* background: linear-gradient(60deg,#BA68C8,#673AB7); */
     border-radius: 25px;
     font-size: .875rem;
@@ -138,11 +138,11 @@ export default {
     transition: .3s;
   }
   .register-btn:hover {
-    background: linear-gradient(60deg,#1142e2,#19bde6);
+    background: linear-gradient(60deg,#AB47BC,#673AB7);
     color: #F8FAFF;
     appearance: none;
     border: none;
-    box-shadow: 0 5px 20px -3px #1142e2;
+    box-shadow: 0 5px 20px -3px #AB47BC;
     /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
     /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
     /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
