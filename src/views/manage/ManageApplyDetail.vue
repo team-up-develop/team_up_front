@@ -328,15 +328,16 @@ export default {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  border-radius: 25px 0 0 0;
+  border-radius: 15px 0 0 0;
   background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
 }
 .status-box-right {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
   background-color: #606060;
-  border-radius: 0 25px 0 0;
+  border-radius: 0 15px 0 0;
 }
 .status-box-participate {
   width: calc(100% - 8rem);
@@ -400,6 +401,7 @@ export default {
   color: #ffffff;
   font-weight: bold;
   background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
 }
 .job-manage-detail-wrapper .status-tag-area .status-tag-name {
   width: 24.8%;
@@ -462,7 +464,7 @@ export default {
   width: 100%;
   height: 10%;
   padding: 0.8rem 0;
-  border-radius: 20px 20px 0px 0;
+  border-radius: 15px 15px 0px 0;
   background-color: #3700B3;
   color: #ffffff;
   font-weight: bold;
@@ -492,6 +494,7 @@ export default {
   /* display: block; */
   padding: 1rem 2.4rem;
   background-color: #E91E63;
+  box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
   color: #fff;
@@ -508,6 +511,7 @@ export default {
   background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
   background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
   background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+  box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
   color: #fff;
