@@ -15,7 +15,7 @@
     </div>
     <div class="status-change-right">
       <button class="permit-btn" @click="applyUserPut">参加させる</button>
-      <button class="reject-btn" @click="applyUserRefusal">落選させる</button>
+      <button class="reject-btn" @click="applyUserReject">落選させる</button>
     </div>
   </div>
 </template>
@@ -73,7 +73,7 @@ export default {
       })
     },
     // * 拒否する
-    applyUserRefusal() {
+    applyUserReject() {
       const params = {
         jobId: 1,
         userId: this.statusChangeUser,
@@ -82,7 +82,7 @@ export default {
       axios.put(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
         console.log(response.data)
-        this.$emit('compliteRefusal', this.message)
+        this.$emit('applyUserReject', this.message)
       })
       .catch(error => {
         console.log(error)

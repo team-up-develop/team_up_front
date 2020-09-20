@@ -26,7 +26,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.431);
+  background: rgba(0, 0, 0, 0.637);
   font-weight: bold;
 }
 .modal-window {
