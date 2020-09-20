@@ -162,7 +162,7 @@ export default {
       })
     },
     // *拒否者 リアルタイムで取得
-    compliteRefusal() {
+    applyUserReject() {
       // * 参加者をステータスごとに取り出す
       axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
       .then(response => {
