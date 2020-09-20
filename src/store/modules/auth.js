@@ -30,7 +30,7 @@ const actions = {
       LoginName: authData.LoginName,
       LoginPassword: authData.LoginPassword,
     }
-    axios.post('http://localhost:8888/api/v1/login', data)
+    axios.post('http://localhost:8080/api/v1/login', data)
     .then(response => {
       console.log("----------------------")
       router.push('/jobs');
