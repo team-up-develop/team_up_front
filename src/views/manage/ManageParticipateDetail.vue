@@ -1,6 +1,6 @@
 <template>
   <div class="manage-detail-wrapper">
-    <status-change :applyUsers="applyUsers" :id="id"/>
+    <status-change :applyUsers="applyUsers" :id="id" @compliteAssgin="compliteAssgin" @compliteRefusal="compliteRefusal"/>
     <div class="job-manage-detail-wrapper">
       <div class="status-area-left">
         <router-link :to="`/manage/apply/${ id }`" class="router">
@@ -134,6 +134,36 @@ export default {
     //     this.manageJobs = response.data
     //   })
     // }
+  },
+  methods: {
+    // * 参加者 リアルタイムで変更する
+    compliteAssgin(){
+      // * 参加者をステータスごとに取り出す
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
+      .then(response => {
+        this.applyUsers = response.data
+        this.applyUsersNum = response.data.length
+      })
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=2`)
+      .then(response => {
+        this.assginUsers = response.data
+        this.assginUsersNum = response.data.length
+      })
+    },
+    // *拒否者 リアルタイムで取得
+    compliteRefusal() {
+      // * 参加者をステータスごとに取り出す
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
+      .then(response => {
+        this.applyUsers = response.data
+        this.applyUsersNum = response.data.length
+      })
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=3`)
+      .then(response => {
+        this.rejectUsers = response.data
+        this.rejectUsersNum = response.data.length
+      })
+    }
   },
   components: {
     StatusChange
