@@ -30,7 +30,8 @@ export default {
   data() {
     return {
       statusChangeUser: [], //? ステータスの変更ユーザー
-      jobTitle: "" //? 案件タイトル
+      jobTitle: "", //? 案件タイトル
+      message: "Emit"
     }
   },
   filters: {
@@ -65,6 +66,7 @@ export default {
       axios.put(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
         console.log(response.data)
+        this.$emit('compliteAssgin', this.message)
       })
       .catch(error => {
         console.log(error)
@@ -80,6 +82,7 @@ export default {
       axios.put(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
         console.log(response.data)
+        this.$emit('compliteRefusal', this.message)
       })
       .catch(error => {
         console.log(error)
