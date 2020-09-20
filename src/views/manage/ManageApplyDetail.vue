@@ -1,24 +1,6 @@
 <template>
   <div class="manage-detail-wrapper">
-    <div class="job-status-change-area">
-      <div class="status-change-top">
-        {{ jobTitle | truncateDetailTitle }}
-      </div>
-      <div class="status-change-left">
-        <label for="" class="label">応募者選択</label>
-        <div class="cp_ipselect cp_sl02">
-          <select required v-model="statusChangeUser">
-            <option v-for="user in applyUsers" v-bind:value="user.user.id " v-bind:key="user.user.id">
-              {{ user.user.userName }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="status-change-right">
-        <button class="permit-btn" @click="applyUserPut">参加させる</button>
-        <button class="reject-btn" @click="applyUserRefusal">落選させる</button>
-      </div>
-    </div>
+    <status-change :applyUsers="applyUsers" :id="id"/>
     <div class="job-manage-detail-wrapper">
       <div class="status-area-left">
         <div class="status-box-click">
@@ -51,15 +33,6 @@
         </div>
         </router-link>
       </div>
-      <!-- <div class="status-area">
-        <div class="status-box">
-          <div class="status-logo">
-            <font-awesome-icon icon="eye" class="icon"/>
-          </div>
-          <div class="status-tag">閲覧数</div>
-          <div class="status-number">1000</div>
-        </div>
-      </div> -->
       <div class="status-area-right">
         <div class="status-box-right">
           <div class="status-logo">
@@ -93,53 +66,14 @@
           </div>
         </div>
       </div>
-
-
-      <!-- <div v-for="applyUser in applyUsers" :key="applyUser.id">
-        <p>ID {{ applyUser.userId }} 名前 {{ applyUser.user.userName }}</p>
-      </div> -->
     </div>
-    <!-- <h3>応募者一覧</h3>
-    <div v-for="applyUser in applyUsers" :key="applyUser.id">
-      <p>ID {{ applyUser.userId }} 名前 {{ applyUser.user.userName }}</p>
-    </div>
-    <h3>参加者一覧</h3>
-    <div v-for="assginUser in assginUsers" :key="assginUser.id">
-      <p>ID {{ assginUser.userId }} 名前 {{ assginUser.user.userName }}</p>
-    </div>
-    <h3>参加者拒否一覧</h3>
-    <div v-for="rejectUser in rejectUsers" :key="rejectUser.id">
-      <p>ID {{ rejectUser.userId }} 名前 {{ rejectUser.user.userName }}</p>
-    </div> -->
-    <!-- <h2>応募者を参加させる</h2>
-    <select v-model="applyUser" class="">
-      <option disabled value="" class="">応募者</option>
-      <option v-for="user in applyUsers" v-bind:value="user.user.id " v-bind:key="user.user.id">
-        {{ user.user.userName  }}
-      </option>
-    </select>
-    <h3>Selected User{{ applyUser }}</h3>
-    <div @click="applyUserPut" class="btn-box-save">
-      参加させる
-    </div>
-
-    <h2>応募者を拒否する</h2>
-    <select v-model="refusalUser" class="">
-      <option disabled value="" class="">応募者</option>
-      <option v-for="user in applyUsers" v-bind:value="user.user.id " v-bind:key="user.user.id">
-        {{ user.user.userName  }}
-      </option>
-    </select>
-    <h3>Selected User{{ refusalUser }}</h3>
-    <div @click="applyUserRefusal" class="btn-box-save-false">
-      拒否する
-    </div> -->
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import moment from "moment";
+import StatusChange from '@/components/manage/StatusChange'
 export default {
   props: {
     // * job.idを受け取る
@@ -147,7 +81,6 @@ export default {
   },
   data() {
     return {
-      statusChangeUser: [], //? ステータスの変更ユーザー
       applyUsers: [], //? 応募者
       applyUsersNum: 0,//? 応募者人数
       assginUsers: [], //? 参加者
@@ -158,7 +91,6 @@ export default {
       refusalUser: [], //? 拒否する
       manageJobs: [], //? 管理
       assginUsersId: null,
-      jobTitle: "" //? 案件タイトル
     }
   },
   filters: {
@@ -183,7 +115,6 @@ export default {
       var job = response.data[0];
       // console.log(job.job.jobTitle)
       this.jobTitle = job.job.jobTitle;
-      console.log(this.jobTitle)
     })
     // * 参加者をステータスごとに取り出す
     axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
@@ -201,56 +132,6 @@ export default {
       this.rejectUsers = response.data
       this.rejectUsersNum = response.data.length
     })
-      // for(let i = 0; i < response.data.length; i++){
-      //   const applyData = response.data[i];
-      //   // console.log(applyData)
-      //   if(applyData.applyStatusId === 1){
-      //     this.applyUsers.push(applyData)
-      //     this.applyUsersNum = this.applyUsers.length;
-      //   }
-      //   else if(applyData.applyStatusId === 2){
-      //     this.assginUsers.push(applyData)
-      //     this.assginUsersNum = this.assginUsers.length;
-      //   }
-      //   else {
-      //     this.rejectUsers.push(applyData)
-      //     this.rejectUsersNum = this.rejectUsers.length;
-      //   }
-    //   }
-    // })
-    
-  },
-  methods: {
-    // * 参加させる
-    applyUserPut() {
-      const params = {
-        jobId: 1,
-        userId: this.statusChangeUser,
-        applyStatusId: 2
-      };
-      axios.put(`${this.$baseURL}/apply_job/`, params)
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
-    // * 拒否する
-    applyUserRefusal() {
-      const params = {
-        jobId: 1,
-        userId: this.statusChangeUser,
-        applyStatusId: 3
-      };
-      axios.put(`${this.$baseURL}/apply_job/`, params)
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }
   },
   mounted() {
     if( localStorage.userId !== undefined) {
@@ -260,6 +141,9 @@ export default {
         this.manageJobs = response.data
       })
     }
+  },
+  components: {
+    StatusChange
   }
 }
 </script>
@@ -447,138 +331,5 @@ export default {
   color: #111111;
   display: inline-block;
   pointer-events: none;
-}
-
-/* ステータス変更 */
-.job-status-change-area {
-  width: 95%;
-  height: 20%;
-  border-radius: 20px;
-  margin: 2rem 2rem 2rem 2rem;
-  background-color: #ffffff;
-  float: right;
-  border: solid 1px #B9B9B9;
-  position: relative;
-}
-.status-change-top {
-  width: 100%;
-  height: 10%;
-  padding: 0.8rem 0;
-  border-radius: 15px 15px 0px 0;
-  background-color: #3700B3;
-  color: #ffffff;
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.status-change-left {
-  width: 30%;
-  height: 40%;
-  padding: 1rem 2rem;
-  text-align: left;
-}
-.label {
-  font-weight: bold;
-}
-.status-change-right {
-  width: 30%;
-  height: 40%;
-  padding-top: 4.6rem;
-  padding-right: 2rem;
-  /* background-color: yellow; */
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.permit-btn {
-  /* display: block; */
-  padding: 1rem 2.4rem;
-  background-color: #E91E63;
-  box-shadow: 0 0px 5px 2px #d4d4d4;
-  border-radius: 50px;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  font-size: 1rem;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-}
-.reject-btn {
-  padding: 1rem 2.4rem;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
-  box-shadow: 0 0px 5px 2px #d4d4d4;
-  border-radius: 50px;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin-left: 1.2rem;
-  font-size: 1rem;
-  float: right;
-  cursor: pointer;
-  border: none;
-}
-
-/* セレクトボックス */
-.cp_ipselect {
-	overflow: hidden;
-	width: 90%;
-	margin: 0.2em 0;
-	text-align: center;
-}
-.cp_ipselect select {
-	width: 100%;
-	padding-right: 1em;
-	cursor: pointer;
-	text-indent: 0.01px;
-	text-overflow: ellipsis;
-	border: none;
-	outline: none;
-	background: transparent;
-	background-image: none;
-	box-shadow: none;
-	-webkit-appearance: none;
-	appearance: none;
-}
-.cp_ipselect select::-ms-expand {
-    display: none;
-}
-.cp_ipselect.cp_sl02 {
-	position: relative;
-	border: 1px solid #bbbbbb;
-	border-radius: 2px;
-	background: #ffffff;
-}
-.cp_ipselect.cp_sl02::before {
-	position: absolute;
-	top: 0.8em;
-	right: 0.9em;
-	width: 0;
-	height: 0;
-	padding: 0;
-	content: '';
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-top: 6px solid #666666;
-	pointer-events: none;
-}
-.cp_ipselect.cp_sl02:after {
-	position: absolute;
-	top: 0;
-	right: 2.5em;
-	bottom: 0;
-	width: 1px;
-	content: '';
-	border-left: 1px solid #bbbbbb;
-}
-.cp_ipselect.cp_sl02 select {
-	padding: 8px 38px 8px 8px;
-	color: #666666;
 }
 </style>
