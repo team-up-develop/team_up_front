@@ -39,11 +39,11 @@ export default {
   methods: {
     // * 案件を保存する
     saveJob(){
-      const data = {
+      const params = {
         jobId: this.jobId, 
         userId: 1 
       };
-      axios.post('http://localhost:8888/api/v1/favorite_job/', data)
+      axios.post('http://localhost:8888/api/v1/favorite_job/', params)
       .then(response => {
         this.flag = false
         console.log(response)
@@ -54,11 +54,11 @@ export default {
     },
     // * 案件を削除する
     deleteJob() {
-      const data = {
+      const params = {
         jobId: this.jobId,
         userId: 1
       };
-      axios.delete('http://localhost:8888/api/v1/favorite_job/',{data: {userId: 1, jobId: data.jobId}})
+      axios.delete('http://localhost:8888/api/v1/favorite_job/', {data: params })
       .then(response => {
         this.flag = true
         console.log(response.data)

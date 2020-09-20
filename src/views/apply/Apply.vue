@@ -1,49 +1,51 @@
 <template>
-  <div>
-    <div class="main-container">
-      <div class="job-wrapper" v-if="loginFlag === true">
-        <router-link :to="`/jobs/${ job.jobId }`" v-for="job in applyJobs" :key="job.jobId" class="router">
-        <div class="job-box">
-          <div class="left-box">
-              <div class="user-profile-image"></div>
-          </div>
-          <div class="btn-area">
-            <div class="save-btn">保存する</div>
-          </div>
-          <div class="right-box">
-            <div class="username-area">
-              <!-- {{ job.user.userName }} -->
-            </div>
-            <div class="title-area">
-              {{ job.job.jobTitle }}
-            </div>
-            <div class="bottom-area">
-              <div class="bottom-left">
-                <!-- <font-awesome-icon icon="laptop" class="icon" /> -->
-                <div class="sub-langage" v-for="langage in job.job.programingLanguage" :key="langage.id">
-                  {{ langage.programingLanguageName }}
-                </div>
-                <div class="sub-framework" v-for="framework in job.job.programingFramework" :key="framework.programingFrameworkName">
-                  {{ framework.programingFrameworkName }}
-                </div>
-                <div class="sub-skill" v-for="skill in job.job.skill" :key="skill.skillName">
-                  {{ skill.skillName }}
-                </div>
-              </div>
-              <div class="bottom-right">
-                <font-awesome-icon icon="history" class="icon" />
-                <div class="sub-times">
-                  {{ job.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ job.devEndDate | moment("YYYY年 M月 D日")}}
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="manage-wrapper">
+    <div v-if="loginFlag === true" class="job-manage-wrapper">
+      <router-link to="/manage" class="router-link">
+        <div class="manage-job-area">
+          <p>管理案件</p> 
         </div>
+      </router-link>
+      <div class="apply-job-area">
+        <p>応募案件</p>
+      </div>
+      <router-link to="/manage/favorite_job" class="router-link">
+      <div class="save-job-area">
+        <p>保存案件</p> 
+      </div>
+      </router-link>
+      <div class="title-area">案件タイトル</div>
+      <div class="time-area">開発期間</div>
+      <div class="skill-area">開発言語</div>
+      <div class="job-wrapper-area">
+        <router-link :to="`/manage/apply_job/${ applyJob.jobId }`" v-for="applyJob in applyJobArray" :key="applyJob.id" class="router">
+          <div class="job-area">
+            <div class="job-area-box">
+              {{ applyJob.job.jobTitle | truncateTitle }}
+            </div>
+            <div class="job-area-box">
+              {{ applyJob.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ applyJob.devEndDate | moment("YYYY年 M月 D日")}}
+            </div>
+            <div class="job-area-box">
+              <div class="lang"
+                v-for="(langage, index) in applyJob.job.programingLanguage.slice(0,3)" 
+                :key="`langage-${index}`"
+              >
+                {{ langage.programingLanguageName }}  ,
+              </div>
+              <div class="lang" 
+                v-for="(framework, index) in applyJob.job.programingFramework.slice(0,3)" 
+                :key="`framework-${index}`"
+              >
+                {{ framework.programingFrameworkName }}  ,
+              </div>
+            </div>
+          </div>
         </router-link>
       </div>
-      <div v-else>
-        ログインが必要です！
-      </div>
+    </div>
+    <div v-else>
+      ログインが必要です！
     </div>
   </div>
 </template>
@@ -58,13 +60,22 @@ export default {
     // ];
     return {
       applyJobs: [],
-      loginFlag: false
+      loginFlag: false,
+      applyJobArray: []
     }
   },
   filters: {
     moment(value, format) {
       return moment(value).format(format);
-    }
+    },
+    truncateTitle: function(value) {
+      var length = 23;
+      var ommision = "...";
+      if (value.length <= length) {
+        return value;
+      }
+      return value.substring(0, length) + ommision;
+    },
   },
   mounted() {
     // * 現時点はuser_id を指定して入れている
@@ -72,9 +83,13 @@ export default {
       this.loginFlag = true
       axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
       .then(response => {
-        setTimeout(() => {
-          this.applyJobs = response.data
-        }, 1000);
+        this.applyJobs = response.data
+        for(var i = 0; i < this.applyJobs.length; i++) {
+          var applyJobCorrect = this.applyJobs[i];
+          if(applyJobCorrect.applyStatusId === 2) {
+            this.applyJobArray.push(applyJobCorrect)
+          }
+        }
       })
     }
   },
@@ -82,169 +97,127 @@ export default {
 </script>
 
 <style scoped>
-.job-wrapper{
-  width: 90%;
-  margin: 0 auto;
-  height: 100%;
-}
-.left-container{
-  width: 20%;
-  height: 500px;
-  float: left;
-}
-.main-container{
-  width: 80%;
-  height: 100%;
-  margin-top: 20px;
-  display: inline-block;
-  margin-bottom: 70px;
-}
-.router{
-  text-decoration: none;
-  color: rgb(73, 73, 73);
-}
-.job-box{
-  background-color: #FFFFFF;
-  width: 90%;
-  float: right;       
-  box-shadow: 0px 0px 0px grey;
-  box-shadow: 0 0 0px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-  margin: 7px;
-  padding: 20px;
-	transition: .3s;
-  position: relative;
-}
-
-.left-box{
-  width: 10%;
-  /* height: 120px; */
-  /* display: inline-block; */
-  float: left;
-}
-.user-profile-image{
-  width: 80px;
-  height: 80px;
-  background-color: grey;
-  border-radius: 50%;
-}
-
-.right-box{
-  width: 66.6%;
-  padding: 10px;
-  /* height: 120px; */
-  /* display: inline-block; */
-  float: right;
-  text-align: left;
-}
-.username-area{
-  width: 100%;
-  height: 30px;
-  font-size: 14px;
-  color: #818181;
-  font-weight: bold;
-}
-.title-area{
-  width: 100%;
-  color: #506690;
-  font-size: 16px;
-  font-weight: bold;
-  /* height: 100%; */
-}
-.bottom-area{
-  width: 100%;
-  margin-top: 20px;
-  /* height: 70px; */
-}
-.bottom-left{
-  width: 100%;
-  /* display: inline-block; */
-}
-.bottom-right{
-  width: 100%;
-  /* display: inline-block; */
-}
-
-.icon{
-  display: inline-block;
-  color: #2AC1DF;
-  font-size: 20px;
-}
-.sub-skill{
-  margin: 0 0px 0 5px ;
-  text-align: left;
-  display: inline-block;
-  color: #ffffff;
-  font-size: 12px;
-  background-color: #00ced1;
-  padding: 7px 10px;
-  border-radius: 5%;
-  font-weight: bold;
-}
-.sub-langage{
-  margin: 0 0px 0 5px ;
-  text-align: left;
-  display: inline-block;
-  color: #ffffff;
-  font-size: 12px;
-  background-color: #00bfff;
-  padding: 7px 10px;
-  border-radius: 5%;
-  font-weight: bold;
-}
-.sub-framework{
-  margin: 0 0px 0 5px ;
-  text-align: left;
-  display: inline-block;
-  color: #ffffff;
-  font-size: 12px;
-  background-color: #1e90ff;
-  padding: 7px 10px;
-  border-radius: 5%;
-  font-weight: bold;
-}
-.sub-times{
-  margin: 20px 0px 0 5px ;
-  text-align: left;
-  display: inline-block;
-  font-size: 16px;
-  padding: 7px;
-  border-radius: 5%;
-  font-weight: bold;
-  color: #818181;
-}
-
-
-
-.btn-area{
-  width: 21%;
-  /* height: 100px; */
-  float: right;
-  /* background-color: #bae35b9f; */
-}
-.save-btn{
-  width: 62%;
-  /* background:linear-gradient(#bae35b, #0bbe78); */
-  border-radius: 12px;
-  padding: 6px;
-  font-size: 12px;
-  /* color: #FFFFFF; */
-  display: inline-block;
-  text-align: center;
-  margin: 0 6%;
-  font-weight: bold;
-  background-color: #ffffff;
-  color: #1f5abc;
-  border-radius: 12px;
-  padding: 5px 12px;
-  font-size: 12px;
-  text-align: center;
-  border: solid 1px #1f5abc;
-}
-
-
-.job-box:hover{
+.router-link :hover{
   opacity: 0.8;
-  box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
-	transform: translateY(-4px);
+}
+.router-link {
+  text-decoration: none;
+  color: #ffffff;
+}
+.manage-wrapper {
+  width: 92%;
+  height: 89.5vh;
+  margin: 0 auto;
+  /* background-color: #F2F6F7; */
+}
+.manage-wrapper .job-manage-wrapper {
+  width: 95%;
+  height: calc(90vh - 5rem);
+  border-radius: 20px;
+  margin: 2rem 2rem;
+  background-color: #ffffff;
+  float: right;
+  border: solid 1px #B9B9B9;
+  position: relative;
+  font-size: 14px;
+  /* padding: 0rem 4rem; */
+}
+.manage-wrapper .job-manage-wrapper .manage-job-area {
+  width: 33.2%;
+  height: calc(68px - 1.6rem);
+  padding: 0.8rem 0;
+  border-radius: 20px 0 0 0 ;
+  background-color: #606060;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+  transition: .3s;
+}
+.manage-wrapper .job-manage-wrapper .apply-job-area {
+  width: 33.2%;
+  height: calc(68px - 1.6rem);
+  padding: 0.8rem 0;
+  /* border-radius: 20px 0 0 0 ; */
+  background-color: #606060;
+  display: inline-block;
+  background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
+  color: #ffffff;
+  border: 0.5px solid #ffffff;
+  font-weight: bold;
+  transition: .3s;
+  
+}
+.manage-wrapper .job-manage-wrapper .save-job-area {
+  width: 33.2%;
+  height: calc(68px - 1.6rem);
+  padding: 0.8rem 0;
+  border-radius: 0 20px 0 0 ;
+  background-color: #606060;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+.title-area {
+  width: 33.2%;
+  height: calc(48px - 1.8rem);
+  padding: 0.8rem 0;
+  background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+.time-area {
+  width: 33.2%;
+  height: calc(48px - 1.8rem);
+  padding: 0.8rem 0;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+.skill-area {
+  width: 33.2%;
+  height: calc(48px - 1.8rem);
+  padding: 0.8rem 0;
+  background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.job-title-area {
+  width: 33.2%;
+  height: 70%;
+  display: inline-block;
+  /* background-color: yellow; */
+}
+.router :hover{
+  background-color: rgba(199, 199, 199, 0.281);
+}
+.job-wrapper-area {
+  width: 100%;
+  height: 81%;
+  overflow: scroll;
+}
+.job-area {
+  transition: .2s;
+}
+.job-area .job-area-box {
+  width: 33%;
+  border-bottom: 1px solid #9c9c9c;
+  height: calc(48px - 1.6rem);
+  padding: 0.8rem 0;
+  color: #111111;
+  display: inline-block;
+  pointer-events: none;
+}
+.lang {
+  display: inline-block;
 }
 </style>

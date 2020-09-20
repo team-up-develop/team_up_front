@@ -47,7 +47,7 @@ export default {
     },
     //* 案件タイトル 文字制限
     truncateTitle: function(value) {
-      var length = 55;
+      var length = 50;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -83,7 +83,7 @@ export default {
     padding: 2rem 2rem 1rem 1.5rem;
     font-weight: bold;
     pointer-events: none;
-    font-size: 17px;
+    font-size: 18px;
     text-decoration: underline;
     /* background-color: yellow; */
   }
@@ -106,7 +106,7 @@ export default {
     height: 40%;
     text-align: left;
     pointer-events: none;
-    font-weight: bold;
+    /* font-weight: bold; */
   }
   .job-cards-bottom .product-start-end .product-start-end-tag {
     display: inline-block;
@@ -124,7 +124,7 @@ export default {
     height: 60%;
     text-align: left;
     pointer-events: none;
-    font-weight: bold;
+    /* font-weight: bold; */
   }
   .job-cards-bottom .post-user-area .post-user-image {
     width: 55px;
@@ -139,9 +139,10 @@ export default {
     width: 50%;
     /* background-color: yellow; */
     height: 60%;
-    padding: 0 20px;
+    padding: 0.1rem 1rem;
     position: relative;
     pointer-events: none;
+    font-size: 14px;
   }
   .job-cards-bottom .post-user-area .post-user-name-area .post-user-name {
     position: absolute;

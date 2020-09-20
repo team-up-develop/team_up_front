@@ -28,12 +28,12 @@ export default {
   methods: {
     // * 応募する
     applyJob() {
-      const applyData = {
+      const params = {
         jobId: this.jobId,
         userId: 1,
         applyStatusId: 1
       };
-      axios.post(`${this.$baseURL}/apply_job/`, applyData)
+      axios.post(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
         console.log(response.data)
         this.compliteModal = true

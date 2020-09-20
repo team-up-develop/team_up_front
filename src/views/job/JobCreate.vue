@@ -2,7 +2,7 @@
   <div class="create-wrapper">
     <div class="job-create-wrapper" v-show="!loading">
       <div class="job-create-title-area">
-        <label for="name" class="label">案件タイトル</label><label for="name" class="label-required"> *</label>
+        <label for="name" class="label">案件タイトル</label><label for="name" class="label-required">必須</label>
           <label v-if="errors.length" class="error-label">
             <p v-for="error in errors" :key="error" class="error-message">{{ error }}</p>
           </label>
@@ -10,14 +10,14 @@
           <small id="rem">残り{{60 - titleLimit }}文字</small>
       </div>
       <div class="job-create-time-area">
-        <label for="name" class="label">開発開始時期</label><label for="name" class="label-required"> *</label>
+        <label for="name" class="label">開発開始時期</label><label for="name" class="label-required">必須</label>
           <label v-if="errorsDevStartDates.length" class="error-label">
             <p v-for="errorsDevStartDate in errorsDevStartDates" :key="errorsDevStartDate" class="error-message">{{ errorsDevStartDate }}</p>
           </label>
         <input type="date" v-model="devStartDate">
       </div>
       <div class="job-create-time-area">
-      <label for="name" class="label">開発終了時期</label><label for="name" class="label-required"> *</label>
+      <label for="name" class="label">開発終了時期</label><label for="name" class="label-required">必須</label>
         <label v-if="errorDevEndDates.length" class="error-label">
           <p v-for="errorDevEndDate in errorDevEndDates" :key="errorDevEndDate" class="error-message">{{ errorDevEndDate }}</p>
         </label>
@@ -107,16 +107,16 @@ export default {
       }
       // * PostData
       if(this.jobTitle && this.devStartDate && this.devEndDate) {
-        const data = {
+        const params = {
           jobTitle : this.jobTitle,  //? タイトル
           jobDescription: this.jobDescription, //? 詳細
           devStartDate: this.devStartDate, //? 開発開始
           devEndDate: this.devEndDate, //? 開発終了
         };
-        sessionStorage.setItem('jobTitle', data.jobTitle);
-        sessionStorage.setItem('jobDescription', data.jobDescription);
-        sessionStorage.setItem('devStartDateString', data.devStartDate);
-        sessionStorage.setItem('devEndDateString', data.devEndDate);
+        sessionStorage.setItem('jobTitle', params.jobTitle);
+        sessionStorage.setItem('jobDescription', params.jobDescription);
+        sessionStorage.setItem('devStartDateString', params.devStartDate);
+        sessionStorage.setItem('devEndDateString', params.devEndDate);
         var jobTitle = sessionStorage.getItem('jobTitle');
         this.jobTitle = jobTitle;
       }
@@ -170,7 +170,15 @@ export default {
     /* background-color: yellow; */
   }
   .label-required {
-    color: red;
+    color: #ffffff;
+    background-color: #f44336;
+    font-size: 12px;
+    font-weight: bold;
+    /* background-color: #19bde6; */
+    border-radius: 25px;
+    padding: 0.25rem 0.9rem;
+    text-align: center;
+    margin-left: 10px;
   }
   .error-label {
     display: inline-block;

@@ -1,9 +1,33 @@
 <template>
   <div class="job-wrapper">
     <div class="search-area">
-    </div>
+      <button @click="langSearchModal" class="search-modal-btn">開発言語</button>
+      <button class="search-modal-btn">フレームワーク</button>
+      <button class="search-modal-btn">その他技術</button>
+      <input 
+        type="text" 
+        v-model="freeWord" 
+        placeholder="フリーワード" 
+        class="search-freewrod-box"
+      >
+        <!-- 言語検索 モーダル画面 -->
+        <div class="example-modal-window">
+          <LanguageSearchModal @close="closeLangSearchModal" v-if="searchModal">
+            <p class="label-lang">開発言語 選択</p>
+              <div class="round" v-for="lang in languages" v-bind:key="lang.id">
+              <input type="checkbox"  id="checkbox" v-model="selectedLang" v-bind:value="lang.id">
+                <label for="" class="checkbox">{{ lang.programingLanguageName }}</label>
+              </div>
+            <template slot="footer">
+              <div @click="getParams" class="serach-btn">
+                検索する
+              </div>
+            </template>
+          </LanguageSearchModal>
+        </div>
+      </div>
     <div class="top-search-area">
-      <select v-model="selectedPosition" class="styled-select">
+      <!-- <select v-model="selectedPosition" class="styled-select">
         <option disabled value="">担当</option>
         <option 
           v-for="position in positions" 
@@ -12,9 +36,9 @@
           class="dropdown-menu"
         >
           {{ position.positionTagName }}
-        </option>
-      </select>
-      <select v-model="selectedLang" class="styled-select">
+        </option> -->
+      <!-- </select> -->
+      <!-- <select v-model="selectedLang" class="styled-select">
         <option disabled value="" class="position">開発言語</option>
         <option 
         v-for="lang in languages" 
@@ -23,8 +47,8 @@
         >
           {{ lang.programingLanguageName }}
         </option>
-      </select>
-      <input 
+      </select> -->
+      <!-- <input 
         type="text" 
         v-model="freeWord" 
         placeholder="フリーワード" 
@@ -32,7 +56,7 @@
       >
       <div @click="getParams" class="serach-btn">
         検索する
-      </div>
+      </div> -->
     </div>
     <div class="job-wrapper-center" v-show="!loading">
       <div class="job-wrapper-left">
@@ -76,7 +100,11 @@
               </div>
             </div>
             <div v-else>
-              自分の案件です
+              <div class="top-job-detail-bottom">
+                <router-link :to="`/manage/apply/${ jobDetail.id }`">
+                  <button class="btn-box-manage">管理画面へ</button>
+                </router-link>
+              </div>
             </div>
           </div>
           <div v-else>
@@ -169,13 +197,14 @@ import ApplyModal from '@/components/modal/ApplyModal'
 import Applybtn from '@/components/button/Applybtn'
 import JobRegisterFalse from '@/components/job/JobRegisterFalse'
 import CardJob from '@/components/job/CardJob'
+import LanguageSearchModal from '@/components/modal/LanguageSearchModal'
 // import SaveBtn from '@/components/button/SaveBtn'
 export default {
   data() {
     return {
       jobs: [],
-      selectedPosition: [],
-      positions: [],
+      // selectedPosition: [],
+      // positions: [],
       selectedLang: [],
       languages: [],
       freeWord: '',
@@ -192,7 +221,8 @@ export default {
       saveFlag: true, //? 案件保存しているかを判定
       limitationList:1,
       userId: 0, //? ローカルストレージの値を保存する
-      entryRedirect: false //? 非ログイン時にエントリー押下後 登録にリダイレクトするためのフラグ
+      entryRedirect: false, //? 非ログイン時にエントリー押下後 登録にリダイレクトするためのフラグ
+      searchModal: false //? 検索用モーダル
     }
   },
   filters: {
@@ -200,18 +230,9 @@ export default {
     moment(value, format) {
       return moment(value).format(format);
     },
-    //* 案件タイトル 文字制限
-    truncateTitle: function(value) {
-      var length = 55;
-      var ommision = "...";
-      if (value.length <= length) {
-        return value;
-      }
-      return value.substring(0, length) + ommision;
-    },
     //* 案件タイトル 詳細 文字制限
     truncateDetailTitle: function(value) {
-      var length = 61;
+      var length = 60;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -240,13 +261,6 @@ export default {
       .then(response => {
           this.languages = response.data
       })
-    // * 開発ポジション 取得
-    // axios.get(`${this.$baseURL}/position_tag`)
-    //   .then(response => {
-    //       this.positions = response.data
-    //   })
-    // if(localStorage.LoginName) this.name = localStorage.LoginName;
-    // if(localStorage.LoginPassword) this.age = localStorage.LoginPassword;
     // * ローカルストレージの値をログイン判定できるように格納
     this.userId = localStorage.userId
     if(!this.userId) {
@@ -259,30 +273,42 @@ export default {
       alert("登録が必要です");
       this.$router.push('/register');
     },
-    // * 検索する
+    // * 開発言語検索
     getParams(){
+      var array = [];
       const data = {
-        position: this.selectedPosition,
         language: this.selectedLang,
-        freeWord: this.freeWord
       }
+      for(var i =0; i < data.language.length; i++) {
+        var languageParams = data.language[i];
+        var queryParams =  'programing_language_id' + '[' + Number(languageParams - 1) + ']' + '=' + languageParams + '&';
+        array.push(queryParams)
+      }
+      var result = array.join('');
+      console.log( result );
+        axios.get(`http://localhost:8888/api/v1/job/?${result}`)
+        .then(response => {
+          this.jobs = response.data
+          this.searchModal = false
+        })
+      // console.log(languageParams);
+      // console.log(programing_language_id[data.language]=data.language)
       // const URL = 'http://localhost:8888/api/v1/job/?'
       // * クエリパラメーター
-      axios.get(`${this.$baseURL}/job/?position_tag_id=${ data.position }&programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
-      .then(response => {
-        setTimeout(() => {
-          this.loading = false;
-          this.jobs = response.data
-        }, 1000);
-      })
+      // axios.get(`${this.$baseURL}/job/?programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
+      // axios.get(`http://localhost:8888/api/v1/job/?programing_language_id[0]=${data.language}&programing_language_id[1]=2`)
+      // .then(response => {
+      //   this.loading = false;
+      //   this.jobs = response.data
+      // })
     },
     // * 案件を保存する
     saveJob(){
-      const data = {
+      const params = {
         jobId: this.jobDetail.id, 
         userId: 1 
       };
-      axios.post(`${this.$baseURL}/favorite_job/`, data)
+      axios.post(`${this.$baseURL}/favorite_job/`, params)
       .then(response => {
         this.saveFlag = false
         console.log(response)
@@ -293,11 +319,11 @@ export default {
     },
     // * 案件保存を削除する
     deleteJob() {
-      const data = {
+      const params = {
         jobId: this.jobDetail.id,
         userId: 1
       };
-      axios.delete(`${this.$baseURL}/favorite_job/`,{data: {userId: this.userId, jobId: data.jobId}})
+      axios.delete(`${this.$baseURL}/favorite_job/`,{data: params})
       .then(response => {
         this.saveFlag = true
         console.log(response.data)
@@ -374,6 +400,14 @@ export default {
     doSend() {
         this.closeModal()
       },
+      // *検索
+    langSearchModal() {
+      console.log("検索用モーダルを開く")
+      this.searchModal = true;
+    },
+    closeLangSearchModal() {
+      this.searchModal = false;
+    }
   },
   components: {
     Loading,
@@ -381,6 +415,7 @@ export default {
     ApplyModal,
     JobRegisterFalse,
     CardJob,
+    LanguageSearchModal
     // SaveBtn
   },
 }
@@ -394,105 +429,13 @@ export default {
     border-bottom: 4px solid #ff0800;
     font-weight: bold;
   }
-.className {
-  background-color: red;
-}
-  /* 検索欄 */
-  .job-wrapper .top-search-area .styled-select {
-    /* 👇デフォルトのスタイルを解除 */
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    /* 👇スタイル */
-    display: inline-block;
-    width: 100%; /* 幅 */
-    max-width: 26%; /* 最大幅 */
-    margin: 1em 0; /* 前後の余白 */
-    padding: 0.8em 1.5em 0.8em 0.5em; /* 文字周りの余白 */
-    cursor: pointer; /* カーソルを指に */
-    line-height: 1.4; /* 行高 */
-    font-size: 0.95em; /* フォントサイズ */
-    font-weight: 700; /* 太字に */
-    color: #333; /* 文字色 */
-    border-radius: 4px; /* 角丸 */
-    background-color: #ffffff; /* 背景色 */
-    border: solid 1px #e1e8ef; /* 枠線 */
-    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
-    /* 👇三角マークを作る */
-    background-image: linear-gradient(45deg, transparent 50%, rgba(0,0,0,0.4) 50%),  linear-gradient(135deg, rgba(0,0,0,0.4) 50%, transparent 50%);
-    background-size: 5px 5px, 5px 5px;
-    background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
-    background-repeat: no-repeat;
-  }
-  .job-wrapper .top-search-area .styled-select-freewrod {
-    /* 👇デフォルトのスタイルを解除 */
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    /* 👇スタイル */
-    display: inline-block;
-    width: 100%; /* 幅 */
-    max-width: 27%; /* 最大幅 */
-    margin: 1em 0; /* 前後の余白 */
-    padding: 0.8em 1.5em 0.8em 0.5em; /* 文字周りの余白 */
-    cursor: pointer; /* カーソルを指に */
-    line-height: 1.4; /* 行高 */
-    font-size: 0.95em; /* フォントサイズ */
-    font-weight: 700; /* 太字に */
-    color: #333; /* 文字色 */
-    border-radius: 4px; /* 角丸 */
-    background-color: #ffffff; /* 背景色 */
-    border: solid 1px #e1e8ef; /* 枠線 */
-    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
-  }
-  /* フォーカス時 */
-  .styled-select:focus {
-    outline: 0;
-    border-color: #b0c5ff; /* 枠線色を変更 */
-  }
-  /* IEでデフォルトの矢印を消す */
-  .styled-select::-ms-expand {
-    display: none;
-  }
-  .job-wrapper .top-search-area {
-    width: 85%;
-    margin: 0 auto;
-    display: none;
-    /* width: 20%;
-    margin: 0 0 0 0;
-    background-color: #ffffff;
-    border: solid 1px #B9B9B9;
-    border-radius: 4px;
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 2.5rem;
-    padding: 1.5rem 0; */
-  }
-  .job-wrapper .top-search-area .serach-btn {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    /* 👇スタイル */
-    display: inline-block;
-    margin: 1em 0; /* 前後の余白 */
-    padding: 0.8rem 3rem; /* 文字周りの余白 */
-    cursor: pointer; /* カーソルを指に */
-    line-height: 1.4; /* 行高 */
-    font-size: 1.1em; /* フォントサイズ */
-    font-weight: 700; /* 太字に */
-    color: #ffffff; /* 文字色 */
-    border-radius: 4px; /* 角丸 */
-    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15); /* 影 */
-    background: -moz-linear-gradient(top, #FF512F, #DD2476);
-    background: -webkit-linear-gradient(top, #FF512F, #DD2476);
-    background: linear-gradient(to bottom, #FF512F, #DD2476);
+  .className {
+    background-color: red;
   }
 
   /* 詳細検索 */
   .search-area {
-    width: 100%;
+    width: calc(100% - 4rem);
     height: 48px;
     background-color: #ffffff;
     /* border-bottom: 1px solid #B9B9B9; */
@@ -501,6 +444,33 @@ export default {
     position: sticky;
     z-index: 10;
     box-shadow: 0 2px 3px 0px rgb(197, 197, 197);
+    text-align: left;
+    padding: 0 2rem;
+    display: inline-block;
+  }
+  .search-area .search-modal-btn {
+    margin-top: 0.4rem;
+    padding: 0.5rem 2rem;
+    /* border: none; */
+    border: solid 1px #BDC7C5;;
+    color:#666666;
+    background-color: #ffffff;
+    /* background: linear-gradient(60deg,#1142e2,#19bde6); */
+    border-radius: 50rem;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 0.7rem;
+  }
+  .search-area .search-freewrod-box {
+    width: 30%;
+    margin-top: 0.15rem;
+    border: solid 1px #E0E0E0;
+    background-color: #E0E0E0;
+    border-radius: 50rem;
+    padding: 0.7rem 1rem;
+    position: absolute;
+    right: 0;
+    margin-right:2rem;
   }
 
   /* 全体 */
@@ -524,8 +494,8 @@ export default {
   .job-wrapper .job-wrapper-center .router :hover {
     background-color: #2195f310;
     border: 1px solid #2196F3;
-    box-shadow: 0 15px 30px -5px #2195f357, 0 0 5px #2195f357;
-    transform: translateY(-4px);
+    box-shadow: 0 15px 30px -5px #2195f32d, 0 0 5px #2195f357;
+    transform: translateY(-2px);
     cursor: pointer;
   }
   /* 案件詳細画面 */
@@ -566,7 +536,7 @@ export default {
     height: 65%;
     display: inline-block;
     position: relative;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
   }
   .btn-box-save {
     display: inline-block;
@@ -619,7 +589,7 @@ export default {
     color: #3F51B5;
     font-size: 14px;
     border: solid 1px #3F51B5;
-    padding: 3px 23px;
+    padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
@@ -631,7 +601,7 @@ export default {
     color: #2196F3;
     font-size: 14px;
     border: solid 1px #2196F3;
-    padding: 3px 23px;
+    padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
@@ -643,15 +613,13 @@ export default {
     color: #00BCD4;
     font-size: 14px;
     border: solid 1px #00BCD4;
-    padding: 3px 23px;
+    padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
-
-  /* 応募するボタン */
-  .btn-box-apply{
-    padding: 0.75rem 3.5rem;
+  .btn-box-manage {
+    padding: 0.75rem 3rem;
     /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
     background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
     background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
@@ -667,14 +635,41 @@ export default {
     cursor: pointer;
     border: none;
     margin-top: 4px;
-    background: #F4157E;
+    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
+    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
+    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
     color: #F8FAFF;
     appearance: none;
     border: none;
     box-shadow: 0 0px 5px 2px #d4d4d4;
   }
+  /* 応募するボタン */
+  .btn-box-apply{
+    padding: 0.75rem 2rem;
+    /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
+    background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
+    background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
+    border-radius: 8px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1.1em;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    margin-top: 4px;
+    background: linear-gradient(60deg,#D81B60,#EC407A);
+    color: #F8FAFF;
+    appearance: none;
+    border: none;
+    box-shadow: 0 0px 5px 2px #d4d4d4;
+    transition: .3s;
+  }
   .btn-box-apply:hover {
-    background: #F4157E;
+    background: linear-gradient(60deg,#D81B60,#EC407A);
     color: #F8FAFF;
     appearance: none;
     border: none;
@@ -688,7 +683,7 @@ export default {
   /* 応募済みボタン */
   .btn-box-apply-false{
     display: block;
-    padding: 0.75rem 3.5rem;
+    padding: 0.75rem 2rem;
     background: -moz-linear-gradient(top, #636363, #afafaf);
     background: -webkit-linear-gradient(top, #636363, #afafaf);
     background: linear-gradient(to bottom, #636363, #afafaf);
@@ -702,7 +697,6 @@ export default {
     margin-top: 4px;
     font-size: 1.1em;
     display: inline-block;
-    cursor: pointer;
   }
 
   /* モーダル内のキャンセルボタン */
@@ -774,6 +768,58 @@ export default {
     display: inline-block;
     margin-top: 1rem;
   }
+
+  .label-lang {
+    font-weight: bold;
+    font-size: 2em;
+    color: #666666;
+  }
+  .round {
+    text-align: left;
+    width: 24%;
+    /* background-color: rebeccapurple; */
+    margin-right: 1px;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  input[type="checkbox"] {  
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 80%;
+    cursor: pointer;
+    height: 28px;
+    width: 22px;
+  }
+  label.checkbox {
+    position: absolute;
+    top: 0;
+    font-size: 16px;
+    margin-top: 0.3rem;
+    color: #666666;
+    margin-left: 0.4rem;
+  }
+  .serach-btn {
+    display: block;
+    width: 85%;
+    padding: 1rem 2rem;
+    background: linear-gradient(60deg,#1142e2,#19bde6);
+    /* background: linear-gradient(60deg,#BA68C8,#673AB7); */
+    border-radius: 8px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    /* max-width: 280px; */
+    margin: auto;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0px 5px 2px #d4d4d4;
+    transition: .3s;
+  }
+
+
+
 }
 
 @media screen and (max-width: 1435px) {

@@ -6,16 +6,16 @@
           <p>管理案件</p> 
         </div>
       </router-link>
-      <router-link to="/apply_job" class="router-link">
+      <router-link to="/manage/apply_job" class="router-link">
         <div class="apply-job-area">
           <p>応募案件</p>
         </div>
       </router-link>
-      <router-link to="/favorite_job" class="router-link">
-        <div class="save-job-area">
-          <p>保存案件</p> 
-        </div>
-      </router-link>
+      <!-- <router-link to="/favorite_job" class="router-link"> -->
+      <div class="save-job-area">
+        <p>保存案件</p> 
+      </div>
+      <!-- </router-link> -->
       <div class="title-area">案件タイトル</div>
       <div class="time-area">開発期間</div>
       <div class="skill-area">開発言語</div>
@@ -73,7 +73,7 @@ export default {
     },
     //* 案件タイトル 文字制限
     truncateTitle: function(value) {
-      var length = 30;
+      var length = 23;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -154,6 +154,7 @@ export default {
   padding: 0.8rem 0;
   border-radius: 0 20px 0 0 ;
   background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -163,6 +164,7 @@ export default {
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
   background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -174,6 +176,7 @@ export default {
   border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
   background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -183,6 +186,7 @@ export default {
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
   background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
