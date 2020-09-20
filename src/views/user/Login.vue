@@ -37,6 +37,7 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 1440px) {
 .login-wrapper{
   width: 100%;
   height: 100%;
@@ -48,10 +49,12 @@ export default {
 }
 .login-box{
   width: 600px;
-  height: 320px;
+  height: 320px; 
   margin: 0 auto;
   padding: 60px;
   background-color: #fff;
+  border: solid 1px #B9B9B9;
+  border-radius: 20px;
 }
 .login-title{
   color: #2ac1df;
@@ -95,6 +98,24 @@ export default {
   font-size: 1rem;
   display: inline-block;
   margin: 20px 40px 0 40px;
+  }
 }
-
+@media (max-width: 768px){
+  .login-box{
+  width: 100%;
+  height: 400px;
+  padding: 0px;
+  }
+  .name-form{
+  height: 50px;
+  margin-top:50px;
+  width: 100%;
+  }
+  .input{
+  width: 200px;
+  }
+  .login-btn{
+    margin-top: 80px;
+  }
+}
 </style>
