@@ -25,6 +25,7 @@
       </router-link>
       </div>
       <div class="status-area-reject">
+        <router-link :to="`/manage/reject/${ id }`" class="router">
         <div class="status-box-reject">
           <div class="status-logo">
             <font-awesome-icon icon="user-alt-slash" class="icon"/>
@@ -32,16 +33,8 @@
           <div class="status-tag">拒否者</div>
           <div class="status-number">{{ rejectUsersNum }}人</div>
         </div>
+        </router-link>
       </div>
-      <!-- <div class="status-area">
-        <div class="status-box">
-          <div class="status-logo">
-            <font-awesome-icon icon="eye" class="icon"/>
-          </div>
-          <div class="status-tag">閲覧数</div>
-          <div class="status-number">1000</div>
-        </div>
-      </div> -->
       <div class="status-area-right">
         <router-link :to="`/manage/favorite/${ id }`" class="router">
           <div class="status-box-right">
@@ -60,19 +53,19 @@
       </div>
       <div class="user-list-area">
         <div 
-          v-for="rejectUser in rejectUsers" 
-          :key="rejectUser.id" 
+          v-for="favoriteUser in favoriteUsers" 
+          :key="favoriteUser.id" 
           class="router-user-area"
         >
           <div class="user-area">
             <div class="user-area-box">
-              {{ rejectUser.user.userName }}
+              {{ favoriteUser.user.userName }}
             </div>
             <div class="user-area-box">
-            {{ rejectUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
+            {{ favoriteUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
             </div>
             <div class="user-area-skill">
-              {{ rejectUser.user.userName }}
+              {{ favoriteUser.user.userName }}
             </div>
           </div>
         </div>
@@ -84,12 +77,11 @@
 <script>
 import axios from 'axios';
 import moment from "moment";
-import StatusChange from '@/components/manage/StatusChange';
+import StatusChange from '@/components/manage/StatusChange'
 export default {
   props: {
     // * job.idを受け取る
     id: Number,
-    // id: { type: Number }
   },
   data() {
     return {
@@ -101,10 +93,14 @@ export default {
       rejectUsersNum: 0, //? 拒否者人数
       favoriteUsers: [], //? お気に入りしているユーザー一覧
       favoriteUsersNum: 0, //? お気に入りしているユーザー 人数
+      applyUser: [], //? 参加させる
+      refusalUser: [], //? 拒否する
       manageJobs: [], //? 管理
+      assginUsersId: null,
     }
   },
   filters: {
+    // * date型を文字に変換
     moment(value, format) {
       return moment(value).format(format);
     },
@@ -140,24 +136,6 @@ export default {
       this.favoriteUsers = response.data
       this.favoriteUsersNum = this.favoriteUsers.length
     })
-      // for(let i = 0; i < response.data.length; i++){
-      //   const applyData = response.data[i];
-      //   // console.log(applyData)
-      //   if(applyData.applyStatusId === 1){
-      //     this.applyUsers.push(applyData)
-      //     this.applyUsersNum = this.applyUsers.length;
-      //   }
-      //   else if(applyData.applyStatusId === 2){
-      //     this.assginUsers.push(applyData)
-      //     this.assginUsersNum = this.assginUsers.length;
-      //   }
-      //   else {
-      //     this.rejectUsers.push(applyData)
-      //     this.rejectUsersNum = this.rejectUsers.length;
-      //   }
-    //   }
-    // })
-    
   },
   mounted() {
     if( localStorage.userId !== undefined) {
@@ -242,6 +220,9 @@ export default {
 .job-manage-detail-wrapper .status-area-participate :hover {
   opacity: 0.8;
 }
+.job-manage-detail-wrapper .status-area  :hover {
+  opacity: 0.8;
+}
 .router {
   text-decoration: none;
 }
@@ -266,13 +247,15 @@ export default {
   height: 100%;
   padding: 0 4rem;
   border-radius: 15px 0 0 0;
+  /* background-color: #3700B3; */
   background-color: #606060;
 }
 .status-box-right {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #606060;
+  background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
   border-radius: 0 15px 0 0;
 }
 .status-box-participate {
@@ -286,9 +269,11 @@ export default {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #606060;
   color: #ffffff;
+}
+.status-box-reject:hover {
+  opacity: 0.8;
 }
 .status-box {
   width: calc(100% - 8rem);

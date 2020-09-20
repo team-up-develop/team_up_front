@@ -13,6 +13,7 @@ import Manage from '../views/manage/Manage.vue'
 import ManageApplyDetail from '../views/manage/ManageApplyDetail.vue'
 import ManageParticipateDetail from '../views/manage/ManageParticipateDetail.vue'
 import ManageRejectDetail from '../views/manage/ManageRejectDetail.vue'
+import ManageFavoriteDetail from '@/views/manage/ManageFavoriteDetail'
 import Chat from '../views/chat/Chat.vue'
 import ChatDetail from '../views/chat/ChatDetail.vue'
 Vue.use(Router)
@@ -20,15 +21,26 @@ Vue.use(Router)
 export default new Router({
   mode: "history",
   routes: [
+    // * 案件
     {
       path: '/jobs',
       component: Jobs,
       name: 'jobs'
     },
+    // * 案件管理
     {
       path: '/manage',
       component: Manage
     },
+    {
+      path: '/manage/favorite_job',
+      component: Favorite
+    },
+    {
+      path: '/manage/apply_job',
+      component: Apply
+    },
+    // ? 案件管理詳細
     {
       path: '/manage/apply/:id',
       component: ManageApplyDetail,
@@ -51,12 +63,11 @@ export default new Router({
       })
     },
     {
-      path: '/manage/favorite_job',
-      component: Favorite
-    },
-    {
-      path: '/manage/apply_job',
-      component: Apply
+      path: '/manage/favorite/:id',
+      component: ManageFavoriteDetail,
+      props: route => ({
+        id: Number(route.params.id),
+      })
     },
     {
       path: '/manage/apply_job/:id/',
@@ -72,6 +83,7 @@ export default new Router({
         id: Number(route.params.id),
       })
     },
+    // * ユーザー
     {
       path: '/login',
       name: 'Login',
@@ -82,6 +94,7 @@ export default new Router({
       name: 'register',
       component: Register
     },
+    // * 案件作成
     {
       path: '/jobcreate',
       name: 'JobCreate',
@@ -92,6 +105,7 @@ export default new Router({
       name: 'JobCreateSkill',
       component: JobCreateSkill
     },
+    // * チャット
     {
       path: '/chat',
       name: 'Chat',

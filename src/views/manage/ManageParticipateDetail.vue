@@ -34,13 +34,15 @@
         </router-link>
       </div>
       <div class="status-area-right">
-        <div class="status-box-right">
-          <div class="status-logo">
-            <font-awesome-icon icon="thumbs-up" class="icon"/>
+        <router-link :to="`/manage/favorite/${ id }`" class="router">
+          <div class="status-box-right">
+            <div class="status-logo">
+              <font-awesome-icon icon="thumbs-up" class="icon"/>
+            </div>
+            <div class="status-tag">いいね</div>
+            <div class="status-number">{{ favoriteUsersNum }}人</div>
           </div>
-          <div class="status-tag">いいね</div>
-          <div class="status-number">10</div>
-        </div>
+        </router-link>
       </div>
       <div class="status-tag-area">
         <div class="status-tag-name">名前</div>
@@ -88,10 +90,9 @@ export default {
       assginUsersNum: 0, //? 参加者人数
       rejectUsers: [], //? 拒否者
       rejectUsersNum: 0, //? 拒否者人数
-      applyUser: [], //? 参加させる
-      refusalUser: [], //? 拒否する
+      favoriteUsers: [], //? お気に入りしているユーザー一覧
+      favoriteUsersNum: 0, //? お気に入りしているユーザー 人数
       manageJobs: [], //? 管理
-      assginUsersId: null,
     }
   },
   filters: {
@@ -124,6 +125,11 @@ export default {
     .then(response => {
       this.rejectUsers = response.data
       this.rejectUsersNum = response.data.length
+    })
+    axios.get(`http://localhost:8888/api/v1/favorite_job/?job_id=${ this.id }`)
+    .then(response => {
+      this.favoriteUsers = response.data
+      this.favoriteUsersNum = this.favoriteUsers.length
     })
   },
   mounted() {
