@@ -4,7 +4,7 @@
       <button @click="langSearchModal" class="search-modal-btn">開発言語</button>
       <button class="search-modal-btn">フレームワーク</button>
       <button class="search-modal-btn">その他技術</button>
-      <input 
+      <input
         type="text" 
         v-model="freeWord" 
         placeholder="フリーワード" 
@@ -435,7 +435,7 @@ export default {
 
   /* 詳細検索 */
   .search-area {
-    width: calc(100% - 4rem);
+    width: calc(100% - 6rem);
     height: 48px;
     background-color: #ffffff;
     /* border-bottom: 1px solid #B9B9B9; */
@@ -445,7 +445,7 @@ export default {
     z-index: 10;
     box-shadow: 0 2px 3px 0px rgb(197, 197, 197);
     text-align: left;
-    padding: 0 2rem;
+    padding: 0 3rem;
     display: inline-block;
   }
   .search-area .search-modal-btn {
@@ -462,15 +462,15 @@ export default {
     margin-left: 0.7rem;
   }
   .search-area .search-freewrod-box {
-    width: 30%;
-    margin-top: 0.15rem;
+    width: 28%;
+    margin-top: 0.25rem;
     border: solid 1px #E0E0E0;
     background-color: #E0E0E0;
     border-radius: 50rem;
-    padding: 0.7rem 1rem;
+    padding: 0.6rem 1rem;
     position: absolute;
     right: 0;
-    margin-right:2rem;
+    margin-right: 4rem;
   }
 
   /* 全体 */
