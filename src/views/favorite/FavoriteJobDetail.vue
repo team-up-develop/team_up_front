@@ -14,12 +14,6 @@
                 {{ job.user.userName }}
               </div>
             </div>
-            <div class="user-study-area">
-              <div class="study-tag">学習開始</div>
-              <div class="stydy-time">
-                {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
-              </div>
-            </div>
             <div class="user-introduce-area">
               <div class="introduce-tag">学習開始</div>
               <div class="introduce">
