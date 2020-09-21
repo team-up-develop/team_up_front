@@ -254,6 +254,7 @@ export default {
         sessionStorage.removeItem('devStartDateString');
         sessionStorage.removeItem('devEndDateString');
         alert('案件を投稿しました')
+        this.$router.push('/manage');
       })
       .catch(error => {
         console.log(error);

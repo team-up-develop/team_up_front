@@ -10,9 +10,11 @@
           <div class="user-profile-area">
             <div class="user-name-are">
               <div class="user-name-tag">名前</div>
-              <div class="user-name">
-                {{ job.user.userName }}
-              </div>
+              <router-link :to="`/account/profile/${ job.userId }`"> 
+                <div class="user-name">
+                  {{ job.user.userName }}
+                </div>
+              </router-link>
             </div>
             <div class="user-introduce-area">
               <div class="introduce-tag">学習開始</div>
@@ -106,7 +108,9 @@
             <div class="btn-box-apply-false" v-if="applyFlug == false">
               エントリー済み
             </div>
-            <favorite-detail-btn :jobId='id' class="btn"></favorite-detail-btn>
+            <div class="favorite-btn-area">
+              <favorite-detail-btn :jobId='id'></favorite-detail-btn>
+            </div>
             <!-- 応募する モーダル画面 -->
             <div class="example-modal-window">
               <ApplyModal @close="closeModal" v-if="modal">
@@ -391,7 +395,7 @@ export default {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     border: 1px solid #B9B9B9;
-    padding: 2rem 4rem 1rem 4rem;
+    padding: 1.5rem 4rem 1rem 4rem;
     margin-bottom: 2rem;
     position: relative;
   }
@@ -506,20 +510,18 @@ export default {
     bottom: 0;
   }
   .button-area .button-action-area {
-    margin: 2rem auto 1rem auto;
-    width: 70%;
-    /* background-color: yellow; */
-  }
-  .btn {
-    width: 45%;
-    margin-left: 7rem;
-    display: inline-block;
+    margin: 0em auto 4rem auto;
+    width: 50%;
+    position: relative;
   }
   /* 応募するボタン */
   .btn-box-apply{
+    position: absolute;
+    left: 0;
+    top: 0;
     padding: 1.3rem 3rem;
     background: linear-gradient(60deg,#D81B60,#EC407A);
-    box-shadow: 0 0px 5px 2px #d4d4d4;
+  box-shadow: 0 0px 10px 5px #d4d4d4;
     transition: .3s;
     border-radius: 50px;
     font-weight: 600;
@@ -547,11 +549,13 @@ export default {
   }
   /* 応募済みボタン */
   .btn-box-apply-false{
+    position: absolute;
+    left: 0;
+    top: 0;
     display: block;
     padding: 1.4rem 3rem;
-    background: -moz-linear-gradient(top, #636363, #afafaf);
-    background: -webkit-linear-gradient(top, #636363, #afafaf);
-    background: linear-gradient(to bottom, #636363, #afafaf);
+    background: linear-gradient(60deg,#424242,#9E9E9E);
+    box-shadow: 0 0px 10px 5px #d4d4d4;
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -561,7 +565,11 @@ export default {
     margin: auto;
     font-size: 1.1rem;
     display: inline-block;
-    cursor: pointer;
+  }
+  .favorite-btn-area {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
   /* モーダル内のキャンセルボタン */
   .modal-btn {
@@ -583,144 +591,6 @@ export default {
     top: 0;
     right: 0;
     margin: 1rem;
-  }
-
-
-
-
-
-
-  .job-wrapper-left :hover {
-    background-color: rgb(250, 248, 248);
-    border: 1px solid #00A1D6;
-    box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
-    transform: translateY(-4px);
-  }
-  .job-wrapper-left {
-    width: 40%;
-    /* pointer-events: none; */
-    /* background-color: green; */
-  }
-  .job-cards {
-    /* width: 425px; */
-    width: 100%;
-    /* height: 60%; */
-    height: 292px;
-    /* float: right; */
-    /* float: left; */
-    margin: 10px 0.5%;
-    border: solid 1px #B9B9B9;
-    background-color: #ffffff;
-    border-radius: 10px / 10px;
-    transition: .3s;
-    color: #111111;
-
-  }
-  .job-cards-top {
-    width: calc(100% - 60px);
-    height: calc(25% - 60px);
-    text-align: left;
-    padding: 2rem 2rem 1rem 2rem;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center {
-    width: calc(100% - 40px);
-    height: calc(35% - 20px);
-    padding: 10px 20px;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-center .langage{
-    margin: 5px 0px 0px 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #004098;
-    font-size: 12px;
-    border: solid 1px #004098;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .framework{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #00A7EA;
-    font-size: 12px;
-    border: solid 1px #00A7EA;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .skill{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #8D93C8;
-    font-size: 12px;
-    border: solid 1px #8D93C8;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-bottom {
-    width: calc(100% - 50px);
-    height: calc(38% - 20px);
-    padding: 10px 25px;
-    pointer-events: none;
-    margin-top: 0.2rem;
-  }
-  .job-cards-bottom .product-start-end {
-    width: 100%;
-    height: 40%;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-tag {
-    display: inline-block;
-    pointer-events: none;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-time {
-    display: inline-block;
-    padding: 0 20px;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area {
-    width: 100%;
-    height: 60%;
-    text-align: left;
-    pointer-events: none;
-    /* background-color: yellow; */
-  }
-  .job-cards-bottom .post-user-area .post-user-image {
-    width: 60px;
-    height: 100%;
-    border-radius: 50%;
-    -moz-border-radius: 60px;
-    -webkit-border-radius: 60px;
-    border-radius: 60px;
-    box-shadow: 0 0 0 3px #2196F3;
-    -webkit-box-shadow: 0 0 0 3px #2196F3;
-    -moz-box-shadow: 0 0 0 3px #2196F3;
-    display: inline-block;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area {
-    display: inline-block;
-    /* width: calc(80% - 40px); */
-    height: 60%;
-    padding: 0 20px;
-    position: relative;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area .post-user-name {
-    position: absolute;
-    top: 0;
-    pointer-events: none;
   }
 }
 

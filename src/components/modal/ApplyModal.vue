@@ -39,7 +39,7 @@
 }
 .modal-footer {
   /* background: #ccc; */
-  width: 90%;
+  width: 87%;
   padding: 1rem;
   text-align: right;
   display: inline-block;

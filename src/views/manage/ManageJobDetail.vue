@@ -99,33 +99,7 @@
       </div>
     </div>
     <div class="button-area">
-        <div v-if="loginFlag === true" class="button-action-area">
-          <div class="" v-if="selfJobPost">
-            案件管理画面へ遷移先を作成する
-          </div>
-          <div v-else>
-            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
-            <div class="btn-box-apply-false" v-if="applyFlug == false">
-              エントリー済み
-            </div>
-            <div class="favorite-btn-area">
-              <favorite-detail-btn :jobId='id'></favorite-detail-btn>
-            </div>
-            <!-- 応募する モーダル画面 -->
-            <div class="example-modal-window">
-              <ApplyModal @close="closeModal" v-if="modal">
-                <p>応募を完了してよろしいですか？</p>
-                <template slot="footer">
-                  <applybtn :jobId='id'></applybtn>
-                  <button @click="doSend" class="modal-btn">キャンセル</button>
-                </template>
-              </ApplyModal>
-            </div>
-          </div>
-        </div>
-        <div v-else>
-          ログインが必要です！
-        </div>
+      <button class="edit-btn">編集する</button>
     </div>
   </div>
 </template>
@@ -133,10 +107,10 @@
 <script>
 import axios from 'axios'
 import moment from "moment";
-import Applybtn from '@/components/button/Applybtn'
-import FavoriteDetailBtn from '@/components/button/FavoriteDetailBtn'
+// import Applybtn from '@/components/button/Applybtn'
+// import FavoriteDetailBtn from '@/components/button/FavoriteDetailBtn'
 // import Loading from '@/components/common/Loading'
-import ApplyModal from '@/components/modal/ApplyModal'
+// import ApplyModal from '@/components/modal/ApplyModal'
 import GithubImage from '@/assets/github.png'
 export default {
   props: {
@@ -145,12 +119,12 @@ export default {
   data() {
     return {
       job: {},
-      selfJobPost: false, //? 自分の案件かを判定
-      loginFlag: false, //? ログインしているかを判定
-      loading: false,
-      applyFlug: true,
-      modal: false,
-      jobs: [],
+      // selfJobPost: false, //? 自分の案件かを判定
+      // loginFlag: false, //? ログインしているかを判定
+      // loading: false,
+      // applyFlug: true,
+      // modal: false,
+      // jobs: [],
       assetsImage: GithubImage,
       assetsImage_NG: '@/assets/github.png',
       staticImage: '@/assets/github.png',
@@ -170,54 +144,8 @@ export default {
           this.job = response.data
           console.log("よまれてるよ")
       })
-    // * 自分の案件かを判定
-    axios.get(`${this.$baseURL}/job/?user_id=1`)
-    .then(response => {
-      for(let i = 0; i < response.data.length; i++){
-        const selfJob = response.data[i]
-        if(selfJob.id === this.id){
-          this.selfJobPost = true
-        }
-      }
-    })
-  },
-  mounted() {
-    this.loginFlag = true
-  // * ログインユーザーが応募済みか応募済みではないかを判定する
-    axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
-    .then(response => {
-      const arrayApply = []
-      for(let c = 0; c < response.data.length; c++){
-        const applyData = response.data[c];
-        arrayApply.push(applyData.job.id)
-      }
-      if (arrayApply.includes(this.id)) {
-        this.applyFlug = false
-      } else {
-        console.log("まだ応募していません")
-      }
-    })
   },
   methods: {
-    // * モーダルを開く
-    openModal() {
-      this.modal = true
-    },
-    closeModal() {
-      this.modal = false
-    },
-    doSend() {
-        this.closeModal()
-      },
-    getJob() {
-      axios.get(`${this.$httpPosts}/${this.id}/`)
-        .then(response => {
-          // this.loading = true;
-          this.job = response.data
-          console.log(this.job)
-          console.log(this.id)
-        })
-    },
     // * Twitter をタブで開く
     twitterTab() {
       axios.get(`${this.$httpPosts}/${this.id}/`)
@@ -237,10 +165,10 @@ export default {
     },
   },
   components: {
-    Applybtn,
-    FavoriteDetailBtn,
+    // Applybtn,
+    // FavoriteDetailBtn,
     // Loading,
-    ApplyModal,
+    // ApplyModal,
   }
 }
 </script>
@@ -509,53 +437,11 @@ export default {
     left: 0;
     bottom: 0;
   }
-  .button-area .button-action-area {
-    margin: 0em auto 4rem auto;
-    width: 50%;
-    position: relative;
-  }
-  /* 応募するボタン */
-  .btn-box-apply{
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 1.3rem 3rem;
-    background: linear-gradient(60deg,#D81B60,#EC407A);
-  box-shadow: 0 0px 10px 5px #d4d4d4;
-    transition: .3s;
-    border-radius: 50px;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    text-align: center;
-    max-width: 320px;
-    margin: auto;
-    font-size: 1.1rem;
-    display: inline-block;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-box-apply:hover {
-    background: linear-gradient(60deg,#D81B60,#EC407A);
-    color: #F8FAFF;
-    appearance: none;
-    border: none;
-    box-shadow: 0 5px 20px -3px #CD106E;
-    /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
-    /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
-    /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
-    transition: .3s;
-    /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
-  }
-  /* 応募済みボタン */
-  .btn-box-apply-false{
-    position: absolute;
-    left: 0;
-    top: 0;
+  .edit-btn {
     display: block;
-    padding: 1.4rem 3rem;
+    padding: 1.4rem 4.3rem;
     background: linear-gradient(60deg,#424242,#9E9E9E);
-    box-shadow: 0 0px 10px 5px #d4d4d4;
+    box-shadow: 0 0px 5px 2px #d4d4d4;
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -565,32 +451,8 @@ export default {
     margin: auto;
     font-size: 1.1rem;
     display: inline-block;
-  }
-  .favorite-btn-area {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  /* モーダル内のキャンセルボタン */
-  .modal-btn {
-    padding: 1rem 2.4rem;
-    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
-    border-radius: 50px;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin-left: 1.2rem;
-    font-size: 1rem;
     cursor: pointer;
     border: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 1rem;
   }
 
 }

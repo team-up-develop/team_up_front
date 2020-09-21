@@ -1,7 +1,9 @@
 <template>
   <div class="job-status-change-area">
     <div class="status-change-top">
+      <router-link :to="`/manage/job/${ this.id }`" class="router">
       {{ jobTitle | truncateDetailTitle }}
+      </router-link>
     </div>
     <div class="status-change-left">
       <label for="" class="label">応募者選択</label>
@@ -82,7 +84,7 @@ export default {
       axios.put(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
         console.log(response.data)
-        this.$emit('applyUserReject', this.message)
+        this.$emit('compliteReject', this.message)
       })
       .catch(error => {
         console.log(error)
@@ -93,6 +95,10 @@ export default {
 </script>
 
 <style scoped>
+.router {
+  text-decoration: none;
+  color: #ffffff;
+}
 /* ステータス変更 */
 .job-status-change-area {
   width: 95%;
