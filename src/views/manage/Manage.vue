@@ -82,7 +82,7 @@ export default {
       this.loginFlag = true
       axios.get(`${this.$baseURL}/job/?user_id=1`)
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         this.manageJobs = response.data
       })
     }

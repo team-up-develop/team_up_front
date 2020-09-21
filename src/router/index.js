@@ -11,6 +11,7 @@ import FavoriteJobDetail from '../views/favorite/FavoriteJobDetail.vue'
 import Apply from '../views/apply/Apply.vue'
 import ApplyJobDetail from '@/views/apply/ApplyJobDetail'
 import Manage from '../views/manage/Manage.vue'
+import ManageJobDetail from '@/views/manage/ManageJobDetail'
 import ManageApplyDetail from '../views/manage/ManageApplyDetail.vue'
 import ManageParticipateDetail from '../views/manage/ManageParticipateDetail.vue'
 import ManageRejectDetail from '../views/manage/ManageRejectDetail.vue'
@@ -32,6 +33,13 @@ export default new Router({
     {
       path: '/manage',
       component: Manage
+    },
+    {
+      path: '/manage/job/:id',
+      component: ManageJobDetail,
+      props: route => ({
+        id: Number(route.params.id),
+      })
     },
     {
       path: '/manage/favorite_job',

@@ -1,6 +1,6 @@
 <template>
   <div class="manage-detail-wrapper">
-    <status-change :applyUsers="applyUsers" :id="id" @compliteAssgin="compliteAssgin" @compliteRefusal="compliteRefusal"/>
+    <status-change :applyUsers="applyUsers" :id="id" @compliteAssgin="compliteAssgin" @compliteReject="compliteReject"/>
     <div class="job-manage-detail-wrapper">
       <div class="status-area-left">
         <div class="status-box-click">
@@ -55,6 +55,7 @@
           :key="applyUser.id" 
           class="router-user-area"
         >
+        <router-link :to="`/account/profile/${ applyUser.userId }`"> 
           <div class="user-area">
             <div class="user-area-box">
               {{ applyUser.user.userName }}
@@ -66,6 +67,7 @@
               {{ applyUser.user.userName }}
             </div>
           </div>
+        </router-link>
         </div>
       </div>
     </div>
@@ -157,7 +159,7 @@ export default {
       })
     },
     // *拒否者 リアルタイムで取得
-    applyUserReject() {
+    compliteReject() {
       // * 参加者をステータスごとに取り出す
       axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
       .then(response => {

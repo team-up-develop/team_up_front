@@ -47,9 +47,9 @@
           </div>
           <div v-if="entryRedirect == false">
             <div class="top-job-detail-bottom" v-if="selfJobPost === false">
-              <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
+              <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
               <div class="btn-box-apply-false" v-if="applyFlug === false">
-                エントリー済み
+                応募済み
               </div>
               <div class="btn-box-save">
                 <!-- <save-btn :jobId='id' class="btn"></save-btn> -->
@@ -70,7 +70,7 @@
             <div v-else>
               <div class="top-job-detail-bottom">
                 <router-link :to="`/manage/apply/${ jobDetail.id }`">
-                  <button class="btn-box-manage">管理画面へ</button>
+                  <button class="btn-box-manage">管理画面</button>
                 </router-link>
               </div>
             </div>
@@ -88,9 +88,11 @@
           <div class="tag-area">
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 投稿者
           </div>
-          <div class="post-user-name-area">
-            {{ jobDetail.user.userName }}
-          </div>
+          <router-link :to="`/account/profile/${ jobDetail.userId }`"> 
+            <div class="post-user-name-area">
+              {{ jobDetail.user.userName }}
+            </div>
+          </router-link>
           <div class="tag-area">
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 開発言語
           </div>
@@ -307,7 +309,6 @@ export default {
       this.id = job.id;  //? clickしたIdを this.idに格納する
       this.selfJobPost = false; //? clickする度に 自分の案件では無くする
       this.applyFlug = true; //? clickする度に 応募済み案件にする
-
       // * ログインしていれば以下の処理が走る
       if(this.userId) {
         // * 自分の案件かを判定
@@ -612,7 +613,7 @@ export default {
   }
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 3rem;
     /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
     background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
     background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
@@ -650,10 +651,8 @@ export default {
   /* 応募済みボタン */
   .btn-box-apply-false{
     display: block;
-    padding: 0.75rem 2rem;
-    background: -moz-linear-gradient(top, #636363, #afafaf);
-    background: -webkit-linear-gradient(top, #636363, #afafaf);
-    background: linear-gradient(to bottom, #636363, #afafaf);
+    padding: 0.75rem 3rem;
+    background: linear-gradient(60deg,#424242,#9E9E9E);
     border-radius: 8px;
     font-weight: 600;
     color: #fff;
@@ -669,9 +668,9 @@ export default {
   /* モーダル内のキャンセルボタン */
   .modal-btn {
     padding: 1rem 2.4rem;
-    background: -moz-linear-gradient(top, #2196F3, #4FC3F7);
-    background: -webkit-linear-gradient(top, #2196F3, #4FC3F7);
-    background: linear-gradient(to bottom, #2196F3, #4FC3F7);
+    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
+    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
+    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;

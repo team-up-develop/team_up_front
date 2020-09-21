@@ -76,6 +76,7 @@ export default {
   display: block;
   padding: 1.4rem 4.3rem;
   background: linear-gradient(60deg,#1142e2,#19bde6);
+  box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
   color: #fff;
@@ -95,9 +96,8 @@ export default {
 .btn-box-save-false{
   display: block;
   padding: 1.4rem 4.3rem;
-  background: -moz-linear-gradient(top, #636363, #afafaf);
-  background: -webkit-linear-gradient(top, #636363, #afafaf);
-  background: linear-gradient(to bottom, #636363, #afafaf);
+  background: linear-gradient(60deg,#424242,#9E9E9E);
+  box-shadow: 0 0px 10px 5px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
   color: #fff;

@@ -211,7 +211,7 @@ export default {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 0.4rem 3rem 0.4rem 3rem;
+    padding: 0.5rem 3rem 0.4rem 3rem;
     /* background-color: #8700d61f; */
   }
   .header-wrapper .header-main-area .header-main-right .user-image {
@@ -222,8 +222,8 @@ export default {
     box-shadow: 0 0 0 3px #2196F3;
     -webkit-box-shadow: 0 0 0 3px #2196F3;
     -moz-box-shadow: 0 0 0 3px #2196F3;
-    width: 3.1rem;
-    height: 2.8rem;
+    width: 2.8rem;
+    height: 2.6rem;
     border-radius: 50%;
     float: right;
     cursor: pointer;
