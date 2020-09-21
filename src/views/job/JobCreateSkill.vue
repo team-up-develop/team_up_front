@@ -232,7 +232,7 @@ export default {
       var devEndDate = toDate(devEnd, '-');
 
       const params = {
-        userId: 4, //? 仮でUser_idを置いている
+        userId: Number(localStorage.userId), //? ログインUserId
         jobTitle : jobTitle,  //? タイトル
         jobDescription: jobDescription, //? 詳細
         devStartDate: devStartDate,  //? 開始日
