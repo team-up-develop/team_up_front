@@ -26,38 +26,6 @@
           </LanguageSearchModal>
         </div>
       </div>
-    <div class="top-search-area">
-      <!-- <select v-model="selectedPosition" class="styled-select">
-        <option disabled value="">担当</option>
-        <option 
-          v-for="position in positions" 
-          v-bind:value="position.id" 
-          v-bind:key="position.id" 
-          class="dropdown-menu"
-        >
-          {{ position.positionTagName }}
-        </option> -->
-      <!-- </select> -->
-      <!-- <select v-model="selectedLang" class="styled-select">
-        <option disabled value="" class="position">開発言語</option>
-        <option 
-        v-for="lang in languages" 
-        v-bind:value="lang.id" 
-        v-bind:key="lang.id"
-        >
-          {{ lang.programingLanguageName }}
-        </option>
-      </select> -->
-      <!-- <input 
-        type="text" 
-        v-model="freeWord" 
-        placeholder="フリーワード" 
-        class="styled-select-freewrod"
-      >
-      <div @click="getParams" class="serach-btn">
-        検索する
-      </div> -->
-    </div>
     <div class="job-wrapper-center" v-show="!loading">
       <div class="job-wrapper-left">
         <div 
@@ -198,7 +166,7 @@ import Applybtn from '@/components/button/Applybtn'
 import JobRegisterFalse from '@/components/job/JobRegisterFalse'
 import CardJob from '@/components/job/CardJob'
 import LanguageSearchModal from '@/components/modal/LanguageSearchModal'
-// import SaveBtn from '@/components/button/SaveBtn'
+
 export default {
   data() {
     return {
@@ -416,7 +384,6 @@ export default {
     JobRegisterFalse,
     CardJob,
     LanguageSearchModal
-    // SaveBtn
   },
 }
 </script>
@@ -798,10 +765,11 @@ export default {
     margin-top: 0.3rem;
     color: #666666;
     margin-left: 0.4rem;
+    font-size: 16px;
   }
   .serach-btn {
     display: block;
-    width: 85%;
+    width: 77%;
     padding: 1rem 2rem;
     background: linear-gradient(60deg,#1142e2,#19bde6);
     /* background: linear-gradient(60deg,#BA68C8,#673AB7); */

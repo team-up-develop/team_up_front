@@ -37,9 +37,10 @@ export default {
     text-align: left;
     display: inline-block;
     color: #3F51B5;
+    /* background-color: #ffffff; */
     font-size: 12px;
     border: solid 1px #3F51B5;
-    padding: 7px 23px;
+    padding: 7px 1.2rem;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
@@ -49,9 +50,10 @@ export default {
     text-align: left;
     display: inline-block;
     color: #2196F3;
+    /* background-color: #2196F3; */
     font-size: 12px;
     border: solid 1px #2196F3;
-    padding: 7px 23px;
+    padding: 7px 1.2rem;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
@@ -61,9 +63,10 @@ export default {
     text-align: left;
     display: inline-block;
     color: #00BCD4;
+    /* background-color: #00BCD4; */
     font-size: 12px;
     border: solid 1px #00BCD4;
-    padding: 7px 23px;
+    padding: 7px 1.2rem;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;

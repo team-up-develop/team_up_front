@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Jobs from '../views/job/Jobs.vue'
 import Login from '../views/user/Login.vue'
 import Register from '../views/user/Register.vue'
+import ProfileUser from '@/views/user/ProfileUser'
 import JobCreate from '../views/job/JobCreate.vue'
 import JobCreateSkill from '../views/job/JobCreateSkill.vue'
 import Favorite from '../views/favorite/Favorite.vue'
@@ -93,6 +94,13 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/account/profile/:id/',
+      component: ProfileUser,
+      props: route => ({
+        id: Number(route.params.id),
+      })
     },
     // * 案件作成
     {

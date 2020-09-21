@@ -14,12 +14,6 @@
                 {{ job.user.userName }}
               </div>
             </div>
-            <!-- <div class="user-study-area">
-              <div class="study-tag">学習開始</div>
-              <div class="stydy-time">
-                {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
-              </div>
-            </div> -->
             <div class="user-introduce-area">
               <div class="introduce-tag">学習開始</div>
               <div class="introduce">
@@ -29,7 +23,7 @@
           </div>
           <div class="user-url-area">
             <div class="user-github" @click="gitTab">
-              GitHub
+              <img class="img" src="@/assets/github.png" width="50" />
               </div>
             <div class="user-twtter" @click="twitterTab">
               Twiiter
@@ -112,7 +106,7 @@
             <div class="btn-box-apply-false" v-if="applyFlug == false">
               エントリー済み
             </div>
-            <save-btn :jobId='id' class="btn"></save-btn>
+            <favorite-detail-btn :jobId='id' class="btn"></favorite-detail-btn>
             <!-- 応募する モーダル画面 -->
             <div class="example-modal-window">
               <ApplyModal @close="closeModal" v-if="modal">
@@ -136,22 +130,26 @@
 import axios from 'axios'
 import moment from "moment";
 import Applybtn from '@/components/button/Applybtn'
-import SaveBtn from '@/components/button/SaveBtn'
+import FavoriteDetailBtn from '@/components/button/FavoriteDetailBtn'
 // import Loading from '@/components/common/Loading'
 import ApplyModal from '@/components/modal/ApplyModal'
+import GithubImage from '@/assets/github.png'
 export default {
   props: {
     id: Number,
   },
   data() {
     return {
-      job: null,
+      job: {},
       selfJobPost: false, //? 自分の案件かを判定
       loginFlag: false, //? ログインしているかを判定
       loading: false,
       applyFlug: true,
       modal: false,
-      jobs: []
+      jobs: [],
+      assetsImage: GithubImage,
+      assetsImage_NG: '@/assets/github.png',
+      staticImage: '@/assets/github.png',
     }
   },
   filters: {
@@ -163,8 +161,8 @@ export default {
     // * 詳細画面情報を取得
     axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
-          this.loading = true;
-          // console.log(response.data)
+          // this.loading = true;
+          console.log(response.data)
           this.job = response.data
           console.log("よまれてるよ")
       })
@@ -180,24 +178,21 @@ export default {
     })
   },
   mounted() {
-    //* ログインしている時だけ、ボタンを表示する
-    if( localStorage.userId !== undefined) {
-      this.loginFlag = true
-    // * ログインユーザーが応募済みか応募済みではないかを判定する
-      axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
-      .then(response => {
-        const arrayApply = []
-        for(let c = 0; c < response.data.length; c++){
-          const applyData = response.data[c];
-          arrayApply.push(applyData.job.id)
-        }
-        if (arrayApply.includes(this.id)) {
-          this.applyFlug = false
-        } else {
-          console.log("まだ応募していません")
-        }
-      })
-    }
+    this.loginFlag = true
+  // * ログインユーザーが応募済みか応募済みではないかを判定する
+    axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
+    .then(response => {
+      const arrayApply = []
+      for(let c = 0; c < response.data.length; c++){
+        const applyData = response.data[c];
+        arrayApply.push(applyData.job.id)
+      }
+      if (arrayApply.includes(this.id)) {
+        this.applyFlug = false
+      } else {
+        console.log("まだ応募していません")
+      }
+    })
   },
   methods: {
     // * モーダルを開く
@@ -213,7 +208,7 @@ export default {
     getJob() {
       axios.get(`${this.$httpPosts}/${this.id}/`)
         .then(response => {
-          this.loading = true;
+          // this.loading = true;
           this.job = response.data
           console.log(this.job)
           console.log(this.id)
@@ -239,7 +234,8 @@ export default {
   },
   components: {
     Applybtn,
-    SaveBtn,
+    FavoriteDetailBtn,
+    // Loading,
     ApplyModal,
   }
 }
@@ -259,7 +255,7 @@ export default {
     margin: 0 auto;
   }
   .detail-wrapper .detail-post-user-area {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -289,7 +285,12 @@ export default {
   .post-user-area .left-user-area .user-image {
     width: 130px;
     height: 130px;
-    background-color: #2196F3;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    box-shadow: 0 0 0 3px #2196F3;
+    -webkit-box-shadow: 0 0 0 3px #2196F3;
+    -moz-box-shadow: 0 0 0 3px #2196F3;
     border-radius: 50%;
   }
   /* ユーザー画像  end*/
@@ -316,6 +317,7 @@ export default {
   }
   .user-profile-area .user-name-are .user-name{
     margin-top: 0.2rem;
+    font-size: 14px;
   }
   .user-profile-area .user-study-area {
     width: 45%;
@@ -336,6 +338,7 @@ export default {
   }
   .user-profile-area .user-introduce-area .introduce {
     margin-top: 0.2rem;
+    font-size: 14px;
   }
   .post-user-area .right-user-area .user-url-area {
     display: inline-block;
@@ -345,8 +348,8 @@ export default {
     padding: 2.2rem 0 0 0 ;
   }
   .post-user-area .right-user-area .user-url-area .user-github {
-    width: 55%;
-    padding: 0.8rem 1.8rem;
+    /* width: 35%;
+    padding: 0.8rem 1rem;
     background-color: #24292e;
     border-radius: 5px / 5px;
     margin-right: 10px;
@@ -354,7 +357,7 @@ export default {
     text-align: center;
     box-shadow: 10px 5px 5px grey;
     box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-    font-weight: bold;
+    font-weight: bold; */
     cursor: pointer;
   }
   .post-user-area .right-user-area .user-url-area .user-github :hover {
@@ -378,7 +381,7 @@ export default {
   }
   /* スキル カード */
   .detail-wrapper .detail-post-skill-area {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -410,7 +413,7 @@ export default {
   }
   .skill-detail-area .lang-area .lang-box .skill-tag{
     margin-top: 1rem;
-    padding: 0.5rem 1.4rem;
+    padding: 0.5rem 1rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
     color: #3700B3;
@@ -418,10 +421,11 @@ export default {
     border: 1px solid #3700B3;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
   }
   .skill-detail-area .lang-area .lang-box .flame-tag{
     margin-top: 1rem;
-    padding: 0.5rem 1.4rem;
+    padding: 0.5rem 1rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
     color: #2196F3;
@@ -429,10 +433,11 @@ export default {
     border: 1px solid #2196F3;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
   }
   .skill-detail-area .lang-area .lang-box .other-tag{
     margin-top: 1rem;
-    padding: 0.5rem 1.4rem;
+    padding: 0.5rem 1rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
     color: #00BCD4;
@@ -440,10 +445,11 @@ export default {
     border: 1px solid #00BCD4;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
   }
   /* 開発詳細 カード */
   .detail-wrapper .detail-post-detail-area {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -453,7 +459,7 @@ export default {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     border: 1px solid #B9B9B9;
-    padding: 1rem 4rem 8rem 4rem;
+    padding: 1rem 4rem 1rem 4rem;
     margin-bottom: 2rem;
     position: relative;
     line-height: 1.8;
@@ -465,30 +471,39 @@ export default {
   }
   .dev-detail-area .detail-leff-area .detail-information {
     margin-top: 1px;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     position: relative;
+    flex-direction: column
   }
   .tag{
     font-weight: bold;
-    display: inline-block;
+    /* display: inline-block; */
   }
   .detail-information .sub-area{
-    width: 88%;
-    position: absolute;
+    /* width: 88%; */
+    /* position: absolute; */
     right: 0;
-    display: inline-block;
+    font-size: 14px;
+    /* display: inline-block; */
   }
   .dev-detail-area .detail-right-area {
     line-height: 1.8;
     width: calc(50% - 5rem);
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     padding: 2.5rem 5rem 0 0 ;
   }
   /* ボタン エリア */
   .button-area {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    bottom: 0;
   }
   .button-area .button-action-area {
     margin: 2rem auto 1rem auto;
@@ -502,8 +517,10 @@ export default {
   }
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 1.3rem 3.8rem;
+    padding: 1.3rem 3rem;
     background: linear-gradient(60deg,#D81B60,#EC407A);
+    box-shadow: 0 0px 5px 2px #d4d4d4;
+    transition: .3s;
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -511,18 +528,30 @@ export default {
     text-align: center;
     max-width: 320px;
     margin: auto;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     display: inline-block;
     cursor: pointer;
     border: none;
   }
+  .btn-box-apply:hover {
+    background: linear-gradient(60deg,#D81B60,#EC407A);
+    color: #F8FAFF;
+    appearance: none;
+    border: none;
+    box-shadow: 0 5px 20px -3px #CD106E;
+    /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
+    /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
+    /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
+    transition: .3s;
+    /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
+  }
   /* 応募済みボタン */
   .btn-box-apply-false{
     display: block;
-    padding: 1.4rem 5rem;
-    background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
-    background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
-    background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
+    padding: 1.4rem 3rem;
+    background: -moz-linear-gradient(top, #636363, #afafaf);
+    background: -webkit-linear-gradient(top, #636363, #afafaf);
+    background: linear-gradient(to bottom, #636363, #afafaf);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -530,7 +559,7 @@ export default {
     text-align: center;
     max-width: 280px;
     margin: auto;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     display: inline-block;
     cursor: pointer;
   }
@@ -671,7 +700,12 @@ export default {
     width: 60px;
     height: 100%;
     border-radius: 50%;
-    background-color: #00A1D6;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    box-shadow: 0 0 0 3px #2196F3;
+    -webkit-box-shadow: 0 0 0 3px #2196F3;
+    -moz-box-shadow: 0 0 0 3px #2196F3;
     display: inline-block;
     pointer-events: none;
   }

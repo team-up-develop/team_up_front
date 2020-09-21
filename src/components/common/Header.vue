@@ -45,9 +45,9 @@
           </ul>
         </div>
         <div class="header-main-right">
-          <div class="user-image">
-
-          </div>
+          <router-link :to="`/account/profile/${ this.userId }`">
+            <div class="user-image"></div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -63,6 +63,7 @@ export default {
   },
   data() {
     return {
+      userId: null,
       // assetsImage: LogoImage,
       // assetsImage_NG: '.../assets/logo.jpg',
       // staticImage: '.../assets/logo.jpg',
@@ -72,6 +73,11 @@ export default {
       // message: ""
     }
   },
+  created() {
+    if( localStorage.userId !== undefined) {
+      this.userId = localStorage.userId;
+    }
+  }
 }
 </script>
 

@@ -90,7 +90,7 @@ export default {
   .job-cards-center {
     width: calc(100% - 40px);
     height: calc(35% - 20px);
-    padding: 10px 1.5rem;
+    padding: 10px 1.5rem 0 1.5rem;
     text-align: left;
     pointer-events: none;
   }
@@ -130,7 +130,12 @@ export default {
     width: 55px;
     height: 100%;
     border-radius: 50%;
-    background-color: #2196F3;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    box-shadow: 0 0 0 3px #2196F3;
+    -webkit-box-shadow: 0 0 0 3px #2196F3;
+    -moz-box-shadow: 0 0 0 3px #2196F3;
     display: inline-block;
     pointer-events: none;
   }
