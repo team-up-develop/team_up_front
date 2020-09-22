@@ -4,7 +4,7 @@
       <button @click="langSearchModal" class="search-modal-btn">開発言語</button>
       <button class="search-modal-btn">フレームワーク</button>
       <button class="search-modal-btn">その他技術</button>
-      <input 
+      <input
         type="text" 
         v-model="freeWord" 
         placeholder="フリーワード" 
@@ -26,38 +26,6 @@
           </LanguageSearchModal>
         </div>
       </div>
-    <div class="top-search-area">
-      <!-- <select v-model="selectedPosition" class="styled-select">
-        <option disabled value="">担当</option>
-        <option 
-          v-for="position in positions" 
-          v-bind:value="position.id" 
-          v-bind:key="position.id" 
-          class="dropdown-menu"
-        >
-          {{ position.positionTagName }}
-        </option> -->
-      <!-- </select> -->
-      <!-- <select v-model="selectedLang" class="styled-select">
-        <option disabled value="" class="position">開発言語</option>
-        <option 
-        v-for="lang in languages" 
-        v-bind:value="lang.id" 
-        v-bind:key="lang.id"
-        >
-          {{ lang.programingLanguageName }}
-        </option>
-      </select> -->
-      <!-- <input 
-        type="text" 
-        v-model="freeWord" 
-        placeholder="フリーワード" 
-        class="styled-select-freewrod"
-      >
-      <div @click="getParams" class="serach-btn">
-        検索する
-      </div> -->
-    </div>
     <div class="job-wrapper-center" v-show="!loading">
       <div class="job-wrapper-left">
         <div 
@@ -79,9 +47,9 @@
           </div>
           <div v-if="entryRedirect == false">
             <div class="top-job-detail-bottom" v-if="selfJobPost === false">
-              <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
+              <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
               <div class="btn-box-apply-false" v-if="applyFlug === false">
-                エントリー済み
+                応募済み
               </div>
               <div class="btn-box-save">
                 <!-- <save-btn :jobId='id' class="btn"></save-btn> -->
@@ -102,14 +70,14 @@
             <div v-else>
               <div class="top-job-detail-bottom">
                 <router-link :to="`/manage/apply/${ jobDetail.id }`">
-                  <button class="btn-box-manage">管理画面へ</button>
+                  <button class="btn-box-manage">管理画面</button>
                 </router-link>
               </div>
             </div>
           </div>
           <div v-else>
             <div class="top-job-detail-bottom">
-              <button class="btn-box-apply" @click="registerRedirect">エントリーする</button>
+              <button class="btn-box-apply" @click="registerRedirect">応募する</button>
               <div class="btn-box-save">
                 <font-awesome-icon icon="heart" class="save-icon" @click="registerRedirect"/>
               </div>
@@ -120,9 +88,11 @@
           <div class="tag-area">
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 投稿者
           </div>
-          <div class="post-user-name-area">
-            {{ jobDetail.user.userName }}
-          </div>
+          <router-link :to="`/account/profile/${ jobDetail.userId }`"> 
+            <div class="post-user-name-area">
+              {{ jobDetail.user.userName }}
+            </div>
+          </router-link>
           <div class="tag-area">
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 開発言語
           </div>
@@ -198,7 +168,7 @@ import Applybtn from '@/components/button/Applybtn'
 import JobRegisterFalse from '@/components/job/JobRegisterFalse'
 import CardJob from '@/components/job/CardJob'
 import LanguageSearchModal from '@/components/modal/LanguageSearchModal'
-// import SaveBtn from '@/components/button/SaveBtn'
+
 export default {
   data() {
     return {
@@ -339,7 +309,6 @@ export default {
       this.id = job.id;  //? clickしたIdを this.idに格納する
       this.selfJobPost = false; //? clickする度に 自分の案件では無くする
       this.applyFlug = true; //? clickする度に 応募済み案件にする
-
       // * ログインしていれば以下の処理が走る
       if(this.userId) {
         // * 自分の案件かを判定
@@ -399,7 +368,7 @@ export default {
     },
     doSend() {
         this.closeModal()
-      },
+    },
       // *検索
     langSearchModal() {
       console.log("検索用モーダルを開く")
@@ -416,7 +385,6 @@ export default {
     JobRegisterFalse,
     CardJob,
     LanguageSearchModal
-    // SaveBtn
   },
 }
 </script>
@@ -435,7 +403,7 @@ export default {
 
   /* 詳細検索 */
   .search-area {
-    width: calc(100% - 4rem);
+    width: calc(100% - 6rem);
     height: 48px;
     background-color: #ffffff;
     /* border-bottom: 1px solid #B9B9B9; */
@@ -445,7 +413,7 @@ export default {
     z-index: 10;
     box-shadow: 0 2px 3px 0px rgb(197, 197, 197);
     text-align: left;
-    padding: 0 2rem;
+    padding: 0 3rem;
     display: inline-block;
   }
   .search-area .search-modal-btn {
@@ -462,15 +430,15 @@ export default {
     margin-left: 0.7rem;
   }
   .search-area .search-freewrod-box {
-    width: 30%;
-    margin-top: 0.15rem;
+    width: 28%;
+    margin-top: 0.25rem;
     border: solid 1px #E0E0E0;
     background-color: #E0E0E0;
     border-radius: 50rem;
-    padding: 0.7rem 1rem;
+    padding: 0.6rem 1rem;
     position: absolute;
     right: 0;
-    margin-right:2rem;
+    margin-right: 4rem;
   }
 
   /* 全体 */
@@ -645,7 +613,7 @@ export default {
   }
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 3rem;
     /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
     background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
     background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
@@ -683,10 +651,8 @@ export default {
   /* 応募済みボタン */
   .btn-box-apply-false{
     display: block;
-    padding: 0.75rem 2rem;
-    background: -moz-linear-gradient(top, #636363, #afafaf);
-    background: -webkit-linear-gradient(top, #636363, #afafaf);
-    background: linear-gradient(to bottom, #636363, #afafaf);
+    padding: 0.75rem 3rem;
+    background: linear-gradient(60deg,#424242,#9E9E9E);
     border-radius: 8px;
     font-weight: 600;
     color: #fff;
@@ -702,9 +668,9 @@ export default {
   /* モーダル内のキャンセルボタン */
   .modal-btn {
     padding: 1rem 2.4rem;
-    background: -moz-linear-gradient(top, #2196F3, #4FC3F7);
-    background: -webkit-linear-gradient(top, #2196F3, #4FC3F7);
-    background: linear-gradient(to bottom, #2196F3, #4FC3F7);
+    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
+    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
+    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -798,10 +764,11 @@ export default {
     margin-top: 0.3rem;
     color: #666666;
     margin-left: 0.4rem;
+    font-size: 16px;
   }
   .serach-btn {
     display: block;
-    width: 85%;
+    width: 77%;
     padding: 1rem 2rem;
     background: linear-gradient(60deg,#1142e2,#19bde6);
     /* background: linear-gradient(60deg,#BA68C8,#673AB7); */

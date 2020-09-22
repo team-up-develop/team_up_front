@@ -10,15 +10,11 @@
           <div class="user-profile-area">
             <div class="user-name-are">
               <div class="user-name-tag">名前</div>
-              <div class="user-name">
-                {{ job.user.userName }}
-              </div>
-            </div>
-            <div class="user-study-area">
-              <div class="study-tag">学習開始</div>
-              <div class="stydy-time">
-                {{ job.user.learningStartDate | moment("YYYY年 M月 D日") }}
-              </div>
+              <router-link :to="`/account/profile/${ job.userId }`"> 
+                <div class="user-name">
+                  {{ job.user.userName }}
+                </div>
+              </router-link>
             </div>
             <div class="user-introduce-area">
               <div class="introduce-tag">学習開始</div>
@@ -29,7 +25,7 @@
           </div>
           <div class="user-url-area">
             <div class="user-github" @click="gitTab">
-              GitHub
+              <img class="img" src="@/assets/github.png" width="50" />
               </div>
             <div class="user-twtter" @click="twitterTab">
               Twiiter
@@ -105,14 +101,16 @@
     <div class="button-area">
         <div v-if="loginFlag === true" class="button-action-area">
           <div class="" v-if="selfJobPost">
-            案件管理画面へ遷移先を作成する
+            自分の案件
           </div>
           <div v-else>
-            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
+            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
             <div class="btn-box-apply-false" v-if="applyFlug == false">
-              エントリー済み
+              応募済み
             </div>
-            <save-btn :jobId='id' class="btn"></save-btn>
+            <div class="favorite-btn-area">
+              <favorite-detail-btn :jobId='id'></favorite-detail-btn>
+            </div>
             <!-- 応募する モーダル画面 -->
             <div class="example-modal-window">
               <ApplyModal @close="closeModal" v-if="modal">
@@ -136,9 +134,10 @@
 import axios from 'axios'
 import moment from "moment";
 import Applybtn from '@/components/button/Applybtn'
-import SaveBtn from '@/components/button/SaveBtn'
+import FavoriteDetailBtn from '@/components/button/FavoriteDetailBtn'
 // import Loading from '@/components/common/Loading'
 import ApplyModal from '@/components/modal/ApplyModal'
+import GithubImage from '@/assets/github.png'
 export default {
   props: {
     id: Number,
@@ -151,7 +150,10 @@ export default {
       loading: false,
       applyFlug: true,
       modal: false,
-      jobs: []
+      jobs: [],
+      assetsImage: GithubImage,
+      assetsImage_NG: '@/assets/github.png',
+      staticImage: '@/assets/github.png',
     }
   },
   filters: {
@@ -236,7 +238,7 @@ export default {
   },
   components: {
     Applybtn,
-    SaveBtn,
+    FavoriteDetailBtn,
     // Loading,
     ApplyModal,
   }
@@ -257,7 +259,7 @@ export default {
     margin: 0 auto;
   }
   .detail-wrapper .detail-post-user-area {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -287,7 +289,12 @@ export default {
   .post-user-area .left-user-area .user-image {
     width: 130px;
     height: 130px;
-    background-color: #2196F3;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    box-shadow: 0 0 0 3px #2196F3;
+    -webkit-box-shadow: 0 0 0 3px #2196F3;
+    -moz-box-shadow: 0 0 0 3px #2196F3;
     border-radius: 50%;
   }
   /* ユーザー画像  end*/
@@ -314,6 +321,7 @@ export default {
   }
   .user-profile-area .user-name-are .user-name{
     margin-top: 0.2rem;
+    font-size: 14px;
   }
   .user-profile-area .user-study-area {
     width: 45%;
@@ -334,6 +342,7 @@ export default {
   }
   .user-profile-area .user-introduce-area .introduce {
     margin-top: 0.2rem;
+    font-size: 14px;
   }
   .post-user-area .right-user-area .user-url-area {
     display: inline-block;
@@ -343,8 +352,8 @@ export default {
     padding: 2.2rem 0 0 0 ;
   }
   .post-user-area .right-user-area .user-url-area .user-github {
-    width: 55%;
-    padding: 0.8rem 1.8rem;
+    /* width: 35%;
+    padding: 0.8rem 1rem;
     background-color: #24292e;
     border-radius: 5px / 5px;
     margin-right: 10px;
@@ -352,7 +361,7 @@ export default {
     text-align: center;
     box-shadow: 10px 5px 5px grey;
     box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-    font-weight: bold;
+    font-weight: bold; */
     cursor: pointer;
   }
   .post-user-area .right-user-area .user-url-area .user-github :hover {
@@ -376,7 +385,7 @@ export default {
   }
   /* スキル カード */
   .detail-wrapper .detail-post-skill-area {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -386,7 +395,7 @@ export default {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     border: 1px solid #B9B9B9;
-    padding: 2rem 4rem 1rem 4rem;
+    padding: 1.5rem 4rem 1rem 4rem;
     margin-bottom: 2rem;
     position: relative;
   }
@@ -408,7 +417,7 @@ export default {
   }
   .skill-detail-area .lang-area .lang-box .skill-tag{
     margin-top: 1rem;
-    padding: 0.5rem 1.4rem;
+    padding: 0.5rem 1rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
     color: #3700B3;
@@ -416,10 +425,11 @@ export default {
     border: 1px solid #3700B3;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
   }
   .skill-detail-area .lang-area .lang-box .flame-tag{
     margin-top: 1rem;
-    padding: 0.5rem 1.4rem;
+    padding: 0.5rem 1rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
     color: #2196F3;
@@ -427,10 +437,11 @@ export default {
     border: 1px solid #2196F3;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
   }
   .skill-detail-area .lang-area .lang-box .other-tag{
     margin-top: 1rem;
-    padding: 0.5rem 1.4rem;
+    padding: 0.5rem 1rem;
     border-radius: 5px / 5px;
     margin-right: 10px;
     color: #00BCD4;
@@ -438,10 +449,11 @@ export default {
     border: 1px solid #00BCD4;
     text-align: center;
     font-weight: bold;
+    font-size: 14px;
   }
   /* 開発詳細 カード */
   .detail-wrapper .detail-post-detail-area {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -451,7 +463,7 @@ export default {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     border: 1px solid #B9B9B9;
-    padding: 1rem 4rem 8rem 4rem;
+    padding: 1rem 4rem 1rem 4rem;
     margin-bottom: 2rem;
     position: relative;
     line-height: 1.8;
@@ -463,74 +475,103 @@ export default {
   }
   .dev-detail-area .detail-leff-area .detail-information {
     margin-top: 1px;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     position: relative;
+    flex-direction: column
   }
   .tag{
     font-weight: bold;
-    display: inline-block;
+    /* display: inline-block; */
   }
   .detail-information .sub-area{
-    width: 88%;
-    position: absolute;
+    /* width: 88%; */
+    /* position: absolute; */
     right: 0;
-    display: inline-block;
+    font-size: 14px;
+    /* display: inline-block; */
   }
   .dev-detail-area .detail-right-area {
     line-height: 1.8;
     width: calc(50% - 5rem);
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     padding: 2.5rem 5rem 0 0 ;
   }
   /* ボタン エリア */
   .button-area {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    bottom: 0;
   }
   .button-area .button-action-area {
-    margin: 2rem auto 1rem auto;
-    width: 70%;
-    /* background-color: yellow; */
-  }
-  .btn {
-    width: 45%;
-    margin-left: 7rem;
-    display: inline-block;
+    margin: 0em auto 4rem auto;
+    width: 50%;
+    position: relative;
   }
   /* 応募するボタン */
   .btn-box-apply{
-    padding: 1.3rem 3.8rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60%;
+    padding: 1.2rem 4rem;
     background: linear-gradient(60deg,#D81B60,#EC407A);
+    box-shadow: 0 0px 10px 5px #d4d4d4;
+    transition: .3s;
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
     line-height: 1;
     text-align: center;
-    max-width: 320px;
+    /* max-width: 620px; */
     margin: auto;
     font-size: 1.3rem;
     display: inline-block;
     cursor: pointer;
     border: none;
   }
+  .btn-box-apply:hover {
+    background: linear-gradient(60deg,#D81B60,#EC407A);
+    color: #F8FAFF;
+    appearance: none;
+    border: none;
+    box-shadow: 0 5px 20px -3px #CD106E;
+    /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
+    /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
+    /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
+    transition: .3s;
+    /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
+  }
   /* 応募済みボタン */
   .btn-box-apply-false{
+    position: absolute;
+    left: 0;
+    top: 0;
     display: block;
-    padding: 1.4rem 5rem;
-    background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
-    background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
-    background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
+    padding: 1.2rem 4rem;
+    background: linear-gradient(60deg,#424242,#9E9E9E);
+    box-shadow: 0 0px 10px 5px #d4d4d4;
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
     line-height: 1;
     text-align: center;
-    max-width: 280px;
+    width: 40%;
     margin: auto;
     font-size: 1.3rem;
     display: inline-block;
-    cursor: pointer;
+  }
+  .favorite-btn-area {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
   }
   /* モーダル内のキャンセルボタン */
   .modal-btn {
@@ -554,138 +595,6 @@ export default {
     margin: 1rem;
   }
 
-
-
-
-
-
-  .job-wrapper-left :hover {
-    background-color: rgb(250, 248, 248);
-    border: 1px solid #00A1D6;
-    box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
-    transform: translateY(-4px);
-  }
-  .job-wrapper-left {
-    width: 40%;
-    /* pointer-events: none; */
-    /* background-color: green; */
-  }
-  .job-cards {
-    /* width: 425px; */
-    width: 100%;
-    /* height: 60%; */
-    height: 292px;
-    /* float: right; */
-    /* float: left; */
-    margin: 10px 0.5%;
-    border: solid 1px #B9B9B9;
-    background-color: #ffffff;
-    border-radius: 10px / 10px;
-    transition: .3s;
-    color: #111111;
-
-  }
-  .job-cards-top {
-    width: calc(100% - 60px);
-    height: calc(25% - 60px);
-    text-align: left;
-    padding: 2rem 2rem 1rem 2rem;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center {
-    width: calc(100% - 40px);
-    height: calc(35% - 20px);
-    padding: 10px 20px;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-center .langage{
-    margin: 5px 0px 0px 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #004098;
-    font-size: 12px;
-    border: solid 1px #004098;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .framework{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #00A7EA;
-    font-size: 12px;
-    border: solid 1px #00A7EA;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-center .skill{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #8D93C8;
-    font-size: 12px;
-    border: solid 1px #8D93C8;
-    padding: 7px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .job-cards-bottom {
-    width: calc(100% - 50px);
-    height: calc(38% - 20px);
-    padding: 10px 25px;
-    pointer-events: none;
-    margin-top: 0.2rem;
-  }
-  .job-cards-bottom .product-start-end {
-    width: 100%;
-    height: 40%;
-    text-align: left;
-    pointer-events: none;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-tag {
-    display: inline-block;
-    pointer-events: none;
-  }
-  .job-cards-bottom .product-start-end .product-start-end-time {
-    display: inline-block;
-    padding: 0 20px;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area {
-    width: 100%;
-    height: 60%;
-    text-align: left;
-    pointer-events: none;
-    /* background-color: yellow; */
-  }
-  .job-cards-bottom .post-user-area .post-user-image {
-    width: 60px;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #00A1D6;
-    display: inline-block;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area {
-    display: inline-block;
-    /* width: calc(80% - 40px); */
-    height: 60%;
-    padding: 0 20px;
-    position: relative;
-    pointer-events: none;
-  }
-  .job-cards-bottom .post-user-area .post-user-name-area .post-user-name {
-    position: absolute;
-    top: 0;
-    pointer-events: none;
-  }
 }
 
 </style>

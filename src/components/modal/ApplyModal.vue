@@ -26,12 +26,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.76);
+  background: rgba(0, 0, 0, 0.637);
   font-weight: bold;
 }
 .modal-window {
   background: #fff;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .modal-content {
@@ -39,7 +39,7 @@
 }
 .modal-footer {
   /* background: #ccc; */
-  width: 90%;
+  width: 87%;
   padding: 1rem;
   text-align: right;
   display: inline-block;

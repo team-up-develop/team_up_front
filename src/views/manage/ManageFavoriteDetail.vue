@@ -3,13 +3,15 @@
     <status-change :applyUsers="applyUsers" :id="id" @compliteAssgin="compliteAssgin" @compliteReject="compliteReject"/>
     <div class="job-manage-detail-wrapper">
       <div class="status-area-left">
-        <div class="status-box-click">
-          <div class="status-logo">
-            <font-awesome-icon icon="user" class="icon"/>
+        <router-link :to="`/manage/apply/${ id }`" class="router">
+          <div class="status-box-click">
+            <div class="status-logo">
+              <font-awesome-icon icon="user" class="icon"/>
+            </div>
+            <div class="status-tag">応募者</div>
+            <div class="status-number">{{ applyUsersNum }}人</div>
           </div>
-          <div class="status-tag">応募者</div>
-          <div class="status-number">{{ applyUsersNum }}人</div>
-        </div>
+        </router-link>
       </div>
       <div class="status-area-participate">
       <router-link :to="`/manage/participate/${ id }`" class="router">
@@ -51,20 +53,20 @@
       </div>
       <div class="user-list-area">
         <div 
-          v-for="applyUser in applyUsers" 
-          :key="applyUser.id" 
+          v-for="favoriteUser in favoriteUsers" 
+          :key="favoriteUser.id" 
           class="router-user-area"
         >
-        <router-link :to="`/account/profile/${ applyUser.userId }`"> 
+        <router-link :to="`/account/profile/${ favoriteUser.userId }`"> 
           <div class="user-area">
             <div class="user-area-box">
-              {{ applyUser.user.userName }}
+              {{ favoriteUser.user.userName }}
             </div>
             <div class="user-area-box">
-            {{ applyUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
+            {{ favoriteUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
             </div>
             <div class="user-area-skill">
-              {{ applyUser.user.userName }}
+              {{ favoriteUser.user.userName }}
             </div>
           </div>
         </router-link>
@@ -93,7 +95,10 @@ export default {
       rejectUsersNum: 0, //? 拒否者人数
       favoriteUsers: [], //? お気に入りしているユーザー一覧
       favoriteUsersNum: 0, //? お気に入りしているユーザー 人数
+      applyUser: [], //? 参加させる
+      refusalUser: [], //? 拒否する
       manageJobs: [], //? 管理
+      assginUsersId: null,
     }
   },
   filters: {
@@ -225,10 +230,10 @@ export default {
 }
 /* 応募者ボックス */
 .job-manage-detail-wrapper .status-area-left {
-  width: 24.9%;
+  width: 24.8%;
   /* height: 20%; */
   display: inline-block;
-  /* border-left: solid 1px #B9B9B9; */
+  border-left: solid 1px #B9B9B9;
   border-radius: 20px 0 0 0 ;
 }
 .job-manage-detail-wrapper .status-area-right {
@@ -244,14 +249,15 @@ export default {
   height: 100%;
   padding: 0 4rem;
   border-radius: 15px 0 0 0;
-  background-color: #4A148C;
-  box-shadow: 0 0 10px #02020278;
+  /* background-color: #3700B3; */
+  background-color: #606060;
 }
 .status-box-right {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #606060;
+  background-color: #4A148C;
+  box-shadow: 0 0 10px #02020278;
   border-radius: 0 15px 0 0;
 }
 .status-box-participate {

@@ -1,24 +1,6 @@
 <template>
   <div class="manage-detail-wrapper">
-    <div class="job-status-change-area">
-      <div class="status-change-top">
-        {{ jobTitle | truncateDetailTitle }}
-      </div>
-      <div class="status-change-left">
-        <label for="" class="label">応募者選択</label>
-        <div class="cp_ipselect cp_sl02">
-          <select required v-model="statusChangeUser">
-            <option v-for="user in applyUsers" v-bind:value="user.user.id " v-bind:key="user.user.id">
-              {{ user.user.userName }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="status-change-right">
-        <button class="permit-btn" @click="applyUserPut">参加させる</button>
-        <button class="reject-btn" @click="applyUserRefusal">落選させる</button>
-      </div>
-    </div>
+    <status-change :applyUsers="applyUsers" :id="id" @compliteAssgin="compliteAssgin" @compliteReject="compliteReject"/>
     <div class="job-manage-detail-wrapper">
       <div class="status-area-left">
         <router-link :to="`/manage/apply/${ id }`" class="router">
@@ -61,13 +43,15 @@
         </div>
       </div> -->
       <div class="status-area-right">
-        <div class="status-box-right">
-          <div class="status-logo">
-            <font-awesome-icon icon="thumbs-up" class="icon"/>
+        <router-link :to="`/manage/favorite/${ id }`" class="router">
+          <div class="status-box-right">
+            <div class="status-logo">
+              <font-awesome-icon icon="thumbs-up" class="icon"/>
+            </div>
+            <div class="status-tag">いいね</div>
+            <div class="status-number">{{ favoriteUsersNum }}人</div>
           </div>
-          <div class="status-tag">いいね</div>
-          <div class="status-number">10</div>
-        </div>
+        </router-link>
       </div>
       <div class="status-tag-area">
         <div class="status-tag-name">名前</div>
@@ -80,6 +64,7 @@
           :key="rejectUser.id" 
           class="router-user-area"
         >
+        <router-link :to="`/account/profile/${ rejectUser.userId }`"> 
           <div class="user-area">
             <div class="user-area-box">
               {{ rejectUser.user.userName }}
@@ -91,16 +76,17 @@
               {{ rejectUser.user.userName }}
             </div>
           </div>
+        </router-link>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
 import axios from 'axios';
 import moment from "moment";
+import StatusChange from '@/components/manage/StatusChange';
 export default {
   props: {
     // * job.idを受け取る
@@ -109,18 +95,15 @@ export default {
   },
   data() {
     return {
-      statusChangeUser: [], //? ステータスの変更ユーザー
       applyUsers: [], //? 応募者
       applyUsersNum: 0,//? 応募者人数
       assginUsers: [], //? 参加者
       assginUsersNum: 0, //? 参加者人数
       rejectUsers: [], //? 拒否者
       rejectUsersNum: 0, //? 拒否者人数
-      applyUser: [], //? 参加させる
-      refusalUser: [], //? 拒否する
+      favoriteUsers: [], //? お気に入りしているユーザー一覧
+      favoriteUsersNum: 0, //? お気に入りしているユーザー 人数
       manageJobs: [], //? 管理
-      assginUsersId: null,
-      jobTitle: "" //? 案件タイトル
     }
   },
   filters: {
@@ -138,14 +121,6 @@ export default {
     },
   },
   created() {
-    //* 案件タイトルを取得する
-    axios.get(`http://localhost:8888/api/v1/apply_job/?job_id=${this.id}`)
-    .then(response => {
-      var job = response.data[0];
-      // console.log(job.job.jobTitle)
-      this.jobTitle = job.job.jobTitle;
-      console.log(this.jobTitle)
-    })
     // * 参加者をステータスごとに取り出す
     axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
     .then(response => {
@@ -161,6 +136,11 @@ export default {
     .then(response => {
       this.rejectUsers = response.data
       this.rejectUsersNum = response.data.length
+    })
+    axios.get(`http://localhost:8888/api/v1/favorite_job/?job_id=${ this.id }`)
+    .then(response => {
+      this.favoriteUsers = response.data
+      this.favoriteUsersNum = this.favoriteUsers.length
     })
       // for(let i = 0; i < response.data.length; i++){
       //   const applyData = response.data[i];
@@ -181,38 +161,6 @@ export default {
     // })
     
   },
-  methods: {
-    // * 参加させる
-    applyUserPut() {
-      const params = {
-        jobId: 1,
-        userId: this.applyUser,
-        applyStatusId: 2
-      };
-      axios.put(`${this.$baseURL}/apply_job/`, params)
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
-    // * 拒否する
-    applyUserRefusal() {
-      const params = {
-        jobId: 1,
-        userId: this.refusalUser,
-        applyStatusId: 3
-      };
-      axios.put(`${this.$baseURL}/apply_job/`, params)
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }
-  },
   mounted() {
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
@@ -221,6 +169,39 @@ export default {
         this.manageJobs = response.data
       })
     }
+  },
+  methods: {
+    // * 参加者 リアルタイムで変更する
+    compliteAssgin(){
+      // * 参加者をステータスごとに取り出す
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
+      .then(response => {
+        this.applyUsers = response.data
+        this.applyUsersNum = response.data.length
+      })
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=2`)
+      .then(response => {
+        this.assginUsers = response.data
+        this.assginUsersNum = response.data.length
+      })
+    },
+    // *拒否者 リアルタイムで取得
+    compliteReject() {
+      // * 参加者をステータスごとに取り出す
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=1`)
+      .then(response => {
+        this.applyUsers = response.data
+        this.applyUsersNum = response.data.length
+      })
+      axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=3`)
+      .then(response => {
+        this.rejectUsers = response.data
+        this.rejectUsersNum = response.data.length
+      })
+    }
+  },
+  components: {
+    StatusChange
   }
 }
 </script>
@@ -307,7 +288,7 @@ export default {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #3700B3;
+  background-color: #4A148C;
   box-shadow: 0 0 10px #02020278;
   color: #ffffff;
 }
@@ -355,8 +336,8 @@ export default {
   /* background-color: rgba(0, 255, 234, 0.596); */
   color: #ffffff;
   font-weight: bold;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #4A148C;
+  /* box-shadow: 0 0 10px #02020278; */
 }
 .job-manage-detail-wrapper .status-tag-area .status-tag-name {
   width: 24.8%;
@@ -402,138 +383,5 @@ export default {
   color: #111111;
   display: inline-block;
   pointer-events: none;
-}
-
-/* ステータス変更 */
-.job-status-change-area {
-  width: 95%;
-  height: 20%;
-  border-radius: 20px;
-  margin: 2rem 2rem 2rem 2rem;
-  background-color: #ffffff;
-  float: right;
-  border: solid 1px #B9B9B9;
-  position: relative;
-}
-.status-change-top {
-  width: 100%;
-  height: 10%;
-  padding: 0.8rem 0;
-  border-radius: 15px 15px 0px 0;
-  background-color: #3700B3;
-  color: #ffffff;
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.status-change-left {
-  width: 30%;
-  height: 40%;
-  padding: 1rem 2rem;
-  text-align: left;
-}
-.label {
-  font-weight: bold;
-}
-.status-change-right {
-  width: 30%;
-  height: 40%;
-  padding-top: 4.6rem;
-  padding-right: 2rem;
-  /* background-color: yellow; */
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.permit-btn {
-  /* display: block; */
-  padding: 1rem 2.4rem;
-  background-color: #E91E63;
-  box-shadow: 0 0px 5px 2px #d4d4d4;
-  border-radius: 50px;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  font-size: 1rem;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-}
-.reject-btn {
-  padding: 1rem 2.4rem;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
-  box-shadow: 0 0px 5px 2px #d4d4d4;
-  border-radius: 50px;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin-left: 1.2rem;
-  font-size: 1rem;
-  float: right;
-  cursor: pointer;
-  border: none;
-}
-
-/* セレクトボックス */
-.cp_ipselect {
-	overflow: hidden;
-	width: 90%;
-	margin: 0.2em 0;
-	text-align: center;
-}
-.cp_ipselect select {
-	width: 100%;
-	padding-right: 1em;
-	cursor: pointer;
-	text-indent: 0.01px;
-	text-overflow: ellipsis;
-	border: none;
-	outline: none;
-	background: transparent;
-	background-image: none;
-	box-shadow: none;
-	-webkit-appearance: none;
-	appearance: none;
-}
-.cp_ipselect select::-ms-expand {
-    display: none;
-}
-.cp_ipselect.cp_sl02 {
-	position: relative;
-	border: 1px solid #bbbbbb;
-	border-radius: 2px;
-	background: #ffffff;
-}
-.cp_ipselect.cp_sl02::before {
-	position: absolute;
-	top: 0.8em;
-	right: 0.9em;
-	width: 0;
-	height: 0;
-	padding: 0;
-	content: '';
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-top: 6px solid #666666;
-	pointer-events: none;
-}
-.cp_ipselect.cp_sl02:after {
-	position: absolute;
-	top: 0;
-	right: 2.5em;
-	bottom: 0;
-	width: 1px;
-	content: '';
-	border-left: 1px solid #bbbbbb;
-}
-.cp_ipselect.cp_sl02 select {
-	padding: 8px 38px 8px 8px;
-	color: #666666;
 }
 </style>

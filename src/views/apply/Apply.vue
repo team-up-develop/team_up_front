@@ -140,7 +140,7 @@ export default {
   /* border-radius: 20px 0 0 0 ; */
   background-color: #606060;
   display: inline-block;
-  background-color: #3700B3;
+  background-color: #4A148C;
   box-shadow: 0 0 10px #02020278;
   color: #ffffff;
   border: 0.5px solid #ffffff;
@@ -162,8 +162,8 @@ export default {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #4A148C;
+  /* box-shadow: 0 0 10px #02020278; */
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -174,8 +174,8 @@ export default {
   padding: 0.8rem 0;
   border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #4A148C;
+  /* box-shadow: 0 0 10px #02020278; */
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
@@ -184,8 +184,8 @@ export default {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #4A148C;
+  /* box-shadow: 0 0 10px #02020278; */
   display: inline-block;
   color: #ffffff;
   font-weight: bold;

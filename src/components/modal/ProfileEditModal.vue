@@ -7,7 +7,7 @@
         </div>
         <footer class="modal-footer">
           <slot name="footer">
-            <!-- <button @click="$emit('close')">Close</button> -->
+            <button @click="$emit('close')">Close</button>
           </slot>
         </footer>
       </div>
@@ -15,34 +15,47 @@
   </transition>
 </template>
 
+<script>
+export default {
+
+}
+</script>
+
 <style scoped>
 .modal-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 30;
+  z-index: 3000;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.637);
-  font-weight: bold;
+  background: rgba(0, 0, 0, 0.101);
+  /* font-weight: bold; */
 }
 .modal-window {
   background: #fff;
+  width: 90%;
+  height: 90%;
   border-radius: 8px;
   overflow: hidden;
 }
 .modal-content {
-  padding: 4rem 6rem;
+  padding: 2rem 4rem;
+  width: 40vw;
+  height: 64vh;
+  text-align: left;
 }
 .modal-footer {
   /* background: #ccc; */
-  width: 80%;
-  padding: 1rem;
+  width: 100%;
+  padding: 2rem 0 1rem 0;
   text-align: right;
   display: inline-block;
+  position: relative;
+  font-size: 100px;
 }
 
 .modal-enter-active, .modal-leave-active {
