@@ -1,15 +1,20 @@
 <template>
   <div class="login-wrapper">
+    <div class="login-title">LOGIN</div>
     <div class="login-container">
-      <div class="login-title">LOGIN</div>
       <div class="login-box">
         <div class="name-form">
+          <label for="name">ログイン名</label>
           <input type="text" class="input" v-model="LoginName" placeholder="ログイン名">
         </div>
         <div class="name-form">
+          <label for="name">パスワード</label>
           <input type="password" class="input" v-model="LoginPassword" placeholder="パスワード">
         </div>
-        <div @click="login" class="login-btn">ログイン</div>
+        <div class="btn-area">
+          <p>登録してない方は<router-link to="/register" class="router-link"><span>こちら</span></router-link></p>
+          <div @click="login" class="login-btn">ログイン</div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,112 +43,163 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
-.login-wrapper{
-  width: 85%;
-  margin: 0 auto;
+  .router-link {
+    text-decoration: none;
   }
-.login-container{
-  width: calc(100% - 5rem);
-  height: 90vh;
-  margin: 2rem auto;
-  border: solid 1px #B9B9B9;
-  border-radius: 20px;
-  }
-.login-box{
-  width: 500px;
-  height: 400px; 
-  margin: 0 auto;
-  background-color:#fff;
-  }
-.login-title{
-  color: #2ac1df;
-  font-size: 50px;
-  font-weight: bold;
-  /* width: 120px; */
-  height: 50px;
-  padding: 30px 0;
-  }
-.name-form{
-  width: 100%;
-  height: 80px;
-  margin: 3rem 0;
-}
-.input{
-  background: #f4f8fa;
-  border: none;
-  border-radius: 0;
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  padding: 0 70px;
-  border-radius: 4px;
-  width: 300px;
-  height: 100px;
-  color: #818181;
-}
-.login-btn{
-  display: block;
-  padding: 30px 70px;
-  background: linear-gradient(90deg,#1f5ae8,#2ac1df);
-  border-radius: 25px;
-  font-size: .875rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1rem;
-  display: inline-block;
-  margin: 40px 40px 0 40px;
-  }
-}
-@media (max-width: 768px){
-  .login-box{
-  width: 100%;
-  margin: 80px 0;
-  padding: 0px;
-  }
-  .name-form{
-  height: 80px;
-  width: 100%;
-  margin: 2rem 0;
+  .login-wrapper{
+    width: 85%;
+    margin: 0 auto;
+    }
+  /* ログインカード */
+  .login-wrapper .login-container {
+    width: calc(100% - 12rem);
+    height: 66vh;
+    margin: 0rem auto 3rem auto;
+    border: solid 1px #B9B9B9;
+    border-radius: 20px;
+    padding: 2rem;
   }
   .login-title{
-    padding: 30px;
-    font-size: 50px;
-    }
-  .input{
-  width: 220px;
-  padding: 0 ;
-  height: 80px;
-  margin: 0 10px;
-  padding: 0 30px;
+    color: #2ac1df;
+    font-size: 1.8em;
+    font-weight: bold;
+    height: 50px;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+  }
+  /* フォーム & ボタン ボックス */
+  .login-container .login-box {
+    width: 60%;
+    height: 90%; 
+    margin: 0 auto;
+    position: relative;
+  }
+  .login-box .btn-area {
+    padding: 2.5rem 0;
+    height: 30%;
+  }
+  .login-box span {
+    color: #2ac1df;
+    cursor: pointer;
+  }
+  .login-box .name-form {
+    width: 100%;
+    height: 80px;
+    margin: 3rem 2rem;
+    transition: 0.3s;
+    text-align: left;
+  }
+  .login-box .name-form  .input{
+    font: 16px/24px sans-serif;
+    box-sizing: border-box;
+    width: 90%;
+    height: 70%;
+    padding: 0.3em;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    color: #111111;
+    border: 1px solid #A3A1A1;
+    border-radius: 4px;
+    padding: 0.5rem 0.5rem;
+    background-color: #EFEFEF;
+  }
+  .login-box .name-form input[type='text']:focus {
+    border: 1px solid #2196F3;
+    outline: none;
+    box-shadow: 0 0 5px 1px #2195f348;
+  }
+  .login-box .name-form input[type='password']:focus {
+    border: 1px solid #2196F3;
+    outline: none;
+    box-shadow: 0 0 5px 1px #2195f348;
+  }
+  /*  ログインボタン */
+  .login-box .btn-area .login-btn {
+    display: block;
+    padding: 1.2rem 5rem;
+    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
+    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    border-radius: 50px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1.3rem;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    margin: 0 auto;
+    transition: .3s;
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
   }
 }
-@media (max-width: 479px){
-  .login-box{
-  width: 100%;
-  margin: 10px 0;
-  }
-.name-form{
-  height: 50px;
-  width: 100%;
-  margin: 1rem 0;
-  }
-.login-title{
-    padding: 30px;
-    font-size: 30px;
-    }
-.input{
-  width: 100px;
-  height: 50px;
-  }
 
-.login-btn{
-  padding: 20px 30px;
-  margin: 10px 40px 0 40px;
+@media (max-width: 1200px){
+  .login-wrapper .login-container {
+    width: calc(100% - 8rem);
+    height: 55vh;
+    margin: 0rem auto 3rem auto;
+    border: solid 1px #B9B9B9;
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  .login-box .btn-area {
+    padding: 1rem 0;
+    height: 50%;
+  }
+}
+
+/* タブレット */
+@media (max-width: 900px){
+  .login-container .login-box{
+    width: 100%;
+    height: 70%; 
+    margin: 0 auto;
+    position: relative;
+  }
+  .login-box span {
+    color: #2ac1df;
+    cursor: pointer;
+  }
+  .login-box .name-form {
+    width: 100%;
+    height: 80px;
+    margin: 3rem 0;
+  }
+}
+
+@media (max-width: 768px){
+  .login-container .login-box{
+    width: 100%;
+    height: 70%; 
+    margin: 0 auto;
+    position: relative;
+  }
+  .login-box .name-form {
+    width: 100%;
+    height: 80px;
+    margin: 3rem 0;
+  }
+  .login-box .name-form .input{
+    width: 95%;
+  }
+}
+/* スマホではだいたいこのピクセルから */
+@media (max-width: 500px){
+  .login-wrapper {
+    width: 100%;
+  }
+  .login-wrapper .login-container {
+    margin: 0 auto 2rem auto;
+    width: calc(100% - 5rem);
+  }
+}
+@media (max-width: 420px){
+  .login-btn{
+    padding: 1.4rem 3rem;
   }
 }
 </style>
