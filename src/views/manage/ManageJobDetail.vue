@@ -439,7 +439,7 @@ export default {
   }
   .edit-btn {
     display: block;
-    padding: 1.4rem 4.3rem;
+    padding: 1.4rem 9rem;
     background: linear-gradient(60deg,#424242,#9E9E9E);
     box-shadow: 0 0px 5px 2px #d4d4d4;
     border-radius: 50px;
@@ -447,7 +447,7 @@ export default {
     color: #fff;
     line-height: 1;
     text-align: center;
-    max-width: 280px;
+    max-width: 800px;
     margin: auto;
     font-size: 1.1rem;
     display: inline-block;

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="btn-box-save" @click="saveJob" v-if="flag">保存する</div>
-    <!-- <font-awesome-icon icon="heart" class="save-icon" @click="deleteJob" v-if="flag == false"/> -->
-    <div class="btn-box-save-false" @click="deleteJob" v-if="flag == false">
-      削除する
-    </div>
+    <font-awesome-icon icon="heart" class="icon" @click="saveJob" v-if="flag"/>
+    <font-awesome-icon icon="heart" class="save-icon" @click="deleteJob" v-if="flag == false"/>
+    <!-- <div class="btn-box-save-false" @click="deleteJob" v-if="flag == false">
+      保存削除
+    </div> -->
   </div>
 </template>
 
@@ -112,8 +112,8 @@ export default {
 .icon {
   font-size: 30px;
   padding: 10px;
-  width: 20px;
-  height: 20px;
+  width: 12.5%;
+  height: 12.5%;
   color: #ffffff;
   cursor: pointer;
   background-color: #d8d6d6;
@@ -122,8 +122,8 @@ export default {
 .save-icon {
   font-size: 30px;
   padding: 10px;
-  width: 20px;
-  height: 20px;
+  width: 12.5%;
+  height: 12.5%;
   color: red;
   cursor: pointer;
   background-color: #d8d6d6;

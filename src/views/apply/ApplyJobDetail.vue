@@ -101,12 +101,12 @@
     <div class="button-area">
         <div v-if="loginFlag === true" class="button-action-area">
           <div class="" v-if="selfJobPost">
-            案件管理画面へ遷移先を作成する
+            自分の案件
           </div>
           <div v-else>
-            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">エントリーする</button>
+            <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
             <div class="btn-box-apply-false" v-if="applyFlug == false">
-              エントリー済み
+              応募済み
             </div>
             <div class="favorite-btn-area">
               <favorite-detail-btn :jobId='id'></favorite-detail-btn>
@@ -519,18 +519,19 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    padding: 1.3rem 3rem;
+    width: 60%;
+    padding: 1.2rem 4rem;
     background: linear-gradient(60deg,#D81B60,#EC407A);
-  box-shadow: 0 0px 10px 5px #d4d4d4;
+    box-shadow: 0 0px 10px 5px #d4d4d4;
     transition: .3s;
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
     line-height: 1;
     text-align: center;
-    max-width: 320px;
+    /* max-width: 620px; */
     margin: auto;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     display: inline-block;
     cursor: pointer;
     border: none;
@@ -553,7 +554,7 @@ export default {
     left: 0;
     top: 0;
     display: block;
-    padding: 1.4rem 3rem;
+    padding: 1.2rem 4rem;
     background: linear-gradient(60deg,#424242,#9E9E9E);
     box-shadow: 0 0px 10px 5px #d4d4d4;
     border-radius: 50px;
@@ -561,15 +562,16 @@ export default {
     color: #fff;
     line-height: 1;
     text-align: center;
-    max-width: 280px;
+    width: 40%;
     margin: auto;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     display: inline-block;
   }
   .favorite-btn-area {
     position: absolute;
     right: 0;
     top: 0;
+    width: 50%;
   }
   /* モーダル内のキャンセルボタン */
   .modal-btn {
@@ -592,6 +594,7 @@ export default {
     right: 0;
     margin: 1rem;
   }
+
 }
 
 </style>
