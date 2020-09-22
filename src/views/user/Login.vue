@@ -201,5 +201,13 @@ export default {
   .login-btn{
     padding: 1.4rem 3rem;
   }
+  .login-wrapper .login-container {
+    width: calc(100% - 4rem);
+    height: 70%;
+    margin: 0rem auto 3rem auto;
+    border: solid 1px #B9B9B9;
+    border-radius: 20px;
+    padding: 2rem 1rem;
+  }
 }
 </style>
