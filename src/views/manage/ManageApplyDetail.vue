@@ -225,10 +225,10 @@ export default {
 }
 /* 応募者ボックス */
 .job-manage-detail-wrapper .status-area-left {
-  width: 24.8%;
+  width: 24.9%;
   /* height: 20%; */
   display: inline-block;
-  border-left: solid 1px #B9B9B9;
+  /* border-left: solid 1px #B9B9B9; */
   border-radius: 20px 0 0 0 ;
 }
 .job-manage-detail-wrapper .status-area-right {
@@ -244,7 +244,7 @@ export default {
   height: 100%;
   padding: 0 4rem;
   border-radius: 15px 0 0 0;
-  background-color: #3700B3;
+  background-color: #4A148C;
   box-shadow: 0 0 10px #02020278;
 }
 .status-box-right {
@@ -315,8 +315,8 @@ export default {
   /* background-color: rgba(0, 255, 234, 0.596); */
   color: #ffffff;
   font-weight: bold;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #4A148C;
+  /* box-shadow: 0 0 10px #02020278; */
 }
 .job-manage-detail-wrapper .status-tag-area .status-tag-name {
   width: 24.8%;
