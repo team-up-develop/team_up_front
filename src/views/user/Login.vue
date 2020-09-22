@@ -44,28 +44,28 @@ export default {
   }
 .login-container{
   width: calc(100% - 5rem);
-  height: calc(100vh - 240px); 
+  height: 90vh;
   margin: 2rem auto;
   border: solid 1px #B9B9B9;
   border-radius: 20px;
   }
 .login-box{
   width: 500px;
-  height: 200px; 
+  height: 400px; 
   margin: 0 auto;
-  background-color: #fff;
+  background-color:#fff;
   }
 .login-title{
   color: #2ac1df;
   font-size: 50px;
   font-weight: bold;
   /* width: 120px; */
-  height: 30px;
+  height: 50px;
   padding: 30px 0;
   }
 .name-form{
   width: 100%;
-  height: 50px;
+  height: 80px;
   margin: 3rem 0;
 }
 .input{
@@ -79,7 +79,7 @@ export default {
   padding: 0 70px;
   border-radius: 4px;
   width: 300px;
-  height: 80px;
+  height: 100px;
   color: #818181;
 }
 .login-btn{
@@ -102,6 +102,7 @@ export default {
 @media (max-width: 768px){
   .login-box{
   width: 100%;
+  margin: 80px 0;
   padding: 0px;
   }
   .name-form{
