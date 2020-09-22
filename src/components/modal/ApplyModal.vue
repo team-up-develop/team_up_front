@@ -31,7 +31,7 @@
 }
 .modal-window {
   background: #fff;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .modal-content {

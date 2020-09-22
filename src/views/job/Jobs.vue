@@ -77,7 +77,7 @@
           </div>
           <div v-else>
             <div class="top-job-detail-bottom">
-              <button class="btn-box-apply" @click="registerRedirect">エントリーする</button>
+              <button class="btn-box-apply" @click="registerRedirect">応募する</button>
               <div class="btn-box-save">
                 <font-awesome-icon icon="heart" class="save-icon" @click="registerRedirect"/>
               </div>
@@ -368,7 +368,7 @@ export default {
     },
     doSend() {
         this.closeModal()
-      },
+    },
       // *検索
     langSearchModal() {
       console.log("検索用モーダルを開く")
