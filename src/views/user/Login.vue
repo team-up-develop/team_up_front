@@ -49,7 +49,7 @@ export default {
   .login-wrapper{
     width: 85%;
     margin: 0 auto;
-    }
+  }
   /* ログインカード */
   .login-wrapper .login-container {
     width: calc(100% - 12rem);
@@ -140,7 +140,7 @@ export default {
 @media (max-width: 1200px){
   .login-wrapper .login-container {
     width: calc(100% - 8rem);
-    height: 55vh;
+    height: 60vh;
     margin: 0rem auto 3rem auto;
     border: solid 1px #B9B9B9;
     border-radius: 20px;
