@@ -39,35 +39,34 @@ export default {
 <style scoped>
 @media screen and (max-width: 1440px) {
 .login-wrapper{
-  width: 100%;
-  height: 100%;
-}
+  width: 85%;
+  margin: 0 auto;
+  }
 .login-container{
-  width: 80%;
-  height: calc(100vh - 240px);
-  margin: 0 auto;
-}
-.login-box{
-  width: 600px;
-  height: 320px; 
-  margin: 0 auto;
-  padding: 60px;
-  background-color: #fff;
+  width: calc(100% - 5rem);
+  height: 90vh;
+  margin: 2rem auto;
   border: solid 1px #B9B9B9;
   border-radius: 20px;
-}
+  }
+.login-box{
+  width: 500px;
+  height: 400px; 
+  margin: 0 auto;
+  background-color:#fff;
+  }
 .login-title{
   color: #2ac1df;
-  font-size: 22px;
+  font-size: 50px;
   font-weight: bold;
   /* width: 120px; */
-  height: 30px;
-  padding: 20px 0;
-}
+  height: 50px;
+  padding: 30px 0;
+  }
 .name-form{
-  width: 400px;
-  height: 100px;
-  margin: 0 auto;
+  width: 100%;
+  height: 80px;
+  margin: 3rem 0;
 }
 .input{
   background: #f4f8fa;
@@ -77,15 +76,15 @@ export default {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding: 20px;
+  padding: 0 70px;
   border-radius: 4px;
   width: 300px;
-  margin: 0 0 20px;
+  height: 100px;
   color: #818181;
 }
 .login-btn{
   display: block;
-  padding: 18px 65px;
+  padding: 30px 70px;
   background: linear-gradient(90deg,#1f5ae8,#2ac1df);
   border-radius: 25px;
   font-size: .875rem;
@@ -97,25 +96,54 @@ export default {
   margin: auto;
   font-size: 1rem;
   display: inline-block;
-  margin: 20px 40px 0 40px;
+  margin: 40px 40px 0 40px;
   }
 }
 @media (max-width: 768px){
   .login-box{
   width: 100%;
-  height: 400px;
+  margin: 80px 0;
   padding: 0px;
   }
   .name-form{
-  height: 50px;
-  margin-top:50px;
+  height: 80px;
   width: 100%;
+  margin: 2rem 0;
   }
+  .login-title{
+    padding: 30px;
+    font-size: 50px;
+    }
   .input{
-  width: 200px;
+  width: 220px;
+  padding: 0 ;
+  height: 80px;
+  margin: 0 10px;
+  padding: 0 30px;
   }
-  .login-btn{
-    margin-top: 80px;
+}
+@media (max-width: 479px){
+  .login-box{
+  width: 100%;
+  margin: 10px 0;
+  }
+.name-form{
+  height: 50px;
+  width: 100%;
+  margin: 1rem 0;
+  }
+.login-title{
+    padding: 30px;
+    font-size: 30px;
+    }
+.input{
+  width: 100px;
+  height: 50px;
+  }
+
+.login-btn{
+  padding: 20px 30px;
+  margin: 10px 40px 0 40px;
   }
 }
 </style>
