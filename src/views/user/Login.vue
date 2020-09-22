@@ -209,5 +209,11 @@ export default {
     border-radius: 20px;
     padding: 2rem 1rem;
   }
+  .login-box .name-form  .input{
+    width: 100%;
+  }
+  .login-box .name-form {
+    font-size: 14px;
+  }
 }
 </style>
