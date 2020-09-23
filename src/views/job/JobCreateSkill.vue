@@ -117,7 +117,7 @@ export default {
       languages: [],
       selectedFramwork: [], //? フレームワーク
       framworks: [],
-      selectedPosition: [], //? 開発ポジション
+      // selectedPosition: [], //? 開発ポジション
       // positionTag: [], //? 開発ポジション
       // positions: [],
       selectedSkill: [], //? その他開発スキル

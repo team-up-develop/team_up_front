@@ -51,8 +51,8 @@ export default {
       devEndDate: null, //? 終了日
       // publicationPeriod: "", //? 掲載終了
       loading: true,
-      titleLimit: null,
-      jobDescriptionLimit: null,
+      titleLimit: null, //? タイトル文字制限
+      jobDescriptionLimit: null, //? 詳細文字制限
       errors: [], //? タイトルエラー格納先
       errorsDevStartDates: [], //? 開発開始時期エラー格納先
       errorDevEndDates: [] //? 開発終了時期エラー格納先
@@ -138,10 +138,12 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
+  /* 文字制限 */
   #rem {
     color: #7c7c7c;
     margin-top: 2px;
   }
+  /* Wrapper */
   .create-wrapper {
     width: 85%;
     height: 90vh;
