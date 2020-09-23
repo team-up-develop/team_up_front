@@ -60,6 +60,7 @@ export default {
 <style scoped>
 .modal-apply-area {
   width: 47%;
+  /* background-color: yellow; */
 }
 .btn-apply{
   display: block;
@@ -72,7 +73,7 @@ export default {
   text-align: center;
   max-width: 280px;
   margin: auto;
-  font-size: 1rem;
+  font-size: 0.95rem;
   display: inline-block;
   cursor: pointer;
 }

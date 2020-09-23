@@ -45,6 +45,9 @@
           </ul>
         </div>
         <div class="header-main-right">
+          <router-link :to="`/account/profile/${ this.userId }`">
+            <div class="user-image"></div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -60,6 +63,7 @@ export default {
   },
   data() {
     return {
+      userId: null,
       // assetsImage: LogoImage,
       // assetsImage_NG: '.../assets/logo.jpg',
       // staticImage: '.../assets/logo.jpg',
@@ -69,6 +73,11 @@ export default {
       // message: ""
     }
   },
+  created() {
+    if( localStorage.userId !== undefined) {
+      this.userId = localStorage.userId;
+    }
+  }
 }
 </script>
 
@@ -197,13 +206,27 @@ export default {
     margin: 0 auto;
   }
   .header-wrapper .header-main-area .header-main-right {
-    width: 30%;
-    height: calc(100% - 2rem);
+    width: 5%;
+    height: calc(100% - 0.4rem);
     position: absolute;
     right: 0;
     top: 0;
-    padding: 0.8rem 0;
-    /* background-color: #00A1D6; */
+    padding: 0.5rem 3rem 0.4rem 3rem;
+    /* background-color: #8700d61f; */
+  }
+  .header-wrapper .header-main-area .header-main-right .user-image {
+    background-color: #ffffff;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    box-shadow: 0 0 0 3px #2196F3;
+    -webkit-box-shadow: 0 0 0 3px #2196F3;
+    -moz-box-shadow: 0 0 0 3px #2196F3;
+    width: 2.8rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    float: right;
+    cursor: pointer;
   }
   .header-wrapper .header-main-area .header-main-right .user-login-btn {
     display: block;

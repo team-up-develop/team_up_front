@@ -94,7 +94,7 @@ export default {
   }
   .input {
     width: calc(100% - 2rem);
-    background: #f4f8fa;
+    background: #EFEFEF;
     border: none;
     border-radius: 0;
     outline: none;

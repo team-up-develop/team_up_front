@@ -14,6 +14,7 @@
         </router-link>
       </div>
       <div class="status-area-participate">
+      <router-link :to="`/manage/participate/${ id }`" class="router">
         <div class="status-box-participate">
           <div class="status-logo">
             <font-awesome-icon icon="users" class="icon"/>
@@ -21,16 +22,17 @@
           <div class="status-tag">参加者</div>
           <div class="status-number">{{ assginUsersNum }}人</div>
         </div>
+      </router-link>
       </div>
       <div class="status-area-reject">
         <router-link :to="`/manage/reject/${ id }`" class="router">
-          <div class="status-box-reject">
-            <div class="status-logo">
-              <font-awesome-icon icon="user-alt-slash" class="icon"/>
-            </div>
-            <div class="status-tag">拒否者</div>
-            <div class="status-number">{{ rejectUsersNum }}人</div>
+        <div class="status-box-reject">
+          <div class="status-logo">
+            <font-awesome-icon icon="user-alt-slash" class="icon"/>
           </div>
+          <div class="status-tag">拒否者</div>
+          <div class="status-number">{{ rejectUsersNum }}人</div>
+        </div>
         </router-link>
       </div>
       <div class="status-area-right">
@@ -51,20 +53,20 @@
       </div>
       <div class="user-list-area">
         <div 
-          v-for="assginUser in assginUsers" 
-          :key="assginUser.id" 
+          v-for="favoriteUser in favoriteUsers" 
+          :key="favoriteUser.id" 
           class="router-user-area"
         >
-        <router-link :to="`/account/profile/${ assginUser.userId }`"> 
+        <router-link :to="`/account/profile/${ favoriteUser.userId }`"> 
           <div class="user-area">
             <div class="user-area-box">
-              {{ assginUser.user.userName }}
+              {{ favoriteUser.user.userName }}
             </div>
             <div class="user-area-box">
-            {{ assginUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
+            {{ favoriteUser.user.learningStartDate | moment("YYYY年 M月 D日") }}
             </div>
             <div class="user-area-skill">
-              {{ assginUser.user.userName }}
+              {{ favoriteUser.user.userName }}
             </div>
           </div>
         </router-link>
@@ -77,12 +79,11 @@
 <script>
 import axios from 'axios';
 import moment from "moment";
-import StatusChange from '@/components/manage/StatusChange';
+import StatusChange from '@/components/manage/StatusChange'
 export default {
   props: {
     // * job.idを受け取る
     id: Number,
-    // id: { type: Number }
   },
   data() {
     return {
@@ -94,10 +95,14 @@ export default {
       rejectUsersNum: 0, //? 拒否者人数
       favoriteUsers: [], //? お気に入りしているユーザー一覧
       favoriteUsersNum: 0, //? お気に入りしているユーザー 人数
+      applyUser: [], //? 参加させる
+      refusalUser: [], //? 拒否する
       manageJobs: [], //? 管理
+      assginUsersId: null,
     }
   },
   filters: {
+    // * date型を文字に変換
     moment(value, format) {
       return moment(value).format(format);
     },
@@ -135,13 +140,13 @@ export default {
     })
   },
   mounted() {
-    // if( localStorage.userId !== undefined) {
-    //   this.loginFlag = true
-    //   axios.get('http://localhost:8888/api/v1/job/?user_id=1')
-    //   .then(response => {
-    //     this.manageJobs = response.data
-    //   })
-    // }
+    if( localStorage.userId !== undefined) {
+      this.loginFlag = true
+      axios.get(`${this.$baseURL}/job/?user_id=1`)
+      .then(response => {
+        this.manageJobs = response.data
+      })
+    }
   },
   methods: {
     // * 参加者 リアルタイムで変更する
@@ -206,13 +211,16 @@ export default {
   width: 24.8%;
   /* height: 20%; */
   display: inline-block;
-  border: solid 1px #B9B9B9;;
+  border: solid 1px #B9B9B9;
 }
 .job-manage-detail-wrapper .status-area {
   width: 24.8%;
   /* height: 20%; */
   display: inline-block;
   border: solid 1px #B9B9B9;
+}
+.job-manage-detail-wrapper .status-area-participate :hover {
+  opacity: 0.8;
 }
 .job-manage-detail-wrapper .status-area  :hover {
   opacity: 0.8;
@@ -241,25 +249,22 @@ export default {
   height: 100%;
   padding: 0 4rem;
   border-radius: 15px 0 0 0;
-  background-color: #606060;
   /* background-color: #3700B3; */
-}
-.status-box-click :hover {
-  opacity: 0.8;
+  background-color: #606060;
 }
 .status-box-right {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #606060;
+  background-color: #3700B3;
+  box-shadow: 0 0 10px #02020278;
   border-radius: 0 15px 0 0;
 }
 .status-box-participate {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #606060;
   color: #ffffff;
 }
 .status-box-reject {
