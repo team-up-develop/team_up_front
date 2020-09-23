@@ -48,98 +48,96 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1440px) {
-.router-link {
-    text-decoration: none;
-}
-.login-wrapper{
-  width: 85%;
-  margin: 0 auto;
-}
-/* ログインカード */
-.login-wrapper .login-container{
-  width: calc(100% - 12rem);
-  height: 66vh;
-  margin: 0rem auto 3rem auto;
-  border: solid 1px #B9B9B9;
-  border-radius: 20px;
-  padding: 2rem;
-}
-.login-title{
-  color: #2ac1df;
-  font-size: 1.8rem;
-  font-weight: bold;
-  height: 50px;
-  padding: 1rem 2rem;
-  margin-top: 1rem;
-}
-/* フォーム & ボタン ボックス */
-.login-container .login-box{
-  width: 60%;
-  height: 90%;
-  margin: 0 auto;
-  position: relative;
-}
-.login-box .btn-area {
-    padding: 2.5rem 0;
-    height: 30%;
+  .router-link {
+      text-decoration: none;
   }
-.login-box span {
-    color: #2ac1df;
+  .login-wrapper{
+    width: 85%;
+    margin: 0 auto;
+  }
+  /* 登録カード */
+  .login-wrapper .login-container{
+    width: calc(100% - 12rem);
+    height: 66vh;
+    margin: 0rem auto 3rem auto;
+    border: solid 1px #B9B9B9;
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  .login-title{
+    color: #673AB7;
+    font-size: 1.8rem;
+    font-weight: bold;
+    height: 50px;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+  }
+  /* フォーム & ボタン ボックス */
+  .login-container .login-box{
+    width: 60%;
+    height: 90%;
+    margin: 0 auto;
+    position: relative;
+  }
+  .login-box .btn-area {
+      padding: 2.5rem 0;
+      height: 30%;
+  }
+  .login-box span {
+      color: #673AB7;
+      cursor: pointer;
+  }
+  .login-box .name-form{
+    width: 100%;
+    height: 80px;
+    margin: 3rem 2rem;
+    transition: 0.3s;
+    text-align: left;
+  }
+  .login-box .name-form .input{
+    font: 16px/24px sans-serif;
+    box-sizing: border-box;
+    width: 90%;
+    height: 65%;
+    padding: 0.3em;
+    transition: 0.3s;
+    color: #111111;
+    letter-spacing: 1px;
+    border: 1px solid #A3A1A1;
+    border-radius: 4px;
+    padding: 0.5rem 0.5rem;
+    background-color: #EFEFEF;
+  }
+  .login-box .name-form input[type='text']:focus {
+      border: 1px solid #2196F3;
+      outline: none;
+      box-shadow: 0 0 5px 1px #2195f348;
+    }
+  .login-box .name-form input[type='password']:focus {
+      border: 1px solid #2196F3;
+      outline: none;
+      box-shadow: 0 0 5px 1px #2195f348;
+  }
+  /*  新規登録 */
+  .login-box .btn-area .login-btn{
+    display: block;
+    padding: 1.2rem 5rem;
+    background: linear-gradient(60deg,#AB47BC,#673AB7);
+    border-radius: 50px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1.3rem;
+    display: inline-block;
     cursor: pointer;
-  }
-.login-box .name-form{
-  width: 100%;
-  height: 80px;
-  margin: 3rem 2rem;
-  transition: 0.3s;
-  text-align: left;
-}
-.login-box .name-form .input{
-  font: 16px/24px sans-serif;
-  box-sizing: border-box;
-  width: 90%;
-  height: 70%;
-  padding: 0.3em;
-  transition: 0.3s;
-  color: #111111;
-  letter-spacing: 1px;
-  border: 1px solid #A3A1A1;
-  border-radius: 4px;
-  padding: 0.5rem 0.5rem;
-  background-color: #EFEFEF;
-}
-.login-box .name-form input[type='text']:focus {
-    border: 1px solid #2196F3;
-    outline: none;
-    box-shadow: 0 0 5px 1px #2195f348;
-  }
-.login-box .name-form input[type='password']:focus {
-    border: 1px solid #2196F3;
-    outline: none;
-    box-shadow: 0 0 5px 1px #2195f348;
-}
-/*  ログインボタン */
-.login-box .btn-area .login-btn{
-  display: block;
-  padding: 1.2rem 5rem;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
-  border-radius: 50px;
-  font-size: .875rem;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1.3rem;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-  margin: 0 auto;
-  transition: .3s;
-  box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
+    border: none;
+    margin: 0 auto;
+    transition: .3s;
+    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
   }
 }
 @media (max-width: 1200px){

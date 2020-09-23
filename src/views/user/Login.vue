@@ -93,7 +93,7 @@ export default {
     font: 16px/24px sans-serif;
     box-sizing: border-box;
     width: 90%;
-    height: 70%;
+    height: 65%;
     padding: 0.3em;
     transition: 0.3s;
     letter-spacing: 1px;
