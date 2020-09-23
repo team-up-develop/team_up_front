@@ -396,9 +396,7 @@ export default {
     padding: 1.1rem 4rem;
     /* background-color: #2196F3; */
     box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: -moz-linear-gradient(top, #636363, #afafaf);
-    background: -webkit-linear-gradient(top, #636363, #afafaf);
-    background: linear-gradient(to bottom, #636363, #afafaf);
+    background: linear-gradient(60deg,#424242,#9E9E9E);
     border-radius: 25px;
     border: none;
     font-size: .875rem;

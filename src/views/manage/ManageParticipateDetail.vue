@@ -258,7 +258,7 @@ export default {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #3700B3;
+  background-color: #4A148C;
   box-shadow: 0 0 10px #02020278;
   color: #ffffff;
 }
@@ -316,8 +316,8 @@ export default {
   /* background-color: rgba(0, 255, 234, 0.596); */
   color: #ffffff;
   font-weight: bold;
-  background-color: #3700B3;
-  box-shadow: 0 0 10px #02020278;
+  background-color: #4A148C;
+  /* box-shadow: 0 0 10px #02020278; */
 }
 .job-manage-detail-wrapper .status-tag-area .status-tag-name {
   width: 24.8%;
