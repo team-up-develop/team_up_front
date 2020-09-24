@@ -25,6 +25,11 @@
     :key="skill.skillName">
       {{ skill.skillName }}
     </div>
+    <div class="skill-responsive" 
+    v-for="skill in job.skill.slice(0,2)" 
+    :key="skill.skillName">
+      {{ skill.skillName }}
+    </div>
   </div>
 </template>
 
@@ -87,6 +92,9 @@ export default {
   .framework-responsive {
     display: none;
   }
+  .skill-responsive {
+    display: none;
+  }
 
 @media screen and (max-width: 500px) {
   .job-cards {
@@ -137,6 +145,19 @@ export default {
   }
   .skill{
     display: none;
+  }
+  .skill-responsive {
+    margin: 5px 0px 0 5px ;
+    text-align: left;
+    display: inline-block;
+    color: #00BCD4;
+    /* background-color: #00BCD4; */
+    font-size: 12px;
+    border: solid 1px #00BCD4;
+    padding: 7px 1.2rem;
+    border-radius: 5px / 5px;
+    font-weight: bold;
+    pointer-events: none;
   }
 }
 </style>
