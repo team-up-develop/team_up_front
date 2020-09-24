@@ -115,7 +115,8 @@ export default {
   height: 10%;
   padding: 0.8rem 0;
   border-radius: 15px 15px 0px 0;
-  background-color: #3700B3;
+  background-color: #4A148C;
+  box-shadow: 0 0 10px #02020278;
   color: #ffffff;
   font-weight: bold;
   text-decoration: underline;
@@ -158,9 +159,7 @@ export default {
 }
 .reject-btn {
   padding: 1rem 2.4rem;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    background: linear-gradient(60deg,#1142e2,#19bde6);
   box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;

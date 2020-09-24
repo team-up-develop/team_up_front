@@ -40,6 +40,9 @@
           <card-job :job="job"></card-job>
         </div>
       </div>
+      <router-link :to="`/jobs/${ job.id }`" class="router-1" v-for="job in jobs" :key="job.id" >
+        <card-job :job="job"></card-job>
+      </router-link>
       <div class="job-wrapper-right" v-if="detailFlag === true">
         <div class="top-job-detail-area">
           <div class="top-job-detail-top">
@@ -668,9 +671,7 @@ export default {
   /* モーダル内のキャンセルボタン */
   .modal-btn {
     padding: 1rem 2.4rem;
-    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
-    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
-    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
+    background: linear-gradient(60deg,#1142e2,#19bde6);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -784,17 +785,16 @@ export default {
     box-shadow: 0 0px 5px 2px #d4d4d4;
     transition: .3s;
   }
+  .router-1 {
+    display: none;
+  }
 
 
 
 }
 
 @media screen and (max-width: 1435px) {
-  .job-wrapper .job-wrapper-center {
-    /* width: 95%;
-    height: 100vh;
-    margin: 0 auto; */
-  }
+/*  */
 }
 
 @media screen and (max-width: 1400px) {
@@ -806,47 +806,61 @@ export default {
 }
 
 @media screen and (max-width: 1289px) {
-  /* .job-wrapper .job-wrapper-center {
-    width: 80%;
-    height: 100vh;
-    margin: 0 auto;
-    background-color: yellow;
+  .job-wrapper .job-wrapper-center {
+    width: 95%;
+    /* background-color: yellow; */
   }
-  .job-cards {
-    width: 405px;
-    height: 40%;
-    float: left;
-    margin: 10px 2rem;
-    border: solid 1px #B9B9B9;
-    background-color: #ffffff;
-    border-radius: 10px / 10px;
-    transition: .3s;
-    color: #111111;
-  } */
+  .job-wrapper-right {
+    margin-left: 0.5rem;
+  }
 }
 
-@media screen and (max-width: 1238px) {
-  /* .job-cards {
-    width: 100%;
-    height: 280px;
-    display: inline-block;
-    margin: 5px;
-    border: solid 1px #B9B9B9;
-    background-color: #ffffff;
-    border-radius: 10px / 10px;
-  } */
-  /* .job-wrapper .job-wrapper-center {
+@media screen and (max-width: 999px) {
+  /* 右側案件をdisplaynone */
+  .job-wrapper-right {
+    display: none;
+  }
+  .router-1 {
+    display: block;
+    
+  }
+  .job-wrapper-left {
+    display: none;
+  }
+  .job-wrapper-right-false {
+    display: none;
+  }
+  .job-wrapper-left {
+    width: 90%;
+    /* background-color: #00BCD4; */
+  }
+  .job-wrapper .job-wrapper-center {
     width: 80%;
-    height: 100vh;
-    margin: 0 auto;
-  } */
-  /* .job-cards-bottom .post-user-area .post-user-image {
-    width: 8%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #00A1D6;
-    display: inline-block;
-  } */
+    /* background-color: yellow; */
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  .job-wrapper-left {
+    width: 100%;
+    /* background-color: #00BCD4; */
+  }
+  .job-wrapper .job-wrapper-center {
+    width: 80%;
+    /* background-color: yellow; */
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .job-wrapper-left {
+    width: 100%;
+    /* background-color: #00BCD4; */
+  }
+  .job-wrapper .job-wrapper-center {
+    width: 95%;
+    /* background-color: yellow; */
+  }
 }
 
 </style>

@@ -3,6 +3,9 @@
     <div class="job-cards-top">
       {{ job.jobTitle | truncateTitle }}
     </div>
+    <div class="job-cards-top-responsive">
+      {{ job.jobTitle | truncateResponsiveTitle }}
+    </div>
     <div class="job-cards-center">
       <!-- カード スキルコンポーネント -->
       <card-job-skill :job="job"></card-job-skill>
@@ -54,6 +57,15 @@ export default {
       }
       return value.substring(0, length) + ommision;
     },
+    //* レスポンシブ 案件タイトル 文字制限
+    truncateResponsiveTitle: function(value) {
+      var length = 25;
+      var ommision = "...";
+      if (value.length <= length) {
+        return value;
+      }
+      return value.substring(0, length) + ommision;
+    },
   },
   components: {
     CardJobSkill
@@ -61,7 +73,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .job-cards {
     /* width: 425px; */
     width: 97%;
@@ -154,4 +166,62 @@ export default {
     top: 0;
     pointer-events: none;
   }
+  .job-cards-top-responsive {
+    display: none;
+  }
+
+@media screen and (max-width: 999px) {
+  .job-cards {
+    width: 100%;
+    /* background-color: green; */
+  } 
+}
+
+
+@media screen and (max-width: 500px) {
+  .job-cards-top-responsive {
+    width: calc(100% - 60px);
+    height: calc(30% - 60px);
+    text-align: left;
+    padding: 2rem 2rem 1rem 1.5rem;
+    font-weight: bold;
+    pointer-events: none;
+    font-size: 18px;
+    text-decoration: underline;
+    display: block;
+  } 
+  .job-cards-top {
+    display: none;
+    /* background-color: yellow; */
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .job-cards-top-responsive {
+    width: calc(100% - 60px);
+    height: calc(30% - 60px);
+    text-align: left;
+    padding: 2rem 2rem 1rem 1.5rem;
+    font-weight: bold;
+    pointer-events: none;
+    font-size: 18px;
+    text-decoration: underline;
+    display: block;
+  } 
+  .job-cards-top {
+    display: none;
+    /* background-color: yellow; */
+  }
+  .job-cards-center {
+    height: 20%;
+    /* background-color: grey; */
+  }
+  .job-cards-bottom .post-user-area {
+    width: 100%;
+    height: 60%;
+  }
+  .job-cards-bottom .product-start-end .product-start-end-tag {
+    display: none;
+  }
+}
 </style>

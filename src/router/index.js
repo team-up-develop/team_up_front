@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Jobs from '../views/job/Jobs.vue'
+import JobDetailResponsive from '@/views/job/JobDetailResponsive'
 import Login from '../views/user/Login.vue'
 import Register from '../views/user/Register.vue'
 import ProfileUser from '@/views/user/ProfileUser'
@@ -28,6 +29,13 @@ export default new Router({
       path: '/jobs',
       component: Jobs,
       name: 'jobs'
+    },
+    {
+      path: '/jobs/:id',
+      component: JobDetailResponsive,
+      props: route => ({
+        id: Number(route.params.id),
+      })
     },
     // * 案件管理
     {

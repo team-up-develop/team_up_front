@@ -117,9 +117,7 @@ export default {
   .login-box .btn-area .login-btn {
     display: block;
     padding: 1.2rem 5rem;
-    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
+    background: linear-gradient(60deg,#1142e2,#19bde6);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
