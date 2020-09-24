@@ -109,12 +109,12 @@ export default {
     background-color: #EFEFEF;
   }
   .login-box .name-form input[type='text']:focus {
-      border: 1px solid #2196F3;
+      border: 1px solid #673AB7;
       outline: none;
       box-shadow: 0 0 5px 1px #2195f348;
     }
   .login-box .name-form input[type='password']:focus {
-      border: 1px solid #2196F3;
+      border: 1px solid #673AB7;
       outline: none;
       box-shadow: 0 0 5px 1px #2195f348;
   }
@@ -122,7 +122,7 @@ export default {
   .login-box .btn-area .login-btn{
     display: block;
     padding: 1.2rem 5rem;
-    background: linear-gradient(60deg,#AB47BC,#673AB7);
+    background: linear-gradient(60deg,#673AB7,#AB47BC);
     border-radius: 50px;
     font-size: .875rem;
     font-weight: 600;

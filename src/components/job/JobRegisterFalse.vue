@@ -122,7 +122,7 @@ export default {
   .register-btn{
     display: block;
     padding: 1rem 2rem;
-    background: linear-gradient(60deg,#AB47BC,#673AB7);
+    background: linear-gradient(60deg,#673AB7,#AB47BC);
     /* background: linear-gradient(60deg,#BA68C8,#673AB7); */
     border-radius: 25px;
     font-size: .875rem;
@@ -138,7 +138,6 @@ export default {
     transition: .3s;
   }
   .register-btn:hover {
-    background: linear-gradient(60deg,#AB47BC,#673AB7);
     color: #F8FAFF;
     appearance: none;
     border: none;
