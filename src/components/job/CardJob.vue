@@ -179,26 +179,38 @@ export default {
 
 
 @media screen and (max-width: 500px) {
+  .job-cards-top {
+    display: none;
+    /* background-color: yellow; */
+  }
   .job-cards-top-responsive {
-    width: calc(100% - 60px);
+    width: 95%;
     height: calc(30% - 60px);
     text-align: left;
-    padding: 2rem 2rem 1rem 1.5rem;
+    padding: 2rem 1rem 1rem 1rem;
     font-weight: bold;
     pointer-events: none;
     font-size: 18px;
     text-decoration: underline;
     display: block;
   } 
-  .job-cards-top {
-    display: none;
-    /* background-color: yellow; */
+  .job-cards-center {
+    padding: 10px 1rem 0 1rem;
+  }
+  .job-cards-bottom {
+    padding: 10px 1rem;
+  }
+  .job-cards-bottom .product-start-end .product-start-end-time {
+    padding: 0 10px;
   }
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 420px) {
+  .job-cards {
+    height: 285px;
+  }
   .job-cards-top-responsive {
-    width: calc(100% - 60px);
+    width: calc(100% - 45px);
     height: calc(30% - 60px);
     text-align: left;
     padding: 2rem 2rem 1rem 1.5rem;
@@ -213,7 +225,7 @@ export default {
     /* background-color: yellow; */
   }
   .job-cards-center {
-    height: 20%;
+    height: 30%;
     /* background-color: grey; */
   }
   .job-cards-bottom .post-user-area {
