@@ -46,25 +46,28 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
   .router-link {
-      text-decoration: none;
+    text-decoration: none;
   }
-  .login-wrapper{
+
+  .login-wrapper {
     width: 85%;
     margin: 0 auto;
+
+    .login-container {
+      width: calc(100% - 12rem);
+      height: 66vh;
+      margin: 0rem auto 3rem auto;
+      border: solid 1px #B9B9B9;
+      border-radius: 20px;
+      padding: 2rem;
+    }
   }
+
   /* 登録カード */
-  .login-wrapper .login-container{
-    width: calc(100% - 12rem);
-    height: 66vh;
-    margin: 0rem auto 3rem auto;
-    border: solid 1px #B9B9B9;
-    border-radius: 20px;
-    padding: 2rem;
-  }
-  .login-title{
+  .login-title {
     color: #673AB7;
     font-size: 1.8rem;
     font-weight: bold;
@@ -72,75 +75,81 @@ export default {
     padding: 1rem 2rem;
     margin-top: 1rem;
   }
+
   /* フォーム & ボタン ボックス */
-  .login-container .login-box{
+  .login-container .login-box {
     width: 60%;
     height: 90%;
     margin: 0 auto;
     position: relative;
   }
-  .login-box .btn-area {
+
+  .login-box {
+    .btn-area {
       padding: 2.5rem 0;
       height: 30%;
-  }
-  .login-box span {
+    }
+
+    span {
       color: #673AB7;
       cursor: pointer;
-  }
-  .login-box .name-form{
-    width: 100%;
-    height: 80px;
-    margin: 3rem 2rem;
-    transition: 0.3s;
-    text-align: left;
-  }
-  .login-box .name-form .input{
-    font: 16px/24px sans-serif;
-    box-sizing: border-box;
-    width: 90%;
-    height: 65%;
-    padding: 0.3em;
-    transition: 0.3s;
-    color: #111111;
-    letter-spacing: 1px;
-    border: 1px solid #A3A1A1;
-    border-radius: 4px;
-    padding: 0.5rem 0.5rem;
-    background-color: #EFEFEF;
-  }
-  .login-box .name-form input[type='text']:focus {
-      border: 1px solid #673AB7;
-      outline: none;
-      box-shadow: 0 0 5px 1px #2195f348;
     }
-  .login-box .name-form input[type='password']:focus {
-      border: 1px solid #673AB7;
-      outline: none;
-      box-shadow: 0 0 5px 1px #2195f348;
-  }
-  /*  新規登録 */
-  .login-box .btn-area .login-btn{
-    display: block;
-    padding: 1.2rem 5rem;
-    background: linear-gradient(60deg,#673AB7,#AB47BC);
-    border-radius: 50px;
-    font-size: .875rem;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin: auto;
-    font-size: 1.3rem;
-    display: inline-block;
-    cursor: pointer;
-    border: none;
-    margin: 0 auto;
-    transition: .3s;
-    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
+
+    .name-form {
+      width: 100%;
+      height: 80px;
+      margin: 3rem 2rem;
+      transition: 0.3s;
+      text-align: left;
+
+      .input {
+        font: 16px/24px sans-serif;
+        box-sizing: border-box;
+        width: 90%;
+        height: 65%;
+        padding: 0.3em;
+        transition: 0.3s;
+        color: #111111;
+        letter-spacing: 1px;
+        border: 1px solid #A3A1A1;
+        border-radius: 4px;
+        padding: 0.5rem 0.5rem;
+        background-color: #EFEFEF;
+      }
+
+      input {
+        &[type='text']:focus, &[type='password']:focus {
+          border: 1px solid #673AB7;
+          outline: none;
+          box-shadow: 0 0 5px 1px #2195f348;
+        }
+      }
+    }
+
+    .btn-area .login-btn {
+      display: block;
+      padding: 1.2rem 5rem;
+      background: linear-gradient(60deg, #673AB7, #AB47BC);
+      border-radius: 50px;
+      font-size: .875rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1;
+      text-align: center;
+      max-width: 280px;
+      margin: auto;
+      font-size: 1.3rem;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      margin: 0 auto;
+      transition: .3s;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.685);
+    }
   }
 }
-@media (max-width: 1200px){
+
+@media (max-width: 1200px) {
   .login-wrapper .login-container {
     width: calc(100% - 8rem);
     height: 60vh;
@@ -149,59 +158,72 @@ export default {
     border-radius: 20px;
     padding: 2rem;
   }
+
   .login-box .btn-area {
     padding: 1rem 0;
     height: 50%;
   }
 }
+
 /* タブレット */
-@media (max-width: 900px){
-  .login-container .login-box{
+@media (max-width: 900px) {
+  .login-container .login-box {
     width: 100%;
-    height: 70%; 
+    height: 70%;
     margin: 0 auto;
     position: relative;
   }
-  .login-box span {
-    color: #2ac1df;
-    cursor: pointer;
+
+  .login-box {
+    span {
+      color: #2ac1df;
+      cursor: pointer;
+    }
+
+    .name-form {
+      width: 100%;
+      height: 80px;
+      margin: 3rem 0;
+    }
   }
+}
+
+@media (max-width: 768px) {
+  .login-container .login-box {
+    width: 100%;
+    height: 70%;
+    margin: 0 auto;
+    position: relative;
+  }
+
   .login-box .name-form {
     width: 100%;
     height: 80px;
     margin: 3rem 0;
+
+    .input {
+      width: 95%;
+    }
   }
 }
-@media (max-width: 768px){
-  .login-container .login-box{
-    width: 100%;
-    height: 70%; 
-    margin: 0 auto;
-    position: relative;
-  }
-  .login-box .name-form {
-    width: 100%;
-    height: 80px;
-    margin: 3rem 0;
-  }
-  .login-box .name-form .input{
-    width: 95%;
-  }
-}
+
 /* スマホ */
-@media (max-width: 500px){
+@media (max-width: 500px) {
   .login-wrapper {
     width: 100%;
-  }
-  .login-wrapper .login-container {
-    margin: 0 auto 2rem auto;
-    width: calc(100% - 5rem);
+
+    .login-container {
+      margin: 0 auto 2rem auto;
+      width: calc(100% - 5rem);
+    }
   }
 }
-@media (max-width: 420px){
-  .login-btn{
+
+@media (max-width: 420px) {
+  .login-btn {
     padding: 1.4rem 3rem;
   }
+
   .login-wrapper .login-container {
     width: calc(100% - 4rem);
     height: 70%;
@@ -210,12 +232,13 @@ export default {
     border-radius: 20px;
     padding: 2rem 1rem;
   }
-  .login-box .name-form  .input{
-    width: 100%;
-  }
+
   .login-box .name-form {
+    .input {
+      width: 100%;
+    }
+
     font-size: 14px;
   }
 }
-
 </style>

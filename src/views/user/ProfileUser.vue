@@ -132,40 +132,48 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
   .profile-wrapper {
     width: 85%;
     height: 90vh;
     margin: 0 auto;
+
     /* background-color: #3dc1e2; */
     position: relative;
+
+    .profile-wrapper-card {
+      width: 100%;
+      height: 82vh;
+      border-radius: 20px;
+      margin: 2rem 0rem;
+      background-color: #ffffff;
+
+      /* float: right; */
+      border: solid 1px #B9B9B9;
+      padding: 0;
+      position: absolute;
+      right: 0;
+    }
   }
-  .profile-wrapper .profile-wrapper-card {
-    width: 100%;
-    height: 82vh;
-    border-radius: 20px;
-    margin: 2rem 0rem;
-    background-color: #ffffff;
-    /* float: right; */
-    border: solid 1px #B9B9B9;
-    padding: 0;
-    position: absolute;
-    right: 0;
-  }
+
   .profile-top-area {
     width: 85%;
     height: 8%;
     padding: 2rem 4rem;
+
     /* background-color: yellow; */
     flex-direction: column;
   }
+
   .profile-top-area-left {
     width: 13%;
     height: 100%;
     position: relative;
+
     /* background-color: goldenrod; */
   }
+
   .user-image {
     background-color: #ffffff;
     -moz-border-radius: 60px;
@@ -178,6 +186,7 @@ export default {
     height: 4rem;
     border-radius: 50%;
   }
+
   .user-name-area {
     margin-top: 0.8rem;
     width: 30%;
@@ -186,8 +195,10 @@ export default {
     right: 0;
     top: 0;
     text-align: left;
+
     /* background-color: purple; */
   }
+
   .profile-tab-left {
     width: 33.3%;
     height: 8%;
@@ -196,6 +207,7 @@ export default {
     background-color: #1142e2;
     box-shadow: 0 0 10px #02020278;
   }
+
   .profile-tab-center {
     width: 33.1%;
     height: 8%;
@@ -205,6 +217,7 @@ export default {
     border: 0.5px solid #ffffff97;
     box-shadow: 0 0 10px #02020230;
   }
+
   .profile-tab-right {
     width: 33.25%;
     height: 8%;
@@ -214,6 +227,7 @@ export default {
     border: 0.5px solid #ffffff97;
     box-shadow: 0 0 10px #02020230;
   }
+
   .profile-tab-left p {
     color: #ffffff;
     font-weight: bold;

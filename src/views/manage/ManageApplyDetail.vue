@@ -179,66 +179,67 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .manage-detail-wrapper {
   width: 92%;
   height: 89.5vh;
   margin: 0 auto;
+
   /* background-color: #F2F6F7; */
+
+  .job-manage-detail-wrapper {
+    width: 95%;
+    height: 68%;
+    border-radius: 20px;
+    margin: 0rem 2rem;
+    background-color: #ffffff;
+    float: right;
+    border: solid 1px #B9B9B9;
+    position: relative;
+  }
 }
-.manage-detail-wrapper .job-manage-detail-wrapper {
-  width: 95%;
-  height: 68%;
-  border-radius: 20px;
-  margin: 0rem 2rem;
-  background-color: #ffffff;
-  float: right;
-  border: solid 1px #B9B9B9;
-  position: relative;
+
+.job-manage-detail-wrapper {
+  .status-area-reject, .status-area-participate, .status-area {
+    width: 24.8%;
+
+    /* height: 20%; */
+    display: inline-block;
+    border: solid 1px #B9B9B9;
+  }
+
+  .status-area-participate :hover, .status-area :hover {
+    opacity: 0.8;
+  }
 }
-.job-manage-detail-wrapper .status-area-reject {
-  width: 24.8%;
-  /* height: 20%; */
-  display: inline-block;
-  border: solid 1px #B9B9B9;
-}
-.job-manage-detail-wrapper .status-area-participate {
-  width: 24.8%;
-  /* height: 20%; */
-  display: inline-block;
-  border: solid 1px #B9B9B9;
-}
-.job-manage-detail-wrapper .status-area {
-  width: 24.8%;
-  /* height: 20%; */
-  display: inline-block;
-  border: solid 1px #B9B9B9;
-}
-.job-manage-detail-wrapper .status-area-participate :hover {
-  opacity: 0.8;
-}
-.job-manage-detail-wrapper .status-area  :hover {
-  opacity: 0.8;
-}
+
 .router {
   text-decoration: none;
 }
+
 /* 応募者ボックス */
-.job-manage-detail-wrapper .status-area-left {
-  width: 24.9%;
-  /* height: 20%; */
-  display: inline-block;
-  /* border-left: solid 1px #B9B9B9; */
-  border-radius: 20px 0 0 0 ;
+.job-manage-detail-wrapper {
+  .status-area-left {
+    width: 24.9%;
+
+    /* height: 20%; */
+    display: inline-block;
+
+    /* border-left: solid 1px #B9B9B9; */
+    border-radius: 20px 0 0 0;
+  }
+
+  .status-area-right {
+    width: 24.8%;
+
+    /* height: 20%; */
+    /* background-color: rgb(0, 102, 128); */
+    display: inline-block;
+    border: solid 1px #B9B9B9;
+    border-radius: 0 25px 0 0;
+  }
 }
-.job-manage-detail-wrapper .status-area-right {
-  width: 24.8%;
-  /* height: 20%; */
-  /* background-color: rgb(0, 102, 128); */
-  display: inline-block;
-  border: solid 1px #B9B9B9;
-  border-radius: 0 25px 0 0 ;
-}
+
 .status-box-click {
   width: calc(100% - 8rem);
   height: 100%;
@@ -247,6 +248,7 @@ export default {
   background-color: #4A148C;
   box-shadow: 0 0 10px #02020278;
 }
+
 .status-box-right {
   width: calc(100% - 8rem);
   height: 100%;
@@ -254,6 +256,7 @@ export default {
   background-color: #606060;
   border-radius: 0 15px 0 0;
 }
+
 .status-box-participate {
   width: calc(100% - 8rem);
   height: 100%;
@@ -261,16 +264,19 @@ export default {
   background-color: #606060;
   color: #ffffff;
 }
+
 .status-box-reject {
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
   background-color: #606060;
   color: #ffffff;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
-.status-box-reject:hover {
-  opacity: 0.8;
-}
+
 .status-box {
   width: calc(100% - 8rem);
   height: 100%;
@@ -278,21 +284,26 @@ export default {
   background-color: #606060;
   color: #ffffff;
 }
+
 .status-logo {
   width: 100%;
   height: calc(40% - 1.3rem);
-  padding: 1rem 0 0 0 ;
+  padding: 1rem 0 0 0;
+
   /* margin: 0 auto; */
   color: #ffffff;
   pointer-events: none;
 }
+
 .icon {
   font-size: 1.2em;
   pointer-events: none;
 }
+
 .status-tag {
   width: 100%;
   padding: 0.5rem 0;
+
   /* height: 40%; */
   /* margin: 0 auto; */
   font-size: 14px;
@@ -300,6 +311,7 @@ export default {
   font-weight: bold;
   pointer-events: none;
 }
+
 .status-number {
   width: 100%;
   padding: 0.5rem 0 0.3em 0;
@@ -308,59 +320,75 @@ export default {
   font-weight: bold;
   pointer-events: none;
 }
+
 /* ユーザー一覧のタグ */
 .job-manage-detail-wrapper .status-tag-area {
   width: 100%;
   height: 8%;
+
   /* background-color: rgba(0, 255, 234, 0.596); */
   color: #ffffff;
   font-weight: bold;
   background-color: #4A148C;
+
   /* box-shadow: 0 0 10px #02020278; */
+
+  .status-tag-name {
+    width: 24.8%;
+    height: 10%;
+    display: inline-block;
+
+    /* border: 1px solid #B9B9B9; */
+    /* border-right: 1px solid #9c9c9c; */
+    padding: 0.6rem 0;
+  }
+
+  .status-tag-study {
+    width: 24.8%;
+    height: calc(34px - 1rem);
+    display: inline-block;
+
+    /* border-right: 1px solid #9c9c9c; */
+    padding: 0.6rem 0;
+  }
+
+  .status-tag-skill {
+    width: calc(100% - 50%);
+    height: calc(34px - 1rem);
+    display: inline-block;
+
+    /* border-bottom: 1px solid #9c9c9c; */
+    padding: 0.6rem 0;
+  }
 }
-.job-manage-detail-wrapper .status-tag-area .status-tag-name {
-  width: 24.8%;
-  height: 10%;
-  display: inline-block;
-  /* border: 1px solid #B9B9B9; */
-  /* border-right: 1px solid #9c9c9c; */
-  padding: 0.6rem 0;
-}
-.job-manage-detail-wrapper .status-tag-area .status-tag-study {
-  width: 24.8%;
-  height: calc(34px - 1rem);
-  display: inline-block;
-  /* border-right: 1px solid #9c9c9c; */
-  padding: 0.6rem 0;
-} 
-.job-manage-detail-wrapper .status-tag-area .status-tag-skill {
-  width: calc(100% - 50%);
-  height: calc(34px - 1rem);
-  display: inline-block;
-  /* border-bottom: 1px solid #9c9c9c; */
-  padding: 0.6rem 0;
-} 
+
 .user-list-area {
   overflow: scroll;
 }
+
 .user-area {
   border-bottom: 1px solid  #9c9c9c;
 }
+
 .router-user-area :hover {
   background-color: rgba(199, 199, 199, 0.281);
 }
-.user-area .user-area-box {
-  width: 25%;
-  padding: 0.8rem 0;
-  color: #111111;
-  display: inline-block;
-  pointer-events: none;
-}
-.user-area  .user-area-skill {
-  width: 50%;
-  padding: 0.8rem 0;
-  color: #111111;
-  display: inline-block;
-  pointer-events: none;
+
+.user-area {
+  .user-area-box {
+    width: 25%;
+    padding: 0.8rem 0;
+    color: #111111;
+    display: inline-block;
+    pointer-events: none;
+  }
+
+  .user-area-skill {
+    width: 50%;
+    padding: 0.8rem 0;
+    color: #111111;
+    display: inline-block;
+    pointer-events: none;
+  }
 }
 </style>

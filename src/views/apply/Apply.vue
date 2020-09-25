@@ -96,78 +96,89 @@ export default {
 }
 </script>
 
-<style scoped>
-.router-link :hover{
-  opacity: 0.8;
-}
+<style lang="scss" scoped>
 .router-link {
+  :hover {
+    opacity: 0.8;
+  }
+
   text-decoration: none;
   color: #ffffff;
 }
+
 .manage-wrapper {
   width: 92%;
   height: 89.5vh;
   margin: 0 auto;
+
   /* background-color: #F2F6F7; */
+
+  .job-manage-wrapper {
+    width: 95%;
+    height: calc(90vh - 5rem);
+    border-radius: 20px;
+    margin: 2rem 2rem;
+    background-color: #ffffff;
+    float: right;
+    border: solid 1px #B9B9B9;
+    position: relative;
+    font-size: 14px;
+
+    /* padding: 0rem 4rem; */
+
+    .manage-job-area {
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      border-radius: 20px 0 0 0;
+      background-color: #606060;
+      display: inline-block;
+      color: #ffffff;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .apply-job-area {
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+
+      /* border-radius: 20px 0 0 0 ; */
+      background-color: #606060;
+      display: inline-block;
+      background-color: #4A148C;
+      box-shadow: 0 0 10px #02020278;
+      color: #ffffff;
+      border: 0.5px solid #ffffff;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .save-job-area {
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      border-radius: 0 20px 0 0;
+      background-color: #606060;
+      display: inline-block;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  }
 }
-.manage-wrapper .job-manage-wrapper {
-  width: 95%;
-  height: calc(90vh - 5rem);
-  border-radius: 20px;
-  margin: 2rem 2rem;
-  background-color: #ffffff;
-  float: right;
-  border: solid 1px #B9B9B9;
-  position: relative;
-  font-size: 14px;
-  /* padding: 0rem 4rem; */
-}
-.manage-wrapper .job-manage-wrapper .manage-job-area {
-  width: 33.2%;
-  height: calc(68px - 1.6rem);
-  padding: 0.8rem 0;
-  border-radius: 20px 0 0 0 ;
-  background-color: #606060;
-  display: inline-block;
-  color: #ffffff;
-  font-weight: bold;
-  transition: .3s;
-}
-.manage-wrapper .job-manage-wrapper .apply-job-area {
-  width: 33.2%;
-  height: calc(68px - 1.6rem);
-  padding: 0.8rem 0;
-  /* border-radius: 20px 0 0 0 ; */
-  background-color: #606060;
-  display: inline-block;
-  background-color: #4A148C;
-  box-shadow: 0 0 10px #02020278;
-  color: #ffffff;
-  border: 0.5px solid #ffffff;
-  font-weight: bold;
-  transition: .3s;
-  
-}
-.manage-wrapper .job-manage-wrapper .save-job-area {
-  width: 33.2%;
-  height: calc(68px - 1.6rem);
-  padding: 0.8rem 0;
-  border-radius: 0 20px 0 0 ;
-  background-color: #606060;
-  display: inline-block;
-  color: #ffffff;
-  font-weight: bold;
-}
+
 .title-area {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
   background-color: #4A148C;
+
   /* box-shadow: 0 0 10px #02020278; */
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
 }
+
 .time-area {
   width: 33.2%;
   height: calc(48px - 1.8rem);
@@ -175,16 +186,19 @@ export default {
   border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
   background-color: #4A148C;
+
   /* box-shadow: 0 0 10px #02020278; */
   display: inline-block;
   color: #ffffff;
   font-weight: bold;
 }
+
 .skill-area {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
   background-color: #4A148C;
+
   /* box-shadow: 0 0 10px #02020278; */
   display: inline-block;
   color: #ffffff;
@@ -195,28 +209,34 @@ export default {
   width: 33.2%;
   height: 70%;
   display: inline-block;
+
   /* background-color: yellow; */
 }
-.router :hover{
+
+.router :hover {
   background-color: rgba(199, 199, 199, 0.281);
 }
+
 .job-wrapper-area {
   width: 100%;
   height: 81%;
   overflow: scroll;
 }
+
 .job-area {
   transition: .2s;
+
+  .job-area-box {
+    width: 33%;
+    border-bottom: 1px solid #9c9c9c;
+    height: calc(48px - 1.6rem);
+    padding: 0.8rem 0;
+    color: #111111;
+    display: inline-block;
+    pointer-events: none;
+  }
 }
-.job-area .job-area-box {
-  width: 33%;
-  border-bottom: 1px solid #9c9c9c;
-  height: calc(48px - 1.6rem);
-  padding: 0.8rem 0;
-  color: #111111;
-  display: inline-block;
-  pointer-events: none;
-}
+
 .lang {
   display: inline-block;
 }
