@@ -271,66 +271,78 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
   .create-wrapper {
     width: 85%;
     height: 90vh;
     margin: 0 auto;
+
     /* background-color: #3dc1e2; */
     position: relative;
+
+    .job-create-wrapper {
+      width: calc(100% - 5rem);
+      border-radius: 20px;
+      margin: 2rem 0rem;
+      background-color: #ffffff;
+
+      /* float: right; */
+      border: solid 1px #B9B9B9;
+      padding: 2.5rem;
+      position: absolute;
+      right: 0;
+      height: 82%;
+    }
+
+    .job-create-radio {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      flex-direction: row;
+      text-align: left;
+    }
   }
-  .create-wrapper .job-create-wrapper {
-    width: calc(100% - 5rem);
-    border-radius: 20px;
-    margin: 2rem 0rem;
-    background-color: #ffffff;
-    /* float: right; */
-    border: solid 1px #B9B9B9;
-    padding: 2.5rem;
-    position: absolute;
-    right: 0;
-    height: 82%;
-  }
-  .create-wrapper .job-create-radio {
-    width: 100%;
-    height: 80px; 
-    display: flex;
-    flex-direction: row;
-    text-align: left;
-  }
+
   .label {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 0.7rem;
   }
+
   .label-required {
     color: #ffffff;
     background-color: #f44336;
     font-size: 12px;
     font-weight: bold;
+
     /* background-color: #19bde6; */
     border-radius: 25px;
     padding: 0.25rem 0.9rem;
     text-align: center;
     margin-left: 10px;
   }
+
   .error-label {
     display: inline-block;
     color: #DD2476;
     list-style: none;
     font-weight: bold;
   }
+
   .error-message {
     margin: 0;
     padding-left: 10px;
   }
+
   .job-create-area {
     width: 100%;
-    height: 23%; 
+    height: 23%;
+
     /* display: flex; */
     text-align: left;
   }
+
   .input-area {
     margin: 0.7rem 0rem;
     font: 16px/24px sans-serif;
@@ -343,21 +355,25 @@ export default {
     background-color: #ffffff;
     background-color: #EFEFEF;
   }
+
   .radio-btn {
     margin: 0.7rem 0rem;
     margin-left: 0.5rem;
   }
+
   input[type='search']:focus {
     border: 1px solid #2196F3;
     outline: none;
     box-shadow: 0 0 5px 1px #2195f348;
   }
+
   .button-are {
     width: 100%;
     height: 10%;
     position: relative;
     margin: 0 auto;
   }
+
   .post-job-btn {
     position: absolute;
     right: 0;
@@ -365,9 +381,10 @@ export default {
     text-align: left;
     display: block;
     padding: 1.1rem 3rem;
+
     /* background-color: #2196F3; */
-    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: linear-gradient(60deg,#1142e2,#19bde6);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.363);
+    background: linear-gradient(60deg, #1142e2, #19bde6);
     border-radius: 25px;
     border: none;
     font-size: .875rem;
@@ -381,12 +398,15 @@ export default {
     float: right;
     cursor: pointer;
     transition: .3s;
+
     /* position:absolute;
     right: 0; */
+
+    &:hover {
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.685);
+    }
   }
-  .post-job-btn:hover {
-    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
-  }
+
   .post-job-back {
     position: absolute;
     left: 0;
@@ -394,9 +414,10 @@ export default {
     text-align: left;
     display: block;
     padding: 1.1rem 4rem;
+
     /* background-color: #2196F3; */
-    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: linear-gradient(60deg,#424242,#9E9E9E);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.363);
+    background: linear-gradient(60deg, #424242, #9E9E9E);
     border-radius: 25px;
     border: none;
     font-size: .875rem;
@@ -411,6 +432,7 @@ export default {
     cursor: pointer;
     transition: .3s;
     text-decoration: none;
+
     /* position:absolute;
     right: 0; */
   }

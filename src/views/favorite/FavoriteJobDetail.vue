@@ -245,26 +245,30 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
   .router {
     text-decoration: none;
     color: #FFFFFF;
   }
+
   .detail-wrapper {
     width: 85%;
+
     /* background-color: #F2F6F7; */
     /* background-color: #F2F6F7; */
     padding: 3.5rem 0rem;
     margin: 0 auto;
+
+    .detail-post-user-area {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      margin: 0 auto;
+    }
   }
-  .detail-wrapper .detail-post-user-area {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin: 0 auto;
-  }
+
   .detail-tag {
     text-align: left;
     font-size: 17px;
@@ -272,8 +276,9 @@ export default {
     margin-bottom: 0.7rem;
     color: #2196F3;
   }
+
   /* 投稿者 カード中身 */
-  .detail-wrapper .detail-post-user-area  .post-user-area {
+  .detail-wrapper .detail-post-user-area .post-user-area {
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     border: 1px solid #B9B9B9;
@@ -281,108 +286,131 @@ export default {
     margin-bottom: 2rem;
     position: relative;
   }
+
   /* ユーザー画像 start*/
-  .post-user-area .left-user-area {
-    width: 20%;
-    height: 100%;
+  .post-user-area {
+    .left-user-area {
+      width: 20%;
+      height: 100%;
+
+      .user-image {
+        width: 130px;
+        height: 130px;
+        -moz-border-radius: 60px;
+        -webkit-border-radius: 60px;
+        border-radius: 60px;
+        box-shadow: 0 0 0 3px #2196F3;
+        -webkit-box-shadow: 0 0 0 3px #2196F3;
+        -moz-box-shadow: 0 0 0 3px #2196F3;
+        border-radius: 50%;
+      }
+    }
+
+    .right-user-area {
+      width: 70%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 2rem 4rem 2rem 2rem;
+      text-align: left;
+
+      .user-profile-area {
+        width: 65%;
+        height: 100%;
+        display: inline-block;
+      }
+    }
   }
-  .post-user-area .left-user-area .user-image {
-    width: 130px;
-    height: 130px;
-    -moz-border-radius: 60px;
-    -webkit-border-radius: 60px;
-    border-radius: 60px;
-    box-shadow: 0 0 0 3px #2196F3;
-    -webkit-box-shadow: 0 0 0 3px #2196F3;
-    -moz-box-shadow: 0 0 0 3px #2196F3;
-    border-radius: 50%;
-  }
+
   /* ユーザー画像  end*/
   /* ユーザー 詳細情報 start */
-  .post-user-area .right-user-area {
-    width: 70%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 2rem 4rem 2rem 2rem;
-    text-align: left;
+  .user-profile-area {
+    .user-name-are {
+      width: 45%;
+      display: inline-block;
+
+      .user-name-tag {
+        font-weight: bold;
+      }
+
+      .user-name {
+        margin-top: 0.2rem;
+        font-size: 14px;
+      }
+    }
+
+    .user-study-area {
+      width: 45%;
+      display: inline-block;
+
+      .study-tag {
+        font-weight: bold;
+        width: 45%;
+      }
+
+      .stydy-time {
+        margin-top: 0.2rem;
+      }
+    }
+
+    .user-introduce-area {
+      margin-top: 3.2rem;
+
+      .introduce-tag {
+        font-weight: bold;
+      }
+
+      .introduce {
+        margin-top: 0.2rem;
+        font-size: 14px;
+      }
+    }
   }
-  .post-user-area .right-user-area .user-profile-area {
-    width: 65%;
-    height: 100%;
-    display: inline-block;
-  }
-  .user-profile-area .user-name-are {
-    width: 45%;
-    display: inline-block;
-  }
-  .user-profile-area .user-name-are .user-name-tag {
-    font-weight: bold;
-  }
-  .user-profile-area .user-name-are .user-name{
-    margin-top: 0.2rem;
-    font-size: 14px;
-  }
-  .user-profile-area .user-study-area {
-    width: 45%;
-    display: inline-block;
-  }
-  .user-profile-area .user-study-area .study-tag {
-    font-weight: bold;
-    width: 45%;
-  }
-  .user-profile-area .user-study-area .stydy-time {
-    margin-top: 0.2rem;
-  }
-  .user-profile-area .user-introduce-area {
-    margin-top: 3.2rem;
-  }
-  .user-profile-area .user-introduce-area .introduce-tag {
-    font-weight: bold;
-  }
-  .user-profile-area .user-introduce-area .introduce {
-    margin-top: 0.2rem;
-    font-size: 14px;
-  }
+
   .post-user-area .right-user-area .user-url-area {
     display: inline-block;
     width: 30%;
     position: absolute;
     top: 0;
-    padding: 2.2rem 0 0 0 ;
+    padding: 2.2rem 0 0 0;
+
+    .user-github {
+      /* width: 35%;
+      padding: 0.8rem 1rem;
+      background-color: #24292e;
+      border-radius: 5px / 5px;
+      margin-right: 10px;
+      color: #FFFFFF;
+      text-align: center;
+      box-shadow: 10px 5px 5px grey;
+      box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
+      font-weight: bold; */
+      cursor: pointer;
+
+      :hover {
+        opacity: 0.8;
+      }
+    }
+
+    .user-twtter {
+      margin-top: 2rem;
+      width: 68%;
+      padding: 0.8rem;
+      background-color: #1DA1F2;
+      border-radius: 5px / 5px;
+      color: #FFFFFF;
+      text-align: center;
+      box-shadow: 10px 5px 5px grey;
+      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0, 0, 0, 0.22);
+      font-weight: bold;
+      cursor: pointer;
+
+      :hover {
+        opacity: 0.8;
+      }
+    }
   }
-  .post-user-area .right-user-area .user-url-area .user-github {
-    /* width: 35%;
-    padding: 0.8rem 1rem;
-    background-color: #24292e;
-    border-radius: 5px / 5px;
-    margin-right: 10px;
-    color: #FFFFFF;
-    text-align: center;
-    box-shadow: 10px 5px 5px grey;
-    box-shadow: 0 0 3px 0 rgba(122, 122, 122, 0.705), 0 2px 3px 0 rgba(156, 156, 156, 0.993);
-    font-weight: bold; */
-    cursor: pointer;
-  }
-  .post-user-area .right-user-area .user-url-area .user-github :hover {
-    opacity: 0.8;
-  }
-  .post-user-area .right-user-area .user-url-area .user-twtter {
-    margin-top: 2rem;
-    width: 68%;
-    padding: 0.8rem;
-    background-color: #1DA1F2;
-    border-radius: 5px / 5px;
-    color: #FFFFFF;
-    text-align: center;
-    box-shadow: 10px 5px 5px grey;
-    box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .post-user-area .right-user-area .user-url-area .user-twtter :hover {
-    opacity: 0.8;
-  }
+
   /* スキル カード */
   .detail-wrapper .detail-post-skill-area {
     width: 80%;
@@ -390,67 +418,76 @@ export default {
     flex-direction: column;
     text-align: left;
     margin: 0 auto 2rem auto;
+
+    .skill-detail-area {
+      background-color: rgb(255, 255, 255);
+      border-radius: 4px;
+      border: 1px solid #B9B9B9;
+      padding: 1.5rem 4rem 1rem 4rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
   }
-  .detail-wrapper .detail-post-skill-area .skill-detail-area{
-    background-color: rgb(255, 255, 255);
-    border-radius: 4px;
-    border: 1px solid #B9B9B9;
-    padding: 1.5rem 4rem 1rem 4rem;
-    margin-bottom: 2rem;
-    position: relative;
-  }
+
   .skill-detail-area .lang-area {
     width: 100%;
     position: relative;
+
+    .name-tag {
+      font-weight: bold;
+      text-align: left;
+      position: absolute;
+      left: 0;
+    }
+
+    .lang-box {
+      width: 95%;
+      text-align: left;
+
+      /* height: 200px; */
+      padding: 10px 20px 30px 0;
+
+      .skill-tag {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 5px / 5px;
+        margin-right: 10px;
+        color: #3700B3;
+        display: inline-block;
+        border: 1px solid #3700B3;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .flame-tag {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 5px / 5px;
+        margin-right: 10px;
+        color: #2196F3;
+        display: inline-block;
+        border: 1px solid #2196F3;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .other-tag {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 5px / 5px;
+        margin-right: 10px;
+        color: #00BCD4;
+        display: inline-block;
+        border: 1px solid #00BCD4;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
   }
-  .skill-detail-area .lang-area .name-tag{
-    font-weight: bold;
-    text-align: left;
-    position: absolute;
-    left: 0;
-  }
-  .skill-detail-area .lang-area .lang-box{
-    width: 95%;
-    text-align: left;
-    /* height: 200px; */
-    padding: 10px 20px 30px 0;
-  }
-  .skill-detail-area .lang-area .lang-box .skill-tag{
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 5px / 5px;
-    margin-right: 10px;
-    color: #3700B3;
-    display: inline-block;
-    border: 1px solid #3700B3;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .skill-detail-area .lang-area .lang-box .flame-tag{
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 5px / 5px;
-    margin-right: 10px;
-    color: #2196F3;
-    display: inline-block;
-    border: 1px solid #2196F3;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .skill-detail-area .lang-area .lang-box .other-tag{
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 5px / 5px;
-    margin-right: 10px;
-    color: #00BCD4;
-    display: inline-block;
-    border: 1px solid #00BCD4;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-  }
+
   /* 開発詳細 カード */
   .detail-wrapper .detail-post-detail-area {
     width: 80%;
@@ -458,46 +495,56 @@ export default {
     flex-direction: column;
     text-align: left;
     margin: 0 auto;
+
+    .dev-detail-area {
+      background-color: rgb(255, 255, 255);
+      border-radius: 4px;
+      border: 1px solid #B9B9B9;
+      padding: 1rem 4rem 1rem 4rem;
+      margin-bottom: 2rem;
+      position: relative;
+      line-height: 1.8;
+    }
   }
-  .detail-wrapper .detail-post-detail-area .dev-detail-area {
-    background-color: rgb(255, 255, 255);
-    border-radius: 4px;
-    border: 1px solid #B9B9B9;
-    padding: 1rem 4rem 1rem 4rem;
-    margin-bottom: 2rem;
-    position: relative;
-    line-height: 1.8;
-  }
+
   .dev-detail-area .detail-leff-area {
     display: inline-block;
     width: 100%;
     height: 100%;
+
+    .detail-information {
+      margin-top: 1px;
+      padding: 1rem 0;
+      position: relative;
+      flex-direction: column;
+    }
   }
-  .dev-detail-area .detail-leff-area .detail-information {
-    margin-top: 1px;
-    padding: 1rem 0;
-    position: relative;
-    flex-direction: column
-  }
-  .tag{
+
+  .tag {
     font-weight: bold;
+
     /* display: inline-block; */
   }
-  .detail-information .sub-area{
+
+  .detail-information .sub-area {
     /* width: 88%; */
     /* position: absolute; */
     right: 0;
     font-size: 14px;
+
     /* display: inline-block; */
   }
+
   .dev-detail-area .detail-right-area {
     line-height: 1.8;
     width: calc(50% - 5rem);
     display: inline-block;
+
     /* position: absolute; */
     top: 0;
-    padding: 2.5rem 5rem 0 0 ;
+    padding: 2.5rem 5rem 0 0;
   }
+
   /* ボタン エリア */
   .button-area {
     width: 100%;
@@ -508,20 +555,22 @@ export default {
     position: sticky;
     left: 0;
     bottom: 0;
+
+    .button-action-area {
+      margin: 0em auto 4rem auto;
+      width: 50%;
+      position: relative;
+    }
   }
-  .button-area .button-action-area {
-    margin: 0em auto 4rem auto;
-    width: 50%;
-    position: relative;
-  }
+
   /* 応募するボタン */
-  .btn-box-apply{
+  .btn-box-apply {
     position: absolute;
     left: 0;
     top: 0;
     width: 60%;
     padding: 1.2rem 4rem;
-    background: linear-gradient(60deg,#D81B60,#EC407A);
+    background: linear-gradient(60deg, #D81B60, #EC407A);
     box-shadow: 0 0px 10px 5px #d4d4d4;
     transition: .3s;
     border-radius: 50px;
@@ -529,33 +578,38 @@ export default {
     color: #fff;
     line-height: 1;
     text-align: center;
+
     /* max-width: 620px; */
     margin: auto;
     font-size: 1.3rem;
     display: inline-block;
     cursor: pointer;
     border: none;
+
+    &:hover {
+      background: linear-gradient(60deg, #D81B60, #EC407A);
+      color: #F8FAFF;
+      appearance: none;
+      border: none;
+      box-shadow: 0 5px 20px -3px #CD106E;
+
+      /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
+      /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
+      /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
+      transition: .3s;
+
+      /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
+    }
   }
-  .btn-box-apply:hover {
-    background: linear-gradient(60deg,#D81B60,#EC407A);
-    color: #F8FAFF;
-    appearance: none;
-    border: none;
-    box-shadow: 0 5px 20px -3px #CD106E;
-    /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
-    /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
-    /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
-    transition: .3s;
-    /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
-  }
+
   /* 応募済みボタン */
-  .btn-box-apply-false{
+  .btn-box-apply-false {
     position: absolute;
     left: 0;
     top: 0;
     display: block;
     padding: 1.2rem 4rem;
-    background: linear-gradient(60deg,#424242,#9E9E9E);
+    background: linear-gradient(60deg, #424242, #9E9E9E);
     box-shadow: 0 0px 10px 5px #d4d4d4;
     border-radius: 50px;
     font-weight: 600;
@@ -567,12 +621,14 @@ export default {
     font-size: 1.3rem;
     display: inline-block;
   }
+
   .favorite-btn-area {
     position: absolute;
     right: 0;
     top: 0;
     width: 50%;
   }
+
   /* モーダル内のキャンセルボタン */
   .modal-btn {
     padding: 1rem 2.4rem;
@@ -594,7 +650,5 @@ export default {
     right: 0;
     margin: 1rem;
   }
-
 }
-
 </style>

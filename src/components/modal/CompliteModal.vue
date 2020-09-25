@@ -15,7 +15,7 @@
   </transition>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal-overlay {
   display: flex;
   align-items: center;
@@ -29,14 +29,17 @@
   background: rgba(0, 0, 0, 0.637);
   font-weight: bold;
 }
+
 .modal-window {
   background: #fff;
   border-radius: 8px;
   overflow: hidden;
 }
+
 .modal-content {
   padding: 4rem 6rem;
 }
+
 .modal-footer {
   /* background: #ccc; */
   width: 80%;
@@ -46,9 +49,9 @@
 }
 
 .modal-enter-active, .modal-leave-active {
-transition: opacity 0.4s;
-
+  transition: opacity 0.4s;
 }
+
 .modal-enter-active, .modal-window {
   transition: opacity 0.4s, transform 0.4s;
 }
@@ -59,10 +62,9 @@ transition: opacity 0.4s;
 
 .modal-enter, .modal-leave-to {
   opacity: 0;
-
 }
 
-.modal-enter,  .modal-window {
-    transform: translateY(-20px);
+.modal-enter, .modal-window {
+  transform: translateY(-20px);
 }
 </style>

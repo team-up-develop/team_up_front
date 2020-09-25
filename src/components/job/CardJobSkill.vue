@@ -46,55 +46,55 @@ export default {
 }
 </script>
 
-<style scoped>
-  .langage{
-    margin: 5px 0px 0px 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #3F51B5;
-    /* background-color: #ffffff; */
-    font-size: 12px;
-    border: solid 1px #3F51B5;
-    padding: 7px 1.2rem;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .framework{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #2196F3;
-    /* background-color: #2196F3; */
-    font-size: 12px;
-    border: solid 1px #2196F3;
-    padding: 7px 1.2rem;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .skill{
-    margin: 5px 0px 0 5px ;
-    text-align: left;
-    display: inline-block;
-    color: #00BCD4;
-    /* background-color: #00BCD4; */
-    font-size: 12px;
-    border: solid 1px #00BCD4;
-    padding: 7px 1.2rem;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  .langage-responsive {
-    display: none;
-  }
-  .framework-responsive {
-    display: none;
-  }
-  .skill-responsive {
-    display: none;
-  }
+<style lang="scss" scoped>
+.langage {
+  margin: 5px 0px 0px 5px;
+  text-align: left;
+  display: inline-block;
+  color: #3F51B5;
+
+  /* background-color: #ffffff; */
+  font-size: 12px;
+  border: solid 1px #3F51B5;
+  padding: 7px 1.2rem;
+  border-radius: 5px / 5px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.framework {
+  margin: 5px 0px 0 5px;
+  text-align: left;
+  display: inline-block;
+  color: #2196F3;
+
+  /* background-color: #2196F3; */
+  font-size: 12px;
+  border: solid 1px #2196F3;
+  padding: 7px 1.2rem;
+  border-radius: 5px / 5px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.skill {
+  margin: 5px 0px 0 5px;
+  text-align: left;
+  display: inline-block;
+  color: #00BCD4;
+
+  /* background-color: #00BCD4; */
+  font-size: 12px;
+  border: solid 1px #00BCD4;
+  padding: 7px 1.2rem;
+  border-radius: 5px / 5px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.langage-responsive, .framework-responsive, .skill-responsive {
+  display: none;
+}
 
 @media screen and (max-width: 500px) {
   .job-cards {
@@ -107,18 +107,22 @@ export default {
     height: 45vh;
     background-color: rgba(0, 255, 238, 0.163);
   }
+
   .job-cards-bottom .post-user-area {
     width: 100%;
     height: 60%;
   }
+
   .langage {
     display: none;
   }
+
   .langage-responsive {
-    margin: 5px 0px 0px 5px ;
+    margin: 5px 0px 0px 5px;
     text-align: left;
     display: inline-block;
     color: #3F51B5;
+
     /* background-color: #ffffff; */
     font-size: 12px;
     border: solid 1px #3F51B5;
@@ -127,14 +131,17 @@ export default {
     font-weight: bold;
     pointer-events: none;
   }
-  .framework{
+
+  .framework {
     display: none;
   }
-  .framework-responsive { 
-    margin: 5px 0px 0 5px ;
+
+  .framework-responsive {
+    margin: 5px 0px 0 5px;
     text-align: left;
     display: inline-block;
     color: #2196F3;
+
     /* background-color: #2196F3; */
     font-size: 12px;
     border: solid 1px #2196F3;
@@ -143,14 +150,17 @@ export default {
     font-weight: bold;
     pointer-events: none;
   }
-  .skill{
+
+  .skill {
     display: none;
   }
+
   .skill-responsive {
-    margin: 5px 0px 0 5px ;
+    margin: 5px 0px 0 5px;
     text-align: left;
     display: inline-block;
     color: #00BCD4;
+
     /* background-color: #00BCD4; */
     font-size: 12px;
     border: solid 1px #00BCD4;

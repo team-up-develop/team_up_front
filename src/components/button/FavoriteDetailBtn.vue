@@ -71,11 +71,11 @@ export default {
 }
 </script>
 
-<style scoped>
-.btn-box-save{
+<style lang="scss" scoped>
+.btn-box-save {
   display: block;
   padding: 1.4rem 4.3rem;
-  background: linear-gradient(60deg,#1142e2,#19bde6);
+  background: linear-gradient(60deg, #1142e2, #19bde6);
   box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
@@ -88,15 +88,17 @@ export default {
   display: inline-block;
   cursor: pointer;
   border: none;
+
+  :hover {
+    background-color: red;
+    font-size: 100px;
+  }
 }
-.btn-box-save :hover {
-  background-color: red;
-  font-size: 100px;
-}
-.btn-box-save-false{
+
+.btn-box-save-false {
   display: block;
   padding: 1.4rem 4.3rem;
-  background: linear-gradient(60deg,#424242,#9E9E9E);
+  background: linear-gradient(60deg, #424242, #9E9E9E);
   box-shadow: 0 0px 10px 5px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
@@ -109,6 +111,7 @@ export default {
   display: inline-block;
   cursor: pointer;
 }
+
 .icon {
   font-size: 30px;
   padding: 10px;
@@ -119,6 +122,7 @@ export default {
   background-color: #d8d6d6;
   border-radius: 5px / 5px;
 }
+
 .save-icon {
   font-size: 30px;
   padding: 10px;
@@ -128,6 +132,5 @@ export default {
   cursor: pointer;
   background-color: #d8d6d6;
   border-radius: 5px / 5px;
-
 }
 </style>

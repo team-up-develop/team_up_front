@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
   .false-user-login {
     width: calc(75% - 4rem);
@@ -54,9 +54,11 @@ export default {
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding: 0 2rem 2rem 2rem;
+
     /* position: sticky;
     top: 0; */
   }
+
   .top-login-title {
     width: 100%;
     padding: 1rem 0;
@@ -66,32 +68,36 @@ export default {
     font-weight: bold;
     font-size: 20px;
     letter-spacing: 0.5rem;
+
+    &:after {
+      content: "";
+      display: block;
+      height: 4px;
+
+      /* background: -webkit-linear-gradient(to right, #1142e2, transparent);
+      background: linear-gradient(to right, #19bde6, transparent); */
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      content: '';
+      border-radius: 3px;
+      background-image: -webkit-gradient(linear, right top, left top, from(#AB47BC), to(#673AB7));
+      background-image: -webkit-linear-gradient(right, #AB47BC 0%, #673AB7 100%);
+      background-image: linear-gradient(to left, #AB47BC 0%, #673AB7 100%);
+    }
   }
-  .top-login-title:after {
-    content: "";
-    display: block;
-    height: 4px;
-    /* background: -webkit-linear-gradient(to right, #1142e2, transparent);
-    background: linear-gradient(to right, #19bde6, transparent); */
-  }
-  .top-login-title:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 6px;
-    content: '';
-    border-radius: 3px;
-    background-image: -webkit-gradient(linear, right top, left top, from(#AB47BC), to(#673AB7));
-    background-image: -webkit-linear-gradient(right, #AB47BC 0%, #673AB7 100%);
-    background-image: linear-gradient(to left, #AB47BC 0%, #673AB7 100%);
-  }
+
   .register-form-area {
     width: 100%;
     height: 65%;
     margin-top: 0.5rem;
+
     /* background-color: yellow; */
   }
+
   .input {
     width: calc(100% - 2rem);
     background: #EFEFEF;
@@ -103,26 +109,32 @@ export default {
     appearance: none;
     padding: 1rem;
     border-radius: 4px;
+
     /* width: 300px; */
     margin: 0 0 20px;
     color: #818181;
   }
+
   .label {
     color: #444444;
     font-size: 14px;
   }
+
   .false-user-Advertisement {
     width: 75%;
     height: 40vh;
     background-color: #ffffff;
+
     /* border: solid 1px #B9B9B9; */
     border-radius: 8px;
     margin-bottom: 1rem;
   }
-  .register-btn{
+
+  .register-btn {
     display: block;
     padding: 1rem 2rem;
-    background: linear-gradient(60deg,#673AB7,#AB47BC);
+    background: linear-gradient(60deg, #673AB7, #AB47BC);
+
     /* background: linear-gradient(60deg,#BA68C8,#673AB7); */
     border-radius: 25px;
     font-size: .875rem;
@@ -136,17 +148,20 @@ export default {
     cursor: pointer;
     box-shadow: 0 0px 5px 2px #d4d4d4;
     transition: .3s;
-  }
-  .register-btn:hover {
-    color: #F8FAFF;
-    appearance: none;
-    border: none;
-    box-shadow: 0 5px 20px -3px #AB47BC;
-    /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
-    /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
-    /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
-    transition: .3s;
-    /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
+
+    &:hover {
+      color: #F8FAFF;
+      appearance: none;
+      border: none;
+      box-shadow: 0 5px 20px -3px #AB47BC;
+
+      /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
+      /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
+      /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
+      transition: .3s;
+
+      /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
+    }
   }
 }
 </style>
