@@ -393,10 +393,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
 @media screen and (max-width: 1440px) {
   .job-cards.sample-active {
-    /* color: #00A1D6; */
-    /* background-color: #00A1D6; */
     border-bottom: 4px solid #ff0800;
     font-weight: bold;
   }
@@ -409,9 +409,7 @@ export default {
   .search-area {
     width: calc(100% - 6rem);
     height: 48px;
-    background-color: #ffffff;
-
-    /* border-bottom: 1px solid #B9B9B9; */
+    background-color: $basic-white;
     position: absolute;
     top: 0;
     position: sticky;
@@ -424,13 +422,9 @@ export default {
     .search-modal-btn {
       margin-top: 0.4rem;
       padding: 0.5rem 2rem;
-
-      /* border: none; */
       border: solid 1px #BDC7C5;
       color: #666666;
-      background-color: #ffffff;
-
-      /* background: linear-gradient(60deg,#1142e2,#19bde6); */
+      background-color: $basic-white;
       border-radius: 50rem;
       cursor: pointer;
       font-weight: bold;
@@ -453,27 +447,18 @@ export default {
   /* 全体 */
   .job-wrapper {
     width: 100%;
-
-    /* position: absolute; */
-    /* background-color: #FAFAFA; */
-    /* right: 0;
-    top: 0; */
     margin: 0 auto;
     padding: 0rem 0 2rem 0;
     position: relative;
 
     .job-wrapper-center {
       width: 90%;
-
-      /* height: ; */
       margin: 0 auto;
-
-      /* float: right; */
       position: relative;
 
       .router :hover {
         background-color: #2195f310;
-        border: 1px solid #2196F3;
+        border: 1px solid $primary-color;
         box-shadow: 0 15px 30px -5px #2195f32d, 0 0 5px #2195f357;
         transform: translateY(-2px);
         cursor: pointer;
@@ -487,38 +472,28 @@ export default {
     height: 88vh;
     margin-left: 2rem;
     margin-top: 1rem;
-    background-color: #ffffff;
-
-    /* display: inline-block; */
-    /* position: absolute; */
+    background-color: $basic-white;
     position: sticky;
     display: inline-block;
-
-    /* margin-left: 1rem; */
     margin-bottom: 0.2rem;
     bottom: 0;
     border-radius: 8px;
     color: #111111;
-    border: solid 1px #B9B9B9;
+    border: solid 1px $card-border-color;
     text-align: left;
 
     .top-job-detail-area {
       width: calc(100% - 4rem);
-
-      /* height: calc(17.5% - 2.5rem); */
-      border-bottom: solid 1px #B9B9B9;
+      border-bottom: solid 1px $card-border-color;
       font-weight: bold;
       padding: 1.5rem 2rem 1rem 2rem;
       box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15);
 
       /* 影 */
-
       .top-job-detail-top {
         width: 100%;
         height: 50%;
         font-size: 1.2em;
-
-        /* text-decoration: underline; */
       }
 
       .top-job-detail-bottom {
@@ -554,7 +529,7 @@ export default {
       font-size: 1em;
 
       .icon {
-        color: #2196F3;
+        color: $primary-color;
       }
     }
   }
@@ -579,18 +554,18 @@ export default {
     margin-bottom: 0.3rem;
 
     &:hover {
-      color: #2196F3;
+      color: $primary-color;
       transition: .3s;
     }
   }
 
   .detail-langage {
+    @include border_language;
+    color: $language-color;
     margin: 0 0px 0px 5px;
     text-align: left;
     display: inline-block;
-    color: #3F51B5;
     font-size: 14px;
-    border: solid 1px #3F51B5;
     padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -598,12 +573,12 @@ export default {
   }
 
   .detail-framework {
+    @include border_framework;
     margin: 0px 0px 0 5px;
     text-align: left;
     display: inline-block;
-    color: #2196F3;
+    color: $framework-color;
     font-size: 14px;
-    border: solid 1px #2196F3;
     padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -611,23 +586,23 @@ export default {
   }
 
   .detail-skill {
+    @include border-skill;
+    color: $skill-color;
     margin: 0px 0px 0 5px;
     text-align: left;
     display: inline-block;
-    color: #00BCD4;
     font-size: 14px;
-    border: solid 1px #00BCD4;
     padding: 2px 23px;
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
   }
 
+  // 管理画面遷移ボタン
   .btn-box-manage {
+    @include blue-btn;
+    @include box-shadow-btn;
     padding: 0.75rem 3rem;
-    /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
-    background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
-    background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
     border-radius: 8px;
     font-weight: 600;
     color: #fff;
@@ -640,22 +615,16 @@ export default {
     cursor: pointer;
     border: none;
     margin-top: 4px;
-    background-image: -webkit-gradient(linear, right top, left top, from(#19bde6), to(#1142e2));
-    background-image: -webkit-linear-gradient(right, #19bde6 0%, #1142e2 100%);
-    background-image: linear-gradient(to left, #19bde6 0%, #1142e2 100%);
     color: #F8FAFF;
     appearance: none;
     border: none;
-    box-shadow: 0 0px 5px 2px #d4d4d4;
   }
 
   /* 応募するボタン */
   .btn-box-apply {
+    @include red-btn;
+    @include box-shadow-btn;
     padding: 0.75rem 3rem;
-
-    /* background: -moz-linear-gradient(top, #E91E63, #e91e62ce);
-    background: -webkit-linear-gradient(top, #E91E63, #e91e62ce);
-    background: linear-gradient(to bottom, #E91E63, #e91e62ce); */
     border-radius: 8px;
     font-weight: 600;
     color: #fff;
@@ -668,34 +637,26 @@ export default {
     cursor: pointer;
     border: none;
     margin-top: 4px;
-    background: linear-gradient(60deg, #D81B60, #EC407A);
     color: #F8FAFF;
     appearance: none;
     border: none;
-    box-shadow: 0 0px 5px 2px #d4d4d4;
     transition: .3s;
 
     &:hover {
-      background: linear-gradient(60deg, #D81B60, #EC407A);
+      @include red-btn;
       color: #F8FAFF;
       appearance: none;
       border: none;
       box-shadow: 0 5px 20px -3px #CD106E;
-
-      /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
-      /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
-      /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
       transition: .3s;
-
-      /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
     }
   }
 
   /* 応募済みボタン */
   .btn-box-apply-false {
+    @include grey-btn;
     display: block;
     padding: 0.75rem 3rem;
-    background: linear-gradient(60deg, #424242, #9E9E9E);
     border-radius: 8px;
     font-weight: 600;
     color: #fff;
@@ -710,8 +671,9 @@ export default {
 
   /* モーダル内のキャンセルボタン */
   .modal-btn {
+    @include blue-btn;
+    @include box-shadow-btn;
     padding: 1rem 2.4rem;
-    background: linear-gradient(60deg, #1142e2, #19bde6);
     border-radius: 50px;
     font-weight: 600;
     color: #fff;
@@ -754,9 +716,6 @@ export default {
   /* 右側 詳細を表示しない際に */
   .job-wrapper-right-false {
     width: 52%;
-    /* height: 60vh; */
-    /* display: inline-block; */
-    /* position: absolute; */
     position: sticky;
     display: inline-block;
     margin-left: 2rem;
@@ -795,7 +754,7 @@ export default {
   }
 
   input[type="checkbox"] {
-    background-color: #fff;
+    background-color: $basic-white;
     border: 1px solid #ccc;
     border-radius: 80%;
     cursor: pointer;
@@ -814,19 +773,15 @@ export default {
   }
 
   .serach-btn {
+    @include blue-btn;
     display: block;
     width: 77%;
     padding: 1rem 2rem;
-    background: linear-gradient(60deg, #1142e2, #19bde6);
-
-    /* background: linear-gradient(60deg,#BA68C8,#673AB7); */
     border-radius: 8px;
     font-weight: 600;
     color: #fff;
     line-height: 1;
     text-align: center;
-
-    /* max-width: 280px; */
     margin: auto;
     font-size: 1rem;
     cursor: pointer;

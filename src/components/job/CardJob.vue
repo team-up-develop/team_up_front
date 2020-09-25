@@ -75,20 +75,7 @@ export default {
 
 <style lang="scss" scoped>
 .job-cards {
-  /* width: 425px; */
-  width: 97%;
-
-  /* height: 60%; */
-  height: 292px;
-
-  /* float: right; */
-  /* float: left; */
-  margin: 10px 0.5%;
-  border: solid 1px #B9B9B9;
-  background-color: #ffffff;
-  border-radius: 8px;
-  transition: .3s;
-  color: #111111;
+  @include job_cards;
 }
 
 .job-cards-top {
@@ -100,8 +87,6 @@ export default {
   pointer-events: none;
   font-size: 18px;
   text-decoration: underline;
-
-  /* background-color: yellow; */
 }
 
 .job-cards-center {
@@ -156,9 +141,9 @@ export default {
       -moz-border-radius: 60px;
       -webkit-border-radius: 60px;
       border-radius: 60px;
-      box-shadow: 0 0 0 3px #2196F3;
-      -webkit-box-shadow: 0 0 0 3px #2196F3;
-      -moz-box-shadow: 0 0 0 3px #2196F3;
+      box-shadow: 0 0 0 3px $primary-color;
+      -webkit-box-shadow: 0 0 0 3px $primary-color;
+      -moz-box-shadow: 0 0 0 3px $primary-color;
       display: inline-block;
       pointer-events: none;
     }

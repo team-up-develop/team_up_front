@@ -1,0 +1,83 @@
+// * サイトカラー
+$basic-white: #ffffff;
+$text-main-color: #111111;
+$primary-color: #2196F3;
+$secondary-color: #ff0800;
+$tertiary-color: #00d0ff;
+
+
+// *ボタンカラー
+// ? 基本ベース
+$gradation-blue-left: #1142e2;
+$gradation-blue-right: #19bde6;
+@mixin blue-btn {
+  background: linear-gradient(60deg, $gradation-blue-left, $gradation-blue-right);
+}
+
+// ? 応募など重要項目
+$gradation-red-left: #D81B60;
+$gradation-red-right: #EC407A;
+@mixin red-btn {
+  background: linear-gradient(60deg, $gradation-red-left, $gradation-red-right);
+}
+
+// ? 済み
+$gradation-grey-left: #424242;
+$gradation-grey-right: #9E9E9E;
+@mixin grey-btn {
+  background: linear-gradient(60deg, $gradation-grey-left, $gradation-grey-right);
+}
+
+// ? 重要項目 登録など
+$gradation-purple-left: #673AB7;
+$gradation-purple-right: #AB47BC;
+@mixin purple-btn {
+  background: linear-gradient(60deg, $gradation-purple-left, $gradation-purple-right);
+}
+
+
+// * ボタンボックスシャドー
+$box-shadow-btn: #d4d4d4;
+@mixin box-shadow-btn {
+  box-shadow: 0 0px 5px 2px $box-shadow-btn;
+}
+
+
+// * ボーダー
+$card-border-color: #B9B9B9;
+@mixin border_primary {
+  border: solid 1px $card-border-color;
+}
+
+
+// * スキルカラー
+//? 開発言語
+$language-color: #3F51B5;
+@mixin border_language {
+  border: solid 1px $language-color;
+}
+
+// ? フレームワーク
+$framework-color: #2196F3;
+@mixin border_framework {
+  border: solid 1px $primary-color;
+}
+
+// ? その他スキル
+$skill-color: #00BCD4;
+@mixin border-skill {
+  border: solid 1px $skill-color;
+}
+
+
+// *案件カード
+@mixin job_cards {
+  width: 97%;
+  height: 292px;
+  margin: 10px 0.5%;
+  border: solid 1px $card-border-color;
+  background-color: $basic-white;
+  border-radius: 8px;
+  transition: .3s;
+  color: $text-main-color;
+}
