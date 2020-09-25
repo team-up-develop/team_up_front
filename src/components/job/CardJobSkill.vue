@@ -48,14 +48,12 @@ export default {
 
 <style lang="scss" scoped>
 .langage {
+  @include border_language;
+  color: $language-color;
   margin: 5px 0px 0px 5px;
   text-align: left;
   display: inline-block;
-  color: #3F51B5;
-
-  /* background-color: #ffffff; */
   font-size: 12px;
-  border: solid 1px #3F51B5;
   padding: 7px 1.2rem;
   border-radius: 5px / 5px;
   font-weight: bold;
@@ -63,14 +61,12 @@ export default {
 }
 
 .framework {
+  @include border_framework;
   margin: 5px 0px 0 5px;
   text-align: left;
   display: inline-block;
-  color: #2196F3;
-
-  /* background-color: #2196F3; */
+  color: $framework-color;
   font-size: 12px;
-  border: solid 1px #2196F3;
   padding: 7px 1.2rem;
   border-radius: 5px / 5px;
   font-weight: bold;
@@ -78,14 +74,12 @@ export default {
 }
 
 .skill {
+  @include border-skill;
+  color: $skill-color;
   margin: 5px 0px 0 5px;
   text-align: left;
   display: inline-block;
-  color: #00BCD4;
-
-  /* background-color: #00BCD4; */
   font-size: 12px;
-  border: solid 1px #00BCD4;
   padding: 7px 1.2rem;
   border-radius: 5px / 5px;
   font-weight: bold;
@@ -94,12 +88,6 @@ export default {
 
 .langage-responsive, .framework-responsive, .skill-responsive {
   display: none;
-}
-
-@media screen and (max-width: 500px) {
-  .job-cards {
-    /* background-color: rgba(255, 255, 0, 0.694); */
-  }
 }
 
 @media screen and (max-width: 390px) {
@@ -118,14 +106,12 @@ export default {
   }
 
   .langage-responsive {
+    @include border_language; 
+    color: $language-color;   
     margin: 5px 0px 0px 5px;
     text-align: left;
     display: inline-block;
-    color: #3F51B5;
-
-    /* background-color: #ffffff; */
     font-size: 12px;
-    border: solid 1px #3F51B5;
     padding: 7px 1.2rem;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -137,14 +123,12 @@ export default {
   }
 
   .framework-responsive {
+    @include border_framework;
+    color: $framework-color;
     margin: 5px 0px 0 5px;
     text-align: left;
     display: inline-block;
-    color: #2196F3;
-
-    /* background-color: #2196F3; */
     font-size: 12px;
-    border: solid 1px #2196F3;
     padding: 7px 1.2rem;
     border-radius: 5px / 5px;
     font-weight: bold;
@@ -156,14 +140,12 @@ export default {
   }
 
   .skill-responsive {
+    @include border-skill;
+    color: $skill-color;
     margin: 5px 0px 0 5px;
     text-align: left;
     display: inline-block;
-    color: #00BCD4;
-
-    /* background-color: #00BCD4; */
     font-size: 12px;
-    border: solid 1px #00BCD4;
     padding: 7px 1.2rem;
     border-radius: 5px / 5px;
     font-weight: bold;

@@ -55,7 +55,7 @@ export default {
       width: calc(100% - 12rem);
       height: 66vh;
       margin: 0rem auto 3rem auto;
-      border: solid 1px #B9B9B9;
+      border: solid 1px $card-border-color;
       border-radius: 20px;
       padding: 2rem;
     }
@@ -63,7 +63,7 @@ export default {
 
   /* ログインカード */
   .login-title {
-    color: #2ac1df;
+    color: $primary-color;
     font-size: 1.8em;
     font-weight: bold;
     height: 50px;
@@ -86,7 +86,7 @@ export default {
     }
 
     span {
-      color: #2ac1df;
+      color: $primary-color;
       cursor: pointer;
     }
 
@@ -114,7 +114,7 @@ export default {
 
       input {
         &[type='text']:focus, &[type='password']:focus {
-          border: 1px solid #2196F3;
+          border: 1px solid $primary-color;
           outline: none;
           box-shadow: 0 0 5px 1px #2195f348;
         }
@@ -124,7 +124,7 @@ export default {
     .btn-area .login-btn {
       display: block;
       padding: 1.2rem 5rem;
-      background: linear-gradient(60deg, #1142e2, #19bde6);
+      background: linear-gradient(60deg, $gradation-blue-left, $gradation-blue-right);
       border-radius: 50px;
       font-weight: 600;
       color: #fff;
@@ -148,7 +148,7 @@ export default {
     width: calc(100% - 8rem);
     height: 60vh;
     margin: 0rem auto 3rem auto;
-    border: solid 1px #B9B9B9;
+    border: solid 1px $card-border-color;
     border-radius: 20px;
     padding: 2rem;
   }
@@ -222,7 +222,7 @@ export default {
     width: calc(100% - 4rem);
     height: 70%;
     margin: 0rem auto 3rem auto;
-    border: solid 1px #B9B9B9;
+    border: solid 1px $card-border-color;
     border-radius: 20px;
     padding: 2rem 1rem;
   }
