@@ -28,14 +28,11 @@ export default {
 .container {
   width: 90%;
   height: 68vh;
-  /* right: 0; */
   position: relative;
-  /* background-color: rgb(0, 83, 250); */
 }
 .fullview {
   width: 80%;
   height: 120%;
-  /* height: 100vh; */
   position: fixed;
   top: 0;
   right: 0;

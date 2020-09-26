@@ -17,7 +17,8 @@ export default {
   data() {
     return {
       chatGroups: [],
-      loginFlag: false
+      loginFlag: false,
+      userId: Number(localStorage.userId)
     }
   },
   mounted() {
@@ -26,13 +27,13 @@ export default {
     // * 参加案件のみを取得する
     if( localStorage.userId !== undefined) {
       this.loginFlag = true
-      axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
+      axios.get(`${this.$baseURL}/apply_job/?user_id=${ this.userId }`)
       .then(response => {
         const array = [];
         for(let i = 0; i < response.data.length; i++){
           const applyData = response.data[i]
           console.log(applyData)
-          if(applyData.applyStatusId === 2){
+          if(applyData.applyStatusId === 2 || applyData.applyStatusId === 4 ){
             array.push(applyData)
             this.chatGroups = array
           }

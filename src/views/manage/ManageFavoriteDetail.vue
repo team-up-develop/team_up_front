@@ -193,23 +193,24 @@ export default {
   /* background-color: #F2F6F7; */
 
   .job-manage-detail-wrapper {
+    @include card-border-color;
     width: 95%;
     height: 68%;
     border-radius: 20px;
     margin: 0rem 2rem;
-    background-color: #ffffff;
+    background-color: $basic-white;
     float: right;
-    border: solid 1px #B9B9B9;
+
     position: relative;
   }
 }
 
 .job-manage-detail-wrapper {
   .status-area-reject, .status-area-participate, .status-area {
+    @include card-border-color;
     width: 24.8%;
     /* height: 20%; */
     display: inline-block;
-    border: solid 1px #B9B9B9;
   }
 
   .status-area-participate :hover, .status-area :hover {
@@ -225,10 +226,8 @@ export default {
 .job-manage-detail-wrapper {
   .status-area-left {
     width: 24.8%;
-
-    /* height: 20%; */
     display: inline-block;
-    border-left: solid 1px #B9B9B9;
+    border-left: solid 1px $card-border-color;
     border-radius: 20px 0 0 0;
   }
 
@@ -238,7 +237,7 @@ export default {
     /* height: 20%; */
     /* background-color: rgb(0, 102, 128); */
     display: inline-block;
-    border: solid 1px #B9B9B9;
+    border: solid 1px $card-border-color;
     border-radius: 0 25px 0 0;
   }
 }
@@ -248,17 +247,15 @@ export default {
   height: 100%;
   padding: 0 4rem;
   border-radius: 15px 0 0 0;
-
-  /* background-color: #3700B3; */
   background-color: #606060;
 }
 
 .status-box-right {
+  @include  box-shadow-manage;
   width: calc(100% - 8rem);
   height: 100%;
   padding: 0 4rem;
-  background-color: #4A148C;
-  box-shadow: 0 0 10px #02020278;
+  background-color: $secondary-color;
   border-radius: 0 15px 0 0;
 }
 
@@ -267,7 +264,7 @@ export default {
   height: 100%;
   padding: 0 4rem;
   background-color: #606060;
-  color: #ffffff;
+  color: $basic-white;
 }
 
 .status-box-reject {
@@ -275,7 +272,7 @@ export default {
   height: 100%;
   padding: 0 4rem;
   background-color: #606060;
-  color: #ffffff;
+  color: $basic-white;
 
   &:hover {
     opacity: 0.8;
@@ -287,7 +284,7 @@ export default {
   height: 100%;
   padding: 0 4rem;
   background-color: #606060;
-  color: #ffffff;
+  color: $basic-white;
 }
 
 .status-logo {
@@ -296,7 +293,7 @@ export default {
   padding: 1rem 0 0 0;
 
   /* margin: 0 auto; */
-  color: #ffffff;
+  color: $basic-white;
   pointer-events: none;
 }
 
@@ -309,10 +306,8 @@ export default {
   width: 100%;
   padding: 0.5rem 0;
 
-  /* height: 40%; */
-  /* margin: 0 auto; */
   font-size: 14px;
-  color: #ffffff;
+  color: $basic-white;
   font-weight: bold;
   pointer-events: none;
 }
@@ -321,7 +316,7 @@ export default {
   width: 100%;
   padding: 0.5rem 0 0.3em 0;
   font-size: 1.4em;
-  color: #ffffff;
+  color: $basic-white;
   font-weight: bold;
   pointer-events: none;
 }
@@ -330,19 +325,14 @@ export default {
 .job-manage-detail-wrapper .status-tag-area {
   width: 100%;
   height: 8%;
-
-  /* background-color: rgba(0, 255, 234, 0.596); */
-  color: #ffffff;
+  color: $basic-white;
   font-weight: bold;
-  background-color: #4A148C;
+  background-color: $secondary-color;
 
   .status-tag-name {
     width: 24.8%;
     height: 10%;
     display: inline-block;
-
-    /* border: 1px solid #B9B9B9; */
-    /* border-right: 1px solid #9c9c9c; */
     padding: 0.6rem 0;
   }
 
@@ -350,8 +340,6 @@ export default {
     width: 24.8%;
     height: calc(34px - 1rem);
     display: inline-block;
-
-    /* border-right: 1px solid #9c9c9c; */
     padding: 0.6rem 0;
   }
 
@@ -359,8 +347,6 @@ export default {
     width: calc(100% - 50%);
     height: calc(34px - 1rem);
     display: inline-block;
-
-    /* border-bottom: 1px solid #9c9c9c; */
     padding: 0.6rem 0;
   }
 }
@@ -374,14 +360,14 @@ export default {
 }
 
 .router-user-area :hover {
-  background-color: rgba(199, 199, 199, 0.281);
+  background-color: $manage-hover-color;
 }
 
 .user-area {
   .user-area-box {
     width: 25%;
     padding: 0.8rem 0;
-    color: #111111;
+    color: $text-main-color;
     display: inline-block;
     pointer-events: none;
   }
@@ -389,7 +375,7 @@ export default {
   .user-area-skill {
     width: 50%;
     padding: 0.8rem 0;
-    color: #111111;
+    color: $text-main-color;
     display: inline-block;
     pointer-events: none;
   }

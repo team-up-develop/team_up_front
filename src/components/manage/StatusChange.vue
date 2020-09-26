@@ -97,29 +97,29 @@ export default {
 <style lang="scss" scoped>
 .router {
   text-decoration: none;
-  color: #ffffff;
+  color: $basic-white;
 }
 
 /* ステータス変更 */
 .job-status-change-area {
+  @include card-border-color;
   width: 95%;
   height: 20%;
   border-radius: 20px;
   margin: 2rem 2rem 2rem 2rem;
-  background-color: #ffffff;
+  background-color: $basic-white;
   float: right;
-  border: solid 1px #B9B9B9;
   position: relative;
 }
 
 .status-change-top {
+  @include box-shadow-manage;
   width: 100%;
   height: 10%;
   padding: 0.8rem 0;
   border-radius: 15px 15px 0px 0;
-  background-color: #4A148C;
-  box-shadow: 0 0 10px #02020278;
-  color: #ffffff;
+  background-color: $secondary-color;
+  color: $basic-white;
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer;
@@ -141,21 +141,18 @@ export default {
   height: 40%;
   padding-top: 4.6rem;
   padding-right: 2rem;
-
-  /* background-color: yellow; */
   position: absolute;
   right: 0;
   top: 0;
 }
 
 .permit-btn {
-  /* display: block; */
+  @include red-btn ;
+  @include box-shadow-btn ;
   padding: 1rem 2.4rem;
-  background-color: #E91E63;
-  box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;
@@ -166,12 +163,12 @@ export default {
 }
 
 .reject-btn {
+  @include blue-btn ;
+  @include box-shadow-btn ;
   padding: 1rem 2.4rem;
-  background: linear-gradient(60deg, #1142e2, #19bde6);
-  box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;
@@ -240,7 +237,7 @@ export default {
 
     select {
       padding: 8px 38px 8px 8px;
-      color: #666666;
+      color: $text-sub-color;
     }
   }
 }

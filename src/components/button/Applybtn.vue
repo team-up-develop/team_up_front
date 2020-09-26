@@ -60,17 +60,15 @@ export default {
 <style lang="scss" scoped>
 .modal-apply-area {
   width: 47%;
-
-  /* background-color: yellow; */
 }
 
 .btn-apply {
+  @include red-btn ;
   display: block;
   padding: 1rem 3rem;
-  background-color: #E91E63;
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;
@@ -85,15 +83,12 @@ export default {
 }
 
 /* モーダル内のキャンセルボタン */
-
 .modal-btn {
+  @include blue-btn;
   padding: 1rem 2.4rem;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;

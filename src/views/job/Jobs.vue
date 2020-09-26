@@ -331,10 +331,8 @@ export default {
           console.log(response.data)
           for(let c = 0; c < response.data.length; c++){
             const applyData = response.data[c];
-            // console.log(applyData);
             arrayApply.push(applyData.job.id)
-            // console.log(arrayApply)
-            // console.log(this.jobDetail.id)
+
           }
           if(arrayApply.includes(this.jobDetail.id)) {
             this.applyFlug = false
