@@ -51,8 +51,8 @@ export default {
       devEndDate: null, //? 終了日
       // publicationPeriod: "", //? 掲載終了
       loading: true,
-      titleLimit: null,
-      jobDescriptionLimit: null,
+      titleLimit: null, //? タイトル文字制限
+      jobDescriptionLimit: null, //? 詳細文字制限
       errors: [], //? タイトルエラー格納先
       errorsDevStartDates: [], //? 開発開始時期エラー格納先
       errorDevEndDates: [] //? 開発終了時期エラー格納先
@@ -136,178 +136,173 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
+  /* 文字制限 */
   #rem {
     color: #7c7c7c;
     margin-top: 2px;
   }
+
+  /* Wrapper */
   .create-wrapper {
     width: 85%;
     height: 90vh;
     margin: 0 auto;
-    /* background-color: #3dc1e2; */
     position: relative;
+
+    .job-create-wrapper {
+      @include card-border-color;
+      width: calc(100% - 5rem);
+      border-radius: 20px;
+      margin: 2rem 0rem;
+      background-color: $basic-white;
+      padding: 2.5rem;
+      position: absolute;
+      right: 0;
+    }
   }
-  .create-wrapper .job-create-wrapper {
-    width: calc(100% - 5rem);
-    border-radius: 20px;
-    margin: 2rem 0rem;
-    background-color: #ffffff;
-    /* float: right; */
-    border: solid 1px #B9B9B9;
-    padding: 2.5rem;
-    position: absolute;
-    right: 0;
-  }
+
   .label {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 0.7rem;
     display: inline-block;
-    /* width: 10%; */
-    /* height: 14%; */
-    /* background-color: yellow; */
   }
+
   .label-required {
-    color: #ffffff;
-    background-color: #f44336;
+    color: $basic-white;
+    background-color: $error-message-color;
     font-size: 12px;
     font-weight: bold;
-    /* background-color: #19bde6; */
     border-radius: 25px;
     padding: 0.25rem 0.9rem;
     text-align: center;
     margin-left: 10px;
   }
+
   .error-label {
     display: inline-block;
-    color: #DD2476;
+    color: $error-message-color;
     list-style: none;
     font-weight: bold;
   }
+
   .error-message {
     margin: 0;
     padding-left: 10px;
   }
+
   /* 案件タイトル入力欄 start*/
-  .job-create-wrapper .job-create-title-area {
-    width: 100%;
-    height: 100px; 
-    /* display: flex; */
-    /* flex-direction: column; */
-    text-align: left;
-  }
-  .job-create-wrapper .job-create-title-area input[type='text'] {
-    font: 16px/24px sans-serif;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0.3em;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    color: #111111;
-    border: 1px solid #A3A1A1;
-    border-radius: 4px;
-    padding: 0.5rem;
-    background-color: #EFEFEF;
-  }
-  .job-create-wrapper .job-create-title-area input[type='text']:focus {
-    border: 1px solid #2196F3;
-    outline: none;
-    box-shadow: 0 0 5px 1px #2195f348;
-  }
-  /* 案件タイトル入力欄 end */
-  /* 案件開始・終了時間 start */
-  .job-create-wrapper .job-create-time-area {
-    width: 100%;
-    height: 100px; 
-    /* display: flex;
-    flex-direction: column; */
-    text-align: left;
-    /* display: inline-block; */
-  }
-  .job-create-wrapper .job-create-time-area input[type='date'] {
-    font: 16px/24px sans-serif;
-    box-sizing: border-box;
-    width: 40%;
-    display: flex;
-    padding: 0.3em;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    color: #111111;
-    border: 1px solid #A3A1A1;
-    border-radius: 4px;
-    padding: 0.5rem;
-    background-color: #EFEFEF;
-  }
-  .job-create-wrapper .job-create-time-area input[type='date']:focus {
-    border: 1px solid #2196F3;
-    outline: none;
-    box-shadow: 0 0 5px 1px #2195f348;
-  }
-  /* 案件開始時間 end */
-  /* 案件詳細入力欄 start */
-  .job-create-wrapper .job-create-detail-area {
-    width: 100%;
-    height: 200px; 
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  .job-create-wrapper .job-create-detail-area textarea[type='text'] {
-    font: 16px/24px sans-serif;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    padding: 0.3em;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    color: #111111;
-    border: 1px solid #A3A1A1;
-    border-radius: 4px;
-    padding: 0.5rem;
-    background-color: #EFEFEF;
-  }
-  .job-create-wrapper .job-create-detail-area textarea[type='text']:focus {
-    border: 1px solid #2196F3;
-    outline: none;
-    box-shadow: 0 0 5px 1px #2195f348;
-  }
-  /* 案件詳細入力欄 end */
-  .job-create-wrapper .job-create-btn-area {
-    width: 100px;
-    height: 100px; 
-    text-align: left;
-    margin-top: 1.5rem;
-    /* position: relative; */
-    background-color: yellow;
-  }
-  .job-create-wrapper .job-create-btn-area .next-btn {
-    text-align: left;
-    display: block;
-    padding: 1.1rem 4rem;
-    /* background-color: #2196F3; */
-    box-shadow:1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: linear-gradient(60deg,#1142e2,#19bde6);
-    border-radius: 25px;
-    border: none;
-    font-size: .875rem;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin: auto;
-    font-size: 1rem;
-    float: right;
-    margin-top: 1.5rem;
-    cursor: pointer;
-    transition: .3s;
-    /* position:absolute;
-    right: 0; */
-  }
-    .job-create-wrapper .job-create-btn-area .next-btn:hover {
-      box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685)
+  .job-create-wrapper {
+    .job-create-title-area {
+      width: 100%;
+      height: 100px;
+      text-align: left;
+
+      input[type='text'] {
+        @include input-border-color;
+        background-color: $sub-white;
+        color: $text-main-color;
+        font: 16px/24px sans-serif;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.3em;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        border-radius: 4px;
+        padding: 0.5rem;
+
+        &:focus {
+          @include form-hover;
+        }
+      }
     }
+
+    .job-create-time-area {
+      width: 100%;
+      height: 100px;
+      text-align: left;
+
+      input[type='date'] {
+        @include input-border-color;
+        background-color: $sub-white;
+        color: $text-main-color;
+        font: 16px/24px sans-serif;
+        box-sizing: border-box;
+        width: 40%;
+        display: flex;
+        padding: 0.3em;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        border-radius: 4px;
+        padding: 0.5rem;
+
+        &:focus {
+          @include form-hover;
+        }
+      }
+    }
+
+    .job-create-detail-area {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+
+      textarea[type='text'] {
+        @include input-border-color;
+        background-color: $sub-white;
+        color: $text-main-color;
+        font: 16px/24px sans-serif;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 0.3em;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        border-radius: 4px;
+        padding: 0.5rem;
+
+        &:focus {
+          @include form-hover;
+        }
+      }
+    }
+
+    .job-create-btn-area {
+      width: 100px;
+      height: 100px;
+      text-align: left;
+      margin-top: 1.5rem;
+
+      .next-btn {
+        @include box-shadow-btn;
+        @include blue-btn;
+        color: $basic-white;
+        text-align: left;
+        display: block;
+        padding: 1.1rem 4rem;
+        border-radius: 25px;
+        border: none;
+        font-size: .875rem;
+        font-weight: 600;
+        line-height: 1;
+        text-align: center;
+        max-width: 280px;
+        margin: auto;
+        font-size: 1rem;
+        float: right;
+        margin-top: 1.5rem;
+        cursor: pointer;
+        transition: .3s;
+
+        &:hover {
+          @include box-shadow-btn;
+        }
+      }
+    }
+  }
 }
 </style>

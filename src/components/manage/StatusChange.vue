@@ -94,61 +94,65 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .router {
   text-decoration: none;
-  color: #ffffff;
+  color: $basic-white;
 }
+
 /* ステータス変更 */
 .job-status-change-area {
+  @include card-border-color;
   width: 95%;
   height: 20%;
   border-radius: 20px;
   margin: 2rem 2rem 2rem 2rem;
-  background-color: #ffffff;
+  background-color: $basic-white;
   float: right;
-  border: solid 1px #B9B9B9;
   position: relative;
 }
+
 .status-change-top {
+  @include box-shadow-manage;
   width: 100%;
   height: 10%;
   padding: 0.8rem 0;
   border-radius: 15px 15px 0px 0;
-  background-color: #4A148C;
-  box-shadow: 0 0 10px #02020278;
-  color: #ffffff;
+  background-color: $secondary-color;
+  color: $basic-white;
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer;
 }
+
 .status-change-left {
   width: 30%;
   height: 40%;
   padding: 1rem 2rem;
   text-align: left;
 }
+
 .label {
   font-weight: bold;
 }
+
 .status-change-right {
   width: 30%;
   height: 40%;
   padding-top: 4.6rem;
   padding-right: 2rem;
-  /* background-color: yellow; */
   position: absolute;
   right: 0;
   top: 0;
 }
+
 .permit-btn {
-  /* display: block; */
+  @include red-btn ;
+  @include box-shadow-btn ;
   padding: 1rem 2.4rem;
-  background: linear-gradient(60deg,#1142e2,#19bde6);
-  box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;
@@ -157,13 +161,14 @@ export default {
   cursor: pointer;
   border: none;
 }
+
 .reject-btn {
+  @include blue-btn ;
+  @include box-shadow-btn ;
   padding: 1rem 2.4rem;
-  background: linear-gradient(60deg,#424242,#9E9E9E);
-  box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;
@@ -176,58 +181,64 @@ export default {
 
 /* セレクトボックス */
 .cp_ipselect {
-	overflow: hidden;
-	width: 90%;
-	margin: 0.2em 0;
-	text-align: center;
-}
-.cp_ipselect select {
-	width: 100%;
-	padding-right: 1em;
-	cursor: pointer;
-	text-indent: 0.01px;
-	text-overflow: ellipsis;
-	border: none;
-	outline: none;
-	background: transparent;
-	background-image: none;
-	box-shadow: none;
-	-webkit-appearance: none;
-	appearance: none;
-}
-.cp_ipselect select::-ms-expand {
-    display: none;
-}
-.cp_ipselect.cp_sl02 {
-	position: relative;
-	border: 1px solid #bbbbbb;
-	border-radius: 2px;
-	background: #ffffff;
-}
-.cp_ipselect.cp_sl02::before {
-	position: absolute;
-	top: 0.8em;
-	right: 0.9em;
-	width: 0;
-	height: 0;
-	padding: 0;
-	content: '';
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-top: 6px solid #666666;
-	pointer-events: none;
-}
-.cp_ipselect.cp_sl02:after {
-	position: absolute;
-	top: 0;
-	right: 2.5em;
-	bottom: 0;
-	width: 1px;
-	content: '';
-	border-left: 1px solid #bbbbbb;
-}
-.cp_ipselect.cp_sl02 select {
-	padding: 8px 38px 8px 8px;
-	color: #666666;
+  overflow: hidden;
+  width: 90%;
+  margin: 0.2em 0;
+  text-align: center;
+
+  select {
+    width: 100%;
+    padding-right: 1em;
+    cursor: pointer;
+    text-indent: 0.01px;
+    text-overflow: ellipsis;
+    border: none;
+    outline: none;
+    background: transparent;
+    background-image: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  &.cp_sl02 {
+    position: relative;
+    border: 1px solid #bbbbbb;
+    border-radius: 2px;
+    background: #ffffff;
+
+    &::before {
+      position: absolute;
+      top: 0.8em;
+      right: 0.9em;
+      width: 0;
+      height: 0;
+      padding: 0;
+      content: '';
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #666666;
+      pointer-events: none;
+    }
+
+    &:after {
+      position: absolute;
+      top: 0;
+      right: 2.5em;
+      bottom: 0;
+      width: 1px;
+      content: '';
+      border-left: 1px solid #bbbbbb;
+    }
+
+    select {
+      padding: 8px 38px 8px 8px;
+      color: $text-sub-color;
+    }
+  }
 }
 </style>

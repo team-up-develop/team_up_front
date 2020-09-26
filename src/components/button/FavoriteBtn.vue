@@ -71,57 +71,18 @@ export default {
 }
 </script>
 
-<style scoped>
-.btn-box-save{
-  display: block;
-  padding: 1.4rem 5rem;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
-  border-radius: 50px;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1.3rem;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-}
-.btn-box-save :hover {
-  background-color: red;
-  font-size: 100px;
-}
-.btn-box-save-false{
-  display: block;
-  padding: 1.4rem 5rem;
-  background: -moz-linear-gradient(top, #3d3d3d, #d4d4d4);
-  background: -webkit-linear-gradient(top, #3d3d3d, #d4d4d4);
-  background: linear-gradient(to bottom, #3d3d3d, #d4d4d4);
-  border-radius: 50px;
-  font-weight: 600;
-  color: #fff;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin: auto;
-  font-size: 1.3rem;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-}
+<style lang="scss" scoped>
 .icon {
   font-size: 30px;
   padding: 10px;
   width: 20px;
   height: 20px;
-  color: #ffffff;
+  color: $basic-white;
   cursor: pointer;
   background-color: #d8d6d6;
   border-radius: 5px / 5px;
 }
+
 .save-icon {
   font-size: 30px;
   padding: 10px;
@@ -131,6 +92,5 @@ export default {
   cursor: pointer;
   background-color: #d8d6d6;
   border-radius: 5px / 5px;
-
 }
 </style>

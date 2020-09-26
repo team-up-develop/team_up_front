@@ -99,7 +99,12 @@
       </div>
     </div>
     <div class="button-area">
-      <button class="edit-btn">編集する</button>
+      <div class="button-action-area" @click="registerRedirect">
+          <button class="btn-box-apply">応募する</button>
+        <div class="favorite-btn-area">
+          <font-awesome-icon icon="heart" class="icon"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -119,12 +124,7 @@ export default {
   data() {
     return {
       job: {},
-      // selfJobPost: false, //? 自分の案件かを判定
-      // loginFlag: false, //? ログインしているかを判定
-      // loading: false,
-      // applyFlug: true,
-      // modal: false,
-      // jobs: [],
+      jobs: [],
       assetsImage: GithubImage,
       assetsImage_NG: '@/assets/github.png',
       staticImage: '@/assets/github.png',
@@ -146,6 +146,10 @@ export default {
       })
   },
   methods: {
+    registerRedirect() {
+      alert("登録が必要です");
+      this.$router.push('/register');
+    },
     // * Twitter をタブで開く
     twitterTab() {
       axios.get(`${this.$httpPosts}/${this.id}/`)
@@ -195,11 +199,11 @@ export default {
   }
 
   .detail-tag {
+    color: $primary-color;
     text-align: left;
     font-size: 17px;
     font-weight: bold;
     margin-bottom: 0.7rem;
-    color: $primary-color;
   }
 
   /* 投稿者 カード中身 */
@@ -337,7 +341,7 @@ export default {
     margin: 0 auto 2rem auto;
 
     .skill-detail-area {
-      @include card-border-color ;
+      @include card-border-color;
       border-radius: 4px;
       padding: 1.5rem 4rem 1rem 4rem;
       margin-bottom: 2rem;
@@ -445,6 +449,7 @@ export default {
   .btn-box-apply {
     @include red-btn;
     @include box-shadow-btn;
+    color: $basic-white;
     position: absolute;
     left: 0;
     top: 0;
@@ -453,7 +458,6 @@ export default {
     transition: .3s;
     border-radius: 50px;
     font-weight: 600;
-    color: $basic-white;
     line-height: 1;
     text-align: center;
     margin: auto;
@@ -463,28 +467,8 @@ export default {
     border: none;
 
     &:hover {
-      @include red-btn-hover
+      @include red-btn-hover;
     }
-  }
-
-  /* 応募済みボタン */
-  .btn-box-apply-false {
-    @include grey-btn;
-    @include box-shadow-btn;
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: block;
-    padding: 1.2rem 4rem;
-    border-radius: 50px;
-    font-weight: 600;
-    color: $basic-white;
-    line-height: 1;
-    text-align: center;
-    width: 40%;
-    margin: auto;
-    font-size: 1.3rem;
-    display: inline-block;
   }
 
   .favorite-btn-area {
@@ -494,42 +478,15 @@ export default {
     width: 50%;
   }
 
-  /* モーダル内のキャンセルボタン */
-  .modal-btn {
-    @include blue-btn;
-    padding: 1rem 2.4rem;
-    border-radius: 50px;
-    font-weight: 600;
+  .icon {
+    font-size: 30px;
+    padding: 10px;
+    width: 38px;
+    height: 38px;
     color: $basic-white;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin-left: 1.2rem;
-    font-size: 1rem;
     cursor: pointer;
-    border: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 1rem;
-  }
-
-  .edit-btn {
-    display: block;
-    padding: 1.4rem 9rem;
-    background: linear-gradient(60deg, #424242, #9E9E9E);
-    box-shadow: 0 0px 5px 2px #d4d4d4;
-    border-radius: 50px;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    text-align: center;
-    max-width: 800px;
-    margin: auto;
-    font-size: 1.1rem;
-    display: inline-block;
-    cursor: pointer;
-    border: none;
+    background-color: #d8d6d6;
+    border-radius: 5px / 5px;
   }
 }
 </style>

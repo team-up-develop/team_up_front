@@ -31,7 +31,7 @@ export default {
       const params = {
         jobId: this.jobId,
         userId: 1,
-        applyStatusId: 1
+        applyStatusId: 1  
       };
       axios.post(`${this.$baseURL}/apply_job/`, params)
       .then(response => {
@@ -57,18 +57,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal-apply-area {
   width: 47%;
-  /* background-color: yellow; */
 }
-.btn-apply{
+
+.btn-apply {
+  @include red-btn ;
   display: block;
   padding: 1rem 3rem;
-  background-color: #E91E63;
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;
@@ -77,18 +77,18 @@ export default {
   display: inline-block;
   cursor: pointer;
 }
-.btn-box-apply :hover{
+
+.btn-box-apply :hover {
   font-size: 100px;
 }
+
 /* モーダル内のキャンセルボタン */
 .modal-btn {
+  @include blue-btn;
   padding: 1rem 2.4rem;
-  background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-  background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
   border-radius: 50px;
   font-weight: 600;
-  color: #fff;
+  color: $basic-white;
   line-height: 1;
   text-align: center;
   max-width: 280px;

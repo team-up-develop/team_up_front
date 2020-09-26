@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal-overlay {
   display: flex;
   align-items: center;
@@ -32,22 +32,26 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.101);
+  background: $modal-background;
+
   /* font-weight: bold; */
 }
+
 .modal-window {
-  background: #fff;
+  background: $basic-white;
   width: 90%;
   height: 90%;
   border-radius: 8px;
   overflow: hidden;
 }
+
 .modal-content {
   padding: 2rem 4rem;
   width: 40vw;
   height: 64vh;
   text-align: left;
 }
+
 .modal-footer {
   /* background: #ccc; */
   width: 100%;
@@ -59,9 +63,9 @@ export default {
 }
 
 .modal-enter-active, .modal-leave-active {
-transition: opacity 0.4s;
-
+  transition: opacity 0.4s;
 }
+
 .modal-enter-active, .modal-window {
   transition: opacity 0.4s, transform 0.4s;
 }
@@ -72,10 +76,9 @@ transition: opacity 0.4s;
 
 .modal-enter, .modal-leave-to {
   opacity: 0;
-
 }
 
-.modal-enter,  .modal-window {
-    transform: translateY(-20px);
+.modal-enter, .modal-window {
+  transform: translateY(-20px);
 }
 </style>

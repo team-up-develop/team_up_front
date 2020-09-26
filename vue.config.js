@@ -4,4 +4,13 @@ module.exports = {
     host: '0.0.0.0',
     disableHostCheck: false,
   },
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `
+          @import "@/assets/scss/_variables.scss";
+        `
+      }
+    }
+  }
 };
