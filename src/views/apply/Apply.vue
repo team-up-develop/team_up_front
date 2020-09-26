@@ -61,7 +61,8 @@ export default {
     return {
       applyJobs: [],
       loginFlag: false,
-      applyJobArray: []
+      applyJobArray: [],
+      userId: Number(localStorage.userId)
     }
   },
   filters: {
@@ -78,20 +79,18 @@ export default {
     },
   },
   mounted() {
-    // * 現時点はuser_id を指定して入れている
-    if( localStorage.userId !== undefined) {
-      this.loginFlag = true
-      axios.get(`${this.$baseURL}/apply_job/?user_id=1`)
-      .then(response => {
-        this.applyJobs = response.data
-        for(var i = 0; i < this.applyJobs.length; i++) {
-          var applyJobCorrect = this.applyJobs[i];
-          if(applyJobCorrect.applyStatusId === 2) {
-            this.applyJobArray.push(applyJobCorrect)
-          }
+    // * 応募 or 参加案件を取得
+    this.loginFlag = true
+    axios.get(`${this.$baseURL}/apply_job/?user_id=${this.userId}`)
+    .then(response => {
+      this.applyJobs = response.data
+      for(var i = 0; i < this.applyJobs.length; i++) {
+        var applyJobCorrect = this.applyJobs[i];
+        if(applyJobCorrect.applyStatusId === 1 || applyJobCorrect.applyStatusId === 2) {
+          this.applyJobArray.push(applyJobCorrect)
         }
-      })
-    }
+      }
+    })
   },
 }
 </script>

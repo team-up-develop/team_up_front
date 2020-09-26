@@ -328,9 +328,13 @@ export default {
         axios.get(`http://localhost:8888/api/v1/apply_job/?user_id=${ this.userId }`)
         .then(response => {
           const arrayApply = []
+          console.log(response.data)
           for(let c = 0; c < response.data.length; c++){
             const applyData = response.data[c];
-            arrayApply.push(applyData.id)
+            // console.log(applyData);
+            arrayApply.push(applyData.job.id)
+            // console.log(arrayApply)
+            // console.log(this.jobDetail.id)
           }
           if(arrayApply.includes(this.jobDetail.id)) {
             this.applyFlug = false
@@ -420,15 +424,22 @@ export default {
     display: inline-block;
 
     .search-modal-btn {
+      @include card-border-color;
+      color: $text-sub-color;
+      background-color: $basic-white;
       margin-top: 0.4rem;
       padding: 0.5rem 2rem;
-      border: solid 1px #BDC7C5;
-      color: #666666;
-      background-color: $basic-white;
       border-radius: 50rem;
       cursor: pointer;
       font-weight: bold;
       margin-left: 0.7rem;
+      transition: .3s;
+
+      &:hover {
+        @include primary-border_color;
+        color: $primary-color;
+        transition: .3s;
+      }
     }
 
     .search-freewrod-box {
@@ -643,12 +654,7 @@ export default {
     transition: .3s;
 
     &:hover {
-      @include red-btn;
-      color: #F8FAFF;
-      appearance: none;
-      border: none;
-      box-shadow: 0 5px 20px -3px #CD106E;
-      transition: .3s;
+      @include red-btn-hover;
     }
   }
 
@@ -659,7 +665,7 @@ export default {
     padding: 0.75rem 3rem;
     border-radius: 8px;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
     max-width: 280px;
@@ -676,7 +682,7 @@ export default {
     padding: 1rem 2.4rem;
     border-radius: 50px;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
     max-width: 280px;
@@ -696,7 +702,7 @@ export default {
     padding: 10px;
     width: 20px;
     height: 20px;
-    color: #ffffff;
+    color: $basic-white;
     cursor: pointer;
     background-color: #d8d6d6;
     border-radius: 5px / 5px;
@@ -722,7 +728,7 @@ export default {
     margin-bottom: 0.2rem;
     bottom: 0;
     border-radius: 8px;
-    color: #111111;
+    color: $text-main-color;
     text-align: left;
   }
 
@@ -779,7 +785,7 @@ export default {
     padding: 1rem 2rem;
     border-radius: 8px;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
     margin: auto;

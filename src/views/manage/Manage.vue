@@ -59,7 +59,8 @@ export default {
   data() {
     return {
       manageJobs: [],
-      loginFlag: false
+      loginFlag: false,
+      userId: Number(localStorage.userId)
     }
   },
   filters: {
@@ -78,14 +79,12 @@ export default {
     },
   },
   mounted() {
-    if( localStorage.userId !== undefined) {
-      this.loginFlag = true
-      axios.get(`${this.$baseURL}/job/?user_id=1`)
-      .then(response => {
-        // console.log(response.data)
-        this.manageJobs = response.data
-      })
-    }
+    this.loginFlag = true
+    axios.get(`${this.$baseURL}/job/?user_id=${this.userId}`)
+    .then(response => {
+      // console.log(response.data)
+      this.manageJobs = response.data
+    })
   }
 }
 </script>

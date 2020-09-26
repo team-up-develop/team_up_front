@@ -249,14 +249,11 @@ export default {
 @media screen and (max-width: 1440px) {
   .router {
     text-decoration: none;
-    color: #FFFFFF;
+    color: $basic-white;
   }
 
   .detail-wrapper {
     width: 85%;
-
-    /* background-color: #F2F6F7; */
-    /* background-color: #F2F6F7; */
     padding: 3.5rem 0rem;
     margin: 0 auto;
 
@@ -274,14 +271,13 @@ export default {
     font-size: 17px;
     font-weight: bold;
     margin-bottom: 0.7rem;
-    color: #2196F3;
+    color: $primary-color;
   }
 
   /* 投稿者 カード中身 */
   .detail-wrapper .detail-post-user-area .post-user-area {
-    background-color: rgb(255, 255, 255);
+    @include card-border-color;
     border-radius: 4px;
-    border: 1px solid #B9B9B9;
     padding: 2rem 4rem;
     margin-bottom: 2rem;
     position: relative;
@@ -294,15 +290,9 @@ export default {
       height: 100%;
 
       .user-image {
+        @include user-image;
         width: 130px;
         height: 130px;
-        -moz-border-radius: 60px;
-        -webkit-border-radius: 60px;
-        border-radius: 60px;
-        box-shadow: 0 0 0 3px #2196F3;
-        -webkit-box-shadow: 0 0 0 3px #2196F3;
-        -moz-box-shadow: 0 0 0 3px #2196F3;
-        border-radius: 50%;
       }
     }
 
@@ -322,7 +312,6 @@ export default {
     }
   }
 
-  /* ユーザー画像  end*/
   /* ユーザー 詳細情報 start */
   .user-profile-area {
     .user-name-are {
@@ -420,9 +409,8 @@ export default {
     margin: 0 auto 2rem auto;
 
     .skill-detail-area {
-      background-color: rgb(255, 255, 255);
+      @include card-border-color ;
       border-radius: 4px;
-      border: 1px solid #B9B9B9;
       padding: 1.5rem 4rem 1rem 4rem;
       margin-bottom: 2rem;
       position: relative;
@@ -443,47 +431,18 @@ export default {
     .lang-box {
       width: 95%;
       text-align: left;
-
-      /* height: 200px; */
       padding: 10px 20px 30px 0;
 
       .skill-tag {
-        margin-top: 1rem;
-        padding: 0.5rem 1rem;
-        border-radius: 5px / 5px;
-        margin-right: 10px;
-        color: #3700B3;
-        display: inline-block;
-        border: 1px solid #3700B3;
-        text-align: center;
-        font-weight: bold;
-        font-size: 14px;
+        @include detail-language;
       }
 
       .flame-tag {
-        margin-top: 1rem;
-        padding: 0.5rem 1rem;
-        border-radius: 5px / 5px;
-        margin-right: 10px;
-        color: #2196F3;
-        display: inline-block;
-        border: 1px solid #2196F3;
-        text-align: center;
-        font-weight: bold;
-        font-size: 14px;
+        @include detail-framework;
       }
 
       .other-tag {
-        margin-top: 1rem;
-        padding: 0.5rem 1rem;
-        border-radius: 5px / 5px;
-        margin-right: 10px;
-        color: #00BCD4;
-        display: inline-block;
-        border: 1px solid #00BCD4;
-        text-align: center;
-        font-weight: bold;
-        font-size: 14px;
+        @include detail-skill;
       }
     }
   }
@@ -497,9 +456,8 @@ export default {
     margin: 0 auto;
 
     .dev-detail-area {
-      background-color: rgb(255, 255, 255);
+      @include card-border-color;
       border-radius: 4px;
-      border: 1px solid #B9B9B9;
       padding: 1rem 4rem 1rem 4rem;
       margin-bottom: 2rem;
       position: relative;
@@ -522,25 +480,17 @@ export default {
 
   .tag {
     font-weight: bold;
-
-    /* display: inline-block; */
   }
 
   .detail-information .sub-area {
-    /* width: 88%; */
-    /* position: absolute; */
     right: 0;
     font-size: 14px;
-
-    /* display: inline-block; */
   }
 
   .dev-detail-area .detail-right-area {
     line-height: 1.8;
     width: calc(50% - 5rem);
     display: inline-block;
-
-    /* position: absolute; */
     top: 0;
     padding: 2.5rem 5rem 0 0;
   }
@@ -565,21 +515,19 @@ export default {
 
   /* 応募するボタン */
   .btn-box-apply {
+    @include red-btn;
+    @include box-shadow-btn;
     position: absolute;
     left: 0;
     top: 0;
     width: 60%;
     padding: 1.2rem 4rem;
-    background: linear-gradient(60deg, #D81B60, #EC407A);
-    box-shadow: 0 0px 10px 5px #d4d4d4;
     transition: .3s;
     border-radius: 50px;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
-
-    /* max-width: 620px; */
     margin: auto;
     font-size: 1.3rem;
     display: inline-block;
@@ -587,33 +535,22 @@ export default {
     border: none;
 
     &:hover {
-      background: linear-gradient(60deg, #D81B60, #EC407A);
-      color: #F8FAFF;
-      appearance: none;
-      border: none;
-      box-shadow: 0 5px 20px -3px #CD106E;
-
-      /* background: -moz-linear-gradient(top, #8C1BAB, #F761A1); */
-      /* background: -webkit-linear-gradient(top, #8C1BAB, #F761A1); */
-      /* background: linear-gradient(to bottom, #8C1BAB, #F761A1); */
-      transition: .3s;
-
-      /* box-shadow:1px 1px 5px rgba(0, 0, 0, 0.685); */
+      @include red-btn-hover
     }
   }
 
   /* 応募済みボタン */
   .btn-box-apply-false {
+    @include grey-btn;
+    @include box-shadow-btn;
     position: absolute;
     left: 0;
     top: 0;
     display: block;
     padding: 1.2rem 4rem;
-    background: linear-gradient(60deg, #424242, #9E9E9E);
-    box-shadow: 0 0px 10px 5px #d4d4d4;
     border-radius: 50px;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
     width: 40%;
@@ -631,13 +568,11 @@ export default {
 
   /* モーダル内のキャンセルボタン */
   .modal-btn {
+    @include blue-btn;
     padding: 1rem 2.4rem;
-    background: -moz-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: -webkit-linear-gradient(top, #1f5ae8, #2ac1df);
-    background: linear-gradient(to bottom, #1f5ae8, #2ac1df);
     border-radius: 50px;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
     max-width: 280px;
