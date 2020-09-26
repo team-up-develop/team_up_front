@@ -104,6 +104,7 @@ export default {
       favoriteUsers: [], //? お気に入りしているユーザー一覧
       favoriteUsersNum: 0, //? お気に入りしているユーザー 人数
       manageJobs: [], //? 管理
+      userId: this.$store.state.auth.userId
     }
   },
   filters: {
@@ -142,29 +143,11 @@ export default {
       this.favoriteUsers = response.data
       this.favoriteUsersNum = this.favoriteUsers.length
     })
-      // for(let i = 0; i < response.data.length; i++){
-      //   const applyData = response.data[i];
-      //   // console.log(applyData)
-      //   if(applyData.applyStatusId === 1){
-      //     this.applyUsers.push(applyData)
-      //     this.applyUsersNum = this.applyUsers.length;
-      //   }
-      //   else if(applyData.applyStatusId === 2){
-      //     this.assginUsers.push(applyData)
-      //     this.assginUsersNum = this.assginUsers.length;
-      //   }
-      //   else {
-      //     this.rejectUsers.push(applyData)
-      //     this.rejectUsersNum = this.rejectUsers.length;
-      //   }
-    //   }
-    // })
-    
   },
   mounted() {
-    if( localStorage.userId !== undefined) {
+    if( this.userId!== undefined) {
       this.loginFlag = true
-      axios.get(`${this.$baseURL}/job/?user_id=1`)
+      axios.get(`${this.$baseURL}/job/?user_id=${this.userId}`)
       .then(response => {
         this.manageJobs = response.data
       })

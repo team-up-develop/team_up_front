@@ -182,7 +182,7 @@ export default {
       var devEndDate = toDate(devEnd, '-');
 
       const params = {
-        userId: Number(localStorage.userId), //? ログインUserId
+        userId: this.$store.state.auth.userId, //? ログインUserId
         jobTitle : jobTitle,  //? タイトル
         jobDescription: jobDescription, //? 詳細
         devStartDate: devStartDate,  //? 開始日

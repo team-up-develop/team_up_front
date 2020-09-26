@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      userId: null,
+      userId: this.$store.state.auth.userId,
       // assetsImage: LogoImage,
       // assetsImage_NG: '.../assets/logo.jpg',
       // staticImage: '.../assets/logo.jpg',
@@ -74,8 +74,9 @@ export default {
     }
   },
   created() {
-    if( localStorage.userId !== undefined) {
-      this.userId = localStorage.userId;
+    if( this.userId !== undefined) {
+      // this.userId = this.$store.state.auth.userId;
+      console.log(this.userId)
     }
   }
 }

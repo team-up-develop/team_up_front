@@ -60,7 +60,7 @@ export default {
     return {
       manageJobs: [],
       loginFlag: false,
-      userId: Number(localStorage.userId)
+      userId: this.$store.state.auth.userId
     }
   },
   filters: {

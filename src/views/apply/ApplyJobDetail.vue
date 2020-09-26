@@ -148,7 +148,7 @@ export default {
       assetsImage: GithubImage,
       assetsImage_NG: '@/assets/github.png',
       staticImage: '@/assets/github.png',
-      userId: Number(localStorage.userId)
+      userId: this.$store.state.auth.userId
     }
   },
   filters: {
