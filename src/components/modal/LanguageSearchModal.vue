@@ -32,13 +32,13 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.637);
+  background: $modal-background;
 
   /* font-weight: bold; */
 }
 
 .modal-window {
-  background: #fff;
+  background: $basic-white;
   border-radius: 8px;
   overflow: hidden;
 }

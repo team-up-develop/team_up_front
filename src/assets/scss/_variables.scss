@@ -1,13 +1,17 @@
 // * color
+// ? basic
 $basic-white: #ffffff;
 $sub-white: #EFEFEF;
-$text-main-color: #111111;
-$text-sub-color: #666666;
 $primary-color: #2196F3;
 $secondary-color: #4A148C;
-$tertiary-color: #00d0ff;
+$tertiary-color: #1142e2;
 $error-message-color: #f44336;
+$modal-background: rgba(0, 0, 0, 0.637);
 
+// ? text
+$text-main-color: #111111;
+$text-sub-color: #666666;
+// *user-image 
 @mixin user-image {
   -moz-border-radius: 60px;
   -webkit-border-radius: 60px;

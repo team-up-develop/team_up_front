@@ -102,7 +102,7 @@ export default {
   }
 
   text-decoration: none;
-  color: #ffffff;
+  color: $basic-white;
 }
 
 .manage-wrapper {
@@ -110,20 +110,17 @@ export default {
   height: 89.5vh;
   margin: 0 auto;
 
-  /* background-color: #F2F6F7; */
-
   .job-manage-wrapper {
+    @include card-border-color;
     width: 95%;
     height: calc(90vh - 5rem);
     border-radius: 20px;
     margin: 2rem 2rem;
-    background-color: #ffffff;
+    background-color: $basic-white;
     float: right;
-    border: solid 1px #B9B9B9;
     position: relative;
     font-size: 14px;
 
-    /* padding: 0rem 4rem; */
 
     .manage-job-area {
       width: 33.2%;
@@ -132,23 +129,21 @@ export default {
       border-radius: 20px 0 0 0;
       background-color: #606060;
       display: inline-block;
-      color: #ffffff;
+      color: $basic-white;
       font-weight: bold;
       transition: .3s;
     }
 
     .apply-job-area {
+      @include box-shadow-manage ;
       width: 33.2%;
       height: calc(68px - 1.6rem);
       padding: 0.8rem 0;
-
-      /* border-radius: 20px 0 0 0 ; */
       background-color: #606060;
       display: inline-block;
-      background-color: #4A148C;
-      box-shadow: 0 0 10px #02020278;
-      color: #ffffff;
-      border: 0.5px solid #ffffff;
+      background-color: $secondary-color;
+      color: $basic-white;
+      border: 0.5px solid $basic-white;
       font-weight: bold;
       transition: .3s;
     }
@@ -160,7 +155,7 @@ export default {
       border-radius: 0 20px 0 0;
       background-color: #606060;
       display: inline-block;
-      color: #ffffff;
+      color: $basic-white;
       font-weight: bold;
     }
   }
@@ -170,11 +165,9 @@ export default {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background-color: #4A148C;
-
-  /* box-shadow: 0 0 10px #02020278; */
+  background-color: $secondary-color;
   display: inline-block;
-  color: #ffffff;
+  color: $basic-white;
   font-weight: bold;
 }
 
@@ -182,13 +175,11 @@ export default {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #ffffff;
-  background-color: #4A148C;
-
-  /* box-shadow: 0 0 10px #02020278; */
+  border-left: 1px solid $basic-white;
+  border-right: 1px solid $basic-white;
+  background-color: $secondary-color;
   display: inline-block;
-  color: #ffffff;
+  color: $basic-white;
   font-weight: bold;
 }
 
@@ -196,11 +187,9 @@ export default {
   width: 33.2%;
   height: calc(48px - 1.8rem);
   padding: 0.8rem 0;
-  background-color: #4A148C;
-
-  /* box-shadow: 0 0 10px #02020278; */
+  background-color: $secondary-color;
   display: inline-block;
-  color: #ffffff;
+  color: $basic-white;
   font-weight: bold;
 }
 
@@ -208,12 +197,10 @@ export default {
   width: 33.2%;
   height: 70%;
   display: inline-block;
-
-  /* background-color: yellow; */
 }
 
 .router :hover {
-  background-color: rgba(199, 199, 199, 0.281);
+  background-color: $manage-hover-color;
 }
 
 .job-wrapper-area {
@@ -230,7 +217,7 @@ export default {
     border-bottom: 1px solid #9c9c9c;
     height: calc(48px - 1.6rem);
     padding: 0.8rem 0;
-    color: #111111;
+    color: $text-main-color;
     display: inline-block;
     pointer-events: none;
   }
