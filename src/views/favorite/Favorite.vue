@@ -63,7 +63,7 @@ export default {
       favoriteJobs: [],
       loginFlag: false,
       // loading: true
-      userId: Number(localStorage.userId)
+      userId: this.$store.state.auth.userId
     }
   },
   filters: {
@@ -81,8 +81,8 @@ export default {
     },
   },
   mounted() {
-    // * 現時点はuser_id を指定して入れている
-    if( localStorage.userId !== undefined) {
+    // * 保存している案件を取得
+    if( this.userId!== undefined) {
       this.loginFlag = true
       axios.get(`${this.$baseURL}/favorite_job/?user_id=${this.userId}`)
       .then(response => {

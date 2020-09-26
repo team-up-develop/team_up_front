@@ -18,8 +18,7 @@ const mutations = {
   // * localStorageにuserIdを保存し、判定する
   createLocalStorage(state, userId) {
     state.userId = userId
-    localStorage.userId = state.userId //? ローカルストレージ
-    // console.log(localStorage.loginName)
+    // localStorage.userId = state.userId //? ローカルストレージ
   }
 }
 

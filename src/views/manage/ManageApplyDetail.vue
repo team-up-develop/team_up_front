@@ -94,6 +94,7 @@ export default {
       favoriteUsers: [], //? お気に入りしているユーザー一覧
       favoriteUsersNum: 0, //? お気に入りしているユーザー 人数
       manageJobs: [], //? 管理
+      userId: this.$store.state.auth.userId
     }
   },
   filters: {
@@ -135,9 +136,9 @@ export default {
     })
   },
   mounted() {
-    if( localStorage.userId !== undefined) {
+    if( this.userId!== undefined) {
       this.loginFlag = true
-      axios.get(`${this.$baseURL}/job/?user_id=1`)
+      axios.get(`${this.$baseURL}/job/?user_id=${this.userId}`)
       .then(response => {
         this.manageJobs = response.data
       })

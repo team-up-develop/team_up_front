@@ -234,8 +234,8 @@ export default {
       .then(response => {
           this.languages = response.data
       })
-    // * ローカルストレージの値をログイン判定できるように格納
-    this.userId = localStorage.userId
+    // * stateの値をログイン判定できるように格納
+    this.userId = this.$store.state.auth.userId
     if(!this.userId) {
       this.entryRedirect = true //* 非ログイン時表示に
     }
@@ -258,7 +258,7 @@ export default {
         array.push(queryParams)
       }
       var result = array.join('');
-      console.log( result );
+      // console.log( result );
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
         .then(response => {
           this.jobs = response.data
@@ -382,6 +382,9 @@ export default {
     closeLangSearchModal() {
       this.searchModal = false;
     }
+  },
+  mounted() {
+    // console.log($store.state.auth.userId )
   },
   components: {
     Loading,
