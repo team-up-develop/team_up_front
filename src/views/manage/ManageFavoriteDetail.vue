@@ -99,6 +99,7 @@ export default {
       refusalUser: [], //? 拒否する
       manageJobs: [], //? 管理
       assginUsersId: null,
+      userId: this.$store.state.auth.userId
     }
   },
   filters: {
@@ -140,9 +141,9 @@ export default {
     })
   },
   mounted() {
-    if( localStorage.userId !== undefined) {
+    if(this.userId !== undefined) {
       this.loginFlag = true
-      axios.get(`${this.$baseURL}/job/?user_id=1`)
+      axios.get(`${this.$baseURL}/job/?user_id=${this.userId}`)
       .then(response => {
         this.manageJobs = response.data
       })

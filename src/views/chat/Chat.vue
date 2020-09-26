@@ -18,14 +18,14 @@ export default {
     return {
       chatGroups: [],
       loginFlag: false,
-      userId: Number(localStorage.userId)
+      userId: this.$store.state.auth.userId
     }
   },
   mounted() {
     this.$store.dispatch('clearLocalStorage', {
     })
     // * 参加案件のみを取得する
-    if( localStorage.userId !== undefined) {
+    if(this.$store.state.auth.userId !== undefined) {
       this.loginFlag = true
       axios.get(`${this.$baseURL}/apply_job/?user_id=${ this.userId }`)
       .then(response => {
