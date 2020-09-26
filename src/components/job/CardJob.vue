@@ -75,101 +75,108 @@ export default {
 
 <style lang="scss" scoped>
 .job-cards {
-  @include job_cards;
-}
+  width: 97%;
+  height: 292px;
+  margin: 10px 0.5%;
+  border: solid 1px $card-border-color;
+  background-color: $basic-white;
+  border-radius: 8px;
+  transition: .3s;
+  color: $text-main-color;
 
-.job-cards-top {
-  width: calc(100% - 60px);
-  height: calc(30% - 60px);
-  text-align: left;
-  padding: 2rem 2rem 1rem 1.5rem;
-  font-weight: bold;
-  pointer-events: none;
-  font-size: 18px;
-  text-decoration: underline;
-}
-
-.job-cards-center {
-  width: calc(100% - 40px);
-  height: calc(35% - 20px);
-  padding: 10px 1.5rem 0 1.5rem;
-  text-align: left;
-  pointer-events: none;
-}
-
-.job-cards-bottom {
-  width: calc(100% - 50px);
-  height: calc(38% - 20px);
-  padding: 10px 25px;
-  pointer-events: none;
-  margin-top: 0.2rem;
-
-  .product-start-end {
-    width: 100%;
-    height: 40%;
+  .job-cards-top {
+    width: calc(100% - 60px);
+    height: calc(30% - 60px);
     text-align: left;
+    padding: 2rem 2rem 1rem 1.5rem;
+    font-weight: bold;
     pointer-events: none;
-
-    /* font-weight: bold; */
-
-    .product-start-end-tag {
-      display: inline-block;
-      pointer-events: none;
-      font-size: 14px;
-    }
-
-    .product-start-end-time {
-      display: inline-block;
-      padding: 0 20px;
-      pointer-events: none;
-      font-size: 14px;
-    }
+    font-size: 18px;
+    text-decoration: underline;
   }
 
-  .post-user-area {
-    width: 100%;
-    height: 60%;
+  .job-cards-center {
+    width: calc(100% - 40px);
+    height: calc(35% - 20px);
+    padding: 10px 1.5rem 0 1.5rem;
     text-align: left;
     pointer-events: none;
+  }
 
-    /* font-weight: bold; */
+  .job-cards-bottom {
+    width: calc(100% - 50px);
+    height: calc(38% - 20px);
+    padding: 10px 25px;
+    pointer-events: none;
+    margin-top: 0.2rem;
 
-    .post-user-image {
-      width: 55px;
-      height: 100%;
-      border-radius: 50%;
-      -moz-border-radius: 60px;
-      -webkit-border-radius: 60px;
-      border-radius: 60px;
-      box-shadow: 0 0 0 3px $primary-color;
-      -webkit-box-shadow: 0 0 0 3px $primary-color;
-      -moz-box-shadow: 0 0 0 3px $primary-color;
-      display: inline-block;
+    .product-start-end {
+      width: 100%;
+      height: 40%;
+      text-align: left;
       pointer-events: none;
+
+      /* font-weight: bold; */
+
+      .product-start-end-tag {
+        display: inline-block;
+        pointer-events: none;
+        font-size: 14px;
+      }
+
+      .product-start-end-time {
+        display: inline-block;
+        padding: 0 20px;
+        pointer-events: none;
+        font-size: 14px;
+      }
     }
 
-    .post-user-name-area {
-      display: inline-block;
-      width: 50%;
-
-      /* background-color: yellow; */
+    .post-user-area {
+      width: 100%;
       height: 60%;
-      padding: 0.1rem 1rem;
-      position: relative;
+      text-align: left;
       pointer-events: none;
-      font-size: 14px;
 
-      .post-user-name {
-        position: absolute;
-        top: 0;
+      /* font-weight: bold; */
+
+      .post-user-image {
+        width: 55px;
+        height: 100%;
+        border-radius: 50%;
+        -moz-border-radius: 60px;
+        -webkit-border-radius: 60px;
+        border-radius: 60px;
+        box-shadow: 0 0 0 3px $primary-color;
+        -webkit-box-shadow: 0 0 0 3px $primary-color;
+        -moz-box-shadow: 0 0 0 3px $primary-color;
+        display: inline-block;
         pointer-events: none;
+      }
+
+      .post-user-name-area {
+        display: inline-block;
+        width: 50%;
+
+        /* background-color: yellow; */
+        height: 60%;
+        padding: 0.1rem 1rem;
+        position: relative;
+        pointer-events: none;
+        font-size: 14px;
+
+        .post-user-name {
+          position: absolute;
+          top: 0;
+          pointer-events: none;
+        }
       }
     }
   }
-}
-
-.job-cards-top-responsive {
-  display: none;
+  // レスポンシブ時
+  .job-cards-top-responsive {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 999px) {

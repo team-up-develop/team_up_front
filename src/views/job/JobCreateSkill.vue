@@ -51,51 +51,15 @@
       </div>
       <div class="job-create-area">
         <label for="name" class="label">募集人数</label><label for="name" class="label-required">必須</label>
-        <!-- <label v-if="recruitNumberErrors.length" class="error-label">
-          <p v-for="recruitNumberError in recruitNumberErrors" :key="recruitNumberError" class="error-message">
-            {{ recruitNumberError }}</p>
-        </label> -->
         <div class="job-create-radio">
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="0">未定</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="1">1人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="2">2人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="3">3人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="4">4人</label>
-        <!-- <p>{{ recruitNumber }}</p> -->
+        <!-- <p>Selected 開発メンバー {{ recruitNumber }} 人</p> -->
       </div>
       </div>
-      <!-- <select v-model="selectedCommunication" class="">
-        <option disabled value="" class="">コミュニケーションツール</option>
-        <option v-for="communication in communicationToolId" v-bind:value="communication.id" v-bind:key="communication.id">
-          {{ communication.name }}
-        </option>
-      </select>
-      <span>コミュニケーションツール: {{ selectedCommunication }}</span> -->
-
-        <!-- <select v-model="selectedPosition" class="position" multiple>
-          <option disabled value="" class="position">担当</option>
-          <option v-for="position in positions " v-bind:value="{ id:position.id }" v-bind:key="position.id">
-            {{ position.positionTagName }}
-          </option>
-        </select>
-        <h1>Selected ポジション:{{ selectedPosition }}</h1> -->
-
-        <!-- <select v-model="selectedFramwork" class="position" multiple>
-          <option disabled value="" class="position">フレームワーク</option>
-          <option v-for="framwork in framworks" v-bind:value="{ id: framwork.id }" v-bind:key="framwork.id">
-            {{ framwork.programingFrameworkName }}
-          </option>
-        </select>
-        <h1>Selected フレームワーク: {{ selectedFramwork }}</h1>
-
-        <select v-model="selectedSkill" class="position" multiple>
-          <option disabled value="" class="position">その他技術</option>
-          <option v-for="skill in skills" v-bind:value="{id: skill.id}" v-bind:key="skill.id">
-            {{ skill.skillName }}
-          </option>
-        </select>
-        <h1>Selected その他スキル: {{ selectedSkill }}</h1>
-      <br><br> -->
       <div class="button-are">
         <button @click="createJob" class="post-job-btn">案件投稿する</button>
         <router-link to='/jobcreate' class="post-job-back">
@@ -117,9 +81,6 @@ export default {
       languages: [],
       selectedFramwork: [], //? フレームワーク
       framworks: [],
-      // selectedPosition: [], //? 開発ポジション
-      // positionTag: [], //? 開発ポジション
-      // positions: [],
       selectedSkill: [], //? その他開発スキル
       skills: [],
       selectedCommunication: 0, //? コミュニケーションツール
@@ -128,11 +89,10 @@ export default {
         { id: 2, name: 'Skype' },
         { id: 3, name: 'ChatWork' }
       ],
-      recruitNumber: 0,
-      selectedLangErrors: [],
-      selectedFramworkErrors: [],
-      selectedSkillErrors: [],
-      // recruitNumberErrors: []
+      recruitNumber: 0, //? メンバー人数
+      selectedLangErrors: [], //?言語入力エラー
+      selectedFramworkErrors: [], //?フレームワーク入力エラー
+      selectedSkillErrors: [], //?その他スキル入力エラー
     }
   },
   mounted() {
@@ -149,12 +109,6 @@ export default {
           this.framworks = response.data
           // console.log(this.framworks)
       })
-    // // * 開発ポジション
-    // axios.get(`${this.$baseURL}/position_tag`)
-    //   .then(response => {
-    //       this.positions = response.data
-    //       // console.log(this.positions)
-    //   })
     // * その他スキル
     axios.get(`${this.$baseURL}/skill`)
       .then(response => {
@@ -171,7 +125,7 @@ export default {
         this.selectedLangErrors = [];
         this.selectedFramworkErrors = [];
         this.selectedSkillErrors = [];
-        // this.recruitNumberErrors = [];
+
         if(this.selectedLang.length == 0){
           this.selectedLangErrors.push("開発言語を選択してください");
           this.selectedLang = [];
@@ -184,11 +138,7 @@ export default {
           this.selectedSkillErrors.push("開発その他スキルを選択してください");
           this.selectedSkill = [];
         } 
-        // if(!this.recruitNumber){
-        //   console.log('aaaaaaaaaaaaaaaaaaaaa')
-        //   this.recruitNumberErrors.push("募集人数を選択してください");
-        //   this.recruitNumber = [];
-        // } 
+
         return error;
       }
 
@@ -237,13 +187,10 @@ export default {
         jobDescription: jobDescription, //? 詳細
         devStartDate: devStartDate,  //? 開始日
         devEndDate: devEndDate, //? 終了日
-        // publicationPeriod: this.publicationPeriod,  //? 掲載終了
-        // communicationToolId: this.selectedCommunication, //? コミュニケーションツール
         programingLanguage: languageArray,  //? プログラミング言語
-        // positionTag: this.selectedPosition , //? 開発ポジション
         programingFramework: framworksArray , //? フレームワーク
         skill: skillArray, //? その他開発スキル,
-        recruitmentNumbers: recruitNum //募集人数
+        recruitmentNumbers: recruitNum //?募集人数
       };
       console.log(params)
       axios.post(`${this.$baseURL}/job`, params)
@@ -277,18 +224,14 @@ export default {
     width: 85%;
     height: 90vh;
     margin: 0 auto;
-
-    /* background-color: #3dc1e2; */
     position: relative;
 
     .job-create-wrapper {
+      @include card-border-color;
+      background-color: $basic-white;
       width: calc(100% - 5rem);
       border-radius: 20px;
       margin: 2rem 0rem;
-      background-color: #ffffff;
-
-      /* float: right; */
-      border: solid 1px #B9B9B9;
       padding: 2.5rem;
       position: absolute;
       right: 0;
@@ -311,12 +254,10 @@ export default {
   }
 
   .label-required {
-    color: #ffffff;
-    background-color: #f44336;
+    color: $basic-white;
+    background-color: $error-message-color;
     font-size: 12px;
     font-weight: bold;
-
-    /* background-color: #19bde6; */
     border-radius: 25px;
     padding: 0.25rem 0.9rem;
     text-align: center;
@@ -325,7 +266,7 @@ export default {
 
   .error-label {
     display: inline-block;
-    color: #DD2476;
+    color: $error-message-color;
     list-style: none;
     font-weight: bold;
   }
@@ -338,8 +279,6 @@ export default {
   .job-create-area {
     width: 100%;
     height: 23%;
-
-    /* display: flex; */
     text-align: left;
   }
 
@@ -350,21 +289,15 @@ export default {
     width: 100%;
     transition: 0.3s;
     letter-spacing: 1px;
-    color: #111111;
+    color: $text-main-color;
     border-radius: 4px;
-    background-color: #ffffff;
-    background-color: #EFEFEF;
+    background-color: $basic-white;
+    background-color: $sub-white;
   }
 
   .radio-btn {
     margin: 0.7rem 0rem;
     margin-left: 0.5rem;
-  }
-
-  input[type='search']:focus {
-    border: 1px solid #2196F3;
-    outline: none;
-    box-shadow: 0 0 5px 1px #2195f348;
   }
 
   .button-are {
@@ -375,21 +308,19 @@ export default {
   }
 
   .post-job-btn {
+    @include box-shadow-btn;
+    @include blue-btn;
     position: absolute;
     right: 0;
     top: 0;
     text-align: left;
     display: block;
     padding: 1.1rem 3rem;
-
-    /* background-color: #2196F3; */
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: linear-gradient(60deg, #1142e2, #19bde6);
     border-radius: 25px;
     border: none;
     font-size: .875rem;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
     max-width: 280px;
@@ -399,30 +330,25 @@ export default {
     cursor: pointer;
     transition: .3s;
 
-    /* position:absolute;
-    right: 0; */
-
     &:hover {
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.685);
+      @include btn-hover;
     }
   }
 
   .post-job-back {
+    @include box-shadow-btn;
+    @include grey-btn;
     position: absolute;
     left: 0;
     top: 0;
     text-align: left;
     display: block;
     padding: 1.1rem 4rem;
-
-    /* background-color: #2196F3; */
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.363);
-    background: linear-gradient(60deg, #424242, #9E9E9E);
     border-radius: 25px;
     border: none;
     font-size: .875rem;
     font-weight: 600;
-    color: #fff;
+    color: $basic-white;
     line-height: 1;
     text-align: center;
     max-width: 280px;
@@ -432,9 +358,6 @@ export default {
     cursor: pointer;
     transition: .3s;
     text-decoration: none;
-
-    /* position:absolute;
-    right: 0; */
   }
 }
 </style>

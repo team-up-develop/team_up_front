@@ -46,7 +46,7 @@ export default {
 <style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
   .false-user-login {
-    @include border_primary;
+    @include card-border-color;
     width: calc(75% - 4rem);
     height: calc(44vh - 4rem);
     background-color: $basic-white;

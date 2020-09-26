@@ -149,18 +149,14 @@ export default {
     width: 85%;
     height: 90vh;
     margin: 0 auto;
-
-    /* background-color: #3dc1e2; */
     position: relative;
 
     .job-create-wrapper {
+      @include card-border-color;
       width: calc(100% - 5rem);
       border-radius: 20px;
       margin: 2rem 0rem;
-      background-color: #ffffff;
-
-      /* float: right; */
-      border: solid 1px #B9B9B9;
+      background-color: $basic-white;
       padding: 2.5rem;
       position: absolute;
       right: 0;
@@ -172,19 +168,13 @@ export default {
     font-weight: bold;
     margin-bottom: 0.7rem;
     display: inline-block;
-
-    /* width: 10%; */
-    /* height: 14%; */
-    /* background-color: yellow; */
   }
 
   .label-required {
-    color: #ffffff;
-    background-color: #f44336;
+    color: $basic-white;
+    background-color: $error-message-color;
     font-size: 12px;
     font-weight: bold;
-
-    /* background-color: #19bde6; */
     border-radius: 25px;
     padding: 0.25rem 0.9rem;
     text-align: center;
@@ -193,7 +183,7 @@ export default {
 
   .error-label {
     display: inline-block;
-    color: #DD2476;
+    color: $error-message-color;
     list-style: none;
     font-weight: bold;
   }
@@ -208,28 +198,23 @@ export default {
     .job-create-title-area {
       width: 100%;
       height: 100px;
-
-      /* display: flex; */
-      /* flex-direction: column; */
       text-align: left;
 
       input[type='text'] {
+        @include input-border-color;
+        background-color: $sub-white;
+        color: $text-main-color;
         font: 16px/24px sans-serif;
         box-sizing: border-box;
         width: 100%;
         padding: 0.3em;
         transition: 0.3s;
         letter-spacing: 1px;
-        color: #111111;
-        border: 1px solid #A3A1A1;
         border-radius: 4px;
         padding: 0.5rem;
-        background-color: #EFEFEF;
 
         &:focus {
-          border: 1px solid #2196F3;
-          outline: none;
-          box-shadow: 0 0 5px 1px #2195f348;
+          @include form-hover;
         }
       }
     }
@@ -237,14 +222,12 @@ export default {
     .job-create-time-area {
       width: 100%;
       height: 100px;
-
-      /* display: flex;
-      flex-direction: column; */
       text-align: left;
 
-      /* display: inline-block; */
-
       input[type='date'] {
+        @include input-border-color;
+        background-color: $sub-white;
+        color: $text-main-color;
         font: 16px/24px sans-serif;
         box-sizing: border-box;
         width: 40%;
@@ -252,16 +235,11 @@ export default {
         padding: 0.3em;
         transition: 0.3s;
         letter-spacing: 1px;
-        color: #111111;
-        border: 1px solid #A3A1A1;
         border-radius: 4px;
         padding: 0.5rem;
-        background-color: #EFEFEF;
 
         &:focus {
-          border: 1px solid #2196F3;
-          outline: none;
-          box-shadow: 0 0 5px 1px #2195f348;
+          @include form-hover;
         }
       }
     }
@@ -274,6 +252,9 @@ export default {
       text-align: left;
 
       textarea[type='text'] {
+        @include input-border-color;
+        background-color: $sub-white;
+        color: $text-main-color;
         font: 16px/24px sans-serif;
         box-sizing: border-box;
         width: 100%;
@@ -281,16 +262,11 @@ export default {
         padding: 0.3em;
         transition: 0.3s;
         letter-spacing: 1px;
-        color: #111111;
-        border: 1px solid #A3A1A1;
         border-radius: 4px;
         padding: 0.5rem;
-        background-color: #EFEFEF;
 
         &:focus {
-          border: 1px solid #2196F3;
-          outline: none;
-          box-shadow: 0 0 5px 1px #2195f348;
+          @include form-hover;
         }
       }
     }
@@ -301,22 +277,17 @@ export default {
       text-align: left;
       margin-top: 1.5rem;
 
-      /* position: relative; */
-      background-color: yellow;
-
       .next-btn {
+        @include box-shadow-btn;
+        @include blue-btn;
+        color: $basic-white;
         text-align: left;
         display: block;
         padding: 1.1rem 4rem;
-
-        /* background-color: #2196F3; */
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.363);
-        background: linear-gradient(60deg, #1142e2, #19bde6);
         border-radius: 25px;
         border: none;
         font-size: .875rem;
         font-weight: 600;
-        color: #fff;
         line-height: 1;
         text-align: center;
         max-width: 280px;
@@ -327,22 +298,11 @@ export default {
         cursor: pointer;
         transition: .3s;
 
-        /* position:absolute;
-        right: 0; */
-
         &:hover {
-          box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.685);
+          @include box-shadow-btn;
         }
       }
     }
   }
-
-  /* 案件タイトル入力欄 end */
-  /* 案件開始・終了時間 start */
-
-  /* 案件開始時間 end */
-  /* 案件詳細入力欄 start */
-
-  /* 案件詳細入力欄 end */
 }
 </style>

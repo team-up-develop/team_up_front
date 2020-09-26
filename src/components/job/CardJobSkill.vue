@@ -1,33 +1,36 @@
 <template>
   <div>
     <div class="langage" 
-      v-for="langage in job.programingLanguage.slice(0,3)" 
-      :key="langage.id">
+      v-for="(langage, index) in job.programingLanguage.slice(0,3)" 
+      :key="`language-${index}`">
       {{ langage.programingLanguageName }}
     </div>
+    <!-- レスポンシブ 言語 -->
     <div class="langage-responsive" 
-      v-for="langage in job.programingLanguage.slice(0,2)" 
-      :key="langage.id">
+      v-for="(langage, index) in job.programingLanguage.slice(0,2)" 
+      :key="`language-responsive-${index}`">
       {{ langage.programingLanguageName }}
     </div>
     <div class="framework" 
-    v-for="framework in job.programingFramework.slice(0,3)" 
-    :key="framework.programingFrameworkName">
+    v-for="(framework, index) in job.programingFramework.slice(0,3)" 
+    :key="`framework-${index}`">
       {{ framework.programingFrameworkName }}
     </div>
+    <!-- レスポンシブ フレームワーク -->
     <div class="framework-responsive" 
-    v-for="framework in job.programingFramework.slice(0,2)" 
-    :key="framework.programingFrameworkName">
+    v-for="(framework, index)  in job.programingFramework.slice(0,2)" 
+    :key="`framework-responsive-${index}`">
       {{ framework.programingFrameworkName }}
     </div>
     <div class="skill" 
-    v-for="skill in job.skill.slice(0,4)" 
-    :key="skill.skillName">
+    v-for="(skill, index) in job.skill.slice(0,4)" 
+    :key="`skill-${index}`">
       {{ skill.skillName }}
     </div>
+    <!-- レスポンシブ その他スキル -->
     <div class="skill-responsive" 
-    v-for="skill in job.skill.slice(0,2)" 
-    :key="skill.skillName">
+    v-for="(skill, index) in job.skill.slice(0,2)" 
+    :key="`skill-responsive-${index}`">
       {{ skill.skillName }}
     </div>
   </div>
@@ -42,7 +45,7 @@ export default {
     return {
       jobs: []
     }
-  }
+  },
 }
 </script>
 
