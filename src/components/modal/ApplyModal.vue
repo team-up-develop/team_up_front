@@ -43,6 +43,7 @@
 .modal-footer {
   width: 87%;
   padding: 1rem;
+  margin-left: 0.35rem;
   text-align: right;
   display: inline-block;
   position: relative;

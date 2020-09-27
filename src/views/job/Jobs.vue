@@ -193,7 +193,7 @@ export default {
       modal: false, //?モーダルを開いてるか否か
       saveFlag: true, //? 案件保存しているかを判定
       limitationList:1,
-      userId: 0, //? ローカルストレージの値を保存する
+      userId: this.$store.state.auth.userId, //? ローカルストレージの値を保存する
       entryRedirect: false, //? 非ログイン時にエントリー押下後 登録にリダイレクトするためのフラグ
       searchModal: false //? 検索用モーダル
     }
@@ -235,7 +235,7 @@ export default {
           this.languages = response.data
       })
     // * stateの値をログイン判定できるように格納
-    this.userId = this.$store.state.auth.userId
+    // this.userId = this.$store.state.auth.userId
     if(!this.userId) {
       this.entryRedirect = true //* 非ログイン時表示に
     }

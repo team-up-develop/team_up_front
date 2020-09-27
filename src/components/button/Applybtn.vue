@@ -63,6 +63,7 @@ export default {
 }
 
 .btn-apply {
+  @include box-shadow-btn ;
   @include red-btn ;
   display: block;
   padding: 1rem 3rem;
@@ -80,22 +81,5 @@ export default {
 
 .btn-box-apply :hover {
   font-size: 100px;
-}
-
-/* モーダル内のキャンセルボタン */
-.modal-btn {
-  @include blue-btn;
-  padding: 1rem 2.4rem;
-  border-radius: 50px;
-  font-weight: 600;
-  color: $basic-white;
-  line-height: 1;
-  text-align: center;
-  max-width: 280px;
-  margin-left: 1.2rem;
-  font-size: 1rem;
-  float: right;
-  cursor: pointer;
-  border: none;
 }
 </style>

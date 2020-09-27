@@ -28,6 +28,7 @@
   height: 100%;
   background: $modal-background;
   font-weight: bold;
+  background-color: $basic-white;
 }
 
 .modal-window {
@@ -41,9 +42,8 @@
 }
 
 .modal-footer {
-  /* background: #ccc; */
   width: 80%;
-  padding: 1rem;
+  // padding: 1rem;
   text-align: right;
   display: inline-block;
 }
