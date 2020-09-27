@@ -52,6 +52,7 @@
           </template>
         </profile-edit-modal>
       </div>
+      <Logout/>
     </div>
   </div>
 </template>
@@ -60,6 +61,7 @@
 import axios from 'axios';
 import moment from "moment";
 import ProfileEditModal from '@/components/modal/ProfileEditModal'
+import Logout from '@/components/button/Logout'
 export default {
   props: {
     id: Number
@@ -127,7 +129,8 @@ export default {
     },
   },
   components: {
-    ProfileEditModal
+    ProfileEditModal,
+    Logout
   }
 }
 </script>
