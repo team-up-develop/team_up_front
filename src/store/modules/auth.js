@@ -23,6 +23,7 @@ const mutations = {
 }
 
 const actions = {
+  // * ログイン
   login({ commit }, authData) {
     const params = {
       LoginName: authData.LoginName,
@@ -39,8 +40,11 @@ const actions = {
     .catch(error => console.log(error))
     ;
   },
-  clearLocalStorage() {
-    // console.log("clearLocalStorage")
+  // * ログアウト
+  logout({commit}) {
+    commit('loginUserId', null);
+    localStorage.clear();
+    router.replace('/login')
   }
 }
 
