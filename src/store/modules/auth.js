@@ -16,31 +16,35 @@ const mutations = {
     state.idToken = idToken;
   },
   // * localStorageにuserIdを保存し、判定する
-  createLocalStorage(state, userId) {
+  loginUserId(state, userId) {
     state.userId = userId
     // localStorage.userId = state.userId //? ローカルストレージ
   }
 }
 
 const actions = {
+  // * ログイン
   login({ commit }, authData) {
-    const data = {
+    const params = {
       LoginName: authData.LoginName,
       LoginPassword: authData.LoginPassword,
     }
-    axios.post('http://localhost:8888/api/v1/login', data)
+    axios.post('http://localhost:8888/api/v1/login', params)
     .then(response => {
       // console.log("----------------------")
       router.push('/jobs');
       // console.log("----------------------")
       commit('updateIdToken', response.data.idToken)
-      commit('createLocalStorage', response.data.userId)
+      commit('loginUserId', response.data.userId)
     })
     .catch(error => console.log(error))
     ;
   },
-  clearLocalStorage() {
-    // console.log("clearLocalStorage")
+  // * ログアウト
+  logout({commit}) {
+    commit('loginUserId', null);
+    localStorage.clear();
+    router.replace('/login')
   }
 }
 
