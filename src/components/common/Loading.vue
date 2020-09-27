@@ -1,15 +1,15 @@
 <template>
   <div class="container" v-show="loading">
-      <div class="fullview">
-        <div class="loading-spacer"></div>
-        <vue-loading 
-          type="bubbles"
-          color="#2196F3"
-          :size="{ width: '200px', height: '105px' }"
-          >
-        </vue-loading>
-      </div>
+    <div class="fullview">
+      <div class="loading-spacer"></div>
+      <vue-loading 
+        type="bubbles"
+        color="#2196F3"
+        :size="{ width: '200px', height: '105px' }"
+        >
+      </vue-loading>
     </div>
+  </div>
 </template>
 
 <script>
@@ -17,6 +17,11 @@ import { VueLoading } from 'vue-loading-template'
 
 export default {
   name: 'loading',
+  data() {
+    return {
+      loading: true
+    }
+  },
   components: {
     VueLoading,
   },

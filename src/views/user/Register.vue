@@ -12,7 +12,7 @@
           <input type="password" class="input" v-model="LoginPassword" placeholder="パスワード">
         </div>
         <div class="btn-area">
-          <p>ログイン済みの方は<router-link to="/login" class="router-link"><span>こちら</span></router-link></p>
+          <p>登録済みの方は<router-link to="/login" class="router-link"><span>こちら</span></router-link></p>
           <div @click="register" class="login-btn">新規登録</div>
         </div>
       </div>

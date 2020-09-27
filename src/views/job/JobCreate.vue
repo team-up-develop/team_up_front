@@ -34,8 +34,8 @@
         </button>
       </router-link>
     </div>
-  <Loading v-show="loading">
-  </Loading>
+    <Loading v-show="loading">
+    </Loading>
   </div>
 </template>
 
@@ -45,12 +45,11 @@ import Loading from '@/components/common/Loading'
 export default {
   data() {
     return{
+      loading: true,
       jobTitle: "", //? タイトル
       jobDescription: "", //? 詳細
       devStartDate: null, //? 開始日
       devEndDate: null, //? 終了日
-      // publicationPeriod: "", //? 掲載終了
-      loading: true,
       titleLimit: null, //? タイトル文字制限
       jobDescriptionLimit: null, //? 詳細文字制限
       errors: [], //? タイトルエラー格納先

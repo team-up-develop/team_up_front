@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth' 
-import createPersistedState from "vuex-persistedstate" //←読み込む
+import createPersistedState from "vuex-persistedstate" //? State の値を localStorageに保存するためのプラグイン
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   // * 状態保存
-  state: {  },
+  state: {},
 
-  getters: {  },
+  getters: {},
 
-  mutations: {  },
+  mutations: {},
   // * 非同期処理
-  actions: {  },
+  actions: {},
 
   modules: {
     auth,
   },
-  plugins: [createPersistedState({storage: window.localStorage})] 
+  plugins: [createPersistedState({storage: window.localStorage})] //? State の値を localStorageに保存するためのプラグイン
 })
