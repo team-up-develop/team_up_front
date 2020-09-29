@@ -6,26 +6,28 @@
           <div class="user-image"></div>
           <div class="user-name-area">
             <label for="name">名前</label>
-            <span>{{ userInfo.userName }}</span>
+            <p>{{ userInfo.userName }}</p>
           </div>
         </div>
+        <button @click="openModal">編集する</button>
       </div>
-      <div class="profile-tab-left">
-        <p>スキル</p>
+      <div class="tab-area">
+        <div class="profile-tab-left" @click="change('1')"  v-bind:class="{ active: isActive, 'text-danger': hasError }">
+          <p>スキル</p>
+        </div>
+        <div class="profile-tab-right" @click="change('2')"  v-bind:class="{ active: isActive, 'text-danger': hasError }">
+          <p>詳細情報</p>
+        </div>
       </div>
-      <div class="profile-tab-center">
-        <p>詳細情報</p>
+      <div v-if="activeTab === '1'">
+        <p>{{ userInfo.userName }}</p>
+        <p>{{ userInfo.learningStartDate | moment("YYYY年 M月 D日")}}</p>
+        <p>{{ userInfo.githubAccount }}</p>
+        <p>{{ userInfo.twitterAccount }}</p>
+        <p>{{ userInfo.bio }}</p>
       </div>
-      <div class="profile-tab-right">
-        <p>その他情報</p>
-      </div>
-      <p>{{ userInfo.userName }}</p>
-      <p>{{ userInfo.learningStartDate | moment("YYYY年 M月 D日")}}</p>
-      <p>{{ userInfo.githubAccount }}</p>
-      <p>{{ userInfo.twitterAccount }}</p>
-      <p>{{ userInfo.bio }}</p>
+      <div v-else-if="activeTab === '2'">プロフィールの詳細とポートフォリオを載せるよ</div>
       <br>
-      <button @click="openModal">編集する</button>
       <!-- 編集 モーダル画面 -->
       <div class="example-modal-window">
         <profile-edit-modal @close="closeModal" v-if="modal">
@@ -69,12 +71,15 @@ export default {
   data() {
     return {
       userInfo: {},
+      activeTab: '1',
+      isActive: true,
+      hasError: false,
       modal: false,
       userName: "",
       learningStartDate: Date,
       bio: "",
       githubAccount: "",
-      twitterAccount: ""
+      twitterAccount: "",
     }
   },
   filters: {
@@ -116,6 +121,10 @@ export default {
       .catch(error => {
         console.log(error)
       })
+    },
+    change: function(num){
+      this.isActive = !this.isActive ;
+      this.activeTab = num
     },
     // * モーダル
     openModal() {
@@ -189,7 +198,7 @@ export default {
     height: 4rem;
     border-radius: 50%;
   }
-
+  // * ユーザー名前
   .user-name-area {
     margin-top: 0.8rem;
     width: 30%;
@@ -199,41 +208,75 @@ export default {
     top: 0;
     text-align: left;
 
-    /* background-color: purple; */
-  }
+    label {
+      font-weight: bold;
+    }
 
-  .profile-tab-left {
-    width: 33.3%;
+    p {
+      width: 20rem;
+      margin: 0;
+    }
+  }
+  // * タブエリア
+  .tab-area {
+    width: 90%;
     height: 8%;
-    display: inline-block;
-    text-align: center;
-    background-color: #1142e2;
-    box-shadow: 0 0 10px #02020278;
-  }
+    margin: 0 auto;
+    background-color: #CBCBCB;
+    z-index: -1;
+    border-radius: 1rem 1rem 0 0 ;
 
-  .profile-tab-center {
-    width: 33.1%;
-    height: 8%;
-    display: inline-block;
-    text-align: center;
-    background-color: #bbbbbb;
-    border: 0.5px solid #ffffff97;
-    box-shadow: 0 0 10px #02020230;
-  }
+    // ? タブ 左側
+    .profile-tab-left {
+      width: 49.8%;
+      height: 99%;
+      display: inline-block;
+      text-align: center;
+      background-color: #CBCBCB;
+      border-radius: 1rem 1rem 0 0 ;
+      cursor: pointer;
 
-  .profile-tab-right {
-    width: 33.25%;
-    height: 8%;
-    display: inline-block;
-    text-align: center;
-    background-color: #bbbbbb;
-    border: 0.5px solid #ffffff97;
-    box-shadow: 0 0 10px #02020230;
-  }
+      p {
+        color: #111111;
+        font-weight: bold;
+      }
+    }
+    .profile-tab-left.active {
+      width: 49.8%;
+      height: 98%;
+      border: #c2c2c2 1px solid;
+      display: inline-block;
+      text-align: center;
+      background-color: #ffffff;
+      border-radius: 1rem 1rem 0 0 ;
+    }
 
-  .profile-tab-left p {
-    color: #ffffff;
-    font-weight: bold;
+    // ? タブ 右側
+    .profile-tab-right {
+      width: 49.8%;
+      height: 98%;
+      border: #c2c2c2 1px solid;
+      display: inline-block;
+      text-align: center;
+      background-color: #ffffff;
+      border-radius: 1rem 1rem 0 0 ;
+
+      p {
+        color: #111111;
+        font-weight: bold;
+      }
+    }
+
+    .profile-tab-right.active {
+      width: 49.8%;
+      height: 99%;
+      display: inline-block;
+      text-align: center;
+      background-color: #CBCBCB;
+      border-radius: 1rem 1rem 0 0 ;
+      border: none;
+      cursor: pointer;
+    }
   }
 }
 </style>

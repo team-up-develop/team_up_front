@@ -553,6 +553,7 @@ export default {
       width: 90%;
       margin: 0 auto;
       position: relative;
+      // background-color: purple;
 
       .router :hover {
         background-color: #2195f310;
