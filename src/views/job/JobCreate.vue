@@ -304,4 +304,66 @@ export default {
     }
   }
 }
+@media screen and (max-width: 1200px) {
+  .create-wrapper .job-create-wrapper {
+    width: calc(100% - 4rem);
+    margin: 2rem 0rem;
+    padding: 2rem;
+    position: absolute;
+    right: 0rem;
+    }
+  }
+
+/* タブレット */
+@media screen and (max-width: 900px) {
+  .create-wrapper .job-create-wrapper {
+    width: calc(100% - 3rem);
+    border-radius: 20px;
+    margin: 2rem 0rem;
+    background-color: $basic-white;
+    padding: 1.5rem;
+    position: absolute;
+    right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .job-create-wrapper .job-create-time-area {
+    input[type='date'] {
+    width: 60%;
+    }
+  }
+}
+
+/* スマホ */
+@media (max-width: 500px){
+  .create-wrapper .job-create-wrapper {
+      width: calc(100% - 2rem);
+      padding: 1.5rem;
+      right: 0;
+    }
+  .job-create-wrapper .job-create-time-area{
+    input[type='date'] {
+        width: 100%;
+  }
+  }
+  .job-create-wrapper .job-create-btn-area {
+    .next-btn {
+      padding: 1.1rem 2rem;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .create-wrapper .job-create-wrapper {
+      width: calc(100% - 2rem);
+      padding: 1.5rem;
+      right: 0rem;
+    }
+  .job-create-wrapper .job-create-time-area{
+    input[type='date'] {
+        width: 100%;
+    }
+  }
+}
 </style>
