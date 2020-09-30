@@ -130,6 +130,7 @@ export default {
     font-size: 1rem;
     cursor: pointer;
     transition: .3s;
+    outline: none;
 
     &:hover {
       color: #F8FAFF;

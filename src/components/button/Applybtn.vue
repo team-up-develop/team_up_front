@@ -77,6 +77,7 @@ export default {
   font-size: 0.95rem;
   display: inline-block;
   cursor: pointer;
+  outline: none;
 }
 
 .btn-box-apply :hover {

@@ -533,6 +533,7 @@ export default {
     display: inline-block;
     cursor: pointer;
     border: none;
+    outline: none;
 
     &:hover {
       @include red-btn-hover
@@ -584,6 +585,7 @@ export default {
     top: 0;
     right: 0;
     margin: 1rem;
+    outline: none;
   }
 }
 </style>

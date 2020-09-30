@@ -296,6 +296,7 @@ export default {
         margin-top: 1.5rem;
         cursor: pointer;
         transition: .3s;
+        outline: none;
 
         &:hover {
           @include box-shadow-btn;

@@ -13,6 +13,12 @@
         <input type="text" class="chat-form" name="" maxlength="250">
       </div>
     </div>
+  <section class="container">
+    <input
+      v-model="message"
+      type="text"
+      @keyup.enter="say">
+  </section>
   </div>
     <div v-else>
       ログインが必要です！
@@ -27,7 +33,9 @@ export default {
     return {
       chatGroups: [],
       loginFlag: false,
-      userId: this.$store.state.auth.userId
+      userId: this.$store.state.auth.userId,
+      message: '',
+      canMessageSubmit: false
     }
   },
   filters: {
@@ -61,6 +69,11 @@ export default {
         }
       })
     }
+  },
+  methods: {
+    say: function() {
+      console.log("aaaaaaaaaaa")
+    },
   }
 }
 </script>

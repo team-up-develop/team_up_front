@@ -329,6 +329,7 @@ export default {
     float: right;
     cursor: pointer;
     transition: .3s;
+    outline: none;
 
     &:hover {
       @include btn-hover;
@@ -358,6 +359,7 @@ export default {
     cursor: pointer;
     transition: .3s;
     text-decoration: none;
+    outline: none;
   }
 }
 </style>
