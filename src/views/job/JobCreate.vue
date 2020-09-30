@@ -344,7 +344,7 @@ export default {
     }
   .job-create-wrapper .job-create-time-area{
     input[type='date'] {
-        width: 70%;
+        width: 100%;
   }
   }
   .job-create-wrapper .job-create-btn-area {
