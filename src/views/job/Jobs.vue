@@ -9,6 +9,7 @@
         v-model="freeWord" 
         placeholder="フリーワード" 
         class="search-freewrod-box"
+        @keyup.enter="searchFreeword"
       >
         <!-- 言語検索 モーダル画面 -->
         <div class="example-modal-window">
@@ -57,7 +58,7 @@
         </div>
       </div>
     <div class="job-wrapper-center" v-show="!loading">
-      <div class="job-wrapper-left">
+      <div class="job-wrapper-left" v-if="jobsNullFlag === false">
         <div 
           v-for="job in jobs" 
           class="router" 
@@ -69,6 +70,10 @@
           <!-- 案件カード コンポーネント -->
           <card-job :job="job"></card-job>
         </div>
+      </div>
+      <!-- 検索結果が無い場合 -->
+      <div class="job-wrapper-left" v-else>
+        この条件での開発案件はありませんでした。
       </div>
       <router-link :to="`/jobs/${ job.id }`" class="router-1" v-for="job in jobs" :key="job.id" >
         <card-job :job="job"></card-job>
@@ -211,6 +216,7 @@ export default {
   data() {
     return {
       jobs: [],
+      jobsNullFlag: false,
       selectedLang: [], //? 言語 v-model
       languages: [], //? 言語取得
       selectedFramework: [], //? フレームワーク v-model
@@ -263,6 +269,12 @@ export default {
       setTimeout(() => {
         this.loading = false;
         this.jobs = response.data
+        console.log("aaaaaaaaaaaa")
+        console.log(this.job);
+        console.log("aaaaaaaaaaaa")
+        if(this.jobs == []) {
+          console.log('空っぽです')
+        }
       }, 500);
     })
     .catch(error => {
@@ -311,6 +323,11 @@ export default {
         .then(response => {
           this.jobs = response.data
           this.langModal = false
+          this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
         })
     },
     // * フレームワーク検索
@@ -329,6 +346,11 @@ export default {
         .then(response => {
           this.jobs = response.data
           this.frameworkModal = false
+          this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
         })
     },
     // * その他スキル 検索
@@ -347,7 +369,32 @@ export default {
         .then(response => {
           this.jobs = response.data
           this.skillModal = false
+          this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
         })
+    },
+    // * フリーワード 検索
+    searchFreeword() {
+      var posts = [];
+      axios.get('http://localhost:8888/api/v1/job')
+      .then(response => {
+        for(var i in response.data){
+          var jobs = response.data[i];
+          if(jobs.jobDescription.indexOf(this.freeWord) !== -1){
+            posts.push(jobs)
+          }
+        }
+        console.log(posts)
+        this.jobs = posts;
+        this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+        // ? もし案件が存在しなかったら処理が走る
+        if(!this.jobs.length) {
+          this.jobsNullFlag = true;
+        }
+      })
     },
     // * 案件を保存する
     saveJob(){
@@ -521,6 +568,7 @@ export default {
       font-weight: bold;
       margin-left: 0.7rem;
       transition: .3s;
+      outline: none;
 
       &:hover {
         @include primary-border_color;
@@ -539,6 +587,8 @@ export default {
       position: absolute;
       right: 0;
       margin-right: 4rem;
+      border: none;
+      outline: none;
     }
   }
 
@@ -717,6 +767,7 @@ export default {
     color: #F8FAFF;
     appearance: none;
     border: none;
+    outline: none;
   }
 
   /* 応募するボタン */
@@ -740,6 +791,7 @@ export default {
     appearance: none;
     border: none;
     transition: .3s;
+    outline: none;
 
     &:hover {
       @include red-btn-hover;

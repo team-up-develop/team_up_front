@@ -160,6 +160,7 @@ export default {
   display: inline-block;
   cursor: pointer;
   border: none;
+  outline: none;
 }
 
 .reject-btn {
@@ -177,6 +178,7 @@ export default {
   float: right;
   cursor: pointer;
   border: none;
+  outline: none;
 }
 
 /* セレクトボックス */
