@@ -339,10 +339,10 @@ export default {
 /* スマホ */
 @media (max-width: 500px){
   .create-wrapper .job-create-wrapper {
-      width: calc(100% - 2rem);
-      padding: 1rem;
-      margin: 2rem auto 2rem auto;
-      }
+    width: calc(100% - 2rem);
+    padding: 2rem 1rem;
+    margin: 2rem auto 2rem auto;
+  }
   .job-create-wrapper .job-create-time-area{
     input[type='date'] {
         width: 100%;
@@ -350,18 +350,28 @@ export default {
   }
   .job-create-wrapper .job-create-btn-area {
     .next-btn {
-      padding: 1.1rem 4.2rem;
+      padding: 1.1rem 3.4rem;
     }
   }
 }
 
 @media (max-width: 420px) {
+  .create-wrapper {
+    width: 92%;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+  }
   .create-wrapper .job-create-wrapper {
-      width: calc(100% - 2rem);
-      margin: 2rem auto 2rem auto;
-      padding: 1rem;
-      right: 0rem;
+    width: calc(100% - 2rem);
+    margin: 2rem auto 2rem auto;
+    padding: 2rem 1rem;
+    right: 0rem;
+
+    .next-btn {
+      padding: 1.1rem 2.7rem;
     }
+  }
   .job-create-wrapper .job-create-time-area{
     input[type='date'] {
         width: 100%;
