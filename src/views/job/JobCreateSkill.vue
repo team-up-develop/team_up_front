@@ -362,4 +362,74 @@ export default {
     outline: none;
   }
 }
+@media screen and (max-width: 1200px) {
+  .create-wrapper .job-create-wrapper {
+    width: calc(100% - 4rem);
+    margin: 2rem 0rem;
+    padding: 2rem;
+    position: absolute;
+    right: 0rem;
+    }
+}
+/* タブレット */
+@media screen and (max-width: 900px) {
+  .create-wrapper .job-create-wrapper {
+    width: calc(100% - 3rem);
+    border-radius: 20px;
+    margin: 2rem 0rem;
+    background-color: $basic-white;
+    padding: 1.5rem;
+    position: absolute;
+    right: 0;
+  }
+}
+@media (max-width: 768px) {
+  .job-create-wrapper .button-are  { 
+    .post-job-btn {
+      padding: 1.1rem 3rem;
+    }
+    .post-job-back {
+      padding: 1.1rem 3.5rem;
+    }
+  }
+}
+/* スマホ */
+@media (max-width: 500px){
+  .create-wrapper .job-create-wrapper {
+    width: calc(100% - 2rem);
+    padding: 2rem 1rem;
+    margin: 2rem auto 2rem auto;
+  }
+  .job-create-wrapper .button-are  { 
+    .post-job-btn {
+      padding: 1.1rem 2rem;
+    }
+    .post-job-back {
+      padding: 1.1rem 3rem;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .create-wrapper {
+    width: 92%;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+  }
+  .create-wrapper .job-create-wrapper {
+    width: calc(100% - 2rem);
+    margin: 2rem auto 2rem auto;
+    padding: 2rem 1rem;
+    right: 0rem;
+  }
+  .job-create-wrapper .button-are  { 
+    .post-job-btn {
+      padding: 1.1rem 1.5rem;
+    }
+    .post-job-back {
+      padding: 1.1rem 1.5rem;
+    }
+  }
+}
 </style>
