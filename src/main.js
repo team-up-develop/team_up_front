@@ -29,7 +29,7 @@ new Vue({
 }).$mount('#app')
 
 Vue.prototype.$http = (url, opts) => fetch(url, opts)
-Vue.prototype.$httpPosts = 'http://localhost:8888/api/v1/job'
-Vue.prototype.$httpCategories = 'http://localhost:8888/api/v1/job'
+Vue.prototype.$httpPosts = 'http://localhost:8080/api/v1/job'
+Vue.prototype.$httpCategories = 'http://localhost:8080/api/v1/job'
 
-Vue.prototype.$baseURL= 'http://localhost:8888/api/v1'
+Vue.prototype.$baseURL= 'http://localhost:8080/api/v1'
