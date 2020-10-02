@@ -139,6 +139,7 @@ export default {
       margin: 0 auto;
       transition: .3s;
       box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.685);
+      outline: none;
     }
   }
 }

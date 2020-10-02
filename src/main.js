@@ -15,10 +15,10 @@ Vue.use(VuePaginate) //? ページネーションの導入
 Vue.config.productionTip = false
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp, faChevronCircleRight, faHeart, faSearch} from '@fortawesome/free-solid-svg-icons'
+import { faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp, faChevronCircleRight, faHeart, faSearch, faPaperPlane} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp, faChevronCircleRight, faHeart, faSearch)
+library.add(faLaptop, faUser, faBell, faHistory, faBars, faUserPlus, faBookmark, faComments, faArchive, faAddressCard, faUsers, faUserAltSlash, faEye, faThumbsUp, faChevronCircleRight, faHeart, faSearch, faPaperPlane)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

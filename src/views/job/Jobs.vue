@@ -2,17 +2,18 @@
   <div class="job-wrapper">
     <div class="search-area">
       <button @click="langSearchModal" class="search-modal-btn">開発言語</button>
-      <button class="search-modal-btn">フレームワーク</button>
-      <button class="search-modal-btn">その他技術</button>
+      <button class="search-modal-btn" @click="frameworkSearchModal">フレームワーク</button>
+      <button class="search-modal-btn" @click="skillSearchModal">その他技術</button>
       <input
         type="text" 
         v-model="freeWord" 
         placeholder="フリーワード" 
         class="search-freewrod-box"
+        @keyup.enter="searchFreeword"
       >
         <!-- 言語検索 モーダル画面 -->
         <div class="example-modal-window">
-          <LanguageSearchModal @close="closeLangSearchModal" v-if="searchModal">
+          <LanguageSearchModal @close="closeLangSearchModal" v-if="langModal">
             <p class="label-lang">開発言語 選択</p>
               <div class="round" v-for="lang in languages" v-bind:key="lang.id">
               <input type="checkbox"  id="checkbox" v-model="selectedLang" v-bind:value="lang.id">
@@ -25,9 +26,39 @@
             </template>
           </LanguageSearchModal>
         </div>
+        <!-- フレームワーク検索 モーダル画面 -->
+        <div class="example-modal-window">
+          <FrameworkSearchModal @close="closeFrameworkSearchModal" v-if="frameworkModal">
+            <p class="label-lang">フレームワーク 選択</p>
+              <div class="round" v-for="framework in frameworks" v-bind:key="framework.id">
+              <input type="checkbox"  id="checkbox" v-model="selectedFramework" v-bind:value="framework.id">
+                <label for="" class="checkbox">{{ framework.programingFrameworkName }}</label>
+              </div>
+            <template slot="footer">
+              <div @click="getFramework" class="serach-btn">
+                検索する
+              </div>
+            </template>
+          </FrameworkSearchModal>
+        </div>
+        <!-- その他スキル検索 モーダル画面 -->
+        <div class="example-modal-window">
+          <SkillSearchModal @close="closeSkillSearchModal" v-if="skillModal">
+            <p class="label-lang">その他スキル 選択</p>
+              <div class="round" v-for="skill in skills" v-bind:key="skill.id">
+              <input type="checkbox"  id="checkbox" v-model="selectedSkill" v-bind:value="skill.id">
+                <label for="" class="checkbox">{{ skill.skillName }}</label>
+              </div>
+            <template slot="footer">
+              <div @click="getSkill" class="serach-btn">
+                検索する
+              </div>
+            </template>
+          </SkillSearchModal>
+        </div>
       </div>
     <div class="job-wrapper-center" v-show="!loading">
-      <div class="job-wrapper-left">
+      <div class="job-wrapper-left" v-if="jobsNullFlag === false">
         <div 
           v-for="job in jobs" 
           class="router" 
@@ -40,6 +71,10 @@
           <card-job :job="job"></card-job>
         </div>
       </div>
+      <!-- 検索結果が無い場合 -->
+      <div class="job-wrapper-left" v-else>
+        この条件での開発案件はありませんでした。
+      </div>
       <router-link :to="`/jobs/${ job.id }`" class="router-1" v-for="job in jobs" :key="job.id" >
         <card-job :job="job"></card-job>
       </router-link>
@@ -48,6 +83,7 @@
           <div class="top-job-detail-top">
             {{ jobDetail.jobTitle | truncateDetailTitle }}
           </div>
+          <!-- ログイン時 -->
           <div v-if="entryRedirect == false">
             <div class="top-job-detail-bottom" v-if="selfJobPost === false">
               <button @click="openModal" class="btn-box-apply" v-if="applyFlug">応募する</button>
@@ -78,6 +114,7 @@
               </div>
             </div>
           </div>
+          <!-- 非ログイン時 リダイレクトさせる -->
           <div v-else>
             <div class="top-job-detail-bottom">
               <button class="btn-box-apply" @click="registerRedirect">応募する</button>
@@ -87,6 +124,7 @@
             </div>
           </div>
         </div>
+        <!-- 右側案件詳細 -->
         <div class="main-job-detail-area">
           <div class="tag-area">
             <font-awesome-icon icon="chevron-circle-right" class="icon"/> 投稿者
@@ -171,15 +209,20 @@ import Applybtn from '@/components/button/Applybtn'
 import JobRegisterFalse from '@/components/job/JobRegisterFalse'
 import CardJob from '@/components/job/CardJob'
 import LanguageSearchModal from '@/components/modal/LanguageSearchModal'
+import FrameworkSearchModal from '@/components/modal/FrameworkSearchModal'
+import SkillSearchModal from '@/components/modal/SkillSearchModal'
 
 export default {
   data() {
     return {
       jobs: [],
-      // selectedPosition: [],
-      // positions: [],
-      selectedLang: [],
-      languages: [],
+      jobsNullFlag: false,
+      selectedLang: [], //? 言語 v-model
+      languages: [], //? 言語取得
+      selectedFramework: [], //? フレームワーク v-model
+      frameworks: [],//? フレームワーク取得
+      selectedSkill: [], //? その他スキル v-model
+      skills: [], //? その他スキル取得
       freeWord: '',
       name: '',
       age: 0,
@@ -193,9 +236,11 @@ export default {
       modal: false, //?モーダルを開いてるか否か
       saveFlag: true, //? 案件保存しているかを判定
       limitationList:1,
-      userId: this.$store.state.auth.userId, //? ローカルストレージの値を保存する
+      userId: this.$store.state.auth.userId, //? stateの値を保存する
       entryRedirect: false, //? 非ログイン時にエントリー押下後 登録にリダイレクトするためのフラグ
-      searchModal: false //? 検索用モーダル
+      langModal: false, //? 言語モーダル
+      frameworkModal: false, //? フレームワークモーダル
+      skillModal: false, //? その他スキルモーダル
     }
   },
   filters: {
@@ -224,6 +269,12 @@ export default {
       setTimeout(() => {
         this.loading = false;
         this.jobs = response.data
+        console.log("aaaaaaaaaaaa")
+        console.log(this.job);
+        console.log("aaaaaaaaaaaa")
+        if(this.jobs == []) {
+          console.log('空っぽです')
+        }
       }, 500);
     })
     .catch(error => {
@@ -234,8 +285,17 @@ export default {
       .then(response => {
           this.languages = response.data
       })
-    // * stateの値をログイン判定できるように格納
-    // this.userId = this.$store.state.auth.userId
+    // * フレームワーク取得
+    axios.get('http://localhost:8888/api/v1/programing_framework')
+      .then(response => {
+          this.frameworks = response.data
+      })
+    // * フレームワーク取得
+    axios.get('http://localhost:8888/api/v1/skill')
+      .then(response => {
+          this.skills = response.data
+      })
+    // * 非ログイン時は応募/いいねを押下した際にリダイレクトでログインに遷移させる
     if(!this.userId) {
       this.entryRedirect = true //* 非ログイン時表示に
     }
@@ -262,18 +322,79 @@ export default {
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
         .then(response => {
           this.jobs = response.data
-          this.searchModal = false
+          this.langModal = false
+          this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
         })
-      // console.log(languageParams);
-      // console.log(programing_language_id[data.language]=data.language)
-      // const URL = 'http://localhost:8888/api/v1/job/?'
-      // * クエリパラメーター
-      // axios.get(`${this.$baseURL}/job/?programing_language_id=${ data.language }&keyword=${ data.freeWord }#/`)
-      // axios.get(`http://localhost:8888/api/v1/job/?programing_language_id[0]=${data.language}&programing_language_id[1]=2`)
-      // .then(response => {
-      //   this.loading = false;
-      //   this.jobs = response.data
-      // })
+    },
+    // * フレームワーク検索
+    getFramework(){
+      var arrayFramework = [];
+      const params = {
+        framework: this.selectedFramework,
+      }
+      for(var i =0; i < params.framework.length; i++) {
+        var frameworkParams = params.framework[i];
+        var queryParams =  'programing_framework_id' + '[' + Number(frameworkParams - 1) + ']' + '=' + frameworkParams + '&';
+        arrayFramework.push(queryParams)
+      }
+      var result = arrayFramework.join('');
+        axios.get(`http://localhost:8888/api/v1/job/?${result}`)
+        .then(response => {
+          this.jobs = response.data
+          this.frameworkModal = false
+          this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
+        })
+    },
+    // * その他スキル 検索
+    getSkill() {
+      var arraySkill = [];
+      const params = {
+        skill: this.selectedSkill,
+      }
+      for(var i =0; i < params.skill.length; i++) {
+        var skillParams = params.skill[i];
+        var queryParams =  'skill_id' + '[' + Number(skillParams - 1) + ']' + '=' + skillParams + '&';
+        arraySkill.push(queryParams)
+      }
+      var result = arraySkill.join('');
+        axios.get(`http://localhost:8888/api/v1/job/?${result}`)
+        .then(response => {
+          this.jobs = response.data
+          this.skillModal = false
+          this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
+        })
+    },
+    // * フリーワード 検索
+    searchFreeword() {
+      var posts = [];
+      axios.get('http://localhost:8888/api/v1/job')
+      .then(response => {
+        for(var i in response.data){
+          var jobs = response.data[i];
+          if(jobs.jobDescription.indexOf(this.freeWord) !== -1){
+            posts.push(jobs)
+          }
+        }
+        console.log(posts)
+        this.jobs = posts;
+        this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+        // ? もし案件が存在しなかったら処理が走る
+        if(!this.jobs.length) {
+          this.jobsNullFlag = true;
+        }
+      })
     },
     // * 案件を保存する
     saveJob(){
@@ -375,16 +496,26 @@ export default {
         this.closeModal()
     },
       // *検索
+    // ? 開発言語モーダル
     langSearchModal() {
-      console.log("検索用モーダルを開く")
-      this.searchModal = true;
+      this.langModal = true;
     },
     closeLangSearchModal() {
-      this.searchModal = false;
-    }
-  },
-  mounted() {
-    // console.log($store.state.auth.userId )
+      this.langModal = false;
+    },
+    // ? 開発フレームワークモーダル
+    frameworkSearchModal() {
+      this.frameworkModal = true;
+    },
+    closeFrameworkSearchModal() {
+      this.frameworkModal = false;
+    },
+    skillSearchModal() {
+      this.skillModal = true;
+    },
+    closeSkillSearchModal() {
+      this.skillModal = false;
+    },
   },
   components: {
     Loading,
@@ -392,7 +523,9 @@ export default {
     ApplyModal,
     JobRegisterFalse,
     CardJob,
-    LanguageSearchModal
+    LanguageSearchModal,
+    FrameworkSearchModal,
+    SkillSearchModal
   },
 }
 </script>
@@ -435,6 +568,7 @@ export default {
       font-weight: bold;
       margin-left: 0.7rem;
       transition: .3s;
+      outline: none;
 
       &:hover {
         @include primary-border_color;
@@ -453,6 +587,8 @@ export default {
       position: absolute;
       right: 0;
       margin-right: 4rem;
+      border: none;
+      outline: none;
     }
   }
 
@@ -467,6 +603,7 @@ export default {
       width: 90%;
       margin: 0 auto;
       position: relative;
+      // background-color: purple;
 
       .router :hover {
         background-color: #2195f310;
@@ -630,6 +767,7 @@ export default {
     color: #F8FAFF;
     appearance: none;
     border: none;
+    outline: none;
   }
 
   /* 応募するボタン */
@@ -653,6 +791,7 @@ export default {
     appearance: none;
     border: none;
     transition: .3s;
+    outline: none;
 
     &:hover {
       @include red-btn-hover;
@@ -745,15 +884,13 @@ export default {
 
   .label-lang {
     font-weight: bold;
-    font-size: 2em;
-    color: #666666;
+    font-size: 1.5em;
+    color: #111111;
   }
 
   .round {
     text-align: left;
     width: 24%;
-
-    /* background-color: rebeccapurple; */
     margin-right: 1px;
     display: inline-block;
     position: relative;
@@ -772,11 +909,10 @@ export default {
   label.checkbox {
     position: absolute;
     top: 0;
-    font-size: 16px;
-    margin-top: 0.3rem;
-    color: #666666;
+    margin-top: 0.35rem;
+    color: #111111;
     margin-left: 0.4rem;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .serach-btn {
