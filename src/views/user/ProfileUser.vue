@@ -20,14 +20,13 @@
         </div>
       </div>
       <div v-if="activeTab === '1'">
-        <p>{{ userInfo.userName }}</p>
         <p>{{ userInfo.learningStartDate | moment("YYYY年 M月 D日")}}</p>
+      </div>
+      <div v-else-if="activeTab === '2'">
         <p>{{ userInfo.githubAccount }}</p>
         <p>{{ userInfo.twitterAccount }}</p>
         <p>{{ userInfo.bio }}</p>
       </div>
-      <div v-else-if="activeTab === '2'">プロフィールの詳細とポートフォリオを載せるよ</div>
-      <br>
       <!-- 編集 モーダル画面 -->
       <div class="example-modal-window">
         <profile-edit-modal @close="closeModal" v-if="modal">

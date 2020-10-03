@@ -1,51 +1,40 @@
 <template>
-<div class="chat-wrapper">
-  <div class="chat-wrapper-card">
-    <div class="card-left">
-      <router-link :to="`/chat/${ chatGroup.job.id }`" v-for="chatGroup in chatGroups" :key="chatGroup.job.id" class="router">
-        <div class="chat-group-area">
-          <p>{{ chatGroup.job.jobTitle | truncateDetailTitle }}</p>
-          <!-- <div v-for="myselfUser in myselfUser" :key="myselfUser.id" class="chat-member-name">
-          <div v-for="chatMembar in chatMembers" :key="chatMembar.id" class="chat-member-name">
-            <p>{{ myselfUser.user.userName }}  {{ chatMembar.user.userName }}</p>
+  <div class="chat-wrapper">
+    <div class="chat-wrapper-card">
+      <div class="card-left">
+        <div @click="chatGroupChange(chatGroup.job.id)" v-for="chatGroup in chatGroups" :key="chatGroup.job.id" class="router">
+          <div class="chat-group-area">
+            <p>{{ chatGroup.job.jobTitle | truncateDetailTitle }}</p>
+            <div v-for="myselfUser in myselfUser" :key="myselfUser.id" class="chat-member-name">
+            <div v-for="chatMembar in chatMembers" :key="chatMembar.id" class="chat-member-name">
+              <p>{{ myselfUser.user.userName }}  {{ chatMembar.user.userName }}</p>
+            </div>
+            </div>
           </div>
-          </div> -->
-        </div>
-      </router-link>
-    </div>
-    <div class="card-right">
-      <div class="card-right-main" v-for="chat in chats" :key="chat.id">
-        <div class="message-area">
-          {{ chat.message }}
         </div>
       </div>
-      <div class="card-right-bottom">
-        <textarea type="text" class="chat-form" name="" maxlength="250"></textarea>
-        <div class="send-btn-area">
-          <font-awesome-icon icon="paper-plane" class="icon"/>
+      <div class="card-right">
+        <div class="card-right-main" ref="target">
+            <div class="balloon" v-for="chat in chats" :key="chat.id">
+              <div class="balloon-image-left">
+                <div class="balloon-img"></div>
+              </div>
+              <div class="balloon-text-right">
+                <p>{{ chat.message }}</p>
+              </div>
+            </div>
+          </div>
+        <div class="card-right-bottom">
+          <textarea type="text" class="chat-form" v-model="chatMessage" name="" maxlength="250"></textarea>
+          <div class="send-btn-area">
+            <span @click="chatCreate">
+              <font-awesome-icon icon="paper-plane" class="icon"/>
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-    <!-- <div v-if="chats" key="">
-      <h3>メンバー</h3>
-      <div v-for="chatMembar in chatMembers" :key="chatMembar.id">
-      <p>{{ chatMembar.user.userName }}</p>
-      </div>
-      <br>
-      <hr>
-      <br><br>
-      <input type="text" v-model="chatMessage">
-      {{ chatMessage }}
-      <div class="btn-box-save" @click="chatCreate">
-        送信する
-      </div>
-    </div>
-    <div v-else>
-      ローディング
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -64,7 +53,8 @@ export default {
       chatMembers: [],
       myselfUser: {},
       postUser: null,
-      userId: this.$store.state.auth.userId
+      userId: this.$store.state.auth.userId,
+      f: null
     }
   },
   filters: {
@@ -81,17 +71,22 @@ export default {
   created() {
     // * チャット詳細画面実装
     // const URL = 'http://localhost:8888/api/v1/chat_message/?'
-    axios.get(`http://localhost:8888/api/v1/chat_message/?job_id=${this.id}`)
-    .then(response => {
-      this.chats = response.data
-      // console.log(this.chats)
-    })
-    // * 案件参加者 & 投稿者を取り出す
+    setInterval(() => {
+      axios.get(`http://localhost:8888/api/v1/chat_message/?job_id=${this.id}`)
+      .then(response => {
+        this.chats = response.data
+        // ! Getしたデータに変更点があったら下までスクロールするような作りにする
+        // ! 初期Getしたら下までスクロールするようにする
+      })
+    }, 5000)
+    // ! チャットのタイトルごとに案件参加者を取得できるようにする
+    // * 案件参加者を取得
     axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=2`)
     .then(response => {
       // console.log(response.data)
       this.chatMembers = response.data
     })
+    // * 投稿者を取得
     axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=4`)
     .then(response => {
       // console.log(response.data)
@@ -113,18 +108,44 @@ export default {
       })
   },
   methods: {
+    // * メッセージの送信
     chatCreate() {
       const params = {
-          "message": this.chatMessage,
-          "userID": 3,
-          "jobID": this.id
+          message: this.chatMessage,
+          userID: 3,
+          jobID: this.id
       }
+      // ? 空のメッセージは送信させない
+      if(params.message == "") {
+        console.log("空のメッセージは送信させない")
+        return
+      }
+      // ? 投稿
       axios.post(`${this.$baseURL}/chat_message`, params)
       .then(response => {
         console.log(response.data)
+        axios.get(`http://localhost:8888/api/v1/chat_message/?job_id=${this.id}`)
+        .then(response => {
+          this.chats = response.data
+          // ! Postされた内容がDOMに反映される前にスクロールされるため、最新投稿までスクロールされていない
+          // ? 一番下にスクロール
+          const chatLog = this.$refs.target
+          if (!chatLog) return 
+          chatLog.scrollTop = chatLog.scrollHeight
+        })
       })
       this.chatMessage = "";
-    }
+    },
+    // * チャット選択を変更する
+    chatGroupChange(id) {
+        axios.get(`http://localhost:8888/api/v1/chat_message/?job_id=${id}`)
+      .then(response => {
+        this.chats = response.data
+      })
+      const chatLog = this.$refs.target
+      console.log(chatLog)
+      // ! チャットを選択したら最新内容からチャット内容が見れるようにする
+    },
   }
 }
 </script>
@@ -161,6 +182,7 @@ export default {
         overflow: scroll;
 
         .router {
+          cursor: pointer;
           text-decoration: none;
         }
 
@@ -193,18 +215,104 @@ export default {
 
         .card-right-main {
           width: calc(100% - 1rem);
-          height: 90%;
-          // background-color: yellow;
+          margin-top: 0.5rem;
+          height: 85%;
+          width: 92%;
           padding: 1rem 2rem;
-          text-align: left;
           overflow: scroll;
-
-          .message-area {
-            width: 10%;
-            padding: 1rem 4rem;
-            border-radius: 12px;
-            background-color: $basic-white;
-          }
+          display: flex;
+          flex-direction: column;
+          // align-items: center;
+            .balloon {
+              margin-bottom: 2em;
+              position: relative;
+            }
+            .balloon:before,.balloon:after {
+              clear: both;
+              content: "";
+              display: block;
+            }
+            .balloon-image-left,.balloon-image-right {
+              width: 68px;
+              height: 68px;
+            }
+            .balloon-image-left {
+              float: left;
+                // margin-right: 20px;
+            }
+            .balloon-image-right {
+              float: right;
+                // margin-left: 20px;
+            }
+            .balloon-img {
+              @include user-image;
+              width: 70%;
+              height: 70%;
+              border-radius: 50%;
+              margin: 0;
+              background-color: #ffffff;
+            }
+            .balloon-image-description {
+                padding: 5px 0 0;
+                font-size: 10px;
+                text-align: center;
+                background-color: #ffffff;
+            }
+            .balloon-text-right,.balloon-text-left {
+                position: relative;
+                padding: 0.8rem 1.4rem;
+                border: 1px solid #aaa;
+                border-radius: 10px;
+                max-width: -webkit-calc(100% - 120px);
+                max-width: calc(100% - 120px);
+                display: inline-block;
+                background-color: #ffffff;
+                text-align: left;
+            }
+            .balloon-text-right {
+                float: left;
+            }
+            .balloon p {
+                margin: 0 0 20px;
+            }
+            .balloon p:last-child {
+                margin-bottom: 0;
+            }
+            /* 三角部分 */
+            .balloon-text-right:before {
+                position: absolute;
+                content: '';
+                border: 10px solid transparent;
+                border-right: 10px solid #aaa;
+                top: 15px;
+                left: -20px;
+            }
+            .balloon-text-right:after {
+                position: absolute;
+                content: '';
+                border: 10px solid transparent;
+                border-right: 10px solid #ffffff;
+                top: 15px;
+                left: -19px;
+            }
+            .balloon-text-left:before {
+                position: absolute;
+                content: '';
+                background-color: #ffffff;
+                border: 10px solid transparent;
+                border-left: 10px solid #aaa;
+                top: 15px;
+                right: -20px;
+            }
+            .balloon-text-left:after {
+                position: absolute;
+                content: '';
+                border: 10px solid transparent;
+                border-left: 10px solid #f2f2f2;
+                top: 15px;
+                right: -19px;
+                background-color: #ffffff;
+            }
         }
 
         .card-right-bottom {
@@ -220,11 +328,13 @@ export default {
           .chat-form {
             width: 89%;
             border-radius: 8px;
-            height: 100%;
+            height: 80%;
+            padding: 0.5rem;
             background-color: #DDDDDD;
             border: none;
             float: left;
             resize: none;
+            outline: none;
           }
 
           .send-btn-area {
