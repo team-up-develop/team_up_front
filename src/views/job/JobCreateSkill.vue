@@ -403,6 +403,7 @@ export default {
   .job-create-wrapper .button-are  { 
     .post-job-btn {
       padding: 1.1rem 2rem;
+      
     }
     .post-job-back {
       padding: 1.1rem 3rem;
@@ -425,10 +426,13 @@ export default {
   }
   .job-create-wrapper .button-are  { 
     .post-job-btn {
-      padding: 1.1rem 1.5rem;
-    }
+      padding: 1.1rem 0rem;
+      width: 8rem;
+      }
     .post-job-back {
-      padding: 1.1rem 1.5rem;
+      padding: 1.1rem 0rem;
+      width: 8rem;
+      
     }
   }
 }
