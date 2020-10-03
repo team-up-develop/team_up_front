@@ -2,7 +2,7 @@
   <div class="chat-wrapper">
     <div class="chat-wrapper-card">
       <div class="card-left">
-        <!-- <router-link :to="`/chat/${ chatGroup.job.id }`" v-for="chatGroup in chatGroups" :key="chatGroup.job.id" class="router">
+        <router-link :to="`/chat/${ chatGroup.job.id }`" v-for="chatGroup in chatGroups" :key="chatGroup.job.id" v-bind:class="{ active: isActive, 'text-danger': hasError }">
           <div class="chat-group-area">
             <p>{{ chatGroup.job.jobTitle | truncateDetailTitle }}</p>
             <div v-for="myselfUser in myselfUser" :key="myselfUser.id" class="chat-member-name">
@@ -11,17 +11,7 @@
             </div>
             </div>
           </div>
-        </router-link> -->
-        <div @click="chatGroupChange(chatGroup.job.id)" v-for="chatGroup in chatGroups" :key="chatGroup.job.id" class="router">
-          <div class="chat-group-area">
-            <p>{{ chatGroup.job.jobTitle | truncateDetailTitle }}</p>
-            <div v-for="myselfUser in myselfUser" :key="myselfUser.id" class="chat-member-name">
-            <div v-for="chatMembar in chatMembers" :key="chatMembar.id" class="chat-member-name">
-              <p>{{ myselfUser.user.userName }}  {{ chatMembar.user.userName }}</p>
-            </div>
-            </div>
-          </div>
-        </div>
+        </router-link>
       </div>
       <div class="card-right">
         <div class="card-right-main" ref="target">
@@ -29,13 +19,16 @@
               <div class="balloon-image-left">
                 <div class="balloon-img"></div>
               </div>
+              <div class="user-name">
+                {{ chat.user.userName }}
+              </div>
               <div class="balloon-text-right">
                 <p>{{ chat.message }}</p>
               </div>
             </div>
           </div>
         <div class="card-right-bottom">
-          <textarea type="text" class="chat-form" v-model="chatMessage" name="" maxlength="250"></textarea>
+          <textarea type="text" class="chat-form" v-model="chatMessage" name="" maxlength="250" placeholder="メッセージを入力してください"></textarea>
           <div class="send-btn-area">
             <span @click="chatCreate">
               <font-awesome-icon icon="paper-plane" class="icon"/>
@@ -64,7 +57,9 @@ export default {
       myselfUser: {},
       postUser: null,
       userId: this.$store.state.auth.userId,
-      f: null
+      f: null,
+      isActive: true,
+      hasError: false,
     }
   },
   filters: {
@@ -79,16 +74,31 @@ export default {
     },
   },
   created() {
+    var chatLength = 0;
     // * チャット詳細画面実装
-    // const URL = 'http://localhost:8888/api/v1/chat_message/?'
     setInterval(() => {
       axios.get(`http://localhost:8888/api/v1/chat_message/?job_id=${this.id}`)
       .then(response => {
         this.chats = response.data
+        console.log(this.chats)
+        if(chatLength === this.chats.length) {
+          console.log("chatLengt 一緒だよん")
+        }
+        else {
+          console.log("chatLengt 違うよん")
+        }
         // ! Getしたデータに変更点があったら下までスクロールするような作りにする
         // ! 初期Getしたら下までスクロールするようにする
       })
+      console.log("setInterval")
     }, 1000)
+    setTimeout(() => {
+      chatLength = this.chats.length
+        // ? 一番下にスクロール
+        const chatLog = this.$refs.target
+        if (!chatLog) return 
+        chatLog.scrollTop = chatLog.scrollHeight
+    }, 1500);
     // ! チャットのタイトルごとに案件参加者を取得できるようにする
     // * 案件参加者を取得
     axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=2`)
@@ -122,7 +132,7 @@ export default {
     chatCreate() {
       const params = {
           message: this.chatMessage,
-          userID: 3,
+          userID: this.userId,
           jobID: this.id
       }
       // ? 空のメッセージは送信させない
@@ -146,22 +156,20 @@ export default {
       })
       this.chatMessage = "";
     },
-    // * チャット選択を変更する
-    chatGroupChange(id) {
-        axios.get(`http://localhost:8888/api/v1/chat_message/?job_id=${id}`)
-      .then(response => {
-        this.chats = response.data
-      })
-      const chatLog = this.$refs.target
-      console.log(chatLog)
-      // ! チャットを選択したら最新内容からチャット内容が見れるようにする
-    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @media screen and (max-width: 1440px) {
+  .active {
+    text-decoration: none;
+  }
+.router-link-exact-active.router-link-active.active {
+  color: $primary-color;
+  font-weight: bold;
+  text-decoration: underline;
+}
   .chat-wrapper{
     width: 85%;
     height: 90vh;
@@ -250,9 +258,15 @@ export default {
               float: left;
                 // margin-right: 20px;
             }
+            .user-name {
+              width: 30%;
+              padding: 0.2rem 1rem;
+              text-align: left;
+              color: $text-sub-color;
+              font-size: 12px;
+            }
             .balloon-image-right {
               float: right;
-                // margin-left: 20px;
             }
             .balloon-img {
               @include user-image;
@@ -263,65 +277,65 @@ export default {
               background-color: #ffffff;
             }
             .balloon-image-description {
-                padding: 5px 0 0;
-                font-size: 10px;
-                text-align: center;
-                background-color: #ffffff;
+              padding: 5px 0 0;
+              font-size: 10px;
+              text-align: center;
+              background-color: #ffffff;
             }
             .balloon-text-right,.balloon-text-left {
-                position: relative;
-                padding: 0.8rem 1.4rem;
-                border: 1px solid #aaa;
-                border-radius: 10px;
-                max-width: -webkit-calc(100% - 120px);
-                max-width: calc(100% - 120px);
-                display: inline-block;
-                background-color: #ffffff;
-                text-align: left;
+              position: relative;
+              padding: 0.8rem 1.4rem;
+              // border: 1px solid #aaa;
+              border-radius: 10px;
+              max-width: -webkit-calc(100% - 120px);
+              max-width: calc(100% - 120px);
+              display: inline-block;
+              background-color: #ffffff;
+              text-align: left;
             }
             .balloon-text-right {
-                float: left;
+              float: left;
             }
             .balloon p {
-                margin: 0 0 20px;
+              margin: 0 0 20px;
             }
             .balloon p:last-child {
-                margin-bottom: 0;
+              margin-bottom: 0;
             }
             /* 三角部分 */
             .balloon-text-right:before {
-                position: absolute;
-                content: '';
-                border: 10px solid transparent;
-                border-right: 10px solid #aaa;
-                top: 15px;
-                left: -20px;
+              position: absolute;
+              content: '';
+              // border: 10px solid transparent;
+              border-right: 10px solid #aaa;
+              top: 15px;
+              left: -20px;
             }
             .balloon-text-right:after {
-                position: absolute;
-                content: '';
-                border: 10px solid transparent;
-                border-right: 10px solid #ffffff;
-                top: 15px;
-                left: -19px;
+              position: absolute;
+              content: '';
+              border: 10px solid transparent;
+              border-right: 10px solid #ffffff;
+              top: 15px;
+              left: -19px;
             }
             .balloon-text-left:before {
-                position: absolute;
-                content: '';
-                background-color: #ffffff;
-                border: 10px solid transparent;
-                border-left: 10px solid #aaa;
-                top: 15px;
-                right: -20px;
+              position: absolute;
+              content: '';
+              background-color: #ffffff;
+              border: 10px solid transparent;
+              border-left: 10px solid #aaa;
+              top: 15px;
+              right: -20px;
             }
             .balloon-text-left:after {
-                position: absolute;
-                content: '';
-                border: 10px solid transparent;
-                border-left: 10px solid #f2f2f2;
-                top: 15px;
-                right: -19px;
-                background-color: #ffffff;
+              position: absolute;
+              content: '';
+              border: 10px solid transparent;
+              border-left: 10px solid #f2f2f2;
+              top: 15px;
+              right: -19px;
+              background-color: #ffffff;
             }
         }
 
