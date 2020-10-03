@@ -29,7 +29,7 @@ export default {
     // login
   },
   mounted() {
-  console.log(this.$store.state.auth.userId)
+  // console.log(this.$store.state.auth.userId)
     if(this.$store.state.auth.userId) {
       this.loginFlag = true;
       console.log("ログイン中です")
