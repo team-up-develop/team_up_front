@@ -414,7 +414,6 @@ export default {
 @media (max-width: 420px) {
   .create-wrapper {
     width: 92%;
-    height: 100vh;
     margin: 0 auto;
     position: relative;
   }
@@ -426,13 +425,12 @@ export default {
   }
   .job-create-wrapper .button-are  { 
     .post-job-btn {
-      padding: 1.1rem 0rem;
-      width: 8rem;
+      padding: 1.1rem 1rem;
+      width: 49%;
       }
     .post-job-back {
       padding: 1.1rem 0rem;
-      width: 8rem;
-      
+      width:  49%;
     }
   }
 }

@@ -2,6 +2,16 @@
   <div class="chat-wrapper">
     <div class="chat-wrapper-card">
       <div class="card-left">
+        <!-- <router-link :to="`/chat/${ chatGroup.job.id }`" v-for="chatGroup in chatGroups" :key="chatGroup.job.id" class="router">
+          <div class="chat-group-area">
+            <p>{{ chatGroup.job.jobTitle | truncateDetailTitle }}</p>
+            <div v-for="myselfUser in myselfUser" :key="myselfUser.id" class="chat-member-name">
+            <div v-for="chatMembar in chatMembers" :key="chatMembar.id" class="chat-member-name">
+              <p>{{ myselfUser.user.userName }}  {{ chatMembar.user.userName }}</p>
+            </div>
+            </div>
+          </div>
+        </router-link> -->
         <div @click="chatGroupChange(chatGroup.job.id)" v-for="chatGroup in chatGroups" :key="chatGroup.job.id" class="router">
           <div class="chat-group-area">
             <p>{{ chatGroup.job.jobTitle | truncateDetailTitle }}</p>
@@ -78,7 +88,7 @@ export default {
         // ! Getしたデータに変更点があったら下までスクロールするような作りにする
         // ! 初期Getしたら下までスクロールするようにする
       })
-    }, 5000)
+    }, 1000)
     // ! チャットのタイトルごとに案件参加者を取得できるようにする
     // * 案件参加者を取得
     axios.get(`${this.$baseURL}/apply_job/?job_id=${ this.id }&apply_status_id=2`)
