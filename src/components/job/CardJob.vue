@@ -188,11 +188,6 @@ export default {
 }
 
 @media screen and (max-width: 500px) {
-  .job-cards-top {
-    display: none;
-
-    /* background-color: yellow; */
-  }
 
   .job-cards-top-responsive {
     width: 95%;
@@ -204,6 +199,7 @@ export default {
     font-size: 18px;
     text-decoration: underline;
     display: block;
+    background-color: yellow;
   }
 
   .job-cards-center {
@@ -234,12 +230,6 @@ export default {
     font-size: 18px;
     text-decoration: underline;
     display: block;
-  }
-
-  .job-cards-top {
-    display: none;
-
-    /* background-color: yellow; */
   }
 
   .job-cards-center {
