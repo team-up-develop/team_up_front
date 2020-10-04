@@ -3,6 +3,26 @@
     <div class="header-wrapper-area">
       <div class="header-logo-area">
         <div class="header-logo">
+    <div class="responsive-header">
+      <button class="button" type="button" name="button" @click="show">
+        <span class="top"></span>
+        <span class="middle"></span>
+        <span class="bottom"></span>
+      </button>
+<transition>
+      <nav id="gnav" class="nav" v-if="gnav">
+        <div class="nav__body">
+          <ul class="nav__lst">
+            <li class="nav__item"><router-link to="/jobs">案件を探す</router-link></li>
+            <li class="nav__item"><router-link to="/jobcreate">募集する</router-link></li>
+            <li class="nav__item"><router-link to="/chat">連絡する</router-link></li>
+            <li class="nav__item"><router-link to="/manage">管理する</router-link></li>
+            <li class="nav__item"><router-link :to="`/account/profile/${ this.userId }`">{{ userId }}</router-link></li>
+          </ul>
+        </div>
+      </nav>
+      </transition>
+    </div>
           <!-- <div
             class="static"
             v-bind:class="{ active: isActive, 'text-danger': hasError }"
@@ -69,6 +89,7 @@ export default {
       // staticImage: '.../assets/logo.jpg',
       isActive: true,
       hasError: false,
+      gnav: false
       // userName: null,
       // message: ""
     }
@@ -78,6 +99,19 @@ export default {
       // this.userId = this.$store.state.auth.userId;
       console.log(this.userId)
     }
+  },
+  methods: {
+    show(e) {
+      let elm = e.currentTarget;
+      let className = elm.className;
+      if(className.indexOf('is-open') != -1) {
+        this.gnav = false;
+        elm.className = 'button';
+      } else {
+        this.gnav = true;
+        elm.className += " is-open";
+      }
+    },
   }
 }
 </script>
@@ -113,7 +147,7 @@ export default {
       .header-logo {
         width: 60%;
         height: calc(100% - 2.8rem);
-        background-color: rgba(94, 94, 94, 0.226);
+        // background-color: rgba(94, 94, 94, 0.226);
         padding: 1.2rem 0;
       }
     }
@@ -231,6 +265,119 @@ export default {
   .user-rooter {
     text-decoration: none;
     color: $basic-white;
+  }
+
+  // * ハンバーガーメニュー
+  .responsive-header {
+    display: none;
+  }
+  .button {
+    display: block;
+    width: 50px;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    z-index: 100;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+
+    &.is-open {
+      .top {
+        transform: rotate(45deg);
+      }
+      .middle {
+        opacity: 0;
+      }
+      .bottom {
+        transform: rotate(-45deg);
+      }
+    }
+    
+    span {
+      display: block;
+      width: 20px;
+      height: 1px;
+      margin: auto;
+      background-color: #000;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transition: .5s ease;
+
+      &.top {
+        transform: translateY(-6px);
+      }
+      &.bottom {
+        transform: translateY(6px);
+      }
+    }
+  }
+  .nav {
+    width: 40%;
+    height: 100%;
+    position: fixed;
+    background-color: $modal-background;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    z-index: 99;
+    
+    &__body {
+      padding: 60px 20px;
+    }
+    
+    &__lst {
+      list-style: none;
+    }
+
+    &__item {
+      font-size: 24px;
+      line-height: 1.5;
+      font-weight: 700;
+      & ~ & {
+        margin-top: 8px;
+      }
+      a {
+        font-size: 16px;
+        color: $basic-white;
+        text-decoration: none;
+        padding: 2px 0;
+      }
+    }
+  }
+	
+  .v-enter,
+  .v-leave-to {
+    opacity: 0
+  }
+  
+  .v-enter-to,
+  .v-leave {
+    opacity: 1
+  }
+  
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 1s ease
+  }
+}
+
+@media (max-width: 905px) {
+  .responsive-header {
+    display: inline;
+  }
+  .header-main-area {
+    display: none;
+  }
+}
+/* スマホ */
+@media (max-width: 500px){
+  .header-wrapper .header-logo-area {
+    padding: 0 0 0 0.3rem;
   }
 }
 </style>
