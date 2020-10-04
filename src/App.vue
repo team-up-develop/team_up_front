@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <header v-if="$store.state.auth.userId || this.loginFlag == true"/>
+    <Header v-if="$store.state.auth.userId || this.loginFlag == true"/>
     <header-login-false v-else />
     <div class="container">
       <router-view/>
     </div>
-    <footer></footer>
+    <Footer></Footer>
   </div>
 </template>
 

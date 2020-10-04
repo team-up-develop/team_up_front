@@ -2,7 +2,7 @@
   "name": "TEAMUP",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+"scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -14,19 +14,12 @@
       "json",
       "vue"
     ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!vue-awesome|vuex-i18n)"
-    ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ]
+    }
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
