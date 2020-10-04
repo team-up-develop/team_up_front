@@ -3,26 +3,26 @@
     <div class="header-wrapper-area">
       <div class="header-logo-area">
         <div class="header-logo">
-    <div class="responsive-header">
-      <button class="button" type="button" name="button" @click="show">
-        <span class="top"></span>
-        <span class="middle"></span>
-        <span class="bottom"></span>
-      </button>
-<transition>
-      <nav id="gnav" class="nav" v-if="gnav">
-        <div class="nav__body">
-          <ul class="nav__lst">
-            <li class="nav__item"><router-link to="/jobs">案件を探す</router-link></li>
-            <li class="nav__item"><router-link to="/jobcreate">募集する</router-link></li>
-            <li class="nav__item"><router-link to="/chat">連絡する</router-link></li>
-            <li class="nav__item"><router-link to="/manage">管理する</router-link></li>
-            <li class="nav__item"><router-link :to="`/account/profile/${ this.userId }`">{{ userId }}</router-link></li>
-          </ul>
-        </div>
-      </nav>
-      </transition>
-    </div>
+      <div class="responsive-header">
+        <button class="button" type="button" name="button" @click="show">
+          <span class="top"></span>
+          <span class="middle"></span>
+          <span class="bottom"></span>
+        </button>
+        <transition>
+          <nav id="gnav" class="nav" v-if="gnav">
+            <div class="nav__body">
+              <ul class="nav__lst">
+                <li class="nav__item"><router-link to="/jobs">案件を探す</router-link></li>
+                <li class="nav__item"><router-link to="/jobcreate">募集する</router-link></li>
+                <li class="nav__item"><router-link to="/chat">連絡する</router-link></li>
+                <li class="nav__item"><router-link to="/manage">管理する</router-link></li>
+                <li class="nav__item"><router-link :to="`/account/profile/${ this.userId }`">{{ userId }}</router-link></li>
+              </ul>
+            </div>
+          </nav>
+        </transition>
+      </div>
           <!-- <div
             class="static"
             v-bind:class="{ active: isActive, 'text-danger': hasError }"
@@ -89,7 +89,7 @@ export default {
       // staticImage: '.../assets/logo.jpg',
       isActive: true,
       hasError: false,
-      gnav: false
+      gnav: false //? ハンバーガーメニューフラグ
       // userName: null,
       // message: ""
     }
@@ -317,7 +317,7 @@ export default {
     }
   }
   .nav {
-    width: 40%;
+    width: 45%;
     height: 100%;
     position: fixed;
     background-color: $modal-background;
