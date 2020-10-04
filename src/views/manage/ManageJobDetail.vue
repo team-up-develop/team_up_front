@@ -104,21 +104,20 @@
       <!-- 編集 モーダル画面 -->
       <div class="example-modal-window">
         <edit-job-modal @close="closeModal" v-if="modal">
-          <p class="label-lang">編集</p>
           <div class="job-create-title-area">
-            <label for="name">案件タイトル</label>
+            <label for="name" class="label">案件タイトル</label>
             <input type="text" v-model="jobTitle">
           </div>
           <div class="job-create-time-area">
-            <label for="name">開発開始</label>
+            <label for="name" class="label">開発開始</label>
             <input type="date" v-model="devStartDate">
           </div>
           <div class="job-create-time-area">
-            <label for="name">開発終了</label>
+            <label for="name" class="label">開発終了</label>
             <input type="date" v-model="devEndDate">
           </div>
           <div class="job-create-detail-area">
-            <label for="name">開発詳細</label>
+            <label for="name" class="label">開発詳細</label>
             <textarea type="text" v-model="jobDescription"></textarea>
           </div>
           <br>
@@ -596,6 +595,13 @@ export default {
   }
 
   // * モーダル
+  .label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+    display: inline-block;
+  }
+  
   .job-create-title-area {
     width: 100%;
     height: 100px;
