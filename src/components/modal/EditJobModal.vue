@@ -15,6 +15,12 @@
   </transition>
 </template>
 
+<script>
+export default {
+
+}
+</script>
+
 <style lang="scss" scoped>
 .modal-overlay {
   display: flex;
@@ -26,28 +32,33 @@
   left: 0;
   width: 100%;
   height: 100%;
-  // background: $modal-background;
-  font-weight: bold;
+  background: $modal-background;
+  /* font-weight: bold; */
 }
 
 .modal-window {
-  @include box-shadow-btn;
   background: $basic-white;
+  width: 80%;
+  height: 90%;
   border-radius: 8px;
   overflow: hidden;
+  overflow: scroll;
 }
 
 .modal-content {
-  padding: 4rem 6rem;
+  padding: 2rem 4rem;
+  height: 64vh;
+  text-align: left;
 }
 
 .modal-footer {
-  width: 87%;
-  padding: 1rem;
-  margin-left: 0.35rem;
+  /* background: #ccc; */
+  width: 100%;
+  padding: 2rem 0 1rem 0;
   text-align: right;
   display: inline-block;
   position: relative;
+  font-size: 100px;
 }
 
 .modal-enter-active, .modal-leave-active {

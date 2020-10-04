@@ -99,19 +99,57 @@
       </div>
     </div>
     <div class="button-area">
-      <button class="edit-btn">編集する</button>
+      <button class="edit-btn" @click="openModal">編集する</button>
     </div>
+      <!-- 編集 モーダル画面 -->
+      <div class="example-modal-window">
+        <edit-job-modal @close="closeModal" v-if="modal">
+          <div class="job-create-title-area">
+            <label for="name" class="label">案件タイトル</label>
+            <input type="text" v-model="jobTitle">
+          </div>
+          <div class="job-create-time-area">
+            <label for="name" class="label">開発開始</label>
+            <input type="date" v-model="devStartDate">
+          </div>
+          <div class="job-create-time-area">
+            <label for="name" class="label">開発終了</label>
+            <input type="date" v-model="devEndDate">
+          </div>
+          <div class="job-create-detail-area">
+            <label for="name" class="label">開発詳細</label>
+            <textarea type="text" v-model="jobDescription"></textarea>
+          </div>
+          <br>
+          <div v-for="programingLanguage in programingLanguage" :key="programingLanguage.id">
+            {{ programingLanguage.programingLanguageName }}
+          </div>
+          <label for="name">開発言語</label>
+          <input type="text" v-model="programingLanguage">
+          <br>
+          <label for="name">フレームワーク</label>
+          <input type="text">
+          <br>
+          <label for="name">その他技術</label>
+          <input type="text">
+          <br>
+          <label for="name">募集人数</label>
+          <input type="text">
+          <template slot="footer">
+            <div class="serach-btn">
+              編集
+            </div>
+          </template>
+        </edit-job-modal >
+      </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from "moment";
-// import Applybtn from '@/components/button/Applybtn'
-// import FavoriteDetailBtn from '@/components/button/FavoriteDetailBtn'
-// import Loading from '@/components/common/Loading'
-// import ApplyModal from '@/components/modal/ApplyModal'
 import GithubImage from '@/assets/github.png'
+import EditJobModal from '@/components/modal/EditJobModal'
 export default {
   props: {
     id: Number,
@@ -128,6 +166,13 @@ export default {
       assetsImage: GithubImage,
       assetsImage_NG: '@/assets/github.png',
       staticImage: '@/assets/github.png',
+      modal: false, //? 編集モーダル
+      jobTitle: "",
+      devStartDate: null,
+      devEndDate: null,
+      jobDescription: null,
+      programingLanguage: [],
+      selectedLang: []
     }
   },
   filters: {
@@ -140,9 +185,16 @@ export default {
     axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
           // this.loading = true;
-          console.log(response.data)
           this.job = response.data
-          console.log("よまれてるよ")
+          this.jobTitle = this.job.jobTitle
+          this.devStartDate = this.job.devStartDate
+          this.devEndDate = this.job.devEndDate
+          this.jobDescription = this.job.jobDescription
+          this.programingLanguage = this.job.programingLanguage
+          console.log("aaaaaaaaaaa")
+          console.log(this.job)
+          console.log(this.programingLanguage)
+          console.log("aaaaaaaaaaa")
       })
   },
   methods: {
@@ -163,8 +215,17 @@ export default {
         return window.open(this.job.user.githubAccount)
       })
     },
+
+    //* Editモーダル 
+    openModal() {
+      this.modal = true
+    },
+    closeModal() {
+      this.modal = false
+    },
   },
   components: {
+    EditJobModal
     // Applybtn,
     // FavoriteDetailBtn,
     // Loading,
@@ -525,11 +586,96 @@ export default {
     line-height: 1;
     text-align: center;
     max-width: 800px;
-    margin: auto;
+    // margin: auto;
     font-size: 1.1rem;
     display: inline-block;
     cursor: pointer;
     border: none;
+    margin: 0.5rem;
   }
+
+  // * モーダル
+  .label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+    display: inline-block;
+  }
+  
+  .job-create-title-area {
+    width: 100%;
+    height: 100px;
+    text-align: left;
+
+    input[type='text'] {
+      @include input-border-color;
+      background-color: $sub-white;
+      color: $text-main-color;
+      font: 16px/24px sans-serif;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0.3em;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      padding: 0.5rem;
+
+      &:focus {
+        @include form-hover;
+      }
+    }
+  }
+
+  .job-create-time-area {
+    width: 100%;
+    height: 100px;
+    text-align: left;
+
+    input[type='date'] {
+      @include input-border-color;
+      background-color: $sub-white;
+      color: $text-main-color;
+      font: 16px/24px sans-serif;
+      box-sizing: border-box;
+      width: 40%;
+      display: flex;
+      padding: 0.3em;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      padding: 0.5rem;
+
+      &:focus {
+        @include form-hover;
+      }
+    }
+  }
+
+    .job-create-detail-area {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+
+      textarea[type='text'] {
+        @include input-border-color;
+        background-color: $sub-white;
+        color: $text-main-color;
+        font: 16px/24px sans-serif;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 0.3em;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        border-radius: 4px;
+        padding: 0.5rem;
+
+        &:focus {
+          @include form-hover;
+        }
+      }
+    }
 }
 </style>

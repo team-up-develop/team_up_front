@@ -39,7 +39,7 @@ export default {
 
 .modal-window {
   background: $basic-white;
-  width: 90%;
+  width: 80%;
   height: 90%;
   border-radius: 8px;
   overflow: hidden;
