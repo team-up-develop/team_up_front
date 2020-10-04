@@ -17,7 +17,7 @@
                 <li class="nav__item"><router-link to="/jobcreate">募集する</router-link></li>
                 <li class="nav__item"><router-link to="/chat">連絡する</router-link></li>
                 <li class="nav__item"><router-link to="/manage">管理する</router-link></li>
-                <li class="nav__item"><router-link :to="`/account/profile/${ this.userId }`">{{ userId }}</router-link></li>
+                <li class="nav__item"><router-link :to="`/account/profile/${ this.userId }`">プロフィール</router-link></li>
               </ul>
             </div>
           </nav>
