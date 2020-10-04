@@ -993,8 +993,13 @@ export default {
 }
 
 @media screen and (max-width: 999px) {
+  .search-area {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    padding: 0;
+  }
   /* 右側案件をdisplaynone */
-
   .job-wrapper-right {
     display: none;
   }
@@ -1021,6 +1026,13 @@ export default {
 }
 
 @media screen and (max-width: 700px) {
+  .search-area .search-freewrod-box {
+    position: relative;
+    padding: 0.4rem 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0;
+    width: 40%;
+  }
   .job-wrapper-left {
     width: 100%;
 
