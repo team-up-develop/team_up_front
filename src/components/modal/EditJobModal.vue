@@ -33,7 +33,6 @@ export default {
   width: 100%;
   height: 100%;
   background: $modal-background;
-
   /* font-weight: bold; */
 }
 
@@ -43,11 +42,11 @@ export default {
   height: 90%;
   border-radius: 8px;
   overflow: hidden;
+  overflow: scroll;
 }
 
 .modal-content {
   padding: 2rem 4rem;
-  width: 40vw;
   height: 64vh;
   text-align: left;
 }

@@ -495,7 +495,7 @@ export default {
     compliteEntry(){
       this.applyFlug = false;
     },
-
+    
     // * モーダル
     openModal() {
       this.modal = true
@@ -521,6 +521,7 @@ export default {
     closeFrameworkSearchModal() {
       this.frameworkModal = false;
     },
+    // ? その他スキルモーダル
     skillSearchModal() {
       this.skillModal = true;
     },

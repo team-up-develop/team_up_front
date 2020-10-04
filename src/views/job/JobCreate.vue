@@ -365,11 +365,12 @@ export default {
   .create-wrapper .job-create-wrapper {
     width: calc(100% - 2rem);
     margin: 2rem auto 2rem auto;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 1rem 1rem;
     right: 0rem;
 
     .next-btn {
-      padding: 1.1rem 2.7rem;
+      width: 49%;
+      padding: 1.1rem 2.9rem;
     }
   }
   .job-create-wrapper .job-create-time-area{
