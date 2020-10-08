@@ -33,7 +33,6 @@ export default {
   width: 100%;
   height: 100%;
   background: $modal-background;
-
   /* font-weight: bold; */
 }
 
@@ -44,9 +43,10 @@ export default {
 }
 
 .modal-content {
-  padding: 2rem 4rem;
-  width: 40vw;
+  padding: 2rem 0rem 2rem 3rem;
   height: 64vh;
+  width: 95%;
+  margin: 0 auto;
   text-align: left;
 }
 

@@ -45,7 +45,7 @@
         <div class="example-modal-window">
           <SkillSearchModal @close="closeSkillSearchModal" v-if="skillModal">
             <p class="label-lang">その他スキル 選択</p>
-              <div class="round" v-for="skill in skills" v-bind:key="skill.id">
+              <div class="round-skill" v-for="skill in skills" v-bind:key="skill.id">
               <input type="checkbox"  id="checkbox" v-model="selectedSkill" v-bind:value="skill.id">
                 <label for="" class="checkbox">{{ skill.skillName }}</label>
               </div>
@@ -574,7 +574,7 @@ export default {
       color: $text-sub-color;
       background-color: $basic-white;
       margin-top: 0.4rem;
-      padding: 0.5rem 2rem;
+      padding: 0.5rem 1.5rem;
       border-radius: 50rem;
       cursor: pointer;
       font-weight: bold;
@@ -922,7 +922,15 @@ export default {
   .round {
     text-align: left;
     width: 24%;
-    margin-right: 1px;
+    margin-right: 0.3rem;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .round-skill {
+    text-align: left;
+    width: 22%;
+    margin-right: 0.2rem;
     display: inline-block;
     position: relative;
     margin-bottom: 2rem;
@@ -995,7 +1003,6 @@ export default {
 @media screen and (max-width: 999px) {
   .search-area {
     overflow-x: auto;
-    white-space: nowrap;
     width: 100%;
     padding: 0;
   }
