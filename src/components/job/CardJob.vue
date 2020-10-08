@@ -1,10 +1,8 @@
 <template>
   <div class="job-cards">
     <div class="job-cards-top">
-      {{ job.jobTitle | truncateTitle }}
-    </div>
-    <div class="job-cards-top-responsive">
-      {{ job.jobTitle | truncateResponsiveTitle }}
+      <span>{{ job.jobTitle | truncateTitle }}</span>
+      <p>{{ job.jobTitle | truncateTitleResponsive }}</p>
     </div>
     <div class="job-cards-center">
       <!-- カード スキルコンポーネント -->
@@ -57,9 +55,9 @@ export default {
       }
       return value.substring(0, length) + ommision;
     },
-    //* レスポンシブ 案件タイトル 文字制限
-    truncateResponsiveTitle: function(value) {
-      var length = 25;
+    //* 案件タイトル 文字制限
+    truncateTitleResponsive: function(value) {
+      var length = 35;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -93,6 +91,9 @@ export default {
     pointer-events: none;
     font-size: 18px;
     text-decoration: underline;
+    p {
+      display: none;
+    }
   }
 
   .job-cards-center {
@@ -201,6 +202,12 @@ export default {
     display: block;
     background-color: yellow;
   }
+  .job-cards .job-cards-bottom .product-start-end .product-start-end-tag {
+    display: none;
+  }
+  .job-cards .job-cards-bottom .product-start-end .product-start-end-time {
+    padding: 0;
+  }
 
   .job-cards-center {
     padding: 10px 1rem 0 1rem;
@@ -219,6 +226,21 @@ export default {
   .job-cards {
     height: 285px;
   }
+  .job-cards {
+    .job-cards-top {
+      font-size: 16px;
+      width: calc(100% - 2rem);
+      // background-color: yellow;
+      padding: 2rem 1rem 1rem 1rem;
+
+      span {
+        display: none;
+      }
+      p {
+        display: inline;
+      }
+    }
+  }
 
   .job-cards-top-responsive {
     width: calc(100% - 45px);
@@ -227,25 +249,31 @@ export default {
     padding: 2rem 2rem 1rem 1.5rem;
     font-weight: bold;
     pointer-events: none;
-    font-size: 18px;
     text-decoration: underline;
     display: block;
   }
 
-  .job-cards-center {
-    height: 30%;
-
-    /* background-color: grey; */
-  }
-
-  .job-cards-bottom {
-    .post-user-area {
-      width: 100%;
-      height: 60%;
+  .job-cards  {
+    .job-cards-center {
+      height: 30%;
+      // background-color: purple;
+      width: calc(100% - 1rem);
+      padding: 0.5rem 0.5rem 0.2rem 0.5rem;
     }
+  }
+  .job-cards  {
+    .job-cards-bottom {
+      padding: 0 1.2rem;
+      height: 33%;
+      // background-color: purple;
+      .post-user-area {
+        width: 100%;
+        height: 60%;
+      }
 
-    .product-start-end .product-start-end-tag {
-      display: none;
+      .product-start-end .product-start-end-tag {
+        display: none;
+      }
     }
   }
 }
