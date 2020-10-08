@@ -5,7 +5,7 @@
       :key="`language-${index}`">
       {{ langage.programingLanguageName }}
     </div>
-    <!-- レスポンシブ 言語 -->
+    <!-- レスポンシブ 言語 360px-->
     <div class="langage-responsive" 
       v-for="(langage, index) in job.programingLanguage.slice(0,2)" 
       :key="`language-responsive-${index}`">
@@ -16,7 +16,7 @@
     :key="`framework-${index}`">
       {{ framework.programingFrameworkName }}
     </div>
-    <!-- レスポンシブ フレームワーク -->
+    <!-- レスポンシブ フレームワーク 360px -->
     <div class="framework-responsive" 
     v-for="(framework, index)  in job.programingFramework.slice(0,2)" 
     :key="`framework-responsive-${index}`">
@@ -27,9 +27,9 @@
     :key="`skill-${index}`">
       {{ skill.skillName }}
     </div>
-    <!-- レスポンシブ その他スキル -->
+    <!-- レスポンシブ その他スキル 360px-->
     <div class="skill-responsive" 
-    v-for="(skill, index) in job.skill.slice(0,2)" 
+    v-for="(skill, index) in job.skill.slice(0,3)" 
     :key="`skill-responsive-${index}`">
       {{ skill.skillName }}
     </div>
@@ -93,7 +93,7 @@ export default {
   display: none;
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 500px) {
   .job-cards {
     height: 45vh;
     background-color: rgba(0, 255, 238, 0.163);
@@ -153,6 +153,17 @@ export default {
     border-radius: 5px / 5px;
     font-weight: bold;
     pointer-events: none;
+  }
+}
+@media screen and (max-width: 390px) {
+  .langage-responsive {
+    padding: 7px 0.8rem;
+  }
+  .framework-responsive {
+    padding: 7px 0.8rem;
+  }
+  .skill-responsive {
+    padding: 7px 0.8rem;
   }
 }
 </style>
