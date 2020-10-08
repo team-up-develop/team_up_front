@@ -320,6 +320,7 @@ export default {
     width: 45%;
     height: 100%;
     position: fixed;
+    // background-color: #ffffff;
     background-color: $modal-background;
     top: 0;
     left: 0;

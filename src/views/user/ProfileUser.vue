@@ -1,5 +1,8 @@
 <template>
   <div class="profile-wrapper">
+    <button @click="send">
+      WebSocket
+    </button>
     <div class="profile-wrapper-card">
       <div class="profile-top-area">
         <div class="profile-top-area-left">
@@ -70,8 +73,8 @@ export default {
   data() {
     return {
       userInfo: {},
-      activeTab: '1',
-      isActive: true,
+      activeTab: '1', //? タブ
+      isActive: true, //? タブ
       hasError: false,
       modal: false,
       userName: "",
@@ -79,6 +82,7 @@ export default {
       bio: "",
       githubAccount: "",
       twitterAccount: "",
+      messages: "Test"
     }
   },
   filters: {
@@ -88,6 +92,16 @@ export default {
     },
   },
   created() {
+    const ws = (this.ws = new WebSocket(`ws://${location.host}/websocket`));
+    console.log(ws)
+    // * 接続が確認された時
+    ws.onopen = () => {
+      console.log("sucsess")
+    };
+    ws.onmessage = message => {
+      this.messages.push(message.data);
+    };
+
     // * ユーザー情報取得
     axios.get(`http://localhost:8888/api/v1/user/${this.id}`)
     .then(response => {
@@ -103,6 +117,12 @@ export default {
     })
   },
   methods: {
+    send() {
+      console.log("aaaaaaa")
+      console.log(this.ws)
+      // * メッセージを送信する
+      this.ws.send(this.message);
+    },
     // * 編集する
     profileEdit() {
       const params = {
@@ -121,6 +141,7 @@ export default {
         console.log(error)
       })
     },
+    // * タブの切り替え
     change: function(num){
       this.isActive = !this.isActive ;
       this.activeTab = num
