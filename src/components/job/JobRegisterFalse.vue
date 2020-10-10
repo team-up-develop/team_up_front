@@ -12,8 +12,8 @@
       </div>
       <div @click="register" class="register-btn">新規登録</div>
     </div>
-    <div class="false-user-Advertisement">
-    </div>
+    <!-- <div class="false-user-Advertisement">
+    </div> -->
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
     height: calc(44vh - 4rem);
     background-color: $basic-white;
     border-radius: 8px;
-    margin-bottom: 1rem;
+    margin-bottom: 23rem;
     margin-top: 1rem;
     padding: 0 2rem 2rem 2rem;
   }

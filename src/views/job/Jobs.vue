@@ -322,6 +322,7 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+            this.detailFlag = false; //? 右側案件詳細を閉じる
             // ? もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
@@ -349,6 +350,7 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+            this.detailFlag = false; //? 右側案件詳細を閉じる
             // ? もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
@@ -377,6 +379,7 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+            this.detailFlag = false; //? 右側案件詳細を閉じる
             // ? もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
@@ -401,6 +404,7 @@ export default {
           console.log(posts)
           this.jobs = posts;
           this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          this.detailFlag = false; //? 右側案件詳細を閉じる
           // ? もし案件が存在しなかったら処理が走る
           if(!this.jobs.length) {
             this.jobsNullFlag = true;
@@ -948,7 +952,7 @@ export default {
   label.checkbox {
     position: absolute;
     top: 0;
-    margin-top: 0.35rem;
+    margin-top: 0.37rem;
     color: #111111;
     margin-left: 0.4rem;
     font-size: 14px;
@@ -1005,6 +1009,7 @@ export default {
     overflow-x: auto;
     width: 100%;
     padding: 0;
+    white-space: nowrap;
   }
   /* 右側案件をdisplaynone */
   .job-wrapper-right {

@@ -84,11 +84,6 @@ export default {
       selectedSkill: [], //? その他開発スキル
       skills: [],
       selectedCommunication: 0, //? コミュニケーションツール
-      communicationToolId: [
-        { id: 1, name: 'Slack'},
-        { id: 2, name: 'Skype' },
-        { id: 3, name: 'ChatWork' }
-      ],
       recruitNumber: 0, //? メンバー人数
       selectedLangErrors: [], //?言語入力エラー
       selectedFramworkErrors: [], //?フレームワーク入力エラー
