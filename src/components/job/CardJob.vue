@@ -48,14 +48,14 @@ export default {
     },
     //* 案件タイトル 文字制限
     truncateTitle: function(value) {
-      var length = 50;
+      var length = 45;
       var ommision = "...";
       if (value.length <= length) {
         return value;
       }
       return value.substring(0, length) + ommision;
     },
-    //* 案件タイトル 文字制限
+    //* 案件タイトル レスポンシブ文字制限
     truncateTitleResponsive: function(value) {
       var length = 35;
       var ommision = "...";
@@ -158,8 +158,6 @@ export default {
       .post-user-name-area {
         display: inline-block;
         width: 50%;
-
-        /* background-color: yellow; */
         height: 60%;
         padding: 0.1rem 1rem;
         position: relative;
@@ -183,8 +181,6 @@ export default {
 @media screen and (max-width: 999px) {
   .job-cards {
     width: 100%;
-
-    /* background-color: green; */
   }
 }
 
@@ -200,7 +196,6 @@ export default {
     font-size: 18px;
     text-decoration: underline;
     display: block;
-    background-color: yellow;
   }
   .job-cards .job-cards-bottom .product-start-end .product-start-end-tag {
     display: none;
@@ -242,30 +237,19 @@ export default {
     }
   }
 
-  .job-cards-top-responsive {
-    width: calc(100% - 45px);
-    height: calc(30% - 60px);
-    text-align: left;
-    padding: 2rem 2rem 1rem 1.5rem;
-    font-weight: bold;
-    pointer-events: none;
-    text-decoration: underline;
-    display: block;
-  }
-
   .job-cards  {
     .job-cards-center {
       height: 30%;
-      // background-color: purple;
       width: calc(100% - 1rem);
       padding: 0.5rem 0.5rem 0.2rem 0.5rem;
     }
   }
+
   .job-cards  {
     .job-cards-bottom {
       padding: 0 1.2rem;
       height: 33%;
-      // background-color: purple;
+
       .post-user-area {
         width: 100%;
         height: 60%;

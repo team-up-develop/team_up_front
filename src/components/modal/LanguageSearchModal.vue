@@ -44,8 +44,7 @@ export default {
 }
 
 .modal-content {
-  padding: 2rem 4rem;
-  width: 40vw;
+  padding: 2rem 4rem 2rem 4rem;
   height: 64vh;
   text-align: left;
 }
