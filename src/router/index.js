@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import TopPage from '@/views/common/TopPage'
 import Jobs from '../views/job/Jobs.vue'
 import JobDetailResponsive from '@/views/job/JobDetailResponsive'
 import Login from '../views/user/Login.vue'
@@ -24,6 +25,12 @@ Vue.use(Router)
 export default new Router({
   mode: "history",
   routes: [
+    // * トップページ
+    {
+      path: '/',
+      component: TopPage,
+      name: 'topPage'
+    },
     // * 案件
     {
       path: '/jobs',
