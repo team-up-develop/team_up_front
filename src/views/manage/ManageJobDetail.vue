@@ -135,7 +135,7 @@
               v-model="selectedLang"
               :reduce="languages => languages.id"
             />
-            <!-- <h1>Selected 言語:{{ selectedLang }}</h1> -->
+            <h1>Selected 言語:{{ selectedLang }}</h1>
           </div>
           <div class="job-create-area">
             <label for="name" class="label">フレームワーク</label><label for="name" class="label-required">必須</label>
@@ -151,7 +151,7 @@
                 v-model="selectedFramwork"
                 :reduce="framworks => framworks.id"
             />
-            <!-- <h1>Selected フレームワーク: {{ selectedFramwork }}</h1> -->
+            <h1>Selected フレームワーク: {{ selectedFramwork }}</h1>
           </div>
           <div class="job-create-area">
             <label for="name" class="label">その他技術</label><label for="name" class="label-required">必須</label>
@@ -167,7 +167,7 @@
                 v-model="selectedSkill"
                 :reduce="skills => skills.id"
             />
-            <!-- <h1>Selected フレームワーク: {{ selectedFramwork }}</h1> -->
+            <h1>Selected その他スキル: {{ selectedSkill }}</h1>
           </div>
           <br>
           <div class="job-create-area">
@@ -182,7 +182,7 @@
           </div>
           </div>
           <template slot="footer">
-            <div class="edit-btn">
+            <div class="edit-btn" @click="jobEdit">
               編集する
             </div>
           </template>
@@ -290,6 +290,65 @@ export default {
         this.job = response.data
         console.log(this.job)
         return window.open(this.job.user.githubAccount)
+      })
+    },
+    // * 編集する
+    jobEdit() {
+      // * 応募者人数を文字列から数値に変換
+      var recruitNum = Number(this.recruitNumber);
+      // * 言語を {id: Number}に変換
+      const languageArray = [];
+      for(var i = 0; i < this.selectedLang.length; i++) {
+        var langages = this.selectedLang[i];
+        // console.log(langages)
+        languageArray.push({id: langages})
+      }
+      // * フレームワークを{id: Number}に変換
+      const framworksArray = [];
+      for(var c = 0; c < this.selectedFramwork.length; c++) {
+        // console.log({id: this.selectedLang[c].id})
+        var framworks = this.selectedFramwork[c];
+        framworksArray.push({id: framworks})
+      }
+      // * その他スキルを {id: Number}に変換
+      const skillArray = [];
+      for(var d = 0; d < this.selectedSkill.length; d++) {
+        // console.log({id: this.selectedSkill[d]})
+        var skills = this.selectedSkill[d];
+        skillArray.push({id: skills})
+      }
+
+      // * date型に変換のための data用意
+      function toDate (str, delim) {
+        var arr = str.split(delim)
+        return new Date(arr[0], arr[1] - 1, arr[2]);
+      }
+
+      // //* 開始日
+      var devStart = this.devStartDate
+      var devStartDate = toDate(devStart, '-');
+
+      // *終了日
+      var devEnd = this.devEndDate
+      var devEndDate = toDate(devEnd, '-');
+
+      const params = {
+        jobTitle: this.jobTitle,
+        devStartDate: devStartDate,
+        devEndDate: devEndDate,
+        jobDescription: this.jobDescription,
+        programingLanguage: languageArray,
+        programingFramework: framworksArray,
+        skill: skillArray,
+        recruitmentNumbers: recruitNum
+      }
+      axios.put(`${this.$httpPosts}/${this.id}`, params)
+      .then(response => {
+        console.log(response.data)
+        // this.$emit('compliteAssgin', this.message)
+      })
+      .catch(error => {
+        console.log(error)
       })
     },
 
