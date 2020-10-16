@@ -461,6 +461,8 @@ export default {
               posts.push(jobs)
             }
           }
+          // ? 検索語の処理 
+          this.$store.state.search.freeWord = this.freeWord;
           console.log(posts)
           this.jobs = posts;
           this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
