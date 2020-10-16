@@ -31,7 +31,7 @@
           <!-- 開発言語 -->
           <label for="name" class="language-tag">開発言語</label>
           <div class="langage">
-            <div class="language-box" v-for="language in languages" :key="language.id">
+            <div class="language-box" v-for="language in languages" :key="language.id" @click="languageClick(language)">
               {{ language.programingLanguageName }}
             </div>
           </div>
@@ -40,7 +40,7 @@
         <div class="framework-area">
           <label for="name" class="framework-tag">フレームワーク</label>
           <div class="framework">
-            <div class="framework-box" v-for="framwork in framworks" :key="framwork.id">
+            <div class="framework-box" v-for="framwork in framworks" :key="framwork.id" @click="framworkClick(framwork)">
               {{ framwork.programingFrameworkName }}
             </div>
           </div>
@@ -49,7 +49,7 @@
         <div class="skill-area">
           <label for="name" class="skill-tag">その他スキル</label>
           <div class="skill">
-            <div class="skill-box" v-for="skill in skills" :key="skill.id">
+            <div class="skill-box" v-for="skill in skills" :key="skill.id" @click="skillClick(skill)">
               {{ skill.skillName }}
             </div>
           </div>
@@ -79,10 +79,15 @@ export default {
       languages: [], //? 開発言語
       framworks: [], //? フレームワーク
       skills: [], //? その他スキル
-      freeWord: '', //? フリーワード 検索
+      freeWord: this.$store.state.search.freeWord, //? フリーワード 検索
     }
   },
   mounted() {
+    // * ページ遷移知れてきたらVuexの中身を消す
+    this.$store.state.search.freeWord = ""
+    this.$store.state.search.language = null
+    this.$store.state.search.framwork = null
+    this.$store.state.search.skill = null
     // * 開発言語 取得
     axios.get('http://localhost:8888/api/v1/programing_language')
     .then(response => {
@@ -105,7 +110,24 @@ export default {
       this.$store.dispatch('freeWordSearch', {
         freeWord: this.freeWord,
       })
-      this.$router.push('/jobs');
+    },
+    // * トップページ 言語検索
+    languageClick(language) {
+      this.$store.dispatch('languageSearch', {
+        language: language.id,
+      })
+    },
+    // * トップページ フレームワーク検索
+    framworkClick(framwork) {
+      this.$store.dispatch('framworkSearch', {
+        framwork: framwork.id,
+      })
+    },
+    // * トップページ その他スキル検索
+    skillClick(skill) {
+      this.$store.dispatch('skillSearch', {
+        skill: skill.id,
+      })
     }
   },
   components: {
