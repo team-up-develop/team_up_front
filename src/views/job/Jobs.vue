@@ -224,7 +224,7 @@ export default {
       frameworks: [],//? フレームワーク取得
       selectedSkill: [], //? その他スキル v-model
       skills: [], //? その他スキル取得
-      freeWord: '',
+      freeWord: this.$store.state.search.freeWord,
       name: '',
       age: 0,
       loading: true,
@@ -261,6 +261,7 @@ export default {
   },
   created() {
     // * 投稿一覧取得
+    var posts = [];
     axios.get('http://localhost:8888/api/v1/job', {
       // headers: {
       //   Authorization: `Bearer ${ localStorage.userId }`
@@ -270,6 +271,17 @@ export default {
       setTimeout(() => {
         this.loading = false;
         this.jobs = response.data
+          for(var i in response.data){
+            var jobs = response.data[i];
+            if(jobs.jobDescription.indexOf(this.freeWord) !== -1){
+              posts.push(jobs)
+            }
+          }
+          this.jobs = posts
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
       }, 1000);
     })
     .catch(error => {

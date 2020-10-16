@@ -1,6 +1,7 @@
 <template>
   <dir class="top-wrapper">
-    <div class="container">
+    <div class="container-top">
+      <!-- トップ AD area -->
       <div class="top-ad-area">
         <div class="top-ad-left">
           <div class="ad-title-area">
@@ -19,140 +20,98 @@
           </div>
         </div>
       </div>
+      <!-- 中央 フリーワード  -->
       <div class="center-ad-area">
-        <input type="text" class="serach-freeword" placeholder="フリーワードを入力してください">
-        <button class="search-freeword-btn">検索する</button>
+        <input type="text" class="serach-freeword" v-model="freeWord"  placeholder="フリーワードを入力してください">
+        <button class="search-freeword-btn" @click="freeWordSearch">検索する</button>
       </div>
       <div class="bottom-ad-area">
         <label for="name" class="keyword-tag">おすすめキーワード</label>
         <div class="language-area">
+          <!-- 開発言語 -->
           <label for="name" class="language-tag">開発言語</label>
           <div class="langage">
-            <div class="language-box">
-              JavaScript
-            </div>
-            <div class="language-box">
-              Go
-            </div>
-            <div class="language-box">
-              Ruby
-            </div>
-            <div class="language-box">
-              JavaScript
-            </div>
-            <div class="language-box">
-              Go
-            </div>
-            <div class="language-box">
-              Ruby
-            </div>
-            <div class="language-box">
-              JavaScript
-            </div>
-            <div class="language-box">
-              Go
-            </div>
-            <div class="language-box">
-              Ruby
-            </div>
-            <div class="language-box">
-              Go
-            </div>
-            <div class="language-box">
-              Ruby
-            </div>
-            <div class="language-box">
-              Go
-            </div>
-            <div class="language-box">
-              Ruby
+            <div class="language-box" v-for="language in languages" :key="language.id">
+              {{ language.programingLanguageName }}
             </div>
           </div>
         </div>
+        <!-- 開発フレームワーク -->
         <div class="framework-area">
           <label for="name" class="framework-tag">フレームワーク</label>
           <div class="framework">
-            <div class="framework-box">
-              React
-            </div>
-            <div class="framework-box">
-              Vue.js
-            </div>
-            <div class="framework-box">
-              Nuxt.js
-            </div>
-            <div class="framework-box">
-              React
-            </div>
-            <div class="framework-box">
-              Vue.js
-            </div>
-            <div class="framework-box">
-              Nuxt.js
-            </div>
-            <div class="framework-box">
-              React
-            </div>
-            <div class="framework-box">
-              Vue.js
-            </div>
-            <div class="framework-box">
-              Nuxt.js
-            </div>
-            <div class="framework-box">
-              Vue.js
-            </div>
-            <div class="framework-box">
-              Nuxt.js
+            <div class="framework-box" v-for="framwork in framworks" :key="framwork.id">
+              {{ framwork.programingFrameworkName }}
             </div>
           </div>
         </div>
+        <!-- その他スキル -->
         <div class="skill-area">
           <label for="name" class="skill-tag">その他スキル</label>
           <div class="skill">
-            <div class="skill-box">
-              Adobe XD
-            </div>
-            <div class="skill-box">
-              Docker
-            </div>
-            <div class="skill-box">
-              AWS
-            </div>
-            <div class="skill-box">
-              Adobe XD
-            </div>
-            <div class="skill-box">
-              Docker
-            </div>
-            <div class="skill-box">
-              AWS
-            </div>
-            <div class="skill-box">
-              Adobe XD
-            </div>
-            <div class="skill-box">
-              Docker
-            </div>
-            <div class="skill-box">
-              AWS
-            </div>
-            <div class="skill-box">
-              Docker
-            </div>
-            <div class="skill-box">
-              AWS
+            <div class="skill-box" v-for="skill in skills" :key="skill.id">
+              {{ skill.skillName }}
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="container-center">
+      <div class="card-area">
+        <label for="name" class="new-tag">新着案件</label>
+        <top-page-new-job-card></top-page-new-job-card>
+      </div>
+      <div class="card-area">
+        <label for="name" class="new-tag">おすすめ案件</label>
+        <top-page-recommend-job-card></top-page-recommend-job-card>
       </div>
     </div>
   </dir>
 </template>
 
 <script>
+import axios from 'axios'
+import TopPageRecommendJobCard from '@/components/common/TopPageRecommendJobCard'
+import TopPageNewJobCard from '@/components/common/TopPageNewJobCard'
 export default {
-
+  data() {
+    return {
+      languages: [], //? 開発言語
+      framworks: [], //? フレームワーク
+      skills: [], //? その他スキル
+      freeWord: '', //? フリーワード 検索
+    }
+  },
+  mounted() {
+    // * 開発言語 取得
+    axios.get('http://localhost:8888/api/v1/programing_language')
+    .then(response => {
+      this.languages = response.data.slice(8)
+    })
+    // * フレームワーク
+    axios.get('http://localhost:8888/api/v1/programing_framework')
+      .then(response => {
+        this.framworks = response.data.slice(10)
+      })
+    // * その他スキル
+    axios.get('http://localhost:8888/api/v1/skill')
+      .then(response => {
+        this.skills = response.data.slice(18)
+      })
+  },
+  methods: {
+    // * トップページフリーワード 検索
+    freeWordSearch() {
+      this.$store.dispatch('freeWordSearch', {
+        freeWord: this.freeWord,
+      })
+      this.$router.push('/jobs');
+    }
+  },
+  components: {
+    TopPageRecommendJobCard,
+    TopPageNewJobCard
+  },
 }
 </script>
 
@@ -164,15 +123,11 @@ export default {
     margin: 0 auto;
     position: relative;
 
-    .container {
+    .container-top {
       width: calc(100% - 5rem);
-      border-radius: 20px;
       margin: 2rem 0rem;
       padding: 2.5rem;
-      position: absolute;
-      right: 0;
       height: 82%;
-      // background-color: rgb(204, 204, 204);
 
       // * トップ 広告エリア
       .top-ad-area {
@@ -338,7 +293,7 @@ export default {
 
           .langage {
             width: 100%;
-            display: flex;
+            // display: flex;
           
             .language-box {
               background-color: $basic-white;
@@ -357,6 +312,7 @@ export default {
               outline: none;
               margin-right: 0.8rem;
               margin-top: 0.4rem;
+              display: inline-block;
             }
           }
         }
@@ -372,7 +328,6 @@ export default {
 
           .framework {
             width: 100%;
-            display: flex;
 
             .framework-box {
               background-color: $basic-white;
@@ -391,6 +346,7 @@ export default {
               outline: none;
               margin-right: 0.8rem;
               margin-top: 0.4rem;
+              display: inline-block;
             }
           }
         }
@@ -406,7 +362,6 @@ export default {
 
           .skill {
             width: 100%;
-            display: flex;
 
             .skill-box {
               background-color: $basic-white;
@@ -425,10 +380,34 @@ export default {
               outline: none;
               margin-right: 0.8rem;
               margin-top: 0.4rem;
+              display: inline-block;
             }
           }
         }
+      }
+    }
 
+    // * 中央
+    .container-center {
+      width: calc(100% - 5rem);
+      padding: 0 2.5rem;
+      height: 82%;
+
+      .card-area {
+        width: 100%;
+        height: 50%;
+        // background-color: rgba(0, 0, 255, 0.619);
+        text-align: left;
+        position: relative;
+        padding: 1.7rem 0;
+
+        .new-tag {
+          font-size: 1.7em;
+          font-weight: bold;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
       }
     }
   }
