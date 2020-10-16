@@ -105,15 +105,15 @@
       <div class="example-modal-window">
         <edit-job-modal @close="closeModal" v-if="modal">
           <div class="job-create-title-area">
-            <label for="name" class="label">案件タイトル</label>
+            <label for="name" class="label">案件タイトル</label><label for="name" class="label-required">必須</label>
             <input type="text" v-model="jobTitle">
           </div>
           <div class="job-create-time-area">
-            <label for="name" class="label">開発開始</label>
+            <label for="name" class="label">開発開始</label><label for="name" class="label-required">必須</label>
             <input type="date" v-model="devStartDate">
           </div>
           <div class="job-create-time-area">
-            <label for="name" class="label">開発終了</label>
+            <label for="name" class="label">開発終了</label><label for="name" class="label-required">必須</label>
             <input type="date" v-model="devEndDate">
           </div>
           <div class="job-create-detail-area">
@@ -121,23 +121,69 @@
             <textarea type="text" v-model="jobDescription"></textarea>
           </div>
           <br>
-          <div v-for="programingLanguage in programingLanguage" :key="programingLanguage.id">
-            {{ programingLanguage.programingLanguageName }}
+          <div class="job-create-area">
+            <label for="name" class="label">開発言語</label><label for="name" class="label-required">必須</label>
+            <label v-if="selectedLangErrors.length" class="error-label">
+              <p v-for="selectedLangError in selectedLangErrors" :key="selectedLangError" class="error-message">
+                {{ selectedLangError }}</p>
+            </label>
+            <v-select
+              class="input-area"
+              multiple
+              :options="languages"
+              label="programingLanguageName"
+              v-model="selectedLang"
+              :reduce="languages => languages.id"
+            />
+            <h1>Selected 言語:{{ selectedLang }}</h1>
           </div>
-          <label for="name">開発言語</label>
-          <input type="text" v-model="programingLanguage">
+          <div class="job-create-area">
+            <label for="name" class="label">フレームワーク</label><label for="name" class="label-required">必須</label>
+            <label v-if="selectedFramworkErrors.length" class="error-label">
+              <p v-for="selectedFramworkError in selectedFramworkErrors" :key="selectedFramworkError" class="error-message">
+                {{ selectedFramworkError }}</p>
+            </label>
+            <v-select
+                class="input-area"
+                multiple
+                :options="framworks"
+                label="programingFrameworkName"
+                v-model="selectedFramwork"
+                :reduce="framworks => framworks.id"
+            />
+            <h1>Selected フレームワーク: {{ selectedFramwork }}</h1>
+          </div>
+          <div class="job-create-area">
+            <label for="name" class="label">その他技術</label><label for="name" class="label-required">必須</label>
+            <label v-if="selectedSkillErrors.length" class="error-label">
+              <p v-for="selectedSkillError in selectedSkillErrors" :key="selectedSkillError" class="error-message">
+                {{ selectedSkillError }}</p>
+            </label>
+            <v-select
+                class="input-area"
+                multiple
+                :options="skills"
+                label="skillName"
+                v-model="selectedSkill"
+                :reduce="skills => skills.id"
+            />
+            <h1>Selected その他スキル: {{ selectedSkill }}</h1>
+          </div>
           <br>
-          <label for="name">フレームワーク</label>
-          <input type="text">
-          <br>
-          <label for="name">その他技術</label>
-          <input type="text">
-          <br>
-          <label for="name">募集人数</label>
-          <input type="text">
+          <div class="job-create-area">
+            <label for="name" class="label">募集人数</label><label for="name" class="label-required">必須</label>
+            <div class="job-create-radio">
+            <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="0">未定</label>
+            <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="1">1人</label>
+            <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="2">2人</label>
+            <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="3">3人</label>
+            <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="4">4人</label>
+            <!-- <p>Selected 開発メンバー {{ recruitNumber }} 人</p> -->
+          </div>
+          </div>
           <template slot="footer">
-            <div class="serach-btn">
-              編集
+            <div class="edit-btn" @click="jobEdit">
+              編集する
             </div>
           </template>
         </edit-job-modal >
@@ -150,6 +196,9 @@ import axios from 'axios'
 import moment from "moment";
 import GithubImage from '@/assets/github.png'
 import EditJobModal from '@/components/modal/EditJobModal'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+
 export default {
   props: {
     id: Number,
@@ -157,22 +206,24 @@ export default {
   data() {
     return {
       job: {},
-      // selfJobPost: false, //? 自分の案件かを判定
-      // loginFlag: false, //? ログインしているかを判定
-      // loading: false,
-      // applyFlug: true,
-      // modal: false,
-      // jobs: [],
       assetsImage: GithubImage,
       assetsImage_NG: '@/assets/github.png',
       staticImage: '@/assets/github.png',
       modal: false, //? 編集モーダル
-      jobTitle: "",
-      devStartDate: null,
-      devEndDate: null,
-      jobDescription: null,
-      programingLanguage: [],
-      selectedLang: []
+      jobTitle: "", //? 案件タイトル
+      devStartDate: null, //? 開発開始時期
+      devEndDate: null, //? 開発終了時期
+      jobDescription: null, //? 案件詳細
+      selectedLang: [], //? プログラミング言語
+      languages: [],
+      selectedFramwork: [], //? フレームワーク
+      framworks: [],
+      selectedSkill: [], //? その他開発スキル
+      skills: [],
+      selectedLangErrors: [], //?言語入力エラー
+      selectedFramworkErrors: [], //?フレームワーク入力エラー
+      selectedSkillErrors: [], //?その他スキル入力エラー
+      recruitNumber: 0, //? メンバー人数
     }
   },
   filters: {
@@ -180,21 +231,47 @@ export default {
       return moment(value).format(format);
     }
   },
+  mounted() {
+    // * 開発言語
+    axios.get(`${this.$baseURL}/programing_language`)
+      .then(response => {
+          // const array = [];
+          this.languages = response.data
+      })
+    // * フレームワーク
+    axios.get(`${this.$baseURL}/programing_framework`)
+      .then(response => {
+          this.framworks = response.data
+          // console.log(this.framworks)
+      })
+    // * その他スキル
+    axios.get(`${this.$baseURL}/skill`)
+      .then(response => {
+          this.skills = response.data
+          // console.log(this.skills)
+      })
+  },
   created() {
     // * 詳細画面情報を取得
     axios.get(`${this.$httpPosts}/${this.id}/`)
       .then(response => {
           // this.loading = true;
-          this.job = response.data
-          this.jobTitle = this.job.jobTitle
-          this.devStartDate = this.job.devStartDate
-          this.devEndDate = this.job.devEndDate
+          this.job = response.data //? 案件
+          this.jobTitle = this.job.jobTitle //? 案件タイトル
+          // this.devStartDate = this.job.devStartDate
+          // * 開発開始 を 00-00-00 に変換
+          var str1 = this.job.devStartDate 
+          var startTime = str1.substring(0,str1.indexOf("T"));
+          this.devStartDate = startTime;
+          // * 開発終了 を 00-00-00 に変換
+          var str2 = this.job.devEndDate
+          var endTime = str2.substring(0,str2.indexOf("T"));
+          this.devEndDate = endTime;
           this.jobDescription = this.job.jobDescription
-          this.programingLanguage = this.job.programingLanguage
-          console.log("aaaaaaaaaaa")
-          console.log(this.job)
-          console.log(this.programingLanguage)
-          console.log("aaaaaaaaaaa")
+          this.selectedLang = this.job.programingLanguage
+          this.selectedFramwork = this.job.programingFramework
+          this.selectedSkill = this.job.skill
+          this.recruitNumber = this.job.recruitmentNumbers
       })
   },
   methods: {
@@ -215,6 +292,65 @@ export default {
         return window.open(this.job.user.githubAccount)
       })
     },
+    // * 編集する
+    jobEdit() {
+      // * 応募者人数を文字列から数値に変換
+      var recruitNum = Number(this.recruitNumber);
+      // * 言語を {id: Number}に変換
+      const languageArray = [];
+      for(var i = 0; i < this.selectedLang.length; i++) {
+        var langages = this.selectedLang[i];
+        // console.log(langages)
+        languageArray.push({id: langages})
+      }
+      // * フレームワークを{id: Number}に変換
+      const framworksArray = [];
+      for(var c = 0; c < this.selectedFramwork.length; c++) {
+        // console.log({id: this.selectedLang[c].id})
+        var framworks = this.selectedFramwork[c];
+        framworksArray.push({id: framworks})
+      }
+      // * その他スキルを {id: Number}に変換
+      const skillArray = [];
+      for(var d = 0; d < this.selectedSkill.length; d++) {
+        // console.log({id: this.selectedSkill[d]})
+        var skills = this.selectedSkill[d];
+        skillArray.push({id: skills})
+      }
+
+      // * date型に変換のための data用意
+      function toDate (str, delim) {
+        var arr = str.split(delim)
+        return new Date(arr[0], arr[1] - 1, arr[2]);
+      }
+
+      // //* 開始日
+      var devStart = this.devStartDate
+      var devStartDate = toDate(devStart, '-');
+
+      // *終了日
+      var devEnd = this.devEndDate
+      var devEndDate = toDate(devEnd, '-');
+
+      const params = {
+        jobTitle: this.jobTitle,
+        devStartDate: devStartDate,
+        devEndDate: devEndDate,
+        jobDescription: this.jobDescription,
+        programingLanguage: languageArray,
+        programingFramework: framworksArray,
+        skill: skillArray,
+        recruitmentNumbers: recruitNum
+      }
+      axios.put(`${this.$httpPosts}/${this.id}`, params)
+      .then(response => {
+        console.log(response.data)
+        // this.$emit('compliteAssgin', this.message)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
 
     //* Editモーダル 
     openModal() {
@@ -225,11 +361,8 @@ export default {
     },
   },
   components: {
-    EditJobModal
-    // Applybtn,
-    // FavoriteDetailBtn,
-    // Loading,
-    // ApplyModal,
+    EditJobModal,
+    vSelect
   }
 }
 </script>
@@ -484,7 +617,7 @@ export default {
     padding: 2.5rem 5rem 0 0;
   }
 
-  /* ボタン エリア */
+  // *ボタン エリア 
   .button-area {
     width: 100%;
     display: flex;
@@ -502,7 +635,7 @@ export default {
     }
   }
 
-  /* 応募するボタン */
+  // * 応募するボタン 
   .btn-box-apply {
     @include red-btn;
     @include box-shadow-btn;
@@ -528,7 +661,7 @@ export default {
     }
   }
 
-  /* 応募済みボタン */
+  // * 応募済みボタン 
   .btn-box-apply-false {
     @include grey-btn;
     @include box-shadow-btn;
@@ -555,7 +688,7 @@ export default {
     width: 50%;
   }
 
-  /* モーダル内のキャンセルボタン */
+  // * モーダル内のキャンセルボタン 
   .modal-btn {
     @include blue-btn;
     padding: 1rem 2.4rem;
@@ -576,9 +709,9 @@ export default {
   }
 
   .edit-btn {
+    @include blue-btn ;
     display: block;
     padding: 1.4rem 9rem;
-    background: linear-gradient(60deg, #424242, #9E9E9E);
     box-shadow: 0 0px 5px 2px #d4d4d4;
     border-radius: 50px;
     font-weight: 600;
@@ -600,6 +733,17 @@ export default {
     font-weight: bold;
     margin-bottom: 0.7rem;
     display: inline-block;
+  }
+
+  .label-required {
+    color: $basic-white;
+    background-color: $error-message-color;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 0.25rem 0.9rem;
+    text-align: center;
+    margin-left: 10px;
   }
   
   .job-create-title-area {
@@ -677,5 +821,28 @@ export default {
         }
       }
     }
+    // * 言語 フレームワーク その他スキル
+  .job-create-area {
+    width: 100%;
+    text-align: left;
+
+    .input-area {
+      margin: 0.7rem 0rem;
+      font: 16px/24px sans-serif;
+      box-sizing: border-box;
+      width: 100%;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      color: $text-main-color;
+      border-radius: 4px;
+      background-color: $basic-white;
+      background-color: $sub-white;
+    }
+
+    .radio-btn {
+      margin: 0.7rem 0rem;
+      margin-left: 0.5rem;
+    }
+  }
 }
 </style>

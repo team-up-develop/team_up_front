@@ -45,7 +45,7 @@
         <div class="example-modal-window">
           <SkillSearchModal @close="closeSkillSearchModal" v-if="skillModal">
             <p class="label-lang">その他スキル 選択</p>
-              <div class="round" v-for="skill in skills" v-bind:key="skill.id">
+              <div class="round-skill" v-for="skill in skills" v-bind:key="skill.id">
               <input type="checkbox"  id="checkbox" v-model="selectedSkill" v-bind:value="skill.id">
                 <label for="" class="checkbox">{{ skill.skillName }}</label>
               </div>
@@ -224,7 +224,7 @@ export default {
       frameworks: [],//? フレームワーク取得
       selectedSkill: [], //? その他スキル v-model
       skills: [], //? その他スキル取得
-      freeWord: '',
+      freeWord: this.$store.state.search.freeWord,
       name: '',
       age: 0,
       loading: true,
@@ -261,6 +261,7 @@ export default {
   },
   created() {
     // * 投稿一覧取得
+    var posts = [];
     axios.get('http://localhost:8888/api/v1/job', {
       // headers: {
       //   Authorization: `Bearer ${ localStorage.userId }`
@@ -270,6 +271,17 @@ export default {
       setTimeout(() => {
         this.loading = false;
         this.jobs = response.data
+          for(var i in response.data){
+            var jobs = response.data[i];
+            if(jobs.jobDescription.indexOf(this.freeWord) !== -1){
+              posts.push(jobs)
+            }
+          }
+          this.jobs = posts
+          // ? もし案件が存在しなかったら処理が走る
+          if(!this.jobs.length) {
+            this.jobsNullFlag = true;
+          }
       }, 1000);
     })
     .catch(error => {
@@ -322,6 +334,7 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+            this.detailFlag = false; //? 右側案件詳細を閉じる
             // ? もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
@@ -349,6 +362,7 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+            this.detailFlag = false; //? 右側案件詳細を閉じる
             // ? もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
@@ -377,6 +391,7 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+            this.detailFlag = false; //? 右側案件詳細を閉じる
             // ? もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
@@ -401,6 +416,7 @@ export default {
           console.log(posts)
           this.jobs = posts;
           this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
+          this.detailFlag = false; //? 右側案件詳細を閉じる
           // ? もし案件が存在しなかったら処理が走る
           if(!this.jobs.length) {
             this.jobsNullFlag = true;
@@ -574,7 +590,7 @@ export default {
       color: $text-sub-color;
       background-color: $basic-white;
       margin-top: 0.4rem;
-      padding: 0.5rem 2rem;
+      padding: 0.5rem 1.5rem;
       border-radius: 50rem;
       cursor: pointer;
       font-weight: bold;
@@ -922,7 +938,15 @@ export default {
   .round {
     text-align: left;
     width: 24%;
-    margin-right: 1px;
+    margin-right: 0.3rem;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .round-skill {
+    text-align: left;
+    width: 22%;
+    margin-right: 0.2rem;
     display: inline-block;
     position: relative;
     margin-bottom: 2rem;
@@ -940,7 +964,7 @@ export default {
   label.checkbox {
     position: absolute;
     top: 0;
-    margin-top: 0.35rem;
+    margin-top: 0.37rem;
     color: #111111;
     margin-left: 0.4rem;
     font-size: 14px;
@@ -995,9 +1019,9 @@ export default {
 @media screen and (max-width: 999px) {
   .search-area {
     overflow-x: auto;
-    white-space: nowrap;
     width: 100%;
     padding: 0;
+    white-space: nowrap;
   }
   /* 右側案件をdisplaynone */
   .job-wrapper-right {

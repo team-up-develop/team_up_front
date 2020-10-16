@@ -1,10 +1,8 @@
 <template>
   <div class="job-cards">
     <div class="job-cards-top">
-      {{ job.jobTitle | truncateTitle }}
-    </div>
-    <div class="job-cards-top-responsive">
-      {{ job.jobTitle | truncateResponsiveTitle }}
+      <span>{{ job.jobTitle | truncateTitle }}</span>
+      <p>{{ job.jobTitle | truncateTitleResponsive }}</p>
     </div>
     <div class="job-cards-center">
       <!-- カード スキルコンポーネント -->
@@ -50,16 +48,16 @@ export default {
     },
     //* 案件タイトル 文字制限
     truncateTitle: function(value) {
-      var length = 50;
+      var length = 45;
       var ommision = "...";
       if (value.length <= length) {
         return value;
       }
       return value.substring(0, length) + ommision;
     },
-    //* レスポンシブ 案件タイトル 文字制限
-    truncateResponsiveTitle: function(value) {
-      var length = 25;
+    //* 案件タイトル レスポンシブ文字制限
+    truncateTitleResponsive: function(value) {
+      var length = 35;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -93,6 +91,9 @@ export default {
     pointer-events: none;
     font-size: 18px;
     text-decoration: underline;
+    p {
+      display: none;
+    }
   }
 
   .job-cards-center {
@@ -157,8 +158,6 @@ export default {
       .post-user-name-area {
         display: inline-block;
         width: 50%;
-
-        /* background-color: yellow; */
         height: 60%;
         padding: 0.1rem 1rem;
         position: relative;
@@ -182,8 +181,6 @@ export default {
 @media screen and (max-width: 999px) {
   .job-cards {
     width: 100%;
-
-    /* background-color: green; */
   }
 }
 
@@ -199,7 +196,12 @@ export default {
     font-size: 18px;
     text-decoration: underline;
     display: block;
-    background-color: yellow;
+  }
+  .job-cards .job-cards-bottom .product-start-end .product-start-end-tag {
+    display: none;
+  }
+  .job-cards .job-cards-bottom .product-start-end .product-start-end-time {
+    padding: 0;
   }
 
   .job-cards-center {
@@ -219,33 +221,43 @@ export default {
   .job-cards {
     height: 285px;
   }
+  .job-cards {
+    .job-cards-top {
+      font-size: 16px;
+      width: calc(100% - 2rem);
+      // background-color: yellow;
+      padding: 2rem 1rem 1rem 1rem;
 
-  .job-cards-top-responsive {
-    width: calc(100% - 45px);
-    height: calc(30% - 60px);
-    text-align: left;
-    padding: 2rem 2rem 1rem 1.5rem;
-    font-weight: bold;
-    pointer-events: none;
-    font-size: 18px;
-    text-decoration: underline;
-    display: block;
-  }
-
-  .job-cards-center {
-    height: 30%;
-
-    /* background-color: grey; */
-  }
-
-  .job-cards-bottom {
-    .post-user-area {
-      width: 100%;
-      height: 60%;
+      span {
+        display: none;
+      }
+      p {
+        display: inline;
+      }
     }
+  }
 
-    .product-start-end .product-start-end-tag {
-      display: none;
+  .job-cards  {
+    .job-cards-center {
+      height: 30%;
+      width: calc(100% - 1rem);
+      padding: 0.5rem 0.5rem 0.2rem 0.5rem;
+    }
+  }
+
+  .job-cards  {
+    .job-cards-bottom {
+      padding: 0 1.2rem;
+      height: 33%;
+
+      .post-user-area {
+        width: 100%;
+        height: 60%;
+      }
+
+      .product-start-end .product-start-end-tag {
+        display: none;
+      }
     }
   }
 }
