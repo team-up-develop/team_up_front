@@ -1,5 +1,5 @@
 // import axios from 'axios'
-import router from '@/router/index.js' // Vue router instance
+// import router from '@/router/index.js' // Vue router instance
 
 const state = {
   freeWord: "",
@@ -37,22 +37,22 @@ const mutations = {
 const actions = {
   // * フリーワード 検索
   freeWordSearch({ commit }, freeWord) {
-    router.push('/jobs');
+    // router.push('/jobs');
     commit('freeWord', freeWord.freeWord)
   },
   // * 言語 検索
   languageSearch({ commit }, language) {
-    router.push('/jobs');
+    // router.push('/jobs');
     commit('language', language.language)
   },
   // * フレームワーク 検索
   framworkSearch({ commit }, framwork) {
-    router.push('/jobs');
+    // router.push('/jobs');
     commit('framwork', framwork.framwork)
   },
   // * その他スキル 検索
   skillSearch({ commit }, skill) {
-    router.push('/jobs');
+    // router.push('/jobs');
     commit('skill', skill.skill)
   }
 }

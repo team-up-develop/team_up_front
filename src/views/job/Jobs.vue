@@ -292,7 +292,7 @@ export default {
               this.jobsNullFlag = true;
             }
           })
-          // ? もし案件が存在しなかったら処理が走る
+          // * もし案件が存在しなかったら処理が走る
           if(!this.jobs.length) {
             this.jobsNullFlag = true;
           }
@@ -325,7 +325,7 @@ export default {
             }
           })
         }
-        // ? もし案件が存在しなかったら処理が走る
+        // * もし案件が存在しなかったら処理が走る
         if(!this.jobs.length) {
           this.jobsNullFlag = true;
         }
@@ -363,12 +363,11 @@ export default {
     // * 開発言語検索
     getParams(){
       var array = [];
-      const data = {
+      const params = {
         language: this.selectedLang,
       }
-      console.log(data)
-      for(var i =0; i < data.language.length; i++) {
-        var languageParams = data.language[i];
+      for(var i =0; i < params.language.length; i++) {
+        var languageParams = params.language[i];
         var queryParams =  'programing_language_id' + '[' + Number(languageParams - 1) + ']' + '=' + languageParams + '&';
         array.push(queryParams)
       }
@@ -383,7 +382,21 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
-            // ? もし案件が存在しなかったら処理が走る
+
+            // * 言語 検索語 Vuexに値を格納する
+            for(var l = 0; l < params.language.length; l++) {
+              console.log("languageを表jしうる")
+              this.$store.dispatch('languageSearch', {
+                language: params.language[l],
+              })
+            }
+            // * 言語が１つも選択されていない時の処理
+            if(params.language.length == 0 ) {
+              this.$store.dispatch('languageSearch', {
+                language: null,
+              })
+            }
+            // * もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
             }
@@ -411,7 +424,21 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
-            // ? もし案件が存在しなかったら処理が走る
+
+            // * フレームワーク 検索語 Vuexに値を格納する
+            for(var l = 0; l < params.framework.length; l++) {
+              console.log("frameworkを表示する")
+              this.$store.dispatch('framworkSearch', {
+                framwork: params.framework[l],
+              })
+            }
+            // * フレームワークが１つも選択されていない時の処理
+            if(params.framework.length == 0 ) {
+              this.$store.dispatch('framworkSearch', {
+                framwork: null,
+              })
+            }
+            // * もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
             }
@@ -440,7 +467,21 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
-            // ? もし案件が存在しなかったら処理が走る
+
+            // * その他スキル 検索語 Vuexに値を格納する
+            for(var l = 0; l < params.skill.length; l++) {
+              console.log(params.skill[l])
+              this.$store.dispatch('skillSearch', {
+                skill: params.skill[l],
+              })
+            }
+            // * その他スキルが１つも選択されていない時の処理
+            if(params.skill.length == 0 ) {
+              this.$store.dispatch('skillSearch', {
+                skill: null,
+              })
+            }
+            // * もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
             }
@@ -461,13 +502,14 @@ export default {
               posts.push(jobs)
             }
           }
-          // ? 検索語の処理 
-          this.$store.state.search.freeWord = this.freeWord;
-          console.log(posts)
+          // * フリーワード 検索語 Vuexに値を格納する
+          this.$store.dispatch('freeWordSearch', {
+            freeWord: this.freeWord,
+          })
           this.jobs = posts;
           this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
           this.detailFlag = false; //? 右側案件詳細を閉じる
-          // ? もし案件が存在しなかったら処理が走る
+          // * もし案件が存在しなかったら処理が走る
           if(!this.jobs.length) {
             this.jobsNullFlag = true;
           }
