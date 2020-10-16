@@ -74,7 +74,7 @@
       <!-- 検索結果が無い場合 -->
       <div class="job-wrapper-left-false" v-else>
         この条件での開発案件はありませんでした。
-        <p>検索キーワード <span> {{ freeWord }}</span></p>
+        <p>検索キーワード <span> {{ freeWord }}{{ selectedLang }}{{ selectedFramework }}{{ selectedSkill }}</span></p>
       </div>
       <router-link :to="`/jobs/${ job.id }`" class="router-1" v-for="job in jobs" :key="job.id" >
         <card-job :job="job"></card-job>
@@ -218,11 +218,11 @@ export default {
     return {
       jobs: [],
       jobsNullFlag: false, //? 案件が存在しない場合 表示のため
-      selectedLang: [], //? 言語 v-model
+      selectedLang: [ this.$store.state.search.language], //? 言語 v-model
       languages: [], //? 言語取得
-      selectedFramework: [], //? フレームワーク v-model
+      selectedFramework: [this.$store.state.search.framwork], //? フレームワーク v-model
       frameworks: [],//? フレームワーク取得
-      selectedSkill: [], //? その他スキル v-model
+      selectedSkill: [this.$store.state.search.skill], //? その他スキル v-model
       skills: [], //? その他スキル取得
       freeWord: this.$store.state.search.freeWord,
       name: '',
@@ -271,17 +271,64 @@ export default {
       setTimeout(() => {
         this.loading = false;
         this.jobs = response.data
-          for(var i in response.data){
-            var jobs = response.data[i];
-            if(jobs.jobDescription.indexOf(this.freeWord) !== -1){
-              posts.push(jobs)
-            }
+        //* トップページから フリーワード 検索をした際の処理
+        for(var i in response.data){
+          var jobs = response.data[i];
+          if(jobs.jobDescription.indexOf(this.freeWord) !== -1){
+            posts.push(jobs)
           }
-          this.jobs = posts
+        }
+        this.jobs = posts
+        // * トップページから 開発言語 検索した際の処理
+        if(!this.$store.state.search.language) {
+          console.log("language null")
+        }
+        else {
+          var languageNum = this.$store.state.search.language;
+          axios.get(`http://localhost:8888/api/v1/job/?programing_language_id[${languageNum - 1}]=${languageNum}`)
+          .then(response => {
+            this.jobs = response.data
+            if(this.jobs.length == 0) {
+              this.jobsNullFlag = true;
+            }
+          })
           // ? もし案件が存在しなかったら処理が走る
           if(!this.jobs.length) {
             this.jobsNullFlag = true;
           }
+        }
+        // * トップページから フレームワーク 検索した際の処理
+        if(!this.$store.state.search.framwork) {
+          console.log("framwork null")
+        }
+        else {
+          var framworkNum = this.$store.state.search.framwork;
+          axios.get(`http://localhost:8888/api/v1/job/?programing_framework_id[${framworkNum - 1}]=${framworkNum}`)
+          .then(response => {
+            this.jobs = response.data
+            if(this.jobs.length == 0) {
+              this.jobsNullFlag = true;
+            }
+          })
+        }
+        // * トップページから その他スキル 検索した際の処理
+        if(!this.$store.state.search.skill) {
+          console.log("skill null")
+        }
+        else {
+          var skillNum = this.$store.state.search.skill;
+          axios.get(`http://localhost:8888/api/v1/job/?skill_id[${skillNum - 1}]=${skillNum}`)
+          .then(response => {
+            this.jobs = response.data
+            if(this.jobs.length == 0) {
+              this.jobsNullFlag = true;
+            }
+          })
+        }
+        // ? もし案件が存在しなかったら処理が走る
+        if(!this.jobs.length) {
+          this.jobsNullFlag = true;
+        }
       }, 1000);
     })
     .catch(error => {
@@ -319,6 +366,7 @@ export default {
       const data = {
         language: this.selectedLang,
       }
+      console.log(data)
       for(var i =0; i < data.language.length; i++) {
         var languageParams = data.language[i];
         var queryParams =  'programing_language_id' + '[' + Number(languageParams - 1) + ']' + '=' + languageParams + '&';
