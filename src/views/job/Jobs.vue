@@ -219,11 +219,11 @@ export default {
     return {
       jobs: [],
       jobsNullFlag: false, //? 案件が存在しない場合 表示のため
-      selectedLang: [ this.$store.state.search.language], //? 言語 v-model
+      selectedLang: [], //? 言語 v-model
       languages: [], //? 言語取得
       selectedFramework: [], //? フレームワーク v-model
       frameworks: [],//? フレームワーク取得
-      selectedSkill: [this.$store.state.search.skill], //? その他スキル v-model
+      selectedSkill: [], //? その他スキル v-model
       skills: [], //? その他スキル取得
       freeWord: this.$store.state.search.freeWord,
       name: '',
@@ -285,8 +285,16 @@ export default {
           console.log("language はnullです")
         }
         else {
+          var arrayLanguagekNum = [];
           var languageNum = this.$store.state.search.language;
-          axios.get(`http://localhost:8888/api/v1/job/?programing_language_id[${languageNum - 1}]=${languageNum}`)
+          for(var s = 0; s < languageNum.length; s++) {
+            var languageNumParams = languageNum[s]
+            this.selectedLang.push(languageNumParams)
+            var queryParamsLanguage =  'programing_framework_id' + '[' + Number(languageNumParams - 1) + ']' + '=' + languageNumParams + '&';
+            arrayLanguagekNum.push(queryParamsLanguage)
+          }
+          var LastLanguageNum = arrayLanguagekNum.join('');
+          axios.get(`http://localhost:8888/api/v1/job/?${LastLanguageNum}`)
           .then(response => {
             this.jobs = response.data
             if(this.jobs.length == 0) {
@@ -325,8 +333,16 @@ export default {
           console.log("skill はnullです")
         }
         else {
+          var arraySkillNum = [];
           var skillNum = this.$store.state.search.skill;
-          axios.get(`http://localhost:8888/api/v1/job/?skill_id[${skillNum - 1}]=${skillNum}`)
+          for(var l = 0; l < skillNum.length; l++) {
+            var skillNumParams = skillNum[l]
+            this.selectedSkill.push(skillNumParams)
+            var queryParamsSkill = 'skill_id' + '[' + Number(skillNumParams - 1) + ']' + '=' + skillNumParams + '&';
+            arraySkillNum.push(queryParamsSkill)
+          }
+          var LastSkillNum = arraySkillNum.join('');
+          axios.get(`http://localhost:8888/api/v1/job/?${LastSkillNum}`)
           .then(response => {
             this.jobs = response.data
             if(this.jobs.length == 0) {
@@ -372,14 +388,17 @@ export default {
     // * 開発言語検索
     getParams(){
       var array = [];
+      var languageState = []; //? Stateにフレームワークを複数いれるための配列
       const params = {
         language: this.selectedLang,
       }
       for(var i =0; i < params.language.length; i++) {
         var languageParams = params.language[i];
+        languageState.push(languageParams)
         var queryParams =  'programing_language_id' + '[' + Number(languageParams - 1) + ']' + '=' + languageParams + '&';
         array.push(queryParams)
       }
+      var languageStateEnd = languageState.slice(0)
       var result = array.join('');
       // console.log( result );
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
@@ -391,15 +410,11 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
-            var languageState = []; //? Stateに言語を複数いれるための配列
 
             // * 言語 検索語 Vuexに値を格納する
-            for(var l = 0; l < params.language.length; l++) {
-              languageState.push(params.language[l])
-            }
-              this.$store.dispatch('languageSearch', {
-                language: languageState,
-              })
+            this.$store.dispatch('languageSearch', {
+              language: languageStateEnd,
+            })
             // * 言語が１つも選択されていない時の処理
             if(params.language.length == 0 ) {
               this.$store.dispatch('languageSearch', {
@@ -416,13 +431,12 @@ export default {
     // * フレームワーク検索
     getFramework(){
       var arrayFramework = [];
-      var frameworkState = []; //? Stateに言語を複数いれるための配列
+      var frameworkState = []; //? Stateにフレームワークを複数いれるための配列
       const params = {
         framework: this.selectedFramework,
       }
       for(var i =0; i < params.framework.length; i++) {
         var frameworkParams = params.framework[i];
-        console.log(frameworkParams)
         frameworkState.push(frameworkParams)
         var queryParams =  'programing_framework_id' + '[' + Number(frameworkParams - 1) + ']' + '=' + frameworkParams + '&';
         arrayFramework.push(queryParams)
@@ -460,14 +474,17 @@ export default {
     getSkill() {
       this.loading = false;
       var arraySkill = [];
+      var skillState = []; //? Stateにその他スキルを複数いれるための配列
       const params = {
         skill: this.selectedSkill,
       }
       for(var i =0; i < params.skill.length; i++) {
         var skillParams = params.skill[i];
+        skillState.push(skillParams)
         var queryParams =  'skill_id' + '[' + Number(skillParams - 1) + ']' + '=' + skillParams + '&';
         arraySkill.push(queryParams)
       }
+      var skillStateEnd = skillState.slice(0)
       var result = arraySkill.join('');
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
         .then(response => {
@@ -480,12 +497,9 @@ export default {
             this.detailFlag = false; //? 右側案件詳細を閉じる
 
             // * その他スキル 検索語 Vuexに値を格納する
-            for(var l = 0; l < params.skill.length; l++) {
-              console.log(params.skill[l])
-              this.$store.dispatch('skillSearch', {
-                skill: params.skill[l],
-              })
-            }
+            this.$store.dispatch('skillSearch', {
+              skill: skillStateEnd,
+            })
             // * その他スキルが１つも選択されていない時の処理
             if(params.skill.length == 0 ) {
               this.$store.dispatch('skillSearch', {

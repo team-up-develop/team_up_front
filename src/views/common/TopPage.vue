@@ -115,7 +115,7 @@ export default {
     // * トップページ 言語検索
     languageClick(language) {
       this.$store.dispatch('languageSearch', {
-        language: language.id,
+        language: [language.id],
       })
       this.$router.push('/jobs');
     },
@@ -129,7 +129,7 @@ export default {
     // * トップページ その他スキル検索
     skillClick(skill) {
       this.$store.dispatch('skillSearch', {
-        skill: skill.id,
+        skill: [skill.id],
       })
       this.$router.push('/jobs');
     }
