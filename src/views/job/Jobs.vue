@@ -1,7 +1,7 @@
 <template>
   <div class="job-wrapper">
     <div class="search-area">
-      <button @click="langSearchModal" class="search-modal-btn">開発言語</button>
+      <button class="search-modal-btn" @click="langSearchModal">開発言語</button>
       <button class="search-modal-btn" @click="frameworkSearchModal">フレームワーク</button>
       <button class="search-modal-btn" @click="skillSearchModal">その他技術</button>
       <input
@@ -73,8 +73,9 @@
       </div>
       <!-- 検索結果が無い場合 -->
       <div class="job-wrapper-left-false" v-else>
-        この条件での開発案件はありませんでした。
-        <p>検索キーワード <span> {{ freeWord }}{{ selectedLang }}{{ selectedFramework }}{{ selectedSkill }}</span></p>
+        この条件での開発案件はありませんでした。<br>
+        別のキーワードで検索してください。
+        <!-- <p>検索キーワード <span> {{ freeWord }}{{ selectedLang }}{{ selectedFramework }}{{ selectedSkill }}</span></p> -->
       </div>
       <router-link :to="`/jobs/${ job.id }`" class="router-1" v-for="job in jobs" :key="job.id" >
         <card-job :job="job"></card-job>
@@ -220,7 +221,7 @@ export default {
       jobsNullFlag: false, //? 案件が存在しない場合 表示のため
       selectedLang: [ this.$store.state.search.language], //? 言語 v-model
       languages: [], //? 言語取得
-      selectedFramework: [this.$store.state.search.framwork], //? フレームワーク v-model
+      selectedFramework: [], //? フレームワーク v-model
       frameworks: [],//? フレームワーク取得
       selectedSkill: [this.$store.state.search.skill], //? その他スキル v-model
       skills: [], //? その他スキル取得
@@ -281,7 +282,7 @@ export default {
         this.jobs = posts
         // * トップページから 開発言語 検索した際の処理
         if(!this.$store.state.search.language) {
-          console.log("language null")
+          console.log("language はnullです")
         }
         else {
           var languageNum = this.$store.state.search.language;
@@ -299,11 +300,19 @@ export default {
         }
         // * トップページから フレームワーク 検索した際の処理
         if(!this.$store.state.search.framwork) {
-          console.log("framwork null")
+          console.log("framwork はnullです")
         }
         else {
+          var arrayFrameworkNum = [];
           var framworkNum = this.$store.state.search.framwork;
-          axios.get(`http://localhost:8888/api/v1/job/?programing_framework_id[${framworkNum - 1}]=${framworkNum}`)
+          for(var k = 0; k < framworkNum.length; k++) {
+            var framworkNumParams = framworkNum[k]
+            this.selectedFramework.push(framworkNumParams)
+            var queryParams =  'programing_framework_id' + '[' + Number(framworkNumParams - 1) + ']' + '=' + framworkNumParams + '&';
+            arrayFrameworkNum.push(queryParams)
+          }
+          var LastFrameworkNum = arrayFrameworkNum.join('');
+          axios.get(`http://localhost:8888/api/v1/job/?${LastFrameworkNum}`)
           .then(response => {
             this.jobs = response.data
             if(this.jobs.length == 0) {
@@ -313,7 +322,7 @@ export default {
         }
         // * トップページから その他スキル 検索した際の処理
         if(!this.$store.state.search.skill) {
-          console.log("skill null")
+          console.log("skill はnullです")
         }
         else {
           var skillNum = this.$store.state.search.skill;
@@ -382,14 +391,15 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
+            var languageState = []; //? Stateに言語を複数いれるための配列
 
             // * 言語 検索語 Vuexに値を格納する
             for(var l = 0; l < params.language.length; l++) {
-              console.log("languageを表jしうる")
-              this.$store.dispatch('languageSearch', {
-                language: params.language[l],
-              })
+              languageState.push(params.language[l])
             }
+              this.$store.dispatch('languageSearch', {
+                language: languageState,
+              })
             // * 言語が１つも選択されていない時の処理
             if(params.language.length == 0 ) {
               this.$store.dispatch('languageSearch', {
@@ -406,14 +416,18 @@ export default {
     // * フレームワーク検索
     getFramework(){
       var arrayFramework = [];
+      var frameworkState = []; //? Stateに言語を複数いれるための配列
       const params = {
         framework: this.selectedFramework,
       }
       for(var i =0; i < params.framework.length; i++) {
         var frameworkParams = params.framework[i];
+        console.log(frameworkParams)
+        frameworkState.push(frameworkParams)
         var queryParams =  'programing_framework_id' + '[' + Number(frameworkParams - 1) + ']' + '=' + frameworkParams + '&';
         arrayFramework.push(queryParams)
       }
+      var frameworkStateEnd = frameworkState.slice(0)
       var result = arrayFramework.join('');
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
         .then(response => {
@@ -426,12 +440,9 @@ export default {
             this.detailFlag = false; //? 右側案件詳細を閉じる
 
             // * フレームワーク 検索語 Vuexに値を格納する
-            for(var l = 0; l < params.framework.length; l++) {
-              console.log("frameworkを表示する")
-              this.$store.dispatch('framworkSearch', {
-                framwork: params.framework[l],
-              })
-            }
+            this.$store.dispatch('framworkSearch', {
+              framwork: frameworkStateEnd,
+            })
             // * フレームワークが１つも選択されていない時の処理
             if(params.framework.length == 0 ) {
               this.$store.dispatch('framworkSearch', {
@@ -651,8 +662,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 @media screen and (max-width: 1440px) {
   .job-cards.sample-active {
     border-bottom: 4px solid #ff0800;
