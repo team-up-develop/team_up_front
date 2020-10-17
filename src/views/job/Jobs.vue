@@ -1,5 +1,11 @@
 <template>
   <div class="job-wrapper">
+    <!-- 右側浮いてるボタン -->
+    <transition name="button">
+      <div class="scroll-area" v-show="buttonActive">
+        <a href="#"><font-awesome-icon icon="arrow-up" class="icon"/></a>
+      </div>
+    </transition>
     <div class="search-area">
       <button class="search-modal-btn" @click="langSearchModal">開発言語</button>
       <button class="search-modal-btn" @click="frameworkSearchModal">フレームワーク</button>
@@ -243,6 +249,7 @@ export default {
       langModal: false, //? 言語モーダル
       frameworkModal: false, //? フレームワークモーダル
       skillModal: false, //? その他スキルモーダル
+      buttonActive: false, //? 右側浮いてるボタン
     }
   },
   filters: {
@@ -661,6 +668,26 @@ export default {
     closeSkillSearchModal() {
       this.skillModal = false;
     },
+    // * トップに行く
+    scrollTop(){
+      window.scrollTo({
+        behavior: 'smooth',
+        top: 0,
+      });
+    },
+    // * 100 を超えたらボタンを表示
+    scrollWindow() {
+      const top = 100 // ボタンを表示させたい位置
+      this.scroll = window.scrollY
+      if (top <= this.scroll) {
+        this.buttonActive = true
+      } else {
+        this.buttonActive = false
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.scrollWindow)
   },
   components: {
     Loading,
@@ -746,13 +773,62 @@ export default {
     }
   }
 
-  /* 全体 */
+  //* 全体 
   .job-wrapper {
     width: 100%;
     margin: 0 auto;
     padding: 0rem 0 2rem 0;
     position: relative;
 
+    // * スクロール
+    .scroll-area {
+      width: 50px;
+      height: 50px;
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      background: #3f98ef;
+      opacity: 0.6;
+      border-radius: 50%;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      a {
+        position: relative;
+        display: block;
+        width: 50px;
+        height: 50px;
+        text-decoration: none;
+        .icon {
+          color: #ffffff;
+          margin-top: 0.7rem;
+          font-size: 1.6em;
+        }
+      }
+      a::before{
+        font-weight: 900;
+        font-size: 25px;
+        color: #fff;
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        top: -5px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        text-align: center;
+      }
+    }
+    // * ふわっと表示 右側ボタン
+    .button-enter-active,
+    .button-leave-active {
+      transition: opacity 0.5s;
+    }
+    .button-enter,
+    .button-leave-to {
+      opacity: 0;
+    }
+    // * 案件中央
     .job-wrapper-center {
       width: 90%;
       margin: 0 auto;
@@ -819,10 +895,8 @@ export default {
 
   .job-wrapper-right .main-job-detail-area {
     width: calc(100% - 4rem);
-    height: calc(75% - 1rem);
-
-    /* background-color: yellow; */
-    overflow: scroll;
+    height: calc(79% - 1rem);
+    overflow: auto;
     padding: 0 2rem 1rem 2rem;
     position: relative;
 
@@ -835,6 +909,21 @@ export default {
         color: $primary-color;
       }
     }
+  }
+/* スクロールの幅の設定 */
+  .job-wrapper-right .main-job-detail-area::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  /* スクロールの背景の設定 */
+  .job-wrapper-right .main-job-detail-area::-webkit-scrollbar-track {
+    border-radius: 5px;
+  }
+
+  /* スクロールのつまみ部分の設定 */
+  .job-wrapper-right .main-job-detail-area::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: $sub-white;
   }
 
   .post-user-area {

@@ -197,7 +197,7 @@ export default {
           bottom: 0;
 
           .btn-area {
-            width: 57%;
+            width: 350px;
             height: 100%;
             // background-color: green;
             float: right;
@@ -319,6 +319,8 @@ export default {
 
           .langage {
             width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
             // display: flex;
           
             .language-box {
@@ -354,6 +356,8 @@ export default {
 
           .framework {
             width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
 
             .framework-box {
               background-color: $basic-white;
@@ -388,6 +392,8 @@ export default {
 
           .skill {
             width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
 
             .skill-box {
               background-color: $basic-white;
@@ -435,6 +441,15 @@ export default {
           left: 0;
         }
       }
+    }
+  }
+}
+@media screen and (max-width: 1100px) {
+  .top-wrapper {
+    width: 90%;
+    .container-top {
+      width: calc(100% - 0rem);
+      padding: 2.5rem 0rem;
     }
   }
 }
