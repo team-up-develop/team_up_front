@@ -122,7 +122,7 @@ export default {
     // * トップページ フレームワーク検索
     framworkClick(framwork) {
       this.$store.dispatch('framworkSearch', {
-        framwork: framwork.id,
+        framwork: [framwork.id],
       })
       this.$router.push('/jobs');
     },

@@ -48,6 +48,8 @@ const actions = {
   // * フレームワーク 検索
   framworkSearch({ commit }, framwork) {
     // router.push('/jobs');
+    console.log("↓ search.js フレームワークの中身")
+    console.log(framwork)
     commit('framwork', framwork.framwork)
   },
   // * その他スキル 検索
