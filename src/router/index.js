@@ -20,8 +20,8 @@ import ManageRejectDetail from '../views/manage/ManageRejectDetail.vue'
 import ManageFavoriteDetail from '@/views/manage/ManageFavoriteDetail'
 import Chat from '../views/chat/Chat.vue'
 import ChatDetail from '../views/chat/ChatDetail.vue'
-Vue.use(Router)
 
+Vue.use(Router)
 export default new Router({
   mode: "history",
   routes: [
