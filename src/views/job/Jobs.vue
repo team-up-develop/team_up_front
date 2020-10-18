@@ -223,7 +223,7 @@ import SkillSearchModal from '@/components/modal/SkillSearchModal'
 export default {
   data() {
     return {
-      jobs: [],
+      jobs: [], //? 案件一覧配列
       jobsNullFlag: false, //? 案件が存在しない場合 表示のため
       selectedLang: [], //? 言語 v-model
       languages: [], //? 言語取得
@@ -231,12 +231,10 @@ export default {
       frameworks: [],//? フレームワーク取得
       selectedSkill: [], //? その他スキル v-model
       skills: [], //? その他スキル取得
-      freeWord: this.$store.state.search.freeWord,
-      name: '',
-      age: 0,
-      loading: true,
-      jobDetail: null,
-      detailFlag: false,
+      freeWord: this.$store.state.search.freeWord, //? フリーワード 
+      loading: true, 
+      jobDetail: null, //? 案件詳細 
+      detailFlag: false, //? 案件詳細を表示するためのフラグ
       selfJobPost: false, //? 自分の案件かを判定
       selfJob: null,  //? 自分の案件を格納する
       applyFlug: true, //?応募済みかの判定フラグ
@@ -389,7 +387,6 @@ export default {
   methods: {
     // * 非ログイン時 登録リダイレクト
     registerRedirect() {
-      alert("登録が必要です");
       this.$router.push('/register');
     },
     // * 開発言語検索
@@ -617,7 +614,6 @@ export default {
           for(let i = 0; i < response.data.length; i++){
             const likeData = response.data[i]
             array.push(likeData.job.id)
-            // console.log(array)
           }
           if(array.includes(this.jobDetail.id)){
             this.saveFlag = false
@@ -677,7 +673,7 @@ export default {
     },
     // * 100 を超えたらボタンを表示
     scrollWindow() {
-      const top = 100 // ボタンを表示させたい位置
+      const top = 100 // ? ボタンを表示させたい位置
       this.scroll = window.scrollY
       if (top <= this.scroll) {
         this.buttonActive = true
@@ -687,7 +683,7 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.scrollWindow)
+    window.addEventListener('scroll', this.scrollWindow) //?ボタンを表示させたい位置
   },
   components: {
     Loading,
@@ -787,23 +783,27 @@ export default {
       position: fixed;
       right: 0;
       bottom: 0;
-      background: #3f98ef;
+      background: #2196F3;
       opacity: 0.6;
       border-radius: 50%;
       margin-right: 20px;
       margin-bottom: 20px;
+      z-index: 100;
+
       a {
         position: relative;
         display: block;
         width: 50px;
         height: 50px;
         text-decoration: none;
+
         .icon {
           color: #ffffff;
           margin-top: 0.7rem;
           font-size: 1.6em;
         }
       }
+
       a::before{
         font-weight: 900;
         font-size: 25px;
