@@ -21,10 +21,12 @@
         <router-link :to="`/manage/favorite_job/${ jobs.jobId }`" v-for="jobs in favoriteJobs" :key="jobs.id" class="router">
           <div class="job-area">
             <div class="job-area-box">
-              {{ jobs.job.jobTitle | truncateTitle }}
+              <span>{{ jobs.job.jobTitle | truncateTitle }}</span>
+              <p>{{ jobs.job.jobTitle | truncateResponsiveTitle }}</p>
             </div>
             <div class="job-area-box">
-              {{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}
+              <span>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}</span>
+              <p>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~ </p>
             </div>
             <div class="job-area-box">
               <div class="lang"
@@ -33,8 +35,20 @@
               >
                 {{ langage.programingLanguageName }}  ,
               </div>
+              <div class="lang2"
+                v-for="(langage, index) in jobs.job.programingLanguage.slice(0,1)" 
+                :key="`langage-${index}`"
+              >
+                {{ langage.programingLanguageName }}  ,
+              </div>
               <div class="lang" 
                 v-for="(framework, index) in jobs.job.programingFramework.slice(0,3)" 
+                :key="`framework-${index}`"
+              >
+                {{ framework.programingFrameworkName }}  ,
+              </div>
+              <div class="lang2" 
+                v-for="(framework, index) in jobs.job.programingFramework.slice(0,1)" 
                 :key="`framework-${index}`"
               >
                 {{ framework.programingFrameworkName }}  ,
@@ -79,6 +93,15 @@ export default {
       }
       return value.substring(0, length) + ommision;
     },
+    //* 案件タイトル レスポンシブ 文字制限
+    truncateResponsiveTitle: function(value) {
+      var length = 4;
+      var ommision = "...";
+      if (value.length <= length) {
+        return value;
+      }
+      return value.substring(0, length) + ommision;
+    },
   },
   mounted() {
     // * 保存している案件を取得
@@ -98,132 +121,331 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.router-link {
-  :hover {
-    opacity: 0.8;
+@media screen and (max-width: 1400px){
+  .router-link {
+    :hover {
+      opacity: 0.8;
+    }
+
+    text-decoration: none;
+    color: $basic-white;
   }
 
-  text-decoration: none;
-  color: $basic-white;
+  .manage-wrapper {
+    width: 92%;
+    height: 89.5vh;
+    margin: 0 auto;
+
+    .job-manage-wrapper {
+      @include card-border-color;
+      background-color: $basic-white;
+      width: 95%;
+      height: calc(90vh - 5rem);
+      border-radius: 20px;
+      margin: 2rem 2rem;
+      float: right;
+      position: relative;
+      font-size: 14px;
+
+      .manage-job-area {
+        width: 33.2%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+        border-radius: 20px 0 0 0;
+        background-color: #606060;
+        display: inline-block;
+        color: $basic-white;
+        font-weight: bold;
+        transition: .3s;
+      }
+
+      .apply-job-area {
+        width: 33.2%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+        background-color: #606060;
+        display: inline-block;
+        color: #ffffff;
+        border: 0.5px solid #ffffff;
+        font-weight: bold;
+        transition: .3s;
+      }
+
+      .save-job-area {
+        @include box-shadow-manage;
+        background-color: $secondary-color;
+        width: 33.2%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+        border-radius: 0 20px 0 0;
+        display: inline-block;
+        color: #ffffff;
+        font-weight: bold;
+      }
+  }
 }
 
-.manage-wrapper {
-  width: 92%;
-  height: 89.5vh;
-  margin: 0 auto;
+  .title-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: #ffffff;
+    font-weight: bold;
+  }
 
+  .time-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    border-left: 1px solid $basic-white;
+    border-right: 1px solid $basic-white;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .skill-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .job-title-area {
+    width: 33.2%;
+    height: 70%;
+    display: inline-block;
+  }
+
+  .router :hover {
+    background-color: $manage-hover-color;
+  }
+
+  .job-wrapper-area {
+    width: 100%;
+    height: 81%;
+    overflow: scroll;
+  }
+
+  .job-area {
+    transition: .2s;
+
+    .job-area-box {
+      width: 33%;
+      border-bottom: 1px solid #9c9c9c;
+      height: calc(48px - 1.6rem);
+      padding: 0.8rem 0;
+      color: $text-main-color;
+      display: inline-block;
+      pointer-events: none;
+      
+      p{
+      display: none;
+      }
+    }
+  }
+
+  .lang {
+    display: inline-block;
+  }
+  .lang2 {
+    display: none;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .manage-wrapper {
+    margin: 0rem auto;
+    width: 90%;
   .job-manage-wrapper {
-    @include card-border-color;
-    background-color: $basic-white;
-    width: 95%;
+    width: 93%;
     height: calc(90vh - 5rem);
     border-radius: 20px;
+    margin: 2rem 2rem;
+    }
+  }
+}
+
+/*タブレット*/
+@media screen and (max-width: 900px) {
+  .manage-wrapper {
+    margin: 0rem auto;
+    width: 90%;
+  .job-manage-wrapper {
+    width: calc(100% - 3rem);
+    height: calc(90vh - 5rem);
+    border-radius: 20px;
+    margin: 2rem 1.5rem;
+    }
+  }
+  .job-area {
+    transition: .2s;
+
+    .job-area-box {
+      width: 33%;
+      border-bottom: 1px solid #9c9c9c;
+      height: calc(48px - 1.6rem);
+      padding: 0.8rem 0;
+      color: $text-main-color;
+      display: inline-block;
+      pointer-events: none;
+      
+      p{
+      display: inline;
+      }
+      span{
+        display: none;
+      }
+    }
+  }
+  .lang {
+    display: none;
+  }
+  .lang2 {
+    display: inline;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .manage-wrapper .job-manage-wrapper .manage-job-area {
+      @include box-shadow-manage;
+      width: 33.1%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+    }
+  .manage-wrapper .job-manage-wrapper .apply-job-area {
+      @include box-shadow-manage;
+      width: 33.1%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+    }
+  .manage-wrapper .job-manage-wrapper .save-job-area {
+      @include box-shadow-manage;
+      width: 33.1%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+    }
+  .manage-wrapper .job-manage-wrapper .title-area {
+      @include box-shadow-manage;
+      width: 33.1%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+    }
+  .manage-wrapper .job-manage-wrapper .time-area {
+      @include box-shadow-manage;
+      width: 33.1%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+    }
+  .manage-wrapper .job-manage-wrapper .skill-area {
+      @include box-shadow-manage;
+      width: 33.1%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+    }
+  }
+
+/*スマホ*/
+@media screen and (max-width: 500px){
+  .manage-wrapper {
+    width: 100%;
+    height: 89.5vh;
+    margin: 0 auto;
+  .job-manage-wrapper {
+    width: calc(100% - 4rem);
+    height: calc(90vh - 5rem);
     margin: 2rem 2rem;
     float: right;
     position: relative;
     font-size: 14px;
-
-    .manage-job-area {
-      width: 33.2%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-      border-radius: 20px 0 0 0;
-      background-color: #606060;
-      display: inline-block;
-      color: $basic-white;
-      font-weight: bold;
-      transition: .3s;
+  .job-wrapper-area .job-area .job-area-box{
+    p{
+      display: inline;
     }
-
-    .apply-job-area {
-      width: 33.2%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-      background-color: #606060;
-      display: inline-block;
-      color: #ffffff;
-      border: 0.5px solid #ffffff;
-      font-weight: bold;
-      transition: .3s;
+    span{
+      display: none;
+      height: calc(48px - 1.6rem);
+        } 
+      }
     }
-
-    .save-job-area {
-      @include box-shadow-manage;
-      background-color: $secondary-color;
-      width: 33.2%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-      border-radius: 0 20px 0 0;
-      display: inline-block;
-      color: #ffffff;
-      font-weight: bold;
-    }
+  .lang {
+    display: none;
+  }
+  .lang2 {
+    display: inline;
+  }
   }
 }
 
-.title-area {
-  width: 33.2%;
-  height: calc(48px - 1.8rem);
-  padding: 0.8rem 0;
-  background-color: $secondary-color;
-  display: inline-block;
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.time-area {
-  width: 33.2%;
-  height: calc(48px - 1.8rem);
-  padding: 0.8rem 0;
-  border-left: 1px solid $basic-white;
-  border-right: 1px solid $basic-white;
-  background-color: $secondary-color;
-  display: inline-block;
-  color: $basic-white;
-  font-weight: bold;
-}
-
-.skill-area {
-  width: 33.2%;
-  height: calc(48px - 1.8rem);
-  padding: 0.8rem 0;
-  background-color: $secondary-color;
-  display: inline-block;
-  color: $basic-white;
-  font-weight: bold;
-}
-
-.job-title-area {
-  width: 33.2%;
-  height: 70%;
-  display: inline-block;
-}
-
-.router :hover {
-  background-color: $manage-hover-color;
-}
-
-.job-wrapper-area {
-  width: 100%;
-  height: 81%;
-  overflow: scroll;
-}
-
-.job-area {
-  transition: .2s;
-
-  .job-area-box {
+@media (max-width: 420px){
+  .manage-wrapper {
+    width: 100%;
+    height: 89.5vh;
+    margin: 0;
+  .job-manage-wrapper {
+    width: calc(100% - 2rem);
+    height: calc(90vh - 5rem);
+    margin: 2rem 1rem;
+    float: right;
+    position: relative;
+    font-size: 14px;
+  .manage-job-area {
+    @include box-shadow-manage;
     width: 33%;
-    border-bottom: 1px solid #9c9c9c;
-    height: calc(48px - 1.6rem);
+    height: calc(68px - 1.6rem);
     padding: 0.8rem 0;
-    color: $text-main-color;
-    display: inline-block;
-    pointer-events: none;
-  }
-}
+    }
 
-.lang {
-  display: inline-block;
+  .apply-job-area {
+    width: 33%;
+    height: calc(68px - 1.6rem);
+    padding: 0.8rem 0;
+    }
+
+  .save-job-area {
+    width: 33%;
+    height: calc(68px - 1.6rem);
+    padding: 0.8rem 0;
+    }
+  .title-area {
+    width: 33%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+    }
+  .time-area{
+    width: 33;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    }
+  .skill-area {
+    width: 33%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    }
+  .job-wrapper-area {
+    width: 100%;
+    height: 81%;
+    overflow: scroll;
+  .job-area .job-area-box{
+    p{
+      display: inline;
+    }
+    span{
+      display: none;
+      height: calc(48px - 1.6rem);
+          }
+        }
+      }
+    }
+  }
 }
 </style>
