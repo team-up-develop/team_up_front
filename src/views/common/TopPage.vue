@@ -15,8 +15,8 @@
         </div>
         <div class="top-ad-right">
           <div class="btn-area">
-            <button class="register-btn">登録する</button>
-            <button class="login-btn">ログインする</button>
+            <button class="register-btn" @click="$router.push('/register')">登録する</button>
+            <button class="login-btn" @click="$router.push('/login')">ログインする</button>
           </div>
         </div>
       </div>

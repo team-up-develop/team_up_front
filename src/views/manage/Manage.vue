@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1440px) {
   .router-link :hover {
   opacity: 0.8;
   }
@@ -213,6 +213,7 @@ export default {
 
   .job-area {
     transition: .2s;
+    border-bottom: 1px solid #9c9c9c;
   }
 
   .job-wrapper-area {
@@ -223,7 +224,7 @@ export default {
 
   .job-area .job-area-box {
     width: 33.2%;
-    border-bottom: 1px solid #9c9c9c;
+    // border-bottom: 1px solid #9c9c9c;
     height: calc(48px - 1.6rem);
     padding: 0.8rem 0;
     color: $text-main-color;
@@ -391,7 +392,6 @@ export default {
   }
   .job-area .job-area-box {
     width: 33.2%;
-    border-bottom: 1px solid #9c9c9c;
     height: calc(48px - 1.6rem);
     padding: 0.8rem 0;
     color: $text-main-color;
