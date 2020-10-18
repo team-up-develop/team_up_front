@@ -105,13 +105,16 @@ export default {
   },
   mounted() {
     // * 保存している案件を取得
-    if( this.userId!== undefined) {
+    if(this.userId) {
       this.loginFlag = true
       axios.get(`${this.$baseURL}/favorite_job/?user_id=${this.userId}`)
       .then(response => {
           // this.loading = false;
           this.favoriteJobs = response.data
       })
+    }
+    else {
+      this.loginFlag = false;
     }
   },
   components: {

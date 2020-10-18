@@ -89,12 +89,17 @@ export default {
     },
   },
   mounted() {
-    this.loginFlag = true
-    axios.get(`${this.$baseURL}/job/?user_id=${this.userId}`)
-    .then(response => {
-      // console.log(response.data)
-      this.manageJobs = response.data
-    })
+    // * 管理案件を取得
+    if(this.userId) {
+      this.loginFlag = true
+      axios.get(`${this.$baseURL}/job/?user_id=${this.userId}`)
+      .then(response => {
+        this.manageJobs = response.data
+      })
+    }
+    else {
+      this.loginFlag = false;
+    }
   }
 }
 </script>

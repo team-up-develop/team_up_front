@@ -622,7 +622,10 @@ export default {
             this.saveFlag = true
           }
         })
-      } else {
+      } 
+      
+      // * 登録 or ログインしてない場合
+      else {
         console.log("登録してからご利用いただけます")
       }
     },

@@ -92,19 +92,24 @@ export default {
     },
   },
   mounted() {
-    // * 応募 or 参加案件を取得
-    this.loginFlag = true
-    axios.get(`${this.$baseURL}/apply_job/?user_id=${this.userId}`)
-    .then(response => {
-      this.applyJobs = response.data
-      for(var i = 0; i < this.applyJobs.length; i++) {
-        var applyJobCorrect = this.applyJobs[i];
-        if(applyJobCorrect.applyStatusId === 1 || applyJobCorrect.applyStatusId === 2) {
-          this.applyJobArray.push(applyJobCorrect)
+    // * 参加案件を取得
+    if(this.userId) {
+      this.loginFlag = true
+      axios.get(`${this.$baseURL}/apply_job/?user_id=${this.userId}`)
+      .then(response => {
+        this.applyJobs = response.data
+        for(var i = 0; i < this.applyJobs.length; i++) {
+          var applyJobCorrect = this.applyJobs[i];
+          if(applyJobCorrect.applyStatusId === 1 || applyJobCorrect.applyStatusId === 2) {
+            this.applyJobArray.push(applyJobCorrect)
+          }
         }
-      }
-    })
-  },
+      })
+    }
+    else {
+      this.loginFlag = false;
+    }
+  }
 }
 </script>
 
@@ -268,6 +273,7 @@ export default {
     }
   }
 }
+
 @media screen and (max-width: 768px) {
   .manage-wrapper {
     .job-manage-wrapper {
@@ -341,6 +347,7 @@ export default {
     }
   }
 }
+
 @media (max-width: 420px){
   .manage-wrapper {
     width: 100%;

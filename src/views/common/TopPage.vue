@@ -159,13 +159,11 @@ export default {
       .top-ad-area {
         width: 100%;
         height: 20vh;
-        // background-color: yellow;
         position: relative;
 
         .top-ad-left {
           width: 50%;
           height: 100%;
-          // background-color: rgb(155, 155, 218);
           position: absolute;
           left: 0;
           top: 0;
@@ -184,14 +182,12 @@ export default {
             padding: 1.5rem 0;
             font-weight: bold;
             line-height: 1.4;
-            // background-color: rgb(207, 87, 87);
           }
         }
 
         .top-ad-right {
           width: 50%;
           height: 50%;
-          // background-color: rgb(92, 202, 198);
           position: absolute;
           right: 0;
           bottom: 0;
@@ -199,7 +195,6 @@ export default {
           .btn-area {
             width: 350px;
             height: 100%;
-            // background-color: green;
             float: right;
             position: relative;
 
@@ -428,7 +423,6 @@ export default {
       .card-area {
         width: 100%;
         height: 50%;
-        // background-color: rgba(0, 0, 255, 0.619);
         text-align: left;
         position: relative;
         padding: 1.7rem 0;
@@ -444,6 +438,7 @@ export default {
     }
   }
 }
+
 @media screen and (max-width: 1100px) {
   .top-wrapper {
     width: 90%;
