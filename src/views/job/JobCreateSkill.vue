@@ -420,9 +420,9 @@ export default {
   }
   .job-create-wrapper .button-are  { 
     .post-job-btn {
-      padding: 1.1rem 1rem;
+      padding: 1.1rem 0.2rem;
       width: 49%;
-      }
+    }
     .post-job-back {
       padding: 1.1rem 0rem;
       width:  49%;
