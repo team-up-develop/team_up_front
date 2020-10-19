@@ -370,7 +370,7 @@ export default {
 
     .next-btn {
       width: 49%;
-      padding: 1.1rem 2.9rem;
+      padding: 1.1rem 2.3rem;
     }
   }
   .job-create-wrapper .job-create-time-area{

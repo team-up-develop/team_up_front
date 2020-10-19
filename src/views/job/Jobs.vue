@@ -712,7 +712,7 @@ export default {
     background-color: red;
   }
 
-  /* 詳細検索 */
+  // * 詳細検索 
   .search-area {
     width: calc(100% - 6rem);
     height: 48px;
@@ -831,12 +831,12 @@ export default {
     .button-leave-to {
       opacity: 0;
     }
+
     // * 案件中央
     .job-wrapper-center {
       width: 90%;
       margin: 0 auto;
       position: relative;
-      // background-color: purple;
 
       .router :hover {
         background-color: #2195f310;
@@ -848,7 +848,7 @@ export default {
     }
   }
 
-  /* 案件詳細画面 */
+  // * 案件詳細画面 
   .job-wrapper-right {
     width: 52%;
     height: 88vh;
@@ -871,7 +871,6 @@ export default {
       padding: 1.5rem 2rem 1rem 2rem;
       box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15);
 
-      /* 影 */
       .top-job-detail-top {
         width: 100%;
         height: 50%;
@@ -993,7 +992,7 @@ export default {
     pointer-events: none;
   }
 
-  // 管理画面遷移ボタン
+  // * 管理画面遷移ボタン
   .btn-box-manage {
     @include blue-btn;
     @include box-shadow-btn;
@@ -1016,7 +1015,7 @@ export default {
     outline: none;
   }
 
-  /* 応募するボタン */
+  // * 応募するボタン 
   .btn-box-apply {
     @include red-btn;
     @include box-shadow-btn;
@@ -1044,7 +1043,7 @@ export default {
     }
   }
 
-  /* 応募済みボタン */
+  // * 応募済みボタン 
   .btn-box-apply-false {
     @include grey-btn;
     display: block;
@@ -1061,7 +1060,7 @@ export default {
     display: inline-block;
   }
 
-  /* モーダル内のキャンセルボタン */
+  // * モーダル内のキャンセルボタン 
   .modal-btn {
     @include blue-btn;
     @include box-shadow-btn;
@@ -1082,7 +1081,7 @@ export default {
     margin: 1rem;
   }
 
-  /* 保存アイコン */
+  // * 保存アイコン 
   .save-icon {
     font-size: 30px;
     padding: 10px;
@@ -1105,20 +1104,23 @@ export default {
     border-radius: 5px / 5px;
   }
 
-  /* 右側 詳細を表示しない際に */
+  // * 右側 詳細を表示しない際に 
   .job-wrapper-right-false {
     width: 52%;
+    // height: 40vh;
+    float: right;
     position: sticky;
-    display: inline-block;
+    // display: inline-block;
     margin-left: 2rem;
     margin-bottom: 0.2rem;
-    bottom: 0;
+    // bottom: 0;
+    top: 0;
     border-radius: 8px;
     color: $text-main-color;
     text-align: left;
   }
 
-  /* 案件カード側 */
+  // * 案件カード側 
   .job-wrapper-left {
     width: 43%;
     flex: 1 0 auto;
@@ -1199,23 +1201,9 @@ export default {
   }
 }
 
-@media screen and (max-width: 1435px) {
-  /*  */
-}
-
-@media screen and (max-width: 1400px) {
-  /* .job-wrapper .job-wrapper-center {
-    width: 99%;
-    height: 100vh;
-    margin: 0 auto;
-  } */
-}
-
 @media screen and (max-width: 1289px) {
   .job-wrapper .job-wrapper-center {
     width: 95%;
-
-    /* background-color: yellow; */
   }
 
   .job-wrapper-right {
@@ -1228,9 +1216,8 @@ export default {
     overflow-x: auto;
     width: 100%;
     padding: 0;
-    white-space: nowrap;
   }
-  /* 右側案件をdisplaynone */
+  // * 右側案件をdisplaynone 
   .job-wrapper-right {
     display: none;
   }
@@ -1245,14 +1232,10 @@ export default {
 
   .job-wrapper-left {
     width: 90%;
-
-    /* background-color: #00BCD4; */
   }
 
   .job-wrapper .job-wrapper-center {
     width: 80%;
-
-    /* background-color: yellow; */
   }
 }
 
@@ -1266,28 +1249,24 @@ export default {
   }
   .job-wrapper-left {
     width: 100%;
-
-    /* background-color: #00BCD4; */
   }
 
   .job-wrapper .job-wrapper-center {
     width: 80%;
-
-    /* background-color: yellow; */
   }
 }
 
 @media screen and (max-width: 580px) {
   .job-wrapper-left {
     width: 100%;
-
-    /* background-color: #00BCD4; */
   }
 
   .job-wrapper .job-wrapper-center {
     width: 95%;
+  }
 
-    /* background-color: yellow; */
+  .search-area {
+    white-space: nowrap;
   }
 }
 </style>
