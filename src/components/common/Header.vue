@@ -117,254 +117,252 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
-  .router-link-active {
-    border-bottom: 4px solid $primary-color;
-    font-weight: bold;
-  }
+.router-link-active {
+  border-bottom: 4px solid $primary-color;
+  font-weight: bold;
+}
 
-  .header-wrapper {
-    width: 100%;
-    height: 58px;
-    box-shadow: 0px 4px 3px -3px rgba(216, 216, 216, 0.6);
-    margin-bottom: 2px;
-    top: 0px;
-    left: 0px;
-  }
+.header-wrapper {
+  width: 100%;
+  height: 58px;
+  box-shadow: 0px 4px 3px -3px rgba(216, 216, 216, 0.6);
+  margin-bottom: 2px;
+  top: 0px;
+  left: 0px;
+}
 
-  .header-wrapper-area {
-    width: 100%;
-    height: 76px;
-    position: relative;
-  }
+.header-wrapper-area {
+  width: 100%;
+  height: 76px;
+  position: relative;
+}
 
-  .header-wrapper {
-    .header-logo-area {
-      height: 100%;
-      width: 10%;
-      padding: 0 0 0rem 2rem;
+.header-wrapper {
+  .header-logo-area {
+    height: 100%;
+    width: 10%;
+    padding: 0 0 0rem 2rem;
 
-      .header-logo {
-        width: 60%;
-        height: calc(100% - 2.8rem);
-        // background-color: rgba(94, 94, 94, 0.226);
-        padding: 1.2rem 0;
-      }
-    }
-
-    .header-main-area {
-      height: 100%;
-      width: 86%;
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      .header-main-left {
-        width: 60%;
-        height: 100%;
-      }
+    .header-logo {
+      width: 60%;
+      height: calc(100% - 2.8rem);
+      // background-color: rgba(94, 94, 94, 0.226);
+      padding: 1.2rem 0;
     }
   }
 
-  ul {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-
-    .menu-list {
-      height: 25px;
-      list-style: none;
-      width: 15%;
-      padding: 1rem 0;
-      font-size: 14px;
-      margin: 6px 0;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.3s ease 0s;
-      display: inline-block;
-      text-align: center;
-    }
-
-    li {
-      .menu-list-icon-area {
-        width: 25%;
-        height: 100%;
-        pointer-events: none;
-
-        .icon {
-          font-size: 20px;
-          padding: 0.7rem 0;
-          color: $primary-color;
-          pointer-events: none;
-        }
-      }
-
-      .router-link {
-        width: 100%;
-        position: absolute;
-        top: 0;
-        right: 0;
-        text-align: center;
-        padding: 1rem  0;
-        text-decoration: none;
-        color: $text-sub-color;
-        font-size: 14px;
-        margin: 0 auto;
-        font-weight: bold;
-      }
-    }
-
-    .menu-list-about {
-      height: 25px;
-      list-style: none;
-      width: 20%;
-      padding: 1rem 0;
-      font-size: 14px;
-      margin: 6px 0;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.3s ease 0s;
-      display: inline-block;
-      text-align: center;
-      margin-left: 1rem;
-      font-weight: bold;
-    }
-
-    li .router-link-about {
-      width: 105%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 1.3rem  0;
-      text-decoration: none;
-      color: $text-main-color;
-      font-size: 14px;
-      margin: 0 auto;
-    }
-  }
-
-  .header-wrapper .header-main-area .header-main-right {
-    width: 5%;
-    height: calc(100% - 0.4rem);
+  .header-main-area {
+    height: 100%;
+    width: 86%;
     position: absolute;
     right: 0;
     top: 0;
-    padding: 0.5rem 3rem 0.4rem 3rem;
 
-    .user-image {
-      @include user-image;
-      width: 2.8rem;
-      height: 2.6rem;
-      border-radius: 50%;
-      float: right;
-      cursor: pointer;
+    .header-main-left {
+      width: 60%;
+      height: 100%;
     }
   }
+}
 
-  .user-rooter {
-    text-decoration: none;
-    color: $basic-white;
-  }
+ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: left;
 
-  // * ハンバーガーメニュー
-  .responsive-header {
-    display: none;
-  }
-  .button {
-    display: block;
-    width: 50px;
+  .menu-list {
     height: 25px;
-    background-color: transparent;
-    border: none;
+    list-style: none;
+    width: 15%;
+    padding: 1rem 0;
+    font-size: 14px;
+    margin: 6px 0;
     position: relative;
-    z-index: 100;
-    appearance: none;
     cursor: pointer;
-    outline: none;
+    transition: all 0.3s ease 0s;
+    display: inline-block;
+    text-align: center;
+  }
 
-    &.is-open {
-      .top {
-        transform: rotate(45deg);
-      }
-      .middle {
-        opacity: 0;
-      }
-      .bottom {
-        transform: rotate(-45deg);
+  li {
+    .menu-list-icon-area {
+      width: 25%;
+      height: 100%;
+      pointer-events: none;
+
+      .icon {
+        font-size: 20px;
+        padding: 0.7rem 0;
+        color: $primary-color;
+        pointer-events: none;
       }
     }
-    
-    span {
-      display: block;
-      width: 20px;
-      height: 1px;
-      margin: auto;
-      background-color: #000;
+
+    .router-link {
+      width: 100%;
       position: absolute;
       top: 0;
-      bottom: 0;
-      left: 0;
       right: 0;
-      transition: .5s ease;
-
-      &.top {
-        transform: translateY(-6px);
-      }
-      &.bottom {
-        transform: translateY(6px);
-      }
+      text-align: center;
+      padding: 1rem  0;
+      text-decoration: none;
+      color: $text-sub-color;
+      font-size: 14px;
+      margin: 0 auto;
+      font-weight: bold;
     }
   }
-  .nav {
-    width: 45%;
-    height: 100%;
-    position: fixed;
-    // background-color: #ffffff;
-    background-color: $modal-background;
+
+  .menu-list-about {
+    height: 25px;
+    list-style: none;
+    width: 20%;
+    padding: 1rem 0;
+    font-size: 14px;
+    margin: 6px 0;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    display: inline-block;
+    text-align: center;
+    margin-left: 1rem;
+    font-weight: bold;
+  }
+
+  li .router-link-about {
+    width: 105%;
+    position: absolute;
     top: 0;
-    left: 0;
-    overflow-y: scroll;
-    z-index: 99;
-    
-    &__body {
-      padding: 60px 20px;
-    }
-    
-    &__lst {
-      list-style: none;
-    }
+    right: 0;
+    padding: 1.3rem  0;
+    text-decoration: none;
+    color: $text-main-color;
+    font-size: 14px;
+    margin: 0 auto;
+  }
+}
 
-    &__item {
-      font-size: 24px;
-      line-height: 1.5;
-      font-weight: 700;
-      & ~ & {
-        margin-top: 8px;
-      }
-      a {
-        font-size: 16px;
-        color: $basic-white;
-        text-decoration: none;
-        padding: 2px 0;
-      }
+.header-wrapper .header-main-area .header-main-right {
+  width: 5%;
+  height: calc(100% - 0.4rem);
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0.5rem 3rem 0.4rem 3rem;
+
+  .user-image {
+    @include user-image;
+    width: 2.8rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    float: right;
+    cursor: pointer;
+  }
+}
+
+.user-rooter {
+  text-decoration: none;
+  color: $basic-white;
+}
+
+// * ハンバーガーメニュー
+.responsive-header {
+  display: none;
+}
+.button {
+  display: block;
+  width: 50px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
+  position: relative;
+  z-index: 100;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+
+  &.is-open {
+    .top {
+      transform: rotate(45deg);
+    }
+    .middle {
+      opacity: 0;
+    }
+    .bottom {
+      transform: rotate(-45deg);
     }
   }
-	
-  .v-enter,
-  .v-leave-to {
-    opacity: 0
+  
+  span {
+    display: block;
+    width: 20px;
+    height: 1px;
+    margin: auto;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: .5s ease;
+
+    &.top {
+      transform: translateY(-6px);
+    }
+    &.bottom {
+      transform: translateY(6px);
+    }
+  }
+}
+.nav {
+  width: 45%;
+  height: 100%;
+  position: fixed;
+  // background-color: #ffffff;
+  background-color: $modal-background;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+  z-index: 99;
+  
+  &__body {
+    padding: 60px 20px;
   }
   
-  .v-enter-to,
-  .v-leave {
-    opacity: 1
+  &__lst {
+    list-style: none;
   }
-  
-  .v-enter-active,
-  .v-leave-active {
-    transition: opacity 1s ease
+
+  &__item {
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 700;
+    & ~ & {
+      margin-top: 8px;
+    }
+    a {
+      font-size: 16px;
+      color: $basic-white;
+      text-decoration: none;
+      padding: 2px 0;
+    }
   }
+}
+
+.v-enter,
+.v-leave-to {
+  opacity: 0
+}
+
+.v-enter-to,
+.v-leave {
+  opacity: 1
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 1s ease
 }
 
 @media (max-width: 905px) {

@@ -142,7 +142,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
   .top-wrapper {
     width: 85%;
     height: 90vh;
@@ -437,7 +436,6 @@ export default {
       }
     }
   }
-}
 
 @media screen and (max-width: 1100px) {
   .top-wrapper {

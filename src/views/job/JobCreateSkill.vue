@@ -214,149 +214,148 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
-  .create-wrapper {
-    width: 85%;
-    height: 90vh;
-    margin: 0 auto;
-    position: relative;
+.create-wrapper {
+  width: 85%;
+  height: 90vh;
+  margin: 0 auto;
+  position: relative;
 
-    .job-create-wrapper {
-      @include card-border-color;
-      background-color: $basic-white;
-      width: calc(100% - 5rem);
-      border-radius: 20px;
-      margin: 2rem 0rem;
-      padding: 2.5rem;
-      position: absolute;
-      right: 0;
-      height: 82%;
-    }
-
-    .job-create-radio {
-      width: 100%;
-      height: 80px;
-      display: flex;
-      flex-direction: row;
-      text-align: left;
-    }
-  }
-
-  .label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 0.7rem;
-  }
-
-  .label-required {
-    color: $basic-white;
-    background-color: $error-message-color;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 25px;
-    padding: 0.25rem 0.9rem;
-    text-align: center;
-    margin-left: 10px;
-  }
-
-  .error-label {
-    display: inline-block;
-    color: $error-message-color;
-    list-style: none;
-    font-weight: bold;
-  }
-
-  .error-message {
-    margin: 0;
-    padding-left: 10px;
-  }
-
-  .job-create-area {
-    width: 100%;
-    height: 23%;
-    text-align: left;
-  }
-
-  .input-area {
-    margin: 0.7rem 0rem;
-    font: 16px/24px sans-serif;
-    box-sizing: border-box;
-    width: 100%;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    color: $text-main-color;
-    border-radius: 4px;
+  .job-create-wrapper {
+    @include card-border-color;
     background-color: $basic-white;
-    background-color: $sub-white;
-  }
-
-  .radio-btn {
-    margin: 0.7rem 0rem;
-    margin-left: 0.5rem;
-  }
-
-  .button-are {
-    width: 100%;
-    height: 10%;
-    position: relative;
-    margin: 0 auto;
-  }
-
-  .post-job-btn {
-    @include box-shadow-btn;
-    @include blue-btn;
+    width: calc(100% - 5rem);
+    border-radius: 20px;
+    margin: 2rem 0rem;
+    padding: 2.5rem;
     position: absolute;
     right: 0;
-    top: 0;
-    text-align: left;
-    display: block;
-    padding: 1.1rem 3rem;
-    border-radius: 25px;
-    border: none;
-    font-size: .875rem;
-    font-weight: 600;
-    color: $basic-white;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin: auto;
-    font-size: 1rem;
-    float: right;
-    cursor: pointer;
-    transition: .3s;
-    outline: none;
-
-    &:hover {
-      @include btn-hover;
-    }
+    height: 82%;
   }
 
-  .post-job-back {
-    @include box-shadow-btn;
-    @include grey-btn;
-    position: absolute;
-    left: 0;
-    top: 0;
+  .job-create-radio {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
     text-align: left;
-    display: block;
-    padding: 1.1rem 4rem;
-    border-radius: 25px;
-    border: none;
-    font-size: .875rem;
-    font-weight: 600;
-    color: $basic-white;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin: auto;
-    font-size: 1rem;
-    float: right;
-    cursor: pointer;
-    transition: .3s;
-    text-decoration: none;
-    outline: none;
   }
 }
+
+.label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+}
+
+.label-required {
+  color: $basic-white;
+  background-color: $error-message-color;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 25px;
+  padding: 0.25rem 0.9rem;
+  text-align: center;
+  margin-left: 10px;
+}
+
+.error-label {
+  display: inline-block;
+  color: $error-message-color;
+  list-style: none;
+  font-weight: bold;
+}
+
+.error-message {
+  margin: 0;
+  padding-left: 10px;
+}
+
+.job-create-area {
+  width: 100%;
+  height: 23%;
+  text-align: left;
+}
+
+.input-area {
+  margin: 0.7rem 0rem;
+  font: 16px/24px sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  color: $text-main-color;
+  border-radius: 4px;
+  background-color: $basic-white;
+  background-color: $sub-white;
+}
+
+.radio-btn {
+  margin: 0.7rem 0rem;
+  margin-left: 0.5rem;
+}
+
+.button-are {
+  width: 100%;
+  height: 10%;
+  position: relative;
+  margin: 0 auto;
+}
+
+.post-job-btn {
+  @include box-shadow-btn;
+  @include blue-btn;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: left;
+  display: block;
+  padding: 1.1rem 3rem;
+  border-radius: 25px;
+  border: none;
+  font-size: .875rem;
+  font-weight: 600;
+  color: $basic-white;
+  line-height: 1;
+  text-align: center;
+  max-width: 280px;
+  margin: auto;
+  font-size: 1rem;
+  float: right;
+  cursor: pointer;
+  transition: .3s;
+  outline: none;
+
+  &:hover {
+    @include btn-hover;
+  }
+}
+
+.post-job-back {
+  @include box-shadow-btn;
+  @include grey-btn;
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: left;
+  display: block;
+  padding: 1.1rem 4rem;
+  border-radius: 25px;
+  border: none;
+  font-size: .875rem;
+  font-weight: 600;
+  color: $basic-white;
+  line-height: 1;
+  text-align: center;
+  max-width: 280px;
+  margin: auto;
+  font-size: 1rem;
+  float: right;
+  cursor: pointer;
+  transition: .3s;
+  text-decoration: none;
+  outline: none;
+}
+
 @media screen and (max-width: 1200px) {
   .create-wrapper .job-create-wrapper {
     width: calc(100% - 4rem);
