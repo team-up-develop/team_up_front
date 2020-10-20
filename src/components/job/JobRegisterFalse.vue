@@ -44,7 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
   .false-user-login {
     @include card-border-color;
     width: calc(75% - 4rem);
@@ -141,5 +140,4 @@ export default {
       transition: .3s;
     }
   }
-}
 </style>

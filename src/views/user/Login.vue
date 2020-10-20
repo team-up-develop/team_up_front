@@ -42,126 +42,122 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
-  .router-link {
-    text-decoration: none;
-  }
+.router-link {
+  text-decoration: none;
+}
 
-  .login-wrapper {
-    width: 85%;
-    margin: 0 auto;
+.login-wrapper {
+  width: 45%;
+  margin: 0 auto;
 
-    .login-container {
-      width: calc(100% - 12rem);
-      height: 66vh;
-      margin: 0rem auto 3rem auto;
-      border: solid 1px $card-border-color;
-      border-radius: 20px;
-      padding: 2rem;
-    }
-  }
-
-  /* ログインカード */
-  .login-title {
-    color: $primary-color;
-    font-size: 1.8em;
-    font-weight: bold;
-    height: 50px;
-    padding: 1rem 2rem;
-    margin-top: 1rem;
-  }
-
-  /* フォーム & ボタン ボックス */
-  .login-container .login-box {
-    width: 60%;
-    height: 90%;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .login-box {
-    .btn-area {
-      padding: 2.5rem 0;
-      height: 30%;
-    }
-
-    span {
-      color: $primary-color;
-      cursor: pointer;
-    }
-
-    .name-form {
-      width: 100%;
-      height: 80px;
-      margin: 3rem 2rem;
-      transition: 0.3s;
-      text-align: left;
-
-      .input {
-        font: 16px/24px sans-serif;
-        box-sizing: border-box;
-        width: 90%;
-        height: 65%;
-        padding: 0.3em;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        color: #111111;
-        border: 1px solid #A3A1A1;
-        border-radius: 4px;
-        padding: 0.5rem 0.5rem;
-        background-color: #EFEFEF;
-      }
-
-      input {
-        &[type='text']:focus, &[type='password']:focus {
-          border: 1px solid $primary-color;
-          outline: none;
-          box-shadow: 0 0 5px 1px #2195f348;
-        }
-      }
-    }
-
-    .btn-area .login-btn {
-      display: block;
-      padding: 1.2rem 5rem;
-      background: linear-gradient(60deg, $gradation-blue-left, $gradation-blue-right);
-      border-radius: 50px;
-      font-weight: 600;
-      color: #fff;
-      line-height: 1;
-      text-align: center;
-      max-width: 280px;
-      margin: auto;
-      font-size: 1.3rem;
-      display: inline-block;
-      cursor: pointer;
-      border: none;
-      margin: 0 auto;
-      transition: .3s;
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.685);
-      outline: none;
-    }
+  .login-container {
+    width: calc(100% - 12rem);
+    height: 66vh;
+    margin: 0rem auto 3rem auto;
+    border: solid 1px #B9B9B9;
+    border-radius: 20px;
+    padding: 2rem;
   }
 }
 
+/* 登録カード */
+.login-title {
+  color: $primary-color;
+  font-size: 1.8rem;
+  font-weight: bold;
+  height: 50px;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+}
+
+/* フォーム & ボタン ボックス */
+.login-container .login-box {
+  width: 90%;
+  height: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.login-box {
+  .btn-area {
+    padding: 20% 0 0 0;
+    height: 30%;
+  }
+
+  span {
+    cursor: pointer;
+    color: $primary-color;
+  }
+
+  .name-form {
+    width: 100%;
+    height: 80px;
+    margin: 10% 0rem 14% 0;
+    transition: 0.3s;
+    text-align: left;
+
+    .input {
+      font: 16px/24px sans-serif;
+      box-sizing: border-box;
+      width: 100%;
+      height: 65%;
+      padding: 0.3em;
+      transition: 0.3s;
+      color: #111111;
+      letter-spacing: 1px;
+      border: 1px solid #A3A1A1;
+      border-radius: 4px;
+      padding: 0.5rem 0.5rem;
+      background-color: #EFEFEF;
+    }
+
+    input {
+      &[type='text']:focus, &[type='password']:focus {
+        @include primary-border_color;
+        outline: none;
+        box-shadow: 0 0 5px 1px #2195f348;
+      }
+    }
+  }
+
+  .btn-area .login-btn {
+    @include blue-btn;
+    display: block;
+    padding: 1.2rem 5rem;
+    border-radius: 50px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    max-width: 280px;
+    margin: auto;
+    font-size: 1.3rem;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    margin: 0 auto;
+    transition: .3s;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.685);
+    outline: none;
+  }
+}
 @media (max-width: 1200px) {
   .login-wrapper .login-container {
-    width: calc(100% - 8rem);
+    width: 80%;
     height: 60vh;
     margin: 0rem auto 3rem auto;
     border: solid 1px $card-border-color;
     border-radius: 20px;
     padding: 2rem;
   }
-
-  .login-box .btn-area {
-    padding: 1rem 0;
-    height: 50%;
-  }
 }
 
 /* タブレット */
 @media (max-width: 900px) {
+  .login-wrapper {
+    width: 75%;
+  }
   .login-container .login-box {
     width: 100%;
     height: 70%;
@@ -171,7 +167,6 @@ export default {
 
   .login-box {
     span {
-      color: #2ac1df;
       cursor: pointer;
     }
 
@@ -184,6 +179,9 @@ export default {
 }
 
 @media (max-width: 768px) {
+  .login-wrapper {
+    width: 100%;
+  }
   .login-container .login-box {
     width: 100%;
     height: 70%;

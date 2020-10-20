@@ -136,175 +136,175 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
-  /* 文字制限 */
-  #rem {
-    color: #7c7c7c;
-    margin-top: 2px;
-  }
+/* 文字制限 */
+#rem {
+  color: #7c7c7c;
+  margin-top: 2px;
+}
 
-  /* Wrapper */
-  .create-wrapper {
-    width: 85%;
-    height: 90vh;
-    margin: 0 auto;
-    position: relative;
+/* Wrapper */
+.create-wrapper {
+  width: 85%;
+  height: 90vh;
+  margin: 0 auto;
+  position: relative;
 
-    .job-create-wrapper {
-      @include card-border-color;
-      width: calc(100% - 5rem);
-      border-radius: 20px;
-      margin: 2rem 0rem;
-      background-color: $basic-white;
-      padding: 2.5rem;
-      position: absolute;
-      right: 0;
-    }
-  }
-
-  .label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 0.7rem;
-    display: inline-block;
-  }
-
-  .label-required {
-    color: $basic-white;
-    background-color: $error-message-color;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 25px;
-    padding: 0.25rem 0.9rem;
-    text-align: center;
-    margin-left: 10px;
-  }
-
-  .error-label {
-    display: inline-block;
-    color: $error-message-color;
-    list-style: none;
-    font-weight: bold;
-  }
-
-  .error-message {
-    margin: 0;
-    padding-left: 10px;
-  }
-
-  /* 案件タイトル入力欄 start*/
   .job-create-wrapper {
-    .job-create-title-area {
+    @include card-border-color;
+    width: calc(100% - 5rem);
+    border-radius: 20px;
+    margin: 2rem 0rem;
+    background-color: $basic-white;
+    padding: 2.5rem;
+    position: absolute;
+    right: 0;
+    height: 80%;
+  }
+}
+
+.label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+  display: inline-block;
+}
+
+.label-required {
+  color: $basic-white;
+  background-color: $error-message-color;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 25px;
+  padding: 0.25rem 0.9rem;
+  text-align: center;
+  margin-left: 10px;
+}
+
+.error-label {
+  display: inline-block;
+  color: $error-message-color;
+  list-style: none;
+  font-weight: bold;
+}
+
+.error-message {
+  margin: 0;
+  padding-left: 10px;
+}
+
+/* 案件タイトル入力欄 start*/
+.job-create-wrapper {
+  .job-create-title-area {
+    width: 100%;
+    height: 18%;
+    text-align: left;
+
+    input[type='text'] {
+      @include input-border-color;
+      background-color: $sub-white;
+      color: $text-main-color;
+      font: 16px/24px sans-serif;
+      box-sizing: border-box;
       width: 100%;
-      height: 100px;
-      text-align: left;
+      padding: 0.3em;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      padding: 0.5rem;
 
-      input[type='text'] {
-        @include input-border-color;
-        background-color: $sub-white;
-        color: $text-main-color;
-        font: 16px/24px sans-serif;
-        box-sizing: border-box;
-        width: 100%;
-        padding: 0.3em;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        border-radius: 4px;
-        padding: 0.5rem;
-
-        &:focus {
-          @include form-hover;
-        }
+      &:focus {
+        @include form-hover;
       }
     }
+  }
 
-    .job-create-time-area {
-      width: 100%;
-      height: 100px;
-      text-align: left;
+  .job-create-time-area {
+    width: 100%;
+    height: 18%;
+    text-align: left;
 
-      input[type='date'] {
-        @include input-border-color;
-        background-color: $sub-white;
-        color: $text-main-color;
-        font: 16px/24px sans-serif;
-        box-sizing: border-box;
-        width: 40%;
-        display: flex;
-        padding: 0.3em;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        border-radius: 4px;
-        padding: 0.5rem;
-
-        &:focus {
-          @include form-hover;
-        }
-      }
-    }
-
-    .job-create-detail-area {
-      width: 100%;
-      height: 200px;
+    input[type='date'] {
+      @include input-border-color;
+      background-color: $sub-white;
+      color: $text-main-color;
+      font: 16px/24px sans-serif;
+      box-sizing: border-box;
+      width: 40%;
       display: flex;
-      flex-direction: column;
-      text-align: left;
+      padding: 0.3em;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      padding: 0.5rem;
 
-      textarea[type='text'] {
-        @include input-border-color;
-        background-color: $sub-white;
-        color: $text-main-color;
-        font: 16px/24px sans-serif;
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        padding: 0.3em;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        border-radius: 4px;
-        padding: 0.5rem;
-
-        &:focus {
-          @include form-hover;
-        }
+      &:focus {
+        @include form-hover;
       }
     }
+  }
 
-    .job-create-btn-area {
-      width: 100px;
-      height: 100px;
+  .job-create-detail-area {
+    width: 100%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    textarea[type='text'] {
+      @include input-border-color;
+      background-color: $sub-white;
+      color: $text-main-color;
+      font: 16px/24px sans-serif;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      padding: 0.3em;
+      transition: 0.3s;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      padding: 0.5rem;
+
+      &:focus {
+        @include form-hover;
+      }
+    }
+  }
+
+  .job-create-btn-area {
+    width: 100px;
+    height: 100px;
+    text-align: left;
+    margin-top: 1.5rem;
+
+    .next-btn {
+      @include box-shadow-btn;
+      @include blue-btn;
+      color: $basic-white;
       text-align: left;
+      display: block;
+      padding: 1.1rem 4rem;
+      border-radius: 25px;
+      border: none;
+      font-size: .875rem;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      max-width: 280px;
+      margin: auto;
+      font-size: 1rem;
+      float: right;
       margin-top: 1.5rem;
+      cursor: pointer;
+      transition: .3s;
+      outline: none;
 
-      .next-btn {
+      &:hover {
         @include box-shadow-btn;
-        @include blue-btn;
-        color: $basic-white;
-        text-align: left;
-        display: block;
-        padding: 1.1rem 4rem;
-        border-radius: 25px;
-        border: none;
-        font-size: .875rem;
-        font-weight: 600;
-        line-height: 1;
-        text-align: center;
-        max-width: 280px;
-        margin: auto;
-        font-size: 1rem;
-        float: right;
-        margin-top: 1.5rem;
-        cursor: pointer;
-        transition: .3s;
-        outline: none;
-
-        &:hover {
-          @include box-shadow-btn;
-        }
       }
     }
   }
 }
+
 @media screen and (max-width: 1200px) {
   .create-wrapper .job-create-wrapper {
     width: calc(100% - 4rem);

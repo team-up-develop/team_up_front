@@ -21,17 +21,16 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 3000;
+  z-index: 3;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  // background: $modal-background;
+  background: $modal-background;
   font-weight: bold;
 }
 
 .modal-window {
-  @include box-shadow-btn;
   background: $basic-white;
   border-radius: 8px;
   overflow: hidden;
