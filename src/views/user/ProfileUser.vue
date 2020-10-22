@@ -165,138 +165,136 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
-  .profile-wrapper {
-    width: 85%;
-    height: 90vh;
-    margin: 0 auto;
+.profile-wrapper {
+  width: 85%;
+  height: 90vh;
+  margin: 0 auto;
 
-    /* background-color: #3dc1e2; */
-    position: relative;
+  /* background-color: #3dc1e2; */
+  position: relative;
 
-    .profile-wrapper-card {
-      width: 100%;
-      height: 82vh;
-      border-radius: 20px;
-      margin: 2rem 0rem;
-      background-color: #ffffff;
-
-      /* float: right; */
-      border: solid 1px #B9B9B9;
-      padding: 0;
-      position: absolute;
-      right: 0;
-    }
-  }
-
-  .profile-top-area {
-    width: 85%;
-    height: 8%;
-    padding: 2rem 4rem;
-
-    /* background-color: yellow; */
-    flex-direction: column;
-  }
-
-  .profile-top-area-left {
-    width: 13%;
-    height: 100%;
-    position: relative;
-
-    /* background-color: goldenrod; */
-  }
-
-  .user-image {
+  .profile-wrapper-card {
+    width: 100%;
+    height: 82vh;
+    border-radius: 20px;
+    margin: 2rem 0rem;
     background-color: #ffffff;
-    -moz-border-radius: 60px;
-    -webkit-border-radius: 60px;
-    border-radius: 60px;
-    box-shadow: 0 0 0 3px #2196F3;
-    -webkit-box-shadow: 0 0 0 3px #2196F3;
-    -moz-box-shadow: 0 0 0 3px #2196F3;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-  }
-  // * ユーザー名前
-  .user-name-area {
-    margin-top: 0.8rem;
-    width: 30%;
-    height: 30%;
+
+    /* float: right; */
+    border: solid 1px #B9B9B9;
+    padding: 0;
     position: absolute;
     right: 0;
-    top: 0;
-    text-align: left;
+  }
+}
 
-    label {
-      font-weight: bold;
-    }
+.profile-top-area {
+  width: 85%;
+  height: 8%;
+  padding: 2rem 4rem;
+
+  /* background-color: yellow; */
+  flex-direction: column;
+}
+
+.profile-top-area-left {
+  width: 13%;
+  height: 100%;
+  position: relative;
+
+  /* background-color: goldenrod; */
+}
+
+.user-image {
+  background-color: #ffffff;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
+  border-radius: 60px;
+  box-shadow: 0 0 0 3px #2196F3;
+  -webkit-box-shadow: 0 0 0 3px #2196F3;
+  -moz-box-shadow: 0 0 0 3px #2196F3;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+// * ユーザー名前
+.user-name-area {
+  margin-top: 0.8rem;
+  width: 30%;
+  height: 30%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: left;
+
+  label {
+    font-weight: bold;
+  }
+
+  p {
+    width: 20rem;
+    margin: 0;
+  }
+}
+// * タブエリア
+.tab-area {
+  width: 90%;
+  height: 8%;
+  margin: 0 auto;
+  background-color: #CBCBCB;
+  z-index: -1;
+  border-radius: 1rem 1rem 0 0 ;
+
+  // ? タブ 左側
+  .profile-tab-left {
+    width: 49.8%;
+    height: 99%;
+    display: inline-block;
+    text-align: center;
+    background-color: #CBCBCB;
+    border-radius: 1rem 1rem 0 0 ;
+    cursor: pointer;
 
     p {
-      width: 20rem;
-      margin: 0;
+      color: #111111;
+      font-weight: bold;
     }
   }
-  // * タブエリア
-  .tab-area {
-    width: 90%;
-    height: 8%;
-    margin: 0 auto;
-    background-color: #CBCBCB;
-    z-index: -1;
+  .profile-tab-left.active {
+    width: 49.8%;
+    height: 98%;
+    border: #c2c2c2 1px solid;
+    display: inline-block;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 1rem 1rem 0 0 ;
+  }
+
+  // ? タブ 右側
+  .profile-tab-right {
+    width: 49.8%;
+    height: 98%;
+    border: #c2c2c2 1px solid;
+    display: inline-block;
+    text-align: center;
+    background-color: #ffffff;
     border-radius: 1rem 1rem 0 0 ;
 
-    // ? タブ 左側
-    .profile-tab-left {
-      width: 49.8%;
-      height: 99%;
-      display: inline-block;
-      text-align: center;
-      background-color: #CBCBCB;
-      border-radius: 1rem 1rem 0 0 ;
-      cursor: pointer;
-
-      p {
-        color: #111111;
-        font-weight: bold;
-      }
+    p {
+      color: #111111;
+      font-weight: bold;
     }
-    .profile-tab-left.active {
-      width: 49.8%;
-      height: 98%;
-      border: #c2c2c2 1px solid;
-      display: inline-block;
-      text-align: center;
-      background-color: #ffffff;
-      border-radius: 1rem 1rem 0 0 ;
-    }
+  }
 
-    // ? タブ 右側
-    .profile-tab-right {
-      width: 49.8%;
-      height: 98%;
-      border: #c2c2c2 1px solid;
-      display: inline-block;
-      text-align: center;
-      background-color: #ffffff;
-      border-radius: 1rem 1rem 0 0 ;
-
-      p {
-        color: #111111;
-        font-weight: bold;
-      }
-    }
-
-    .profile-tab-right.active {
-      width: 49.8%;
-      height: 99%;
-      display: inline-block;
-      text-align: center;
-      background-color: #CBCBCB;
-      border-radius: 1rem 1rem 0 0 ;
-      border: none;
-      cursor: pointer;
-    }
+  .profile-tab-right.active {
+    width: 49.8%;
+    height: 99%;
+    display: inline-block;
+    text-align: center;
+    background-color: #CBCBCB;
+    border-radius: 1rem 1rem 0 0 ;
+    border: none;
+    cursor: pointer;
   }
 }
 </style>

@@ -110,28 +110,28 @@ export default {
       this.$store.dispatch('freeWordSearch', {
         freeWord: this.freeWord,
       })
-      this.$router.push('/jobs');
+      return this.$router.push('/jobs');
     },
     // * トップページ 言語検索
     languageClick(language) {
       this.$store.dispatch('languageSearch', {
         language: [language.id],
       })
-      this.$router.push('/jobs');
+      return this.$router.push('/jobs');
     },
     // * トップページ フレームワーク検索
     framworkClick(framwork) {
       this.$store.dispatch('framworkSearch', {
         framwork: [framwork.id],
       })
-      this.$router.push('/jobs');
+      return this.$router.push('/jobs');
     },
     // * トップページ その他スキル検索
     skillClick(skill) {
       this.$store.dispatch('skillSearch', {
         skill: [skill.id],
       })
-      this.$router.push('/jobs');
+      return this.$router.push('/jobs');
     }
   },
   components: {
