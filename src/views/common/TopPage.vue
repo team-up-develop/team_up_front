@@ -151,7 +151,7 @@ export default {
     .container-top {
       width: calc(100% - 5rem);
       margin: 2rem 0rem;
-      padding: 2.5rem;
+      padding: 2.5rem 2.5rem 1rem 2.5rem;
       height: 82%;
 
       // * トップ 広告エリア

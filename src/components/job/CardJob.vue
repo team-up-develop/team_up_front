@@ -1,14 +1,14 @@
 <template>
   <div class="job-cards">
-    <div class="job-cards-top">
+    <div class="job-cards__top">
       <span>{{ job.jobTitle | truncateTitle }}</span>
       <p>{{ job.jobTitle | truncateTitleResponsive }}</p>
     </div>
-    <div class="job-cards-center">
+    <div class="job-cards__center">
       <!-- カード スキルコンポーネント -->
       <card-job-skill :job="job"></card-job-skill>
     </div>
-    <div class="job-cards-bottom">
+    <div class="job-cards__bottom">
       <div class="product-start-end">
         <div class="product-start-end-tag">
           開発期間:
@@ -82,7 +82,7 @@ export default {
   transition: .3s;
   color: $text-main-color;
 
-  .job-cards-top {
+  &__top {
     width: calc(100% - 60px);
     height: calc(30% - 60px);
     text-align: left;
@@ -96,7 +96,7 @@ export default {
     }
   }
 
-  .job-cards-center {
+  &__center {
     width: calc(100% - 40px);
     height: calc(35% - 20px);
     padding: 10px 1.5rem 0 1.5rem;
@@ -104,7 +104,7 @@ export default {
     pointer-events: none;
   }
 
-  .job-cards-bottom {
+  &__bottom {
     width: calc(100% - 50px);
     height: calc(38% - 20px);
     padding: 10px 25px;
