@@ -265,11 +265,12 @@ export default {
   .manage-wrapper {
     margin: 0rem auto;
     width: 90%;
-  .job-manage-wrapper {
-    width: 93%;
-    height: calc(90vh - 5rem);
-    border-radius: 20px;
-    margin: 2rem 2rem;
+
+    .job-manage-wrapper {
+      width: 93%;
+      height: calc(90vh - 5rem);
+      border-radius: 20px;
+      margin: 2rem 2rem;
     }
   }
 }
@@ -279,78 +280,62 @@ export default {
   .manage-wrapper {
     margin: 0rem auto;
     width: 90%;
-  .job-manage-wrapper {
-    width: calc(100% - 3rem);
-    height: calc(90vh - 5rem);
-    border-radius: 20px;
-    margin: 2rem 1.5rem;
+  
+    .job-manage-wrapper {
+      width: calc(100% - 3rem);
+      height: calc(90vh - 5rem);
+      border-radius: 20px;
+      margin: 2rem 1.5rem;
     }
-  }
-  .job-area {
-    transition: .2s;
-
-    .job-area-box {
-      width: 33%;
-      height: calc(48px - 1.6rem);
-      padding: 0.8rem 0;
-      color: $text-main-color;
-      display: inline-block;
-      pointer-events: none;
-      
-      p{
-      display: inline;
-      }
-      span{
-        display: none;
-      }
-    }
-  }
-  .lang {
-    display: none;
-  }
-  .lang2 {
-    display: inline;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .manage-wrapper .job-manage-wrapper .manage-job-area {
-      @include box-shadow-manage;
-      width: 33.1%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-    }
-  .manage-wrapper .job-manage-wrapper .apply-job-area {
-      @include box-shadow-manage;
-      width: 33.1%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-    }
-  .manage-wrapper .job-manage-wrapper .save-job-area {
-      @include box-shadow-manage;
-      width: 33.1%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-    }
-  .manage-wrapper .job-manage-wrapper .title-area {
-      @include box-shadow-manage;
-      width: 33.1%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-    }
-  .manage-wrapper .job-manage-wrapper .time-area {
-      @include box-shadow-manage;
-      width: 33.1%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-    }
-  .manage-wrapper .job-manage-wrapper .skill-area {
-      @include box-shadow-manage;
-      width: 33.1%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
+  .manage-wrapper {
+    .job-manage-wrapper {
+      .manage-job-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
+
+      .apply-job-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
+
+      .save-job-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
+
+      .title-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
+
+      .time-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
+      .skill-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
     }
   }
+}
 
 /*スマホ*/
 @media screen and (max-width: 500px){
@@ -358,94 +343,97 @@ export default {
     width: 100%;
     height: 89.5vh;
     margin: 0 auto;
-  .job-manage-wrapper {
-    width: calc(100% - 4rem);
-    height: calc(90vh - 5rem);
-    margin: 2rem 2rem;
-    float: right;
-    position: relative;
-    font-size: 14px;
-  .job-wrapper-area .job-area .job-area-box{
-    p{
-      display: inline;
-    }
-    span{
-      display: none;
-      height: calc(48px - 1.6rem);
-        } 
+    .job-manage-wrapper {
+      width: calc(100% - 4rem);
+      height: calc(90vh - 5rem);
+      margin: 2rem 2rem;
+      float: right;
+      position: relative;
+      font-size: 14px;
       }
+    .job-wrapper-area .job-area .job-area-box{
+      p{
+        display: inline;
+      }
+      span{
+        display: none;
+        height: calc(48px - 1.6rem);
+      } 
     }
-  .lang {
-    display: none;
-  }
-  .lang2 {
-    display: inline;
-  }
   }
 }
+
 
 @media (max-width: 420px){
   .manage-wrapper {
     width: 100%;
     height: 89.5vh;
     margin: 0;
-  .job-manage-wrapper {
-    width: calc(100% - 2rem);
-    height: calc(90vh - 5rem);
-    margin: 2rem 1rem;
-    float: right;
-    position: relative;
-    font-size: 14px;
-  .manage-job-area {
-    @include box-shadow-manage;
-    width: 33%;
-    height: calc(68px - 1.6rem);
-    padding: 0.8rem 0;
+
+    .manage-job-area {
+      @include box-shadow-manage;
+      width: 33%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
     }
 
-  .apply-job-area {
-    width: 33%;
-    height: calc(68px - 1.6rem);
-    padding: 0.8rem 0;
+    .apply-job-area {
+      width: 33%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      }
+
+    .save-job-area {
+      width: 33%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+    }
+    .title-area {
+      width: 33%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+      background-color: $secondary-color;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
     }
 
-  .save-job-area {
-    width: 33%;
-    height: calc(68px - 1.6rem);
-    padding: 0.8rem 0;
+    .time-area{
+      width: 33;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
     }
-  .title-area {
-    width: 33%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    background-color: $secondary-color;
-    display: inline-block;
-    color: $basic-white;
-    font-weight: bold;
+
+    .skill-area {
+      width: 33%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
     }
-  .time-area{
-    width: 33;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    }
-  .skill-area {
-    width: 33%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    }
-  .job-wrapper-area {
-    width: 100%;
-    height: 81%;
-    overflow: scroll;
-  .job-area .job-area-box{
-    p{
-      display: inline;
-    }
-    span{
-      display: none;
-      height: calc(48px - 1.6rem);
-          }
+
+      .job-manage-wrapper {
+        width: calc(100% - 2rem);
+        height: calc(90vh - 5rem);
+        margin: 2rem 1rem;
+        float: right;
+        position: relative;
+        font-size: 14px;
+
+      .job-area .job-area-box{
+        width: 33.2%;
+        height: calc(48px - 1.6rem);
+        padding: 0.8rem 0;
+        color: $text-main-color;
+        font-size: 14px;
+        display: inline-block;
+        pointer-events: none;
+
+        p {
+          display: inline;
         }
+        span {
+          display: none;
+          height: calc(48px - 1.6rem);
+        }  
       }
     }
   }
