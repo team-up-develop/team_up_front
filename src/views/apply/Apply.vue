@@ -114,136 +114,135 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
-  .router-link {
-    text-decoration: none;
-    color: $basic-white;
+.router-link {
+  text-decoration: none;
+  color: $basic-white;
 
-    :hover {
-      opacity: 0.8;
-    }
-  }
-
-  .manage-wrapper {
-    width: 92%;
-    height: 89.5vh;
-    margin: 0 auto;
-
-    .job-manage-wrapper {
-      @include card-border-color;
-      width: 95%;
-      height: calc(90vh - 5rem);
-      border-radius: 20px;
-      margin: 2rem 2rem;
-      background-color: $basic-white;
-      float: right;
-      position: relative;
-      font-size: 14px;
-
-
-      .manage-job-area {
-        width: 33.2%;
-        height: calc(68px - 1.6rem);
-        padding: 0.8rem 0;
-        border-radius: 20px 0 0 0;
-        background-color: #606060;
-        display: inline-block;
-        color: $basic-white;
-        font-weight: bold;
-        transition: .3s;
-        }
-
-      .apply-job-area {
-        @include box-shadow-manage ;
-        width: 33.2%;
-        height: calc(68px - 1.6rem);
-        padding: 0.8rem 0;
-        background-color: #606060;
-        display: inline-block;
-        background-color: $secondary-color;
-        color: $basic-white;
-        border: 0.5px solid $basic-white;
-        font-weight: bold;
-        transition: .3s;
-      }
-
-      .save-job-area {
-        width: 33.2%;
-        height: calc(68px - 1.6rem);
-        padding: 0.8rem 0;
-        border-radius: 0 20px 0 0;
-        background-color: #606060;
-        display: inline-block;
-        color: $basic-white;
-        font-weight: bold;
-      }
-    }
-
-    .title-area {
-      width: 33.2%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-      background-color: $secondary-color;
-      display: inline-block;
-      color: $basic-white;
-      font-weight: bold;
-    }
-
-    .time-area {
-      width: 33.2%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-      border-left: 1px solid $basic-white;
-      border-right: 1px solid $basic-white;
-      background-color: $secondary-color;
-      display: inline-block;
-      color: $basic-white;
-      font-weight: bold;
-    }
-
-    .skill-area {
-      width: 33.2%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-      background-color: $secondary-color;
-      display: inline-block;
-      color: $basic-white;
-      font-weight: bold;
-    }
-
-    .job-wrapper-area {
-      width: 100%;
-      height: 81%;
-      overflow: scroll;
-
-      .job-area {
-        transition: .2s;
-        border-bottom: 1px solid #9c9c9c;
-
-        .job-area-box {
-          width: 33%;
-          height: calc(48px - 1.6rem);
-          padding: 0.8rem 0;
-          color: $text-main-color;
-          display: inline-block;
-          pointer-events: none;
-
-          p {
-            display: none;
-          }
-
-          .lang {
-            display: inline-block;
-          }
-        }
-      }
-    }
-  }
-
-  .router :hover {
-    background-color: $manage-hover-color;
+  :hover {
+    opacity: 0.8;
   }
 }
+
+.manage-wrapper {
+  width: 92%;
+  height: 89.5vh;
+  margin: 0 auto;
+
+  .job-manage-wrapper {
+    @include card-border-color;
+    width: 95%;
+    height: calc(90vh - 5rem);
+    border-radius: 20px;
+    margin: 2rem 2rem;
+    background-color: $basic-white;
+    float: right;
+    position: relative;
+    font-size: 14px;
+
+
+    .manage-job-area {
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      border-radius: 20px 0 0 0;
+      background-color: #606060;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
+      transition: .3s;
+      }
+
+    .apply-job-area {
+      @include box-shadow-manage ;
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      background-color: #606060;
+      display: inline-block;
+      background-color: $secondary-color;
+      color: $basic-white;
+      border: 0.5px solid $basic-white;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .save-job-area {
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      border-radius: 0 20px 0 0;
+      background-color: #606060;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
+    }
+  }
+
+  .title-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .time-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    border-left: 1px solid $basic-white;
+    border-right: 1px solid $basic-white;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .skill-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .job-wrapper-area {
+    width: 100%;
+    height: 81%;
+    overflow: scroll;
+
+    .job-area {
+      transition: .2s;
+      border-bottom: 1px solid #9c9c9c;
+
+      .job-area-box {
+        width: 33%;
+        height: calc(48px - 1.6rem);
+        padding: 0.8rem 0;
+        color: $text-main-color;
+        display: inline-block;
+        pointer-events: none;
+
+        p {
+          display: none;
+        }
+
+        .lang {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.router :hover {
+  background-color: $manage-hover-color;
+}
+
 
 @media screen and (max-width: 1200px) {
   .manage-wrapper {

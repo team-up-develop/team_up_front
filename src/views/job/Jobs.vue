@@ -7,14 +7,14 @@
       </div>
     </transition>
     <div class="search-area">
-      <button class="search-modal-btn" @click="langSearchModal">開発言語</button>
-      <button class="search-modal-btn" @click="frameworkSearchModal">フレームワーク</button>
-      <button class="search-modal-btn" @click="skillSearchModal">その他技術</button>
+      <button class="search-area__modal-btn" @click="langSearchModal">開発言語</button>
+      <button class="search-area__modal-btn" @click="frameworkSearchModal">フレームワーク</button>
+      <button class="search-area__modal-btn" @click="skillSearchModal">その他技術</button>
       <input
         type="text" 
         v-model="freeWord" 
         placeholder="フリーワード" 
-        class="search-freewrod-box"
+        class="search-area__freewrod"
         @keyup.enter="searchFreeword"
       >
         <!-- 言語検索 モーダル画面 -->
@@ -99,7 +99,7 @@
       </router-link>
       <div class="job-wrapper-right" v-if="detailFlag === true">
         <div class="top-job-detail-area">
-          <div class="top-job-detail-top">
+          <div class="top-job-detail-area__title">
             {{ jobDetail.jobTitle | truncateDetailTitle }}
           </div>
           <!-- ログイン時 -->
@@ -725,7 +725,7 @@ export default {
   padding: 0 3rem;
   display: inline-block;
 
-  .search-modal-btn {
+  &__modal-btn {
     @include card-border-color;
     color: $text-sub-color;
     background-color: $basic-white;
@@ -745,7 +745,7 @@ export default {
     }
   }
 
-  .search-freewrod-box {
+  &__freewrod {
     @include input-border-color;
     color: $text-main-color;
     font: 16px/24px sans-serif;
@@ -870,7 +870,7 @@ export default {
     padding: 1.5rem 2rem 1rem 2rem;
     box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15);
 
-    .top-job-detail-top {
+    &__title {
       width: 100%;
       height: 50%;
       font-size: 1.2em;
@@ -1134,7 +1134,7 @@ export default {
   align-items: center;
   justify-content: center;
   display: inline-block;
-  margin-top: 1rem;
+  margin-top: 15rem;
 }
 
 .label-lang {
