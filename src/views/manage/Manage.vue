@@ -119,143 +119,143 @@ export default {
     width: 92%;
     height: 89.5vh;
     margin: 0 auto;
-  }
-  /* background-color: #F2F6F7; */
-
-  .job-manage-wrapper {
-    width: 95%;
-    height: calc(90vh - 5rem);
-    border-radius: 20px;
-    margin: 2rem 2rem;
-    background-color: #ffffff;
-    float: right;
-    border-bottom: solid 1px $card-border-color;
-    border-right: solid 1px $card-border-color;
-    border-left: solid 1px $card-border-color;
-    position: relative;
-    font-size: 14px;
+  
+    .job-manage-wrapper {
+      width: 95%;
+      height: calc(90vh - 5rem);
+      border-radius: 20px;
+      margin: 2rem 2rem;
+      background-color: #ffffff;
+      float: right;
+      border-bottom: solid 1px $card-border-color;
+      border-right: solid 1px $card-border-color;
+      border-left: solid 1px $card-border-color;
+      position: relative;
+      font-size: 14px;
 
     /* padding: 0rem 4rem; */
 
-    .manage-job-area {
-      @include box-shadow-manage;
+      .manage-job-area {
+        @include box-shadow-manage;
+        width: 33.2%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+        border-radius: 20px 0 0 0;
+        background-color: $secondary-color;
+        display: inline-block;
+        color: $basic-white;
+        font-weight: bold;
+        }
+
+      .apply-job-area {
+        width: 33.2%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+        background-color: #606060;
+        display: inline-block;
+        color: $basic-white;
+        border: 0.5px solid $basic-white;
+        font-weight: bold;
+        transition: .3s;
+      }
+
+      .save-job-area {
+        width: 33.2%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+        border-radius: 0 20px 0 0;
+        background-color: #606060;
+        display: inline-block;
+        color: $basic-white;
+        font-weight: bold;
+        transition: .3s;
+      }
+    }
+
+    .title-area {
       width: 33.2%;
-      height: calc(68px - 1.6rem);
+      height: calc(48px - 1.8rem);
       padding: 0.8rem 0;
-      border-radius: 20px 0 0 0;
       background-color: $secondary-color;
       display: inline-block;
       color: $basic-white;
       font-weight: bold;
     }
 
-    .apply-job-area {
+    .time-area {
       width: 33.2%;
-      height: calc(68px - 1.6rem);
+      height: calc(48px - 1.8rem);
       padding: 0.8rem 0;
-      background-color: #606060;
-      display: inline-block;
-      color: $basic-white;
-      border: 0.5px solid $basic-white;
-      font-weight: bold;
-      transition: .3s;
-    }
-
-    .save-job-area {
-      width: 33.2%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-      border-radius: 0 20px 0 0;
-      background-color: #606060;
+      border-left: 1px solid $basic-white;
+      border-right: 1px solid $basic-white;
+      background-color: $secondary-color;
       display: inline-block;
       color: $basic-white;
       font-weight: bold;
-      transition: .3s;
     }
-  }
 
-  .title-area {
-    width: 33.2%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    background-color: $secondary-color;
-    display: inline-block;
-    color: $basic-white;
-    font-weight: bold;
-  }
-
-  .time-area {
-    width: 33.2%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    border-left: 1px solid $basic-white;
-    border-right: 1px solid $basic-white;
-    background-color: $secondary-color;
-    display: inline-block;
-    color: $basic-white;
-    font-weight: bold;
-  }
-
-  .skill-area {
-    width: 33.2%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    background-color: $secondary-color;
-    display: inline-block;
-    color: $basic-white;
-    font-weight: bold;
-  }
-
-  .job-title-area {
-    width: 33.3%;
-    height: 70%;
-    display: inline-block;
-  }
-
-  .router :hover {
-    background-color: $manage-hover-color;
-  }
-
-  .job-area {
-    transition: .2s;
-    border-bottom: 1px solid #9c9c9c;
-  }
-
-  .job-wrapper-area {
-    width: 100%;
-    height: 81%;
-    overflow: scroll;
-  }
-
-  .job-area .job-area-box {
-    width: 33.2%;
-    // border-bottom: 1px solid #9c9c9c;
-    height: calc(48px - 1.6rem);
-    padding: 0.8rem 0;
-    color: $text-main-color;
-    font-size: 14px;
-    display: inline-block;
-    pointer-events: none;
-
-    p{
-      display: none;
+    .skill-area {
+      width: 33.2%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+      background-color: $secondary-color;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
     }
-  }
 
-  .lang {
-    display: inline-block;
+    .job-title-area {
+      width: 33.3%;
+      height: 70%;
+      display: inline-block;
     }
+
+    .router :hover {
+      background-color: $manage-hover-color;
+    }
+
+    .job-area {
+      transition: .2s;
+      border-bottom: 1px solid #9c9c9c;
+    }
+
+    .job-wrapper-area {
+      width: 100%;
+      height: 81%;
+      overflow: scroll;
+
+      .job-area .job-area-box {
+        width: 33.2%;
+        // border-bottom: 1px solid #9c9c9c;
+        height: calc(48px - 1.6rem);
+        padding: 0.8rem 0;
+        color: $text-main-color;
+        font-size: 14px;
+        display: inline-block;
+        pointer-events: none;
+
+          p{
+            display: none;
+          }
+      }
+
+          .lang {
+            display: inline-block;
+            }
+          }
+  }
 }
 @media screen and (max-width: 1200px) {
   .manage-wrapper {
     margin: 0rem auto;
     width: 90%;
-  }
-  .job-manage-wrapper {
-    width: 93%;
-    height: calc(90vh - 5rem);
-    border-radius: 20px;
-    margin: 2rem 2rem;
+  
+    .job-manage-wrapper {
+      width: 93%;
+      height: calc(90vh - 5rem);
+      border-radius: 20px;
+      margin: 2rem 2rem;
+    }
   }
 }
 
@@ -263,62 +263,61 @@ export default {
 @media screen and (max-width: 900px) {
   .manage-wrapper {
     margin: 0rem auto;
-    width: 92%;
-  }
-  .manage-wrapper .job-manage-wrapper{
-    width: 95%;
-    margin: 2rem 2em;
-    height: calc(90vh - 5rem);
+    width: 90%;
+
+    .job-manage-wrapper {
+      width: calc(100% - 3rem);
+      height: calc(90vh - 5rem);
+      margin: 2rem 1.5em;
+    }
   }
 }
 
 @media screen and (max-width: 768px) {
   .manage-wrapper {
-    margin: 0rem auto;
-    width: 93%;
-  }
-  .manage-wrapper .job-manage-wrapper{
-    width: 96%;
-    height: calc(90vh - 5rem);
-    margin: 2rem 1rem;
-  }
-  .job-manage-wrapper .manage-job-area {
-      @include box-shadow-manage;
-      width: 33.1%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-    }
+    .job-manage-wrapper{
+      .manage-job-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+        }
 
-    .job-manage-wrapper .apply-job-area {
-      width: 33.1%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
-    }
+      .apply-job-area {
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
 
-    .job-manage-wrapper .save-job-area {
-      width: 33.1%;
-      height: calc(68px - 1.6rem);
-      padding: 0.8rem 0;
+      .save-job-area {
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
+
+      .title-area {
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+        background-color: $secondary-color;
+        display: inline-block;
+        color: $basic-white;
+        font-weight: bold;
+      } 
+
+      .time-area{
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
+
+      .skill-area {
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
     }
-    .job-manage-wrapper .title-area {
-    width: 33.1%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    background-color: $secondary-color;
-    display: inline-block;
-    color: $basic-white;
-    font-weight: bold;
   }
-  .job-manage-wrapper .time-area{
-    width: 33.1%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-  }
-  .job-manage-wrapper .skill-area {
-    width: 33.1%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    }
 }
 
 
@@ -328,15 +327,24 @@ export default {
     width: 100%;
     height: 89.5vh;
     margin: 0 auto;
-  .job-manage-wrapper {
-    width: calc(100% - 4rem);
-    height: calc(90vh - 5rem);
-    margin: 2rem 2rem;
-    float: right;
-    position: relative;
-    font-size: 14px;
+    .job-manage-wrapper {
+      width: calc(100% - 4rem);
+      height: calc(90vh - 5rem);
+      margin: 2rem 2rem;
+      float: right;
+      position: relative;
+      font-size: 14px;
+      }
+    .job-wrapper-area .job-area .job-area-box{
+      p{
+        display: inline;
+      }
+      span{
+        display: none;
+        height: calc(48px - 1.6rem);
+      } 
     }
-  }
+  } 
 }
 
 @media (max-width: 420px){
@@ -344,71 +352,76 @@ export default {
     width: 100%;
     height: 89.5vh;
     margin: 0 auto;
-  .job-manage-wrapper {
-    width: calc(100% - 2rem);
-    height: calc(90vh - 5rem);
-    margin: 2rem 1rem;
-    float: right;
-    position: relative;
-    font-size: 14px;
+    .job-manage-wrapper {
+      width: calc(100% - 2rem);
+      height: calc(90vh - 5rem);
+      margin: 2rem 1rem;
+      float: right;
+      position: relative;
+      font-size: 14px;
     }
+
+  .manage-job-area {
+    @include box-shadow-manage;
+    width: 33%;
+    height: calc(68px - 1.6rem);
+    padding: 0.8rem 0;
   }
-  .job-manage-wrapper .manage-job-area {
-      @include box-shadow-manage;
+
+    .apply-job-area {
       width: 33%;
       height: calc(68px - 1.6rem);
       padding: 0.8rem 0;
     }
 
-    .job-manage-wrapper .apply-job-area {
+    .save-job-area {
       width: 33%;
       height: calc(68px - 1.6rem);
       padding: 0.8rem 0;
     }
 
-    .job-manage-wrapper .save-job-area {
+    .title-area {
       width: 33%;
-      height: calc(68px - 1.6rem);
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+      background-color: $secondary-color;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
+  }
+
+    .time-area{
+      width: 33;
+      height: calc(48px - 1.8rem);
       padding: 0.8rem 0;
     }
-    .job-manage-wrapper .title-area {
-    width: 33%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-    background-color: $secondary-color;
-    display: inline-block;
-    color: $basic-white;
-    font-weight: bold;
-  }
-  .job-manage-wrapper .time-area{
-    width: 33;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-  }
-  .job-manage-wrapper .skill-area {
-    width: 33%;
-    height: calc(48px - 1.8rem);
-    padding: 0.8rem 0;
-  }
-  .job-wrapper-area {
-    width: 100%;
-    height: 81%;
-    overflow: scroll;
-  }
-  .job-area .job-area-box {
-    width: 33.2%;
-    height: calc(48px - 1.6rem);
-    padding: 0.8rem 0;
-    color: $text-main-color;
-    font-size: 14px;
-    display: inline-block;
-    pointer-events: none;
-    p{
-      display: inline;
+
+    .skill-area {
+      width: 33%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
     }
-    span{
-      display: none;
-      height: calc(48px - 1.6rem);
+    .job-wrapper-area {
+      width: 100%;
+      height: 81%;
+      overflow: scroll;
+
+      .job-area-box {
+        width: 33.2%;
+        height: calc(48px - 1.6rem);
+        padding: 0.8rem 0;
+        color: $text-main-color;
+        font-size: 14px;
+        display: inline-block;
+        pointer-events: none;
+        p{
+          display: inline;
+        }
+        span{
+          display: none;
+          height: calc(48px - 1.6rem);
+        }
+      }
     }
   }
 }
