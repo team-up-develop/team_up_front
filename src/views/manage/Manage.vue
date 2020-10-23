@@ -105,146 +105,145 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
-  .router-link :hover {
-  opacity: 0.8;
-  }
+.router-link :hover {
+  opacity: 0.8 ;
+}
 
-  .router-no-link, .router-link {
+.router-no-link, .router-link {
   text-decoration: none;
   color: $basic-white;
+}
+
+.manage-wrapper {
+  width: 92%;
+  height: 89.5vh;
+  margin: 0 auto;
+
+  .job-manage-wrapper {
+    width: 95%;
+    height: calc(90vh - 5rem);
+    border-radius: 20px;
+    margin: 2rem 2rem;
+    background-color: #ffffff;
+    float: right;
+    border-bottom: solid 1px $card-border-color;
+    border-right: solid 1px $card-border-color;
+    border-left: solid 1px $card-border-color;
+    position: relative;
+    font-size: 14px;
+
+  /* padding: 0rem 4rem; */
+
+    .manage-job-area {
+      @include box-shadow-manage;
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      border-radius: 20px 0 0 0;
+      background-color: $secondary-color;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
+      }
+
+    .apply-job-area {
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      background-color: #606060;
+      display: inline-block;
+      color: $basic-white;
+      border: 0.5px solid $basic-white;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .save-job-area {
+      width: 33.2%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      border-radius: 0 20px 0 0;
+      background-color: #606060;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
+      transition: .3s;
+    }
   }
 
-  .manage-wrapper {
-    width: 92%;
-    height: 89.5vh;
-    margin: 0 auto;
-  
-    .job-manage-wrapper {
-      width: 95%;
-      height: calc(90vh - 5rem);
-      border-radius: 20px;
-      margin: 2rem 2rem;
-      background-color: #ffffff;
-      float: right;
-      border-bottom: solid 1px $card-border-color;
-      border-right: solid 1px $card-border-color;
-      border-left: solid 1px $card-border-color;
-      position: relative;
+  .title-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .time-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    border-left: 1px solid $basic-white;
+    border-right: 1px solid $basic-white;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .skill-area {
+    width: 33.2%;
+    height: calc(48px - 1.8rem);
+    padding: 0.8rem 0;
+    background-color: $secondary-color;
+    display: inline-block;
+    color: $basic-white;
+    font-weight: bold;
+  }
+
+  .job-title-area {
+    width: 33.3%;
+    height: 70%;
+    display: inline-block;
+  }
+
+  .router :hover {
+    background-color: $manage-hover-color;
+  }
+
+  .job-area {
+    transition: .2s;
+    border-bottom: 1px solid #9c9c9c;
+  }
+
+  .job-wrapper-area {
+    width: 100%;
+    height: 81%;
+    overflow: scroll;
+
+    .job-area .job-area-box {
+      width: 33.2%;
+      // border-bottom: 1px solid #9c9c9c;
+      height: calc(48px - 1.6rem);
+      padding: 0.8rem 0;
+      color: $text-main-color;
       font-size: 14px;
+      display: inline-block;
+      pointer-events: none;
 
-    /* padding: 0rem 4rem; */
-
-      .manage-job-area {
-        @include box-shadow-manage;
-        width: 33.2%;
-        height: calc(68px - 1.6rem);
-        padding: 0.8rem 0;
-        border-radius: 20px 0 0 0;
-        background-color: $secondary-color;
-        display: inline-block;
-        color: $basic-white;
-        font-weight: bold;
-        }
-
-      .apply-job-area {
-        width: 33.2%;
-        height: calc(68px - 1.6rem);
-        padding: 0.8rem 0;
-        background-color: #606060;
-        display: inline-block;
-        color: $basic-white;
-        border: 0.5px solid $basic-white;
-        font-weight: bold;
-        transition: .3s;
-      }
-
-      .save-job-area {
-        width: 33.2%;
-        height: calc(68px - 1.6rem);
-        padding: 0.8rem 0;
-        border-radius: 0 20px 0 0;
-        background-color: #606060;
-        display: inline-block;
-        color: $basic-white;
-        font-weight: bold;
-        transition: .3s;
+      p{
+        display: none;
       }
     }
 
-    .title-area {
-      width: 33.2%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-      background-color: $secondary-color;
+    .lang {
       display: inline-block;
-      color: $basic-white;
-      font-weight: bold;
-    }
-
-    .time-area {
-      width: 33.2%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-      border-left: 1px solid $basic-white;
-      border-right: 1px solid $basic-white;
-      background-color: $secondary-color;
-      display: inline-block;
-      color: $basic-white;
-      font-weight: bold;
-    }
-
-    .skill-area {
-      width: 33.2%;
-      height: calc(48px - 1.8rem);
-      padding: 0.8rem 0;
-      background-color: $secondary-color;
-      display: inline-block;
-      color: $basic-white;
-      font-weight: bold;
-    }
-
-    .job-title-area {
-      width: 33.3%;
-      height: 70%;
-      display: inline-block;
-    }
-
-    .router :hover {
-      background-color: $manage-hover-color;
-    }
-
-    .job-area {
-      transition: .2s;
-      border-bottom: 1px solid #9c9c9c;
-    }
-
-    .job-wrapper-area {
-      width: 100%;
-      height: 81%;
-      overflow: scroll;
-
-      .job-area .job-area-box {
-        width: 33.2%;
-        // border-bottom: 1px solid #9c9c9c;
-        height: calc(48px - 1.6rem);
-        padding: 0.8rem 0;
-        color: $text-main-color;
-        font-size: 14px;
-        display: inline-block;
-        pointer-events: none;
-
-          p{
-            display: none;
-          }
       }
-
-          .lang {
-            display: inline-block;
-            }
-          }
   }
 }
+
 @media screen and (max-width: 1200px) {
   .manage-wrapper {
     margin: 0rem auto;

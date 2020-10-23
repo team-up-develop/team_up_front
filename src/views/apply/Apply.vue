@@ -336,7 +336,7 @@ export default {
       position: relative;
       font-size: 14px;
       }
-    .job-wrapper-area .job-area .job-area-box{
+    .job-wrapper-area .job-area .job-area-box {
       p{
         display: inline;
       }
