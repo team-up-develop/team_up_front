@@ -35,23 +35,11 @@
               >
                 {{ langage.programingLanguageName }}  ,
               </div>
-              <div class="lang2"
-                v-for="(langage, index) in jobs.job.programingLanguage.slice(0,1)" 
-                :key="`langage-${index}`"
-              >
-                {{ langage.programingLanguageName }}  ,
-              </div>
               <div class="lang" 
                 v-for="(framework, index) in jobs.job.programingFramework.slice(0,3)" 
                 :key="`framework-${index}`"
               >
                 {{ framework.programingFrameworkName }}  ,
-              </div>
-              <div class="lang2" 
-                v-for="(framework, index) in jobs.job.programingFramework.slice(0,1)" 
-                :key="`framework-${index}`"
-              >
-                {{ cframework.programingFrameworkName }}  ,
               </div>
             </div>
           </div>
@@ -82,7 +70,7 @@ export default {
   },
   filters: {
     moment(value, format) {
-      return momecnt(value).format(format);
+      return moment(value).format(format);
     },
     //* 案件タイトル 文字制限
     truncateTitle: function(value) {
