@@ -21,10 +21,12 @@
         <router-link :to="`/manage/favorite_job/${ jobs.jobId }`" v-for="jobs in favoriteJobs" :key="jobs.id" class="router">
           <div class="job-area">
             <div class="job-area-box">
-              {{ jobs.job.jobTitle | truncateTitle }}
+              <span>{{ jobs.job.jobTitle | truncateTitle }}</span>
+              <p>{{ jobs.job.jobTitle | truncateResponsiveTitle }}</p>
             </div>
             <div class="job-area-box">
-              {{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}
+              <span>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}</span>
+              <p>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~ </p>
             </div>
             <div class="job-area-box">
               <div class="lang"
@@ -79,16 +81,28 @@ export default {
       }
       return value.substring(0, length) + ommision;
     },
+    //* 案件タイトル レスポンシブ 文字制限
+    truncateResponsiveTitle: function(value) {
+      var length = 4;
+      var ommision = "...";
+      if (value.length <= length) {
+        return value;
+      }
+      return value.substring(0, length) + ommision;
+    },
   },
   mounted() {
     // * 保存している案件を取得
-    if( this.userId!== undefined) {
+    if(this.userId) {
       this.loginFlag = true
       axios.get(`${this.$baseURL}/favorite_job/?user_id=${this.userId}`)
       .then(response => {
           // this.loading = false;
           this.favoriteJobs = response.data
       })
+    }
+    else {
+      this.loginFlag = false;
     }
   },
   components: {
@@ -211,19 +225,204 @@ export default {
 
 .job-area {
   transition: .2s;
+  border-bottom: 1px solid #9c9c9c;
 
   .job-area-box {
     width: 33%;
-    border-bottom: 1px solid #9c9c9c;
     height: calc(48px - 1.6rem);
     padding: 0.8rem 0;
     color: $text-main-color;
     display: inline-block;
     pointer-events: none;
+    
+    p{
+      display: none;
+    }
   }
 }
 
 .lang {
   display: inline-block;
+}
+.lang2 {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .manage-wrapper {
+    margin: 0rem auto;
+    width: 90%;
+
+    .job-manage-wrapper {
+      width: 93%;
+      height: calc(90vh - 5rem);
+      border-radius: 20px;
+      margin: 2rem 2rem;
+    }
+  }
+}
+
+/*タブレット*/
+@media screen and (max-width: 900px) {
+  .manage-wrapper {
+    margin: 0rem auto;
+    width: 90%;
+  
+    .job-manage-wrapper {
+      width: calc(100% - 3rem);
+      height: calc(90vh - 5rem);
+      border-radius: 20px;
+      margin: 2rem 1.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .manage-wrapper {
+    .job-manage-wrapper {
+      .manage-job-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
+
+      .apply-job-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
+
+      .save-job-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(68px - 1.6rem);
+        padding: 0.8rem 0;
+      }
+
+      .title-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
+
+      .time-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
+      .skill-area {
+        @include box-shadow-manage;
+        width: 33.1%;
+        height: calc(48px - 1.8rem);
+        padding: 0.8rem 0;
+      }
+    }
+  }
+}
+
+/*スマホ*/
+@media screen and (max-width: 500px){
+  .manage-wrapper {
+    width: 100%;
+    height: 89.5vh;
+    margin: 0 auto;
+    .job-manage-wrapper {
+      width: calc(100% - 4rem);
+      height: calc(90vh - 5rem);
+      margin: 2rem 2rem;
+      float: right;
+      position: relative;
+      font-size: 14px;
+      }
+    .job-wrapper-area .job-area .job-area-box{
+      p{
+        display: inline;
+      }
+      span{
+        display: none;
+        height: calc(48px - 1.6rem);
+      } 
+    }
+  }
+}
+
+
+@media (max-width: 420px){
+  .manage-wrapper {
+    width: 100%;
+    height: 89.5vh;
+    margin: 0;
+
+    .manage-job-area {
+      @include box-shadow-manage;
+      width: 33%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+    }
+
+    .apply-job-area {
+      width: 33%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+      }
+
+    .save-job-area {
+      width: 33%;
+      height: calc(68px - 1.6rem);
+      padding: 0.8rem 0;
+    }
+    .title-area {
+      width: 33%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+      background-color: $secondary-color;
+      display: inline-block;
+      color: $basic-white;
+      font-weight: bold;
+    }
+
+    .time-area{
+      width: 33;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+    }
+
+    .skill-area {
+      width: 33%;
+      height: calc(48px - 1.8rem);
+      padding: 0.8rem 0;
+    }
+
+      .job-manage-wrapper {
+        width: calc(100% - 2rem);
+        height: calc(90vh - 5rem);
+        margin: 2rem 1rem;
+        float: right;
+        position: relative;
+        font-size: 14px;
+
+      .job-area .job-area-box{
+        width: 33.2%;
+        height: calc(48px - 1.6rem);
+        padding: 0.8rem 0;
+        color: $text-main-color;
+        font-size: 14px;
+        display: inline-block;
+        pointer-events: none;
+
+        p {
+          display: inline;
+        }
+        span {
+          display: none;
+          height: calc(48px - 1.6rem);
+        }  
+      }
+    }
+  }
 }
 </style>

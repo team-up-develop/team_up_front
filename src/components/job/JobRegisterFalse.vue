@@ -44,7 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
   .false-user-login {
     @include card-border-color;
     width: calc(75% - 4rem);
@@ -52,8 +51,9 @@ export default {
     background-color: $basic-white;
     border-radius: 8px;
     margin-bottom: 23rem;
-    margin-top: 1rem;
+    margin-top: 3.5rem;
     padding: 0 2rem 2rem 2rem;
+    position: sticky;
   }
 
   .top-login-title {
@@ -140,5 +140,4 @@ export default {
       transition: .3s;
     }
   }
-}
 </style>

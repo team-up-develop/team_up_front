@@ -31,9 +31,7 @@ const actions = {
     }
     axios.post('http://localhost:8888/api/v1/login', params)
     .then(response => {
-      // console.log("----------------------")
       router.push('/jobs');
-      // console.log("----------------------")
       commit('updateIdToken', response.data.idToken)
       commit('loginUserId', response.data.userId)
     })
@@ -41,7 +39,7 @@ const actions = {
     ;
   },
   // * ログアウト
-  logout({commit}) {
+  logout({ commit }) {
     commit('loginUserId', null);
     localStorage.clear();
     router.replace('/login')

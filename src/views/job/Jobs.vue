@@ -1,7 +1,13 @@
 <template>
   <div class="job-wrapper">
+    <!-- 右側浮いてるボタン -->
+    <transition name="button">
+      <div class="scroll-area" v-show="buttonActive">
+        <a href="#"><font-awesome-icon icon="arrow-up" class="icon"/></a>
+      </div>
+    </transition>
     <div class="search-area">
-      <button @click="langSearchModal" class="search-modal-btn">開発言語</button>
+      <button class="search-modal-btn" @click="langSearchModal">開発言語</button>
       <button class="search-modal-btn" @click="frameworkSearchModal">フレームワーク</button>
       <button class="search-modal-btn" @click="skillSearchModal">その他技術</button>
       <input
@@ -56,7 +62,18 @@
             </template>
           </SkillSearchModal>
         </div>
-      </div>
+        <!-- 応募する モーダル画面 -->
+        <div class="example-modal-window">
+          <ApplyModal @close="closeModal" v-if="modal">
+            <p>応募を完了してよろしいですか？</p>
+            <template slot="footer">
+              <applybtn @compliteEntry="compliteEntry" :jobId='id' ></applybtn>
+              <button @click="doSend" class="modal-btn">キャンセル</button>
+            </template>
+          </ApplyModal>
+        </div>
+    </div>
+    <!-- 案件表示エリア -->
     <div class="job-wrapper-center" v-show="!loading">
       <div class="job-wrapper-left" v-if="jobsNullFlag === false">
         <div 
@@ -73,8 +90,9 @@
       </div>
       <!-- 検索結果が無い場合 -->
       <div class="job-wrapper-left-false" v-else>
-        この条件での開発案件はありませんでした。
-        <p>検索キーワード <span> {{ freeWord }}{{ selectedLang }}{{ selectedFramework }}{{ selectedSkill }}</span></p>
+        この条件での開発案件はありませんでした。<br>
+        別のキーワードで検索してください。
+        <!-- <p>検索キーワード <span> {{ freeWord }}{{ selectedLang }}{{ selectedFramework }}{{ selectedSkill }}</span></p> -->
       </div>
       <router-link :to="`/jobs/${ job.id }`" class="router-1" v-for="job in jobs" :key="job.id" >
         <card-job :job="job"></card-job>
@@ -95,16 +113,6 @@
                 <!-- <save-btn :jobId='id' class="btn"></save-btn> -->
                 <font-awesome-icon icon="heart" class="save-icon" @click="saveJob" v-if="saveFlag"/>
                 <font-awesome-icon icon="heart" class="save-end-icon" @click="deleteJob" v-if="saveFlag == false"/>
-              </div>
-              <!-- 応募する モーダル画面 -->
-              <div class="example-modal-window">
-                <ApplyModal @close="closeModal" v-if="modal">
-                  <p>応募を完了してよろしいですか？</p>
-                  <template slot="footer">
-                    <applybtn @compliteEntry="compliteEntry" :jobId='id' ></applybtn>
-                    <button @click="doSend" class="modal-btn">キャンセル</button>
-                  </template>
-                </ApplyModal>
               </div>
             </div>
             <div v-else>
@@ -216,20 +224,18 @@ import SkillSearchModal from '@/components/modal/SkillSearchModal'
 export default {
   data() {
     return {
-      jobs: [],
+      jobs: [], //? 案件一覧配列
       jobsNullFlag: false, //? 案件が存在しない場合 表示のため
-      selectedLang: [ this.$store.state.search.language], //? 言語 v-model
+      selectedLang: [], //? 言語 v-model
       languages: [], //? 言語取得
-      selectedFramework: [this.$store.state.search.framwork], //? フレームワーク v-model
+      selectedFramework: [], //? フレームワーク v-model
       frameworks: [],//? フレームワーク取得
-      selectedSkill: [this.$store.state.search.skill], //? その他スキル v-model
+      selectedSkill: [], //? その他スキル v-model
       skills: [], //? その他スキル取得
-      freeWord: this.$store.state.search.freeWord,
-      name: '',
-      age: 0,
-      loading: true,
-      jobDetail: null,
-      detailFlag: false,
+      freeWord: this.$store.state.search.freeWord, //? フリーワード 
+      loading: true, 
+      jobDetail: null, //? 案件詳細 
+      detailFlag: false, //? 案件詳細を表示するためのフラグ
       selfJobPost: false, //? 自分の案件かを判定
       selfJob: null,  //? 自分の案件を格納する
       applyFlug: true, //?応募済みかの判定フラグ
@@ -242,6 +248,7 @@ export default {
       langModal: false, //? 言語モーダル
       frameworkModal: false, //? フレームワークモーダル
       skillModal: false, //? その他スキルモーダル
+      buttonActive: false, //? 右側浮いてるボタン
     }
   },
   filters: {
@@ -281,29 +288,45 @@ export default {
         this.jobs = posts
         // * トップページから 開発言語 検索した際の処理
         if(!this.$store.state.search.language) {
-          console.log("language null")
+          console.log("language はnullです")
         }
         else {
+          var arrayLanguagekNum = [];
           var languageNum = this.$store.state.search.language;
-          axios.get(`http://localhost:8888/api/v1/job/?programing_language_id[${languageNum - 1}]=${languageNum}`)
+          for(var s = 0; s < languageNum.length; s++) {
+            var languageNumParams = languageNum[s]
+            this.selectedLang.push(languageNumParams)
+            var queryParamsLanguage =  'programing_framework_id' + '[' + Number(languageNumParams - 1) + ']' + '=' + languageNumParams + '&';
+            arrayLanguagekNum.push(queryParamsLanguage)
+          }
+          var LastLanguageNum = arrayLanguagekNum.join('');
+          axios.get(`http://localhost:8888/api/v1/job/?${LastLanguageNum}`)
           .then(response => {
             this.jobs = response.data
             if(this.jobs.length == 0) {
               this.jobsNullFlag = true;
             }
           })
-          // ? もし案件が存在しなかったら処理が走る
+          // * もし案件が存在しなかったら処理が走る
           if(!this.jobs.length) {
             this.jobsNullFlag = true;
           }
         }
         // * トップページから フレームワーク 検索した際の処理
         if(!this.$store.state.search.framwork) {
-          console.log("framwork null")
+          console.log("framwork はnullです")
         }
         else {
+          var arrayFrameworkNum = [];
           var framworkNum = this.$store.state.search.framwork;
-          axios.get(`http://localhost:8888/api/v1/job/?programing_framework_id[${framworkNum - 1}]=${framworkNum}`)
+          for(var k = 0; k < framworkNum.length; k++) {
+            var framworkNumParams = framworkNum[k]
+            this.selectedFramework.push(framworkNumParams)
+            var queryParams =  'programing_framework_id' + '[' + Number(framworkNumParams - 1) + ']' + '=' + framworkNumParams + '&';
+            arrayFrameworkNum.push(queryParams)
+          }
+          var LastFrameworkNum = arrayFrameworkNum.join('');
+          axios.get(`http://localhost:8888/api/v1/job/?${LastFrameworkNum}`)
           .then(response => {
             this.jobs = response.data
             if(this.jobs.length == 0) {
@@ -313,11 +336,19 @@ export default {
         }
         // * トップページから その他スキル 検索した際の処理
         if(!this.$store.state.search.skill) {
-          console.log("skill null")
+          console.log("skill はnullです")
         }
         else {
+          var arraySkillNum = [];
           var skillNum = this.$store.state.search.skill;
-          axios.get(`http://localhost:8888/api/v1/job/?skill_id[${skillNum - 1}]=${skillNum}`)
+          for(var l = 0; l < skillNum.length; l++) {
+            var skillNumParams = skillNum[l]
+            this.selectedSkill.push(skillNumParams)
+            var queryParamsSkill = 'skill_id' + '[' + Number(skillNumParams - 1) + ']' + '=' + skillNumParams + '&';
+            arraySkillNum.push(queryParamsSkill)
+          }
+          var LastSkillNum = arraySkillNum.join('');
+          axios.get(`http://localhost:8888/api/v1/job/?${LastSkillNum}`)
           .then(response => {
             this.jobs = response.data
             if(this.jobs.length == 0) {
@@ -325,7 +356,7 @@ export default {
             }
           })
         }
-        // ? もし案件が存在しなかったら処理が走る
+        // * もし案件が存在しなかったら処理が走る
         if(!this.jobs.length) {
           this.jobsNullFlag = true;
         }
@@ -357,21 +388,22 @@ export default {
   methods: {
     // * 非ログイン時 登録リダイレクト
     registerRedirect() {
-      alert("登録が必要です");
       this.$router.push('/register');
     },
     // * 開発言語検索
     getParams(){
       var array = [];
-      const data = {
+      var languageState = []; //? Stateにフレームワークを複数いれるための配列
+      const params = {
         language: this.selectedLang,
       }
-      console.log(data)
-      for(var i =0; i < data.language.length; i++) {
-        var languageParams = data.language[i];
+      for(var i =0; i < params.language.length; i++) {
+        var languageParams = params.language[i];
+        languageState.push(languageParams)
         var queryParams =  'programing_language_id' + '[' + Number(languageParams - 1) + ']' + '=' + languageParams + '&';
         array.push(queryParams)
       }
+      var languageStateEnd = languageState.slice(0)
       var result = array.join('');
       // console.log( result );
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
@@ -383,7 +415,18 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
-            // ? もし案件が存在しなかったら処理が走る
+
+            // * 言語 検索語 Vuexに値を格納する
+            this.$store.dispatch('languageSearch', {
+              language: languageStateEnd,
+            })
+            // * 言語が１つも選択されていない時の処理
+            if(params.language.length == 0 ) {
+              this.$store.dispatch('languageSearch', {
+                language: null,
+              })
+            }
+            // * もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
             }
@@ -393,14 +436,17 @@ export default {
     // * フレームワーク検索
     getFramework(){
       var arrayFramework = [];
+      var frameworkState = []; //? Stateにフレームワークを複数いれるための配列
       const params = {
         framework: this.selectedFramework,
       }
       for(var i =0; i < params.framework.length; i++) {
         var frameworkParams = params.framework[i];
+        frameworkState.push(frameworkParams)
         var queryParams =  'programing_framework_id' + '[' + Number(frameworkParams - 1) + ']' + '=' + frameworkParams + '&';
         arrayFramework.push(queryParams)
       }
+      var frameworkStateEnd = frameworkState.slice(0)
       var result = arrayFramework.join('');
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
         .then(response => {
@@ -411,7 +457,18 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
-            // ? もし案件が存在しなかったら処理が走る
+
+            // * フレームワーク 検索語 Vuexに値を格納する
+            this.$store.dispatch('framworkSearch', {
+              framwork: frameworkStateEnd,
+            })
+            // * フレームワークが１つも選択されていない時の処理
+            if(params.framework.length == 0 ) {
+              this.$store.dispatch('framworkSearch', {
+                framwork: null,
+              })
+            }
+            // * もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
             }
@@ -422,14 +479,17 @@ export default {
     getSkill() {
       this.loading = false;
       var arraySkill = [];
+      var skillState = []; //? Stateにその他スキルを複数いれるための配列
       const params = {
         skill: this.selectedSkill,
       }
       for(var i =0; i < params.skill.length; i++) {
         var skillParams = params.skill[i];
+        skillState.push(skillParams)
         var queryParams =  'skill_id' + '[' + Number(skillParams - 1) + ']' + '=' + skillParams + '&';
         arraySkill.push(queryParams)
       }
+      var skillStateEnd = skillState.slice(0)
       var result = arraySkill.join('');
         axios.get(`http://localhost:8888/api/v1/job/?${result}`)
         .then(response => {
@@ -440,7 +500,18 @@ export default {
             this.loading = false;
             this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
             this.detailFlag = false; //? 右側案件詳細を閉じる
-            // ? もし案件が存在しなかったら処理が走る
+
+            // * その他スキル 検索語 Vuexに値を格納する
+            this.$store.dispatch('skillSearch', {
+              skill: skillStateEnd,
+            })
+            // * その他スキルが１つも選択されていない時の処理
+            if(params.skill.length == 0 ) {
+              this.$store.dispatch('skillSearch', {
+                skill: null,
+              })
+            }
+            // * もし案件が存在しなかったら処理が走る
             if(!this.jobs.length) {
               this.jobsNullFlag = true;
             }
@@ -461,13 +532,14 @@ export default {
               posts.push(jobs)
             }
           }
-          // ? 検索語の処理 
-          this.$store.state.search.freeWord = this.freeWord;
-          console.log(posts)
+          // * フリーワード 検索語 Vuexに値を格納する
+          this.$store.dispatch('freeWordSearch', {
+            freeWord: this.freeWord,
+          })
           this.jobs = posts;
           this.jobsNullFlag = false; //? 案件が存在しない際のフラグをFalseに
           this.detailFlag = false; //? 右側案件詳細を閉じる
-          // ? もし案件が存在しなかったら処理が走る
+          // * もし案件が存在しなかったら処理が走る
           if(!this.jobs.length) {
             this.jobsNullFlag = true;
           }
@@ -527,7 +599,6 @@ export default {
         axios.get(`http://localhost:8888/api/v1/apply_job/?user_id=${ this.userId }`)
         .then(response => {
           const arrayApply = []
-          console.log(response.data)
           for(let c = 0; c < response.data.length; c++){
             const applyData = response.data[c];
             arrayApply.push(applyData.job.id)
@@ -543,7 +614,6 @@ export default {
           for(let i = 0; i < response.data.length; i++){
             const likeData = response.data[i]
             array.push(likeData.job.id)
-            // console.log(array)
           }
           if(array.includes(this.jobDetail.id)){
             this.saveFlag = false
@@ -552,7 +622,10 @@ export default {
             this.saveFlag = true
           }
         })
-      } else {
+      } 
+      
+      // * 登録 or ログインしてない場合
+      else {
         console.log("登録してからご利用いただけます")
       }
     },
@@ -594,6 +667,26 @@ export default {
     closeSkillSearchModal() {
       this.skillModal = false;
     },
+    // * トップに行く
+    scrollTop(){
+      window.scrollTo({
+        behavior: 'smooth',
+        top: 0,
+      });
+    },
+    // * 100 を超えたらボタンを表示
+    scrollWindow() {
+      const top = 100 // ? ボタンを表示させたい位置
+      this.scroll = window.scrollY
+      if (top <= this.scroll) {
+        this.buttonActive = true
+      } else {
+        this.buttonActive = false
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.scrollWindow) //?ボタンを表示させたい位置
   },
   components: {
     Loading,
@@ -609,456 +702,506 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.job-cards.sample-active {
+  border-bottom: 4px solid #ff0800;
+  font-weight: bold;
+}
 
+.className {
+  background-color: red;
+}
 
-@media screen and (max-width: 1440px) {
-  .job-cards.sample-active {
-    border-bottom: 4px solid #ff0800;
-    font-weight: bold;
-  }
+// * 詳細検索 
+.search-area {
+  width: calc(100% - 6rem);
+  height: 48px;
+  background-color: $basic-white;
+  position: absolute;
+  top: 0;
+  position: sticky;
+  z-index: 1;
+  box-shadow: 0 2px 3px 0px rgb(197, 197, 197);
+  text-align: left;
+  padding: 0 3rem;
+  display: inline-block;
 
-  .className {
-    background-color: red;
-  }
-
-  /* 詳細検索 */
-  .search-area {
-    width: calc(100% - 6rem);
-    height: 48px;
+  .search-modal-btn {
+    @include card-border-color;
+    color: $text-sub-color;
     background-color: $basic-white;
-    position: absolute;
-    top: 0;
-    position: sticky;
-    z-index: 10;
-    box-shadow: 0 2px 3px 0px rgb(197, 197, 197);
-    text-align: left;
-    padding: 0 3rem;
-    display: inline-block;
-
-    .search-modal-btn {
-      @include card-border-color;
-      color: $text-sub-color;
-      background-color: $basic-white;
-      margin-top: 0.4rem;
-      padding: 0.5rem 1.5rem;
-      border-radius: 50rem;
-      cursor: pointer;
-      font-weight: bold;
-      margin-left: 0.7rem;
-      transition: .3s;
-      outline: none;
-
-      &:hover {
-        @include primary-border_color;
-        color: $primary-color;
-        transition: .3s;
-      }
-    }
-
-    .search-freewrod-box {
-      @include input-border-color;
-      color: $text-main-color;
-      font: 16px/24px sans-serif;
-      box-sizing: border-box;
-      transition: 0.3s;
-      letter-spacing: 1px;
-      border-radius: 4px;
-      width: 28%;
-      margin-top: 0.23rem;
-      // border: solid 1px #E0E0E0;
-      background-color: #E0E0E0;
-      border-radius: 50rem;
-      padding: 0.5rem 1rem;
-      position: absolute;
-      right: 0;
-      margin-right: 4rem;
-      border: none;
-      outline: none;
-
-      &:focus {
-        @include form-hover;
-      }
-    }
-  }
-
-  /* 全体 */
-  .job-wrapper {
-    width: 100%;
-    margin: 0 auto;
-    padding: 0rem 0 2rem 0;
-    position: relative;
-
-    .job-wrapper-center {
-      width: 90%;
-      margin: 0 auto;
-      position: relative;
-      // background-color: purple;
-
-      .router :hover {
-        background-color: #2195f310;
-        border: 1px solid $primary-color;
-        box-shadow: 0 15px 30px -5px #2195f32d, 0 0 5px #2195f357;
-        transform: translateY(-2px);
-        cursor: pointer;
-      }
-    }
-  }
-
-  /* 案件詳細画面 */
-  .job-wrapper-right {
-    width: 52%;
-    height: 88vh;
-    margin-left: 2rem;
-    margin-top: 1rem;
-    background-color: $basic-white;
-    position: sticky;
-    display: inline-block;
-    margin-bottom: 0.2rem;
-    bottom: 0;
-    border-radius: 8px;
-    color: #111111;
-    border: solid 1px $card-border-color;
-    text-align: left;
-
-    .top-job-detail-area {
-      width: calc(100% - 4rem);
-      border-bottom: solid 1px $card-border-color;
-      font-weight: bold;
-      padding: 1.5rem 2rem 1rem 2rem;
-      box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15);
-
-      /* 影 */
-      .top-job-detail-top {
-        width: 100%;
-        height: 50%;
-        font-size: 1.2em;
-      }
-
-      .top-job-detail-bottom {
-        width: 100%;
-        height: 65%;
-        display: inline-block;
-        position: relative;
-        margin-top: 0.8rem;
-      }
-    }
-  }
-
-  .btn-box-save {
-    display: inline-block;
-    height: calc(100% - 1rem);
-    padding: 0.3rem 0 0 1.2rem;
-    position: absolute;
-    top: 0;
-  }
-
-  .job-wrapper-right .main-job-detail-area {
-    width: calc(100% - 4rem);
-    height: calc(75% - 1rem);
-
-    /* background-color: yellow; */
-    overflow: scroll;
-    padding: 0 2rem 1rem 2rem;
-    position: relative;
-
-    .tag-area {
-      font-weight: bold;
-      margin: 1rem 0 0.5rem 0;
-      font-size: 1em;
-
-      .icon {
-        color: $primary-color;
-      }
-    }
-  }
-
-  .post-user-area {
-    line-height: 1.8;
-    font-size: 14px;
-  }
-
-  .jobDetail-time-area {
-    margin-top: 1rem;
-    font-size: 12px;
-    color: #7c7c7c;
-    float: right;
-  }
-
-  .post-user-name-area {
-    line-height: 1.8;
-    font-size: 14px;
-    text-decoration: underline;
+    margin-top: 0.4rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50rem;
     cursor: pointer;
-    margin-bottom: 0.3rem;
+    font-weight: bold;
+    margin-left: 0.7rem;
+    transition: .3s;
+    outline: none;
 
     &:hover {
+      @include primary-border_color;
       color: $primary-color;
       transition: .3s;
     }
   }
 
-  .detail-langage {
-    @include border_language;
-    color: $language-color;
-    margin: 0 0px 0px 5px;
-    text-align: left;
-    display: inline-block;
-    font-size: 14px;
-    padding: 2px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-
-  .detail-framework {
-    @include border_framework;
-    margin: 0px 0px 0 5px;
-    text-align: left;
-    display: inline-block;
-    color: $framework-color;
-    font-size: 14px;
-    padding: 2px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-
-  .detail-skill {
-    @include border-skill;
-    color: $skill-color;
-    margin: 0px 0px 0 5px;
-    text-align: left;
-    display: inline-block;
-    font-size: 14px;
-    padding: 2px 23px;
-    border-radius: 5px / 5px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-
-  // 管理画面遷移ボタン
-  .btn-box-manage {
-    @include blue-btn;
-    @include box-shadow-btn;
-    padding: 0.75rem 3rem;
-    border-radius: 8px;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin: auto;
-    font-size: 1.1em;
-    display: inline-block;
-    cursor: pointer;
-    border: none;
-    margin-top: 4px;
-    color: #F8FAFF;
-    appearance: none;
+  .search-freewrod-box {
+    @include input-border-color;
+    color: $text-main-color;
+    font: 16px/24px sans-serif;
+    box-sizing: border-box;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    width: 28%;
+    margin-top: 0.23rem;
+    // border: solid 1px #E0E0E0;
+    background-color: #E0E0E0;
+    border-radius: 50rem;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    right: 0;
+    margin-right: 4rem;
     border: none;
     outline: none;
-  }
 
-  /* 応募するボタン */
-  .btn-box-apply {
-    @include red-btn;
-    @include box-shadow-btn;
-    padding: 0.75rem 3rem;
-    border-radius: 8px;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin: auto;
-    font-size: 1.1em;
-    display: inline-block;
-    cursor: pointer;
-    border: none;
-    margin-top: 4px;
-    color: #F8FAFF;
-    appearance: none;
-    border: none;
-    transition: .3s;
-    outline: none;
-
-    &:hover {
-      @include red-btn-hover;
+    &:focus {
+      @include form-hover;
     }
   }
+}
 
-  /* 応募済みボタン */
-  .btn-box-apply-false {
-    @include grey-btn;
-    display: block;
-    padding: 0.75rem 3rem;
-    border-radius: 8px;
-    font-weight: 600;
-    color: $basic-white;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin: auto;
-    margin-top: 4px;
-    font-size: 1.1em;
-    display: inline-block;
-  }
+//* 全体 
+.job-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0rem 0 2rem 0;
+  position: relative;
 
-  /* モーダル内のキャンセルボタン */
-  .modal-btn {
-    @include blue-btn;
-    @include box-shadow-btn;
-    padding: 1rem 2.4rem;
-    border-radius: 50px;
-    font-weight: 600;
-    color: $basic-white;
-    line-height: 1;
-    text-align: center;
-    max-width: 280px;
-    margin-left: 1.2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border: none;
-    position: absolute;
-    top: 0;
+  // * スクロール
+  .scroll-area {
+    width: 50px;
+    height: 50px;
+    position: fixed;
     right: 0;
-    margin: 1rem;
-  }
-
-  /* 保存アイコン */
-  .save-icon {
-    font-size: 30px;
-    padding: 10px;
-    width: 20px;
-    height: 20px;
-    color: $basic-white;
-    cursor: pointer;
-    background-color: #d8d6d6;
-    border-radius: 5px / 5px;
-  }
-
-  .save-end-icon {
-    font-size: 30px;
-    padding: 10px;
-    width: 20px;
-    height: 20px;
-    color: red;
-    cursor: pointer;
-    background-color: #d8d6d6;
-    border-radius: 5px / 5px;
-  }
-
-  /* 右側 詳細を表示しない際に */
-  .job-wrapper-right-false {
-    width: 52%;
-    position: sticky;
-    display: inline-block;
-    margin-left: 2rem;
-    margin-bottom: 0.2rem;
     bottom: 0;
-    border-radius: 8px;
-    color: $text-main-color;
-    text-align: left;
+    background: #2196F3;
+    opacity: 0.6;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    z-index: 100;
+
+    a {
+      position: relative;
+      display: block;
+      width: 50px;
+      height: 50px;
+      text-decoration: none;
+
+      .icon {
+        color: #ffffff;
+        margin-top: 0.7rem;
+        font-size: 1.6em;
+      }
+    }
+
+    a::before{
+      font-weight: 900;
+      font-size: 25px;
+      color: #fff;
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      top: -5px;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+      text-align: center;
+    }
+  }
+  // * ふわっと表示 右側ボタン
+  .button-enter-active,
+  .button-leave-active {
+    transition: opacity 0.5s;
+  }
+  .button-enter,
+  .button-leave-to {
+    opacity: 0;
   }
 
-  /* 案件カード側 */
-  .job-wrapper-left {
-    width: 43%;
-    flex: 1 0 auto;
-    align-items: center;
-    justify-content: center;
-    display: inline-block;
-    margin-top: 1rem;
-  }
-  .job-wrapper-left-false {
-    width: 43%;
-    flex: 1 0 auto;
-    align-items: center;
-    justify-content: center;
-    display: inline-block;
-    margin-top: 1rem;
-  }
+  // * 案件中央
+  .job-wrapper-center {
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
 
-  .label-lang {
+    .router :hover {
+      background-color: #2195f310;
+      border: 1px solid $primary-color;
+      box-shadow: 0 15px 30px -5px #2195f32d, 0 0 5px #2195f357;
+      transform: translateY(-2px);
+      cursor: pointer;
+    }
+  }
+}
+
+// * 案件詳細画面 
+.job-wrapper-right {
+  width: 52%;
+  height: 88vh;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  background-color: $basic-white;
+  position: sticky;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  bottom: 0;
+  border-radius: 8px;
+  color: #111111;
+  border: solid 1px $card-border-color;
+  text-align: left;
+
+  .top-job-detail-area {
+    width: calc(100% - 4rem);
+    border-bottom: solid 1px $card-border-color;
     font-weight: bold;
-    font-size: 1.5em;
-    color: #111111;
-  }
+    padding: 1.5rem 2rem 1rem 2rem;
+    box-shadow: 0 3px 3px -2px rgba(3, 29, 41, 0.15);
 
-  .round {
-    text-align: left;
-    width: 24%;
-    margin-right: 0.3rem;
-    display: inline-block;
-    position: relative;
-    margin-bottom: 2rem;
-  }
-  .round-skill {
-    text-align: left;
-    width: 22%;
-    margin-right: 0.2rem;
-    display: inline-block;
-    position: relative;
-    margin-bottom: 2rem;
-  }
+    .top-job-detail-top {
+      width: 100%;
+      height: 50%;
+      font-size: 1.2em;
+    }
 
-  input[type="checkbox"] {
-    background-color: $basic-white;
-    border: 1px solid #ccc;
-    border-radius: 80%;
-    cursor: pointer;
-    height: 28px;
-    width: 22px;
+    .top-job-detail-bottom {
+      width: 100%;
+      height: 65%;
+      display: inline-block;
+      position: relative;
+      margin-top: 0.8rem;
+    }
   }
+}
 
-  label.checkbox {
-    position: absolute;
-    top: 0;
-    margin-top: 0.37rem;
-    color: #111111;
-    margin-left: 0.4rem;
-    font-size: 14px;
+.btn-box-save {
+  display: inline-block;
+  height: calc(100% - 1rem);
+  padding: 0.3rem 0 0 1.2rem;
+  position: absolute;
+  top: 0;
+}
+
+.job-wrapper-right .main-job-detail-area {
+  width: calc(100% - 4rem);
+  height: calc(79% - 1rem);
+  overflow: auto;
+  padding: 0 2rem 1rem 2rem;
+  position: relative;
+
+  .tag-area {
+    font-weight: bold;
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1em;
+
+    .icon {
+      color: $primary-color;
+    }
   }
+}
+/* スクロールの幅の設定 */
+.job-wrapper-right .main-job-detail-area::-webkit-scrollbar {
+  width: 7px;
+}
 
-  .serach-btn {
-    @include blue-btn;
-    display: block;
-    width: 77%;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-weight: 600;
-    color: $basic-white;
-    line-height: 1;
-    text-align: center;
-    margin: auto;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 0px 5px 2px #d4d4d4;
+/* スクロールの背景の設定 */
+.job-wrapper-right .main-job-detail-area::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+/* スクロールのつまみ部分の設定 */
+.job-wrapper-right .main-job-detail-area::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: $sub-white;
+}
+
+.post-user-area {
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.jobDetail-time-area {
+  margin-top: 1rem;
+  font-size: 12px;
+  color: #7c7c7c;
+  float: right;
+}
+
+.post-user-name-area {
+  line-height: 1.8;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 0.3rem;
+
+  &:hover {
+    color: $primary-color;
     transition: .3s;
   }
+}
 
-  .router-1 {
-    display: none;
+.detail-langage {
+  @include border_language;
+  color: $language-color;
+  margin: 0 0px 0px 5px;
+  text-align: left;
+  display: inline-block;
+  font-size: 14px;
+  padding: 2px 23px;
+  border-radius: 5px / 5px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.detail-framework {
+  @include border_framework;
+  margin: 0px 0px 0 5px;
+  text-align: left;
+  display: inline-block;
+  color: $framework-color;
+  font-size: 14px;
+  padding: 2px 23px;
+  border-radius: 5px / 5px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.detail-skill {
+  @include border-skill;
+  color: $skill-color;
+  margin: 0px 0px 0 5px;
+  text-align: left;
+  display: inline-block;
+  font-size: 14px;
+  padding: 2px 23px;
+  border-radius: 5px / 5px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+// * 管理画面遷移ボタン
+.btn-box-manage {
+  @include blue-btn;
+  @include box-shadow-btn;
+  padding: 0.75rem 3rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  text-align: center;
+  max-width: 280px;
+  margin: auto;
+  font-size: 1.1em;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  margin-top: 4px;
+  color: #F8FAFF;
+  appearance: none;
+  border: none;
+  outline: none;
+}
+
+// * 応募するボタン 
+.btn-box-apply {
+  @include red-btn;
+  @include box-shadow-btn;
+  padding: 0.75rem 3rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  text-align: center;
+  max-width: 280px;
+  margin: auto;
+  font-size: 1.1em;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  margin-top: 4px;
+  color: #F8FAFF;
+  appearance: none;
+  border: none;
+  transition: .3s;
+  outline: none;
+
+  &:hover {
+    @include red-btn-hover;
   }
 }
 
-@media screen and (max-width: 1435px) {
-  /*  */
+// * 応募済みボタン 
+.btn-box-apply-false {
+  @include grey-btn;
+  display: block;
+  padding: 0.75rem 3rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: $basic-white;
+  line-height: 1;
+  text-align: center;
+  max-width: 280px;
+  margin: auto;
+  margin-top: 4px;
+  font-size: 1.1em;
+  display: inline-block;
 }
 
-@media screen and (max-width: 1400px) {
-  /* .job-wrapper .job-wrapper-center {
-    width: 99%;
-    height: 100vh;
-    margin: 0 auto;
-  } */
+// * モーダル内のキャンセルボタン 
+.modal-btn {
+  @include blue-btn;
+  @include box-shadow-btn;
+  padding: 1rem 2.4rem;
+  border-radius: 50px;
+  font-weight: 600;
+  color: $basic-white;
+  line-height: 1;
+  text-align: center;
+  max-width: 280px;
+  margin-left: 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+}
+
+// * 保存アイコン 
+.save-icon {
+  font-size: 30px;
+  padding: 10px;
+  width: 20px;
+  height: 20px;
+  color: $basic-white;
+  cursor: pointer;
+  background-color: #d8d6d6;
+  border-radius: 5px / 5px;
+}
+
+.save-end-icon {
+  font-size: 30px;
+  padding: 10px;
+  width: 20px;
+  height: 20px;
+  color: red;
+  cursor: pointer;
+  background-color: #d8d6d6;
+  border-radius: 5px / 5px;
+}
+
+// * 右側 詳細を表示しない際に 
+.job-wrapper-right-false {
+  width: 52%;
+  // height: 40vh;
+  float: right;
+  position: sticky;
+  // display: inline-block;
+  margin-left: 2rem;
+  margin-bottom: 0.2rem;
+  // bottom: 0;
+  top: 0;
+  border-radius: 8px;
+  color: $text-main-color;
+  text-align: left;
+}
+
+// * 案件カード側 
+.job-wrapper-left {
+  width: 43%;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+  margin-top: 1rem;
+}
+.job-wrapper-left-false {
+  width: 43%;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.label-lang {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #111111;
+}
+
+.round {
+  text-align: left;
+  width: 24%;
+  margin-right: 0.3rem;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 2rem;
+}
+.round-skill {
+  text-align: left;
+  width: 22%;
+  margin-right: 0.2rem;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+input[type="checkbox"] {
+  background-color: $basic-white;
+  border: 1px solid #ccc;
+  border-radius: 80%;
+  cursor: pointer;
+  height: 28px;
+  width: 22px;
+}
+
+label.checkbox {
+  position: absolute;
+  top: 0;
+  margin-top: 0.37rem;
+  color: #111111;
+  margin-left: 0.4rem;
+  font-size: 14px;
+}
+
+.serach-btn {
+  @include blue-btn;
+  display: block;
+  width: 77%;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: $basic-white;
+  line-height: 1;
+  text-align: center;
+  margin: auto;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0px 5px 2px #d4d4d4;
+  transition: .3s;
+}
+
+.router-1 {
+  display: none;
 }
 
 @media screen and (max-width: 1289px) {
   .job-wrapper .job-wrapper-center {
     width: 95%;
-
-    /* background-color: yellow; */
   }
 
   .job-wrapper-right {
@@ -1071,9 +1214,8 @@ export default {
     overflow-x: auto;
     width: 100%;
     padding: 0;
-    white-space: nowrap;
   }
-  /* 右側案件をdisplaynone */
+  // * 右側案件をdisplaynone 
   .job-wrapper-right {
     display: none;
   }
@@ -1088,14 +1230,10 @@ export default {
 
   .job-wrapper-left {
     width: 90%;
-
-    /* background-color: #00BCD4; */
   }
 
   .job-wrapper .job-wrapper-center {
     width: 80%;
-
-    /* background-color: yellow; */
   }
 }
 
@@ -1109,28 +1247,24 @@ export default {
   }
   .job-wrapper-left {
     width: 100%;
-
-    /* background-color: #00BCD4; */
   }
 
   .job-wrapper .job-wrapper-center {
     width: 80%;
-
-    /* background-color: yellow; */
   }
 }
 
 @media screen and (max-width: 580px) {
   .job-wrapper-left {
     width: 100%;
-
-    /* background-color: #00BCD4; */
   }
 
   .job-wrapper .job-wrapper-center {
     width: 95%;
+  }
 
-    /* background-color: yellow; */
+  .search-area {
+    white-space: nowrap;
   }
 }
 </style>

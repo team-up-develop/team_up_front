@@ -15,8 +15,8 @@
         </div>
         <div class="top-ad-right">
           <div class="btn-area">
-            <button class="register-btn">登録する</button>
-            <button class="login-btn">ログインする</button>
+            <button class="register-btn" @click="$router.push('/register')">登録する</button>
+            <button class="login-btn" @click="$router.push('/login')">ログインする</button>
           </div>
         </div>
       </div>
@@ -110,24 +110,28 @@ export default {
       this.$store.dispatch('freeWordSearch', {
         freeWord: this.freeWord,
       })
+      return this.$router.push('/jobs');
     },
     // * トップページ 言語検索
     languageClick(language) {
       this.$store.dispatch('languageSearch', {
-        language: language.id,
+        language: [language.id],
       })
+      return this.$router.push('/jobs');
     },
     // * トップページ フレームワーク検索
     framworkClick(framwork) {
       this.$store.dispatch('framworkSearch', {
-        framwork: framwork.id,
+        framwork: [framwork.id],
       })
+      return this.$router.push('/jobs');
     },
     // * トップページ その他スキル検索
     skillClick(skill) {
       this.$store.dispatch('skillSearch', {
-        skill: skill.id,
+        skill: [skill.id],
       })
+      return this.$router.push('/jobs');
     }
   },
   components: {
@@ -138,7 +142,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 1440px) {
   .top-wrapper {
     width: 85%;
     height: 90vh;
@@ -155,13 +158,11 @@ export default {
       .top-ad-area {
         width: 100%;
         height: 20vh;
-        // background-color: yellow;
         position: relative;
 
         .top-ad-left {
           width: 50%;
           height: 100%;
-          // background-color: rgb(155, 155, 218);
           position: absolute;
           left: 0;
           top: 0;
@@ -180,22 +181,19 @@ export default {
             padding: 1.5rem 0;
             font-weight: bold;
             line-height: 1.4;
-            // background-color: rgb(207, 87, 87);
           }
         }
 
         .top-ad-right {
           width: 50%;
           height: 50%;
-          // background-color: rgb(92, 202, 198);
           position: absolute;
           right: 0;
           bottom: 0;
 
           .btn-area {
-            width: 57%;
+            width: 350px;
             height: 100%;
-            // background-color: green;
             float: right;
             position: relative;
 
@@ -315,6 +313,8 @@ export default {
 
           .langage {
             width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
             // display: flex;
           
             .language-box {
@@ -350,6 +350,8 @@ export default {
 
           .framework {
             width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
 
             .framework-box {
               background-color: $basic-white;
@@ -384,6 +386,8 @@ export default {
 
           .skill {
             width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
 
             .skill-box {
               background-color: $basic-white;
@@ -418,7 +422,6 @@ export default {
       .card-area {
         width: 100%;
         height: 50%;
-        // background-color: rgba(0, 0, 255, 0.619);
         text-align: left;
         position: relative;
         padding: 1.7rem 0;
@@ -431,6 +434,15 @@ export default {
           left: 0;
         }
       }
+    }
+  }
+
+@media screen and (max-width: 1100px) {
+  .top-wrapper {
+    width: 90%;
+    .container-top {
+      width: calc(100% - 0rem);
+      padding: 2.5rem 0rem;
     }
   }
 }
