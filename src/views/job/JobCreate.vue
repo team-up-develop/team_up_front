@@ -357,16 +357,16 @@ export default {
 
 @media (max-width: 420px) {
   .create-wrapper {
-    width: 92%;
+    width: 100%;
     height: 100vh;
     margin: 0 auto;
     position: relative;
   }
   .create-wrapper .job-create-wrapper {
-    width: calc(100% - 2rem);
-    margin: 2rem auto 2rem auto;
+    width: calc(97% - 2rem);
+    margin: 2rem auto;
+    position: relative;
     padding: 2rem 1rem 1rem 1rem;
-    right: 0rem;
 
     .next-btn {
       width: 49%;

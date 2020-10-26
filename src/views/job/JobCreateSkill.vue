@@ -407,15 +407,15 @@ export default {
 
 @media (max-width: 420px) {
   .create-wrapper {
-    width: 92%;
+    width: 100%;
     margin: 0 auto;
     position: relative;
   }
   .create-wrapper .job-create-wrapper {
-    width: calc(100% - 2rem);
-    margin: 2rem auto 2rem auto;
-    padding: 2rem 1rem;
-    right: 0rem;
+    width: calc(97% - 2rem);
+    margin: 2rem auto;
+    position: relative;
+    padding: 2rem 1rem 1rem 1rem;
   }
   .job-create-wrapper .button-are  { 
     .post-job-btn {

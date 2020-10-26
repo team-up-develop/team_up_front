@@ -80,7 +80,7 @@ export default {
     },
     //* 案件タイトル レスポンシブ 文字制限
     truncateResponsiveTitle: function(value) {
-      var length = 8;
+      var length = 15;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -92,7 +92,7 @@ export default {
     // * 管理案件を取得
     if(this.userId) {
       this.loginFlag = true
-      axios.get(`${this.$baseURL}/job/?user_id=${this.userId}`)
+      axios.get(`http://localhost:8888/api/v1/job/?user_id=${this.userId}`)
       .then(response => {
         this.manageJobs = response.data
       })
@@ -125,7 +125,7 @@ export default {
     border-radius: 20px;
     margin: 2rem 2rem;
     background-color: #ffffff;
-    float: right;
+    // float: right;
     border-bottom: solid 1px $card-border-color;
     border-right: solid 1px $card-border-color;
     border-left: solid 1px $card-border-color;
@@ -330,10 +330,10 @@ export default {
       width: calc(100% - 4rem);
       height: calc(90vh - 5rem);
       margin: 2rem 2rem;
-      float: right;
+      // float: right;
       position: relative;
       font-size: 14px;
-      }
+    }
     .job-wrapper-area .job-area .job-area-box{
       p{
         display: inline;
@@ -351,13 +351,13 @@ export default {
     width: 100%;
     height: 89.5vh;
     margin: 0 auto;
+    
     .job-manage-wrapper {
-      width: calc(100% - 2rem);
+      width: 97%;
+      margin: 0 auto;
       height: calc(90vh - 5rem);
-      margin: 2rem 1rem;
-      float: right;
+      margin: 2rem auto;
       position: relative;
-      font-size: 14px;
     }
 
   .manage-job-area {
