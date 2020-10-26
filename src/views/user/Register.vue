@@ -223,7 +223,7 @@ export default {
   }
 
   .login-wrapper .login-container {
-    width: calc(100% - 4rem);
+    width: calc(97% - 2rem);
     height: 70%;
     margin: 0rem auto 3rem auto;
     border: solid 1px $card-border-color;

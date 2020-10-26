@@ -83,7 +83,7 @@ export default {
     },
     //* 案件タイトル レスポンシブ 文字制限
     truncateResponsiveTitle: function(value) {
-      var length = 8;
+      var length = 15;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -135,7 +135,6 @@ export default {
     border-radius: 20px;
     margin: 2rem 2rem;
     background-color: $basic-white;
-    float: right;
     position: relative;
     font-size: 14px;
 
@@ -327,14 +326,14 @@ export default {
     width: 100%;
     height: 89.5vh;
     margin: 0 auto;
+
     .job-manage-wrapper {
       width: calc(100% - 4rem);
       height: calc(90vh - 5rem);
       margin: 2rem 2rem;
-      float: right;
       position: relative;
       font-size: 14px;
-      }
+    }
     .job-wrapper-area .job-area .job-area-box {
       p{
         display: inline;
@@ -394,13 +393,12 @@ export default {
       padding: 0.8rem 0;
     }
 
-      .job-manage-wrapper {
-        width: calc(100% - 2rem);
-        height: calc(90vh - 5rem);
-        margin: 2rem 1rem;
-        float: right;
-        position: relative;
-        font-size: 14px;
+    .job-manage-wrapper {
+      width: 97%;
+      margin: 0 auto;
+      height: calc(90vh - 5rem);
+      margin: 2rem auto;
+      position: relative;
 
       .job-area .job-area-box{
         width: 33.2%;
