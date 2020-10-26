@@ -42,7 +42,7 @@
               <div class="menu-list-icon-area">
                 <!-- <font-awesome-icon icon="comments" class="icon"/> -->
               </div>
-              <router-link to="/manage" class="router-link-about">TeamUpとは</router-link>
+              <router-link to="/about" class="router-link-about">TeamUpとは</router-link>
             </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">

@@ -185,6 +185,7 @@ export default {
   width: 92%;
   height: 89.5vh;
   margin: 0 auto;
+  min-width : 950px;
 
 
   .job-manage-detail-wrapper {
