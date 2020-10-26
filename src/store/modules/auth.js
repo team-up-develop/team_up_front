@@ -4,10 +4,12 @@ import router from '@/router/index.js' // Vue router instance
 const state = {
   idToken: null,
   userId: null,
+  errorFlag: false
 }
 
 const getters = {
-  userId: state => state.userId 
+  userId: state => state.userId,
+  errorFlag: state => state.errorFlag
 }
 
 const mutations = {
@@ -19,6 +21,9 @@ const mutations = {
   loginUserId(state, userId) {
     state.userId = userId
     // localStorage.userId = state.userId //? ローカルストレージ
+  },
+  loginError(state, errorFlag) {
+    state.errorFlag = errorFlag;
   }
 }
 
@@ -35,7 +40,12 @@ const actions = {
       commit('updateIdToken', response.data.idToken)
       commit('loginUserId', response.data.userId)
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log(error)
+      let errorFlag = true
+      console.log("Errorが起きました!!!!!")
+      commit('loginError', errorFlag)
+    })
     ;
   },
   // * ログアウト
