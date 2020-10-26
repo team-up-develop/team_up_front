@@ -3,6 +3,11 @@
     <div class="login-title">LOGIN</div>
     <div class="login-container">
       <div class="login-box">
+        <div class="error-flag" v-if="loginErrorFlag == true">
+          <span>メールアドレス か パスワードが違います</span>
+        </div>
+        <div v-else>
+        </div>
         <div class="name-form">
           <label for="name">ログイン名</label>
           <input type="text" class="input" v-model="LoginName" placeholder="ログイン名">
@@ -26,6 +31,7 @@ export default {
     return {
       LoginName: '',
       LoginPassword: '',
+      loginErrorFlag: false
     }
   },
   methods: {
@@ -34,10 +40,18 @@ export default {
         LoginName: this.LoginName,
         LoginPassword: this.LoginPassword,
       })
-      this.LoginName = "";
-      this.LoginPassword = "";
+      // this.LoginName = "";
+      // this.LoginPassword = "";
+      setTimeout(() => {
+        if (this.$store.state.auth.errorFlag === true) {
+          this.loginErrorFlag = true;
+        }
+      }, 1000)
     },
   },
+  created() {
+    this.$store.state.auth.errorFlag = false;
+  }
 }
 </script>
 
@@ -79,14 +93,25 @@ export default {
 }
 
 .login-box {
+
+  // * Error
+  .error-flag {
+    text-align: left;
+
+    span {
+      color: $error-message-color;
+      font-weight: bold;
+    }
+  }
+
   .btn-area {
     padding: 20% 0 0 0;
     height: 30%;
-  }
 
-  span {
-    cursor: pointer;
-    color: $primary-color;
+    span {
+      cursor: pointer;
+      color: $primary-color;
+    }
   }
 
   .name-form {
