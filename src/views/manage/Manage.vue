@@ -27,17 +27,18 @@
               <p>{{ jobs.jobTitle | truncateResponsiveTitle }}</p>
             </div>
             <div class="job-area-box">
-              {{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}
+              <span>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}</span>
+              <p>{{ jobs.devStartDate | moment("YYYY/M/D") }}  ~  {{ jobs.devEndDate | moment("YYYY/M/D")}}</p>
             </div>
             <div class="job-area-box">
               <div class="lang" 
-                v-for="(langage, index) in jobs.programingLanguage.slice(0,1)" 
+                v-for="(langage, index) in jobs.programingLanguage.slice(0,2)" 
                 :key="`langage-${index}`"
               >
                 {{ langage.programingLanguageName }}  ,
               </div>
               <div class="lang" 
-                v-for="(framework, index) in jobs.programingFramework.slice(0,1)" 
+                v-for="(framework, index) in jobs.programingFramework.slice(0,2)" 
                 :key="`framework-${index}`"
               >
                 {{ framework.programingFrameworkName }}  ,
@@ -223,24 +224,29 @@ export default {
     height: 81%;
     overflow: scroll;
 
-    .job-area .job-area-box {
-      width: 33.2%;
-      // border-bottom: 1px solid #9c9c9c;
-      height: calc(48px - 1.6rem);
-      padding: 0.8rem 0;
-      color: $text-main-color;
-      font-size: 14px;
-      display: inline-block;
-      pointer-events: none;
+    .job-area {
+      line-height: 2;
 
-      p{
-        display: none;
+      .job-area-box {
+        width: 33.2%;
+        // border-bottom: 1px solid #9c9c9c;
+        height: calc(48px - 1.6rem);
+        padding: 0.8rem 0;
+        color: $text-main-color;
+        font-size: 14px;
+        display: inline-block;
+        pointer-events: none;
+        line-height: 2;
+
+        p{
+          display: none;
+        }
       }
+
+      .lang {
+        display: inline-block;
+        }
     }
-
-    .lang {
-      display: inline-block;
-      }
   }
 }
 
@@ -251,9 +257,12 @@ export default {
   
     .job-manage-wrapper {
       width: 93%;
-      height: calc(90vh - 5rem);
       border-radius: 20px;
       margin: 2rem 2rem;
+
+      .job-area {
+        // display:flex;
+      }
     }
   }
 }
@@ -351,7 +360,7 @@ export default {
     width: 100%;
     height: 89.5vh;
     margin: 0 auto;
-    
+
     .job-manage-wrapper {
       width: 97%;
       margin: 0 auto;
@@ -405,20 +414,24 @@ export default {
       height: 81%;
       overflow: scroll;
 
-      .job-area-box {
-        width: 33.2%;
-        height: calc(48px - 1.6rem);
-        padding: 0.8rem 0;
-        color: $text-main-color;
-        font-size: 14px;
-        display: inline-block;
-        pointer-events: none;
-        p{
-          display: inline;
-        }
-        span{
-          display: none;
-          height: calc(48px - 1.6rem);
+      .job-area {
+        display:flex;
+
+        .job-area-box {
+          width: 33.2%;
+          height: 100%;
+          padding: 0.8rem 0;
+          color: $text-main-color;
+          font-size: 14px;
+          display: inline-block;
+          pointer-events: none;
+
+          p{
+            display: inline;
+          }
+          span{
+            display: none;
+          }
         }
       }
     }

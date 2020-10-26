@@ -26,17 +26,17 @@
             </div>
             <div class="job-area-box">
               <span>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}</span>
-              <p>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~ </p>
+              <p>{{ jobs.devStartDate | moment("YYYY/M/D") }}  ~  {{ jobs.devEndDate | moment("YYYY/M/D")}}</p>
             </div>
             <div class="job-area-box">
               <div class="lang"
-                v-for="(langage, index) in jobs.job.programingLanguage.slice(0,3)" 
+                v-for="(langage, index) in jobs.job.programingLanguage.slice(0,2)" 
                 :key="`langage-${index}`"
               >
                 {{ langage.programingLanguageName }}  ,
               </div>
               <div class="lang" 
-                v-for="(framework, index) in jobs.job.programingFramework.slice(0,3)" 
+                v-for="(framework, index) in jobs.job.programingFramework.slice(0,2)" 
                 :key="`framework-${index}`"
               >
                 {{ framework.programingFrameworkName }}  ,
@@ -233,6 +233,7 @@ export default {
     color: $text-main-color;
     display: inline-block;
     pointer-events: none;
+    line-height: 2;
     
     p{
       display: none;
@@ -401,22 +402,26 @@ export default {
       margin: 2rem auto;
       position: relative;
 
-      .job-area .job-area-box{
-        width: 33.2%;
-        height: calc(48px - 1.6rem);
-        padding: 0.8rem 0;
-        color: $text-main-color;
-        font-size: 14px;
-        display: inline-block;
-        pointer-events: none;
+      .job-area {
+        display:flex;
 
-        p {
-          display: inline;
+        .job-area-box{
+          width: 33.2%;
+          height: 100%;
+          padding: 0.8rem 0;
+          color: $text-main-color;
+          font-size: 14px;
+          display: inline-block;
+          pointer-events: none;
+
+          p {
+            display: inline;
+          }
+          span {
+            display: none;
+            height: calc(48px - 1.6rem);
+          }  
         }
-        span {
-          display: none;
-          height: calc(48px - 1.6rem);
-        }  
       }
     }
   }

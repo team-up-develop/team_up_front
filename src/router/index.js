@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import TopPage from '@/views/common/TopPage'
+import About from '@/views/common/About'
 import Jobs from '../views/job/Jobs.vue'
 import JobDetailResponsive from '@/views/job/JobDetailResponsive'
 import Login from '../views/user/Login.vue'
@@ -30,6 +31,11 @@ export default new Router({
       path: '/',
       component: TopPage,
       name: 'topPage'
+    },
+    {
+      path: '/about',
+      component: About,
+      name: 'about'
     },
     // * 案件
     {
