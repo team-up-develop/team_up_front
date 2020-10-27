@@ -360,7 +360,7 @@ export default {
         if(!this.jobs.length) {
           this.jobsNullFlag = true;
         }
-      }, 1000);
+      }, 2000);
     })
     .catch(error => {
       console.log(error)
