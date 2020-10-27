@@ -1,32 +1,38 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-title">REGISTER</div>
-    <div class="login-container">
-      <div class="login-box">
-        <div class="name-form">
-          <label for="name">ログイン名</label>
-          <input type="text" class="input" v-model="LoginName" placeholder="ログイン名">
-        </div>
-        <div class="name-form">
-          <label for="name">パスワード</label>
-          <input type="password" class="input" v-model="LoginPassword" placeholder="パスワード">
-        </div>
-        <div class="btn-area">
-          <p>登録済みの方は<router-link to="/login" class="router-link"><span>こちら</span></router-link></p>
-          <div @click="register" class="login-btn">新規登録</div>
+  <section>
+    <div class="login-wrapper" v-show="!loading">
+      <div class="login-title">REGISTER</div>
+      <div class="login-container">
+        <div class="login-box">
+          <div class="name-form">
+            <label for="name">ログイン名</label>
+            <input type="text" class="input" v-model="LoginName" placeholder="ログイン名">
+          </div>
+          <div class="name-form">
+            <label for="name">パスワード</label>
+            <input type="password" class="input" v-model="LoginPassword" placeholder="パスワード">
+          </div>
+          <div class="btn-area">
+            <p>登録済みの方は<router-link to="/login" class="router-link"><span>こちら</span></router-link></p>
+            <div @click="register" class="login-btn">新規登録</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    <Loading v-show="loading">
+    </Loading>
+  </section>
 </template>
 
 <script>
 import axios from 'axios'
+import Loading from '@/components/common/Loading'
 export default {
   data() {
     return {
       LoginName: '',
       LoginPassword: '',
+      loading: true
     }
   },
   methods: {
@@ -42,6 +48,14 @@ export default {
       this.LoginName = "";
       this.LoginPassword = "";
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000)
+  },
+  components: {
+    Loading
   }
 }
 </script>

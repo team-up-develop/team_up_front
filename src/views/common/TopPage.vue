@@ -1,78 +1,83 @@
 <template>
-  <dir class="top-wrapper">
-    <div class="container-top">
-      <!-- トップ AD area -->
-      <div class="top-ad-area">
-        <div class="top-ad-left">
-          <div class="ad-title-area">
-            チーム開発をすぐに始めれる
+  <section>
+    <div class="top-wrapper" v-show="!loading">
+      <div class="container-top">
+        <!-- トップ AD area -->
+        <div class="top-ad-area">
+          <div class="top-ad-left">
+            <div class="ad-title-area">
+              チーム開発をすぐに始めれる
+            </div>
+            <div class="ad-subtitle-area">
+              本気でキャリアを変えようと努力している未経験エンジニア同士が
+              オンラインでの「チーム開発」を通じて相互に成長し、
+              エンジニアとしてスタートを切る。
+            </div>
           </div>
-          <div class="ad-subtitle-area">
-            本気でキャリアを変えようと努力している未経験エンジニア同士が
-            オンラインでの「チーム開発」を通じて相互に成長し、
-            エンジニアとしてスタートを切る。
+          <div class="top-ad-right">
+            <div class="btn-area">
+              <button class="register-btn" @click="$router.push('/register')">登録する</button>
+              <button class="login-btn" @click="$router.push('/login')">ログインする</button>
+            </div>
           </div>
         </div>
-        <div class="top-ad-right">
-          <div class="btn-area">
-            <button class="register-btn" @click="$router.push('/register')">登録する</button>
-            <button class="login-btn" @click="$router.push('/login')">ログインする</button>
+        <!-- 中央 フリーワード  -->
+        <div class="center-ad-area">
+          <input type="text" class="serach-freeword" v-model="freeWord"  placeholder="フリーワードを入力してください">
+          <button class="search-freeword-btn" @click="freeWordSearch">検索する</button>
+        </div>
+        <div class="bottom-ad-area">
+          <label for="name" class="keyword-tag">おすすめキーワード</label>
+          <div class="language-area">
+            <!-- 開発言語 -->
+            <label for="name" class="language-tag">開発言語</label>
+            <div class="langage">
+              <div class="language-box" v-for="language in languages" :key="language.id" @click="languageClick(language)">
+                {{ language.programingLanguageName }}
+              </div>
+            </div>
+          </div>
+          <!-- 開発フレームワーク -->
+          <div class="framework-area">
+            <label for="name" class="framework-tag">フレームワーク</label>
+            <div class="framework">
+              <div class="framework-box" v-for="framwork in framworks" :key="framwork.id" @click="framworkClick(framwork)">
+                {{ framwork.programingFrameworkName }}
+              </div>
+            </div>
+          </div>
+          <!-- その他スキル -->
+          <div class="skill-area">
+            <label for="name" class="skill-tag">その他スキル</label>
+            <div class="skill">
+              <div class="skill-box" v-for="skill in skills" :key="skill.id" @click="skillClick(skill)">
+                {{ skill.skillName }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- 中央 フリーワード  -->
-      <div class="center-ad-area">
-        <input type="text" class="serach-freeword" v-model="freeWord"  placeholder="フリーワードを入力してください">
-        <button class="search-freeword-btn" @click="freeWordSearch">検索する</button>
-      </div>
-      <div class="bottom-ad-area">
-        <label for="name" class="keyword-tag">おすすめキーワード</label>
-        <div class="language-area">
-          <!-- 開発言語 -->
-          <label for="name" class="language-tag">開発言語</label>
-          <div class="langage">
-            <div class="language-box" v-for="language in languages" :key="language.id" @click="languageClick(language)">
-              {{ language.programingLanguageName }}
-            </div>
-          </div>
+      <div class="container-center">
+        <div class="card-area">
+          <label for="name" class="new-tag">新着案件</label>
+          <top-page-new-job-card></top-page-new-job-card>
         </div>
-        <!-- 開発フレームワーク -->
-        <div class="framework-area">
-          <label for="name" class="framework-tag">フレームワーク</label>
-          <div class="framework">
-            <div class="framework-box" v-for="framwork in framworks" :key="framwork.id" @click="framworkClick(framwork)">
-              {{ framwork.programingFrameworkName }}
-            </div>
-          </div>
-        </div>
-        <!-- その他スキル -->
-        <div class="skill-area">
-          <label for="name" class="skill-tag">その他スキル</label>
-          <div class="skill">
-            <div class="skill-box" v-for="skill in skills" :key="skill.id" @click="skillClick(skill)">
-              {{ skill.skillName }}
-            </div>
-          </div>
+        <div class="card-area">
+          <label for="name" class="new-tag">おすすめ案件</label>
+          <top-page-recommend-job-card></top-page-recommend-job-card>
         </div>
       </div>
     </div>
-    <div class="container-center">
-      <div class="card-area">
-        <label for="name" class="new-tag">新着案件</label>
-        <top-page-new-job-card></top-page-new-job-card>
-      </div>
-      <div class="card-area">
-        <label for="name" class="new-tag">おすすめ案件</label>
-        <top-page-recommend-job-card></top-page-recommend-job-card>
-      </div>
-    </div>
-  </dir>
+    <Loading v-show="loading">
+    </Loading>
+  </section>
 </template>
 
 <script>
 import axios from 'axios'
 import TopPageRecommendJobCard from '@/components/common/TopPageRecommendJobCard'
 import TopPageNewJobCard from '@/components/common/TopPageNewJobCard'
+import Loading from '@/components/common/Loading'
 export default {
   data() {
     return {
@@ -80,29 +85,33 @@ export default {
       framworks: [], //? フレームワーク
       skills: [], //? その他スキル
       freeWord: this.$store.state.search.freeWord, //? フリーワード 検索
+      loading: true
     }
   },
   mounted() {
-    // * ページ遷移知れてきたらVuexの中身を消す
-    this.$store.state.search.freeWord = ""
-    this.$store.state.search.language = null
-    this.$store.state.search.framwork = null
-    this.$store.state.search.skill = null
-    // * 開発言語 取得
-    axios.get('http://localhost:8888/api/v1/programing_language')
-    .then(response => {
-      this.languages = response.data.slice(8)
-    })
-    // * フレームワーク
-    axios.get('http://localhost:8888/api/v1/programing_framework')
+    setTimeout(() => {
+      this.loading = false;
+      // * ページ遷移知れてきたらVuexの中身を消す
+      this.$store.state.search.freeWord = ""
+      this.$store.state.search.language = null
+      this.$store.state.search.framwork = null
+      this.$store.state.search.skill = null
+      // * 開発言語 取得
+      axios.get('http://localhost:8888/api/v1/programing_language')
       .then(response => {
-        this.framworks = response.data.slice(10)
+        this.languages = response.data.slice(8)
       })
-    // * その他スキル
-    axios.get('http://localhost:8888/api/v1/skill')
-      .then(response => {
-        this.skills = response.data.slice(18)
-      })
+      // * フレームワーク
+      axios.get('http://localhost:8888/api/v1/programing_framework')
+        .then(response => {
+          this.framworks = response.data.slice(10)
+        })
+      // * その他スキル
+      axios.get('http://localhost:8888/api/v1/skill')
+        .then(response => {
+          this.skills = response.data.slice(18)
+        })
+    }, 1500)
   },
   methods: {
     // * トップページフリーワード 検索
@@ -136,7 +145,8 @@ export default {
   },
   components: {
     TopPageRecommendJobCard,
-    TopPageNewJobCard
+    TopPageNewJobCard,
+    Loading
   },
 }
 </script>
