@@ -11,7 +11,7 @@
         </button>
         <transition>
           <nav id="gnav" class="nav" v-if="gnav">
-            <div class="nav__body">
+            <div class="nav__body" @click="closeHeader">
               <ul class="nav__lst">
                 <li class="nav__item"><router-link to="/jobs">案件を探す</router-link></li>
                 <li class="nav__item"><router-link to="/jobcreate">募集する</router-link></li>
@@ -76,7 +76,7 @@
 
 <script>
 // import LogoImage from '.../assets/logo.jpg'
-
+import $ from 'jquery'
 export default {
   props: {
     flag: Boolean
@@ -112,6 +112,31 @@ export default {
         elm.className += " is-open";
       }
     },
+    // * Header を閉じる
+    closeHeader() {
+      this.gnav = false;
+    }
+  },
+  mounted() {
+    // * Header 上下スクロール
+    var pos = 0;
+    $(window).on('scroll', function(){
+
+      if($(this).scrollTop() > 50 ){
+        if($(this).scrollTop() < pos ){
+          // ? 上スクロール時に表示
+          $('.header-wrapper').addClass('_show');
+        }else{
+          //? 下 スクロール時に表示
+          $('.header-wrapper').removeClass('_show');
+        }
+      } else {
+        $('.header-wrapper').addClass('_show');
+      }
+
+      //? スクロールが停止した位置を保持
+      pos = $(this).scrollTop();
+    });
   }
 }
 </script>
@@ -122,13 +147,24 @@ export default {
   font-weight: bold;
 }
 
+.header-wrapper._show {
+  position: fixed;
+  top:0;
+  left: 0;
+}
+
 .header-wrapper {
+  background-color: #ffffff;
   width: 100%;
   height: 58px;
   box-shadow: 0px 4px 3px -3px rgba(216, 216, 216, 0.6);
   margin-bottom: 2px;
   top: 0px;
-  left: 0px;
+  position: fixed;
+  top: -100px;
+  left: 0;
+  z-index: 2;
+  transition: 0.3s ease-in-out;
 }
 
 .header-wrapper-area {
@@ -319,11 +355,10 @@ ul {
   width: 45%;
   height: 100%;
   position: fixed;
-  // background-color: #ffffff;
-  background-color: $modal-background;
+  background-color: #ffffff;
+  // background-color: $modal-background;
   top: 0;
   left: 0;
-  overflow-y: scroll;
   z-index: 99;
   
   &__body {
@@ -342,8 +377,8 @@ ul {
       margin-top: 8px;
     }
     a {
-      font-size: 16px;
-      color: $basic-white;
+      font-size: 14px;
+      color: $text-sub-color;
       text-decoration: none;
       padding: 2px 0;
     }
