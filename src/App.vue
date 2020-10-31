@@ -54,6 +54,7 @@ export default {
 }
 .container {
   width: 100%;
+  margin-top: 3.7rem;
   /* height: 100%; */
   /* background-color: #F2F6F7; */
   /* background-color: #FAFAFA; */
