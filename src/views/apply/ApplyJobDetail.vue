@@ -193,7 +193,7 @@ export default {
     },
     doSend() {
         this.closeModal()
-      },
+    },
     getJob() {
       axios.get(`${this.$httpPosts}/${this.id}/`)
         .then(response => {
