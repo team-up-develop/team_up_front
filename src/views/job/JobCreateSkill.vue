@@ -52,11 +52,12 @@
       <div class="job-create-area">
         <label for="name" class="label">募集人数</label><label for="name" class="label-required">必須</label>
         <div class="job-create-radio">
-        <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="0">未定</label>
+        <!-- <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="0">未定</label> -->
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="1">1人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="2">2人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="3">3人</label>
         <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="4">4人</label>
+        <label class="radio-btn"><input type="radio" v-model="recruitNumber" value="5">5人</label>
         <!-- <p>Selected 開発メンバー {{ recruitNumber }} 人</p> -->
       </div>
       </div>

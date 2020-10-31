@@ -182,8 +182,11 @@
           </div>
           </div>
           <template slot="footer">
-            <div class="edit-btn" @click="jobEdit">
+            <div class="modal-edit-btn" @click="jobEdit">
               編集する
+            </div>
+            <div class="cancel-btn" @click="closeModal">
+              キャンセル
             </div>
           </template>
         </edit-job-modal >
@@ -733,10 +736,11 @@ export default {
   margin: 1rem;
 }
 
+// * 編集するボタン
 .edit-btn {
   @include blue-btn ;
   display: block;
-  padding: 1.4rem 9rem;
+  padding: 1.4rem 8rem;
   box-shadow: 0 0px 5px 2px #d4d4d4;
   border-radius: 50px;
   font-weight: 600;
@@ -750,6 +754,49 @@ export default {
   cursor: pointer;
   border: none;
   margin: 0.5rem;
+  outline: none;
+}
+
+// * モーダル内 編集するボタン
+.modal-edit-btn {
+  @include blue-btn ;
+  display: block;
+  padding: 1.4rem 5rem;
+  box-shadow: 0 0px 5px 2px #d4d4d4;
+  border-radius: 50px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  text-align: center;
+  max-width: 800px;
+  // margin: auto;
+  font-size: 1.1rem;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  margin: 0.5rem;
+  outline: none;
+}
+
+// *  編集モーダルキャンセルボタン
+.cancel-btn {
+  border: solid 1px $tertiary-color;
+  color: $tertiary-color;
+  background-color: #ffffff;
+  display: block;
+  padding: 1.4rem 4.5rem;
+  box-shadow: 0 0px 5px 2px #d4d4d4;
+  border-radius: 50px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  max-width: 800px;
+  // margin: auto;
+  font-size: 1.1rem;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0.5rem;
+  outline: none;
 }
 
 // * モーダル
