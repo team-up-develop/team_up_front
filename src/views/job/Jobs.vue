@@ -51,6 +51,17 @@
         </template>
       </SkillSearchModal>
     </div>
+    <!-- 応募する モーダル画面 -->
+    <div class="example-modal-window">
+      <ApplyModal @close="closeModal" v-if="modal">
+        <p>応募を完了してよろしいですか？</p>
+        <template slot="footer">
+          <applybtn @compliteEntry="compliteEntry" :jobId='id' ></applybtn>
+          <button @click="doSend" class="modal-btn">キャンセル</button>
+        </template>
+      </ApplyModal>
+    </div>
+    <!-- 検索エリアバー -->
     <div class="search-area">
       <button class="search-area__modal-btn" @click="langSearchModal">開発言語</button>
       <button class="search-area__modal-btn" @click="frameworkSearchModal">フレームワーク</button>
@@ -62,16 +73,6 @@
         class="search-area__freewrod"
         @keyup.enter="searchFreeword"
       >
-        <!-- 応募する モーダル画面 -->
-        <div class="example-modal-window">
-          <ApplyModal @close="closeModal" v-if="modal">
-            <p>応募を完了してよろしいですか？</p>
-            <template slot="footer">
-              <applybtn @compliteEntry="compliteEntry" :jobId='id' ></applybtn>
-              <button @click="doSend" class="modal-btn">キャンセル</button>
-            </template>
-          </ApplyModal>
-        </div>
     </div>
     <!-- 案件表示エリア -->
     <div class="job-wrapper-center" v-show="!loading">
