@@ -132,10 +132,10 @@
               multiple
               :options="languages"
               label="programingLanguageName"
-              v-model="selectedLang"
+              v-model="selectlangNumber"
               :reduce="languages => languages.id"
             />
-            <h1>Selected 言語:{{ selectedLang }}</h1>
+            <h1>Selected 言語:{{ selectlangNumber }}</h1>
           </div>
           <div class="job-create-area">
             <label for="name" class="label">フレームワーク</label><label for="name" class="label-required">必須</label>
@@ -148,10 +148,10 @@
                 multiple
                 :options="framworks"
                 label="programingFrameworkName"
-                v-model="selectedFramwork"
+                v-model="selectedFramworkNumber"
                 :reduce="framworks => framworks.id"
             />
-            <h1>Selected フレームワーク: {{ selectedFramwork }}</h1>
+            <h1>Selected フレームワーク: {{ selectedFramworkNumber }}</h1>
           </div>
           <div class="job-create-area">
             <label for="name" class="label">その他技術</label><label for="name" class="label-required">必須</label>
@@ -164,10 +164,10 @@
                 multiple
                 :options="skills"
                 label="skillName"
-                v-model="selectedSkill"
+                v-model="selectedSkillNumber"
                 :reduce="skills => skills.id"
             />
-            <h1>Selected その他スキル: {{ selectedSkill }}</h1>
+            <h1>Selected その他スキル: {{ selectedSkillNumber }}</h1>
           </div>
           <br>
           <div class="job-create-area">
@@ -188,6 +188,13 @@
           </template>
         </edit-job-modal >
       </div>
+      <div class="modal-complite">
+        <EditJobComplite @close="closeModal" v-if="modalEditComplite">
+          <p>編集が完了しました</p>
+          <template slot="footer">
+          </template>
+        </EditJobComplite>
+      </div>
   </div>
 </template>
 
@@ -196,6 +203,7 @@ import axios from 'axios'
 import moment from "moment";
 import GithubImage from '@/assets/github.png'
 import EditJobModal from '@/components/modal/EditJobModal'
+import EditJobComplite from '@/components/modal/compliteModal/EditJobComplite'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 
@@ -210,16 +218,20 @@ export default {
       assetsImage_NG: '@/assets/github.png',
       staticImage: '@/assets/github.png',
       modal: false, //? 編集モーダル
+      modalEditComplite: false,
       jobTitle: "", //? 案件タイトル
       devStartDate: null, //? 開発開始時期
       devEndDate: null, //? 開発終了時期
       jobDescription: null, //? 案件詳細
       selectedLang: [], //? プログラミング言語
-      languages: [],
+      selectlangNumber: [], //? 開発言語 編集用 array[Number, Number...]
+      languages: [], //? プログラミング言語全て
       selectedFramwork: [], //? フレームワーク
-      framworks: [],
+      selectedFramworkNumber: [], //? 開発フレームワーク 編集用 array[Number, Number...]
+      framworks: [], //? フレームワーク全て
       selectedSkill: [], //? その他開発スキル
-      skills: [],
+      selectedSkillNumber: [], 
+      skills: [], //? その他スキル全て
       selectedLangErrors: [], //?言語入力エラー
       selectedFramworkErrors: [], //?フレームワーク入力エラー
       selectedSkillErrors: [], //?その他スキル入力エラー
@@ -233,19 +245,19 @@ export default {
   },
   mounted() {
     // * 開発言語
-    axios.get(`${this.$baseURL}/programing_language`)
+    axios.get('http://localhost:8888/api/v1/programing_language')
       .then(response => {
           // const array = [];
           this.languages = response.data
       })
     // * フレームワーク
-    axios.get(`${this.$baseURL}/programing_framework`)
+    axios.get('http://localhost:8888/api/v1/programing_framework')
       .then(response => {
           this.framworks = response.data
           // console.log(this.framworks)
       })
     // * その他スキル
-    axios.get(`${this.$baseURL}/skill`)
+    axios.get('http://localhost:8888/api/v1/skill')
       .then(response => {
           this.skills = response.data
           // console.log(this.skills)
@@ -253,7 +265,7 @@ export default {
   },
   created() {
     // * 詳細画面情報を取得
-    axios.get(`${this.$httpPosts}/${this.id}/`)
+    axios.get(`http://localhost:8888/api/v1/job/${this.id}/`)
       .then(response => {
           // this.loading = true;
           this.job = response.data //? 案件
@@ -269,8 +281,17 @@ export default {
           this.devEndDate = endTime;
           this.jobDescription = this.job.jobDescription
           this.selectedLang = this.job.programingLanguage
+          for(var w = 0; w < this.selectedLang.length; w++) {
+            this.selectlangNumber.push(this.selectedLang[w].id) //? 開発言語 配列 [Number, Number...]
+          }
           this.selectedFramwork = this.job.programingFramework
+          for(var i = 0; i < this.selectedFramwork.length; i++) {
+            this.selectedFramworkNumber.push(this.selectedFramwork[i].id) //? 開発フレームワーク 配列 [Number, Number...]
+          }
           this.selectedSkill = this.job.skill
+          for(var d = 0; d < this.selectedSkill.length; d++) {
+            this.selectedSkillNumber.push(this.selectedSkill[d].id) //? 開発フレームワーク 配列 [Number, Number...]
+          }
           this.recruitNumber = this.job.recruitmentNumbers
       })
   },
@@ -298,23 +319,21 @@ export default {
       var recruitNum = Number(this.recruitNumber);
       // * 言語を {id: Number}に変換
       const languageArray = [];
-      for(var i = 0; i < this.selectedLang.length; i++) {
-        var langages = this.selectedLang[i];
-        // console.log(langages)
+      for(var i = 0; i < this.selectlangNumber.length; i++) {
+        var langages = this.selectlangNumber[i];
         languageArray.push({id: langages})
       }
       // * フレームワークを{id: Number}に変換
       const framworksArray = [];
-      for(var c = 0; c < this.selectedFramwork.length; c++) {
-        // console.log({id: this.selectedLang[c].id})
-        var framworks = this.selectedFramwork[c];
+      for(var c = 0; c < this.selectedFramworkNumber.length; c++) {
+        var framworks = this.selectedFramworkNumber[c];
         framworksArray.push({id: framworks})
       }
       // * その他スキルを {id: Number}に変換
       const skillArray = [];
-      for(var d = 0; d < this.selectedSkill.length; d++) {
+      for(var d = 0; d < this.selectedSkillNumber.length; d++) {
         // console.log({id: this.selectedSkill[d]})
-        var skills = this.selectedSkill[d];
+        var skills = this.selectedSkillNumber[d];
         skillArray.push({id: skills})
       }
 
@@ -342,9 +361,13 @@ export default {
         skill: skillArray,
         recruitmentNumbers: recruitNum
       }
-      axios.put(`${this.$httpPosts}/${this.id}`, params)
+      console.log("putする開発言語ですよ！")
+      axios.put(`http://localhost:8888/api/v1/job/${this.id}`, params)
       .then(response => {
-        console.log(response.data)
+        console.log("aaaaaaaaaaaaaaa")
+        console.log(response.config.data)
+        this.modal = false;
+        this.modalEditComplite = true;
         // this.$emit('compliteAssgin', this.message)
       })
       .catch(error => {
@@ -354,15 +377,17 @@ export default {
 
     //* Editモーダル 
     openModal() {
-      this.modal = true
+      this.modal = true;
     },
     closeModal() {
-      this.modal = false
+      this.modal = false;
+      this.modalEditComplite = false;
     },
   },
   components: {
     EditJobModal,
-    vSelect
+    vSelect,
+    EditJobComplite
   }
 }
 </script>
@@ -396,16 +421,16 @@ export default {
 }
 
 /* 投稿者 カード中身 */
-.detail-wrapper .detail-post-user-area .post-user-area {
+.detail-wrapper 
+.detail-post-user-area 
+.post-user-area {
   @include card-border-color;
   border-radius: 4px;
   padding: 2rem 4rem;
   margin-bottom: 2rem;
   position: relative;
-}
 
-/* ユーザー画像 start*/
-.post-user-area {
+  /* ユーザー画像 start*/
   .left-user-area {
     width: 20%;
     height: 100%;
@@ -432,6 +457,7 @@ export default {
     }
   }
 }
+
 
 /* ユーザー 詳細情報 start */
 .user-profile-area {
@@ -841,6 +867,12 @@ export default {
   .radio-btn {
     margin: 0.7rem 0rem;
     margin-left: 0.5rem;
+  }
+}
+.modal-complite {
+  p {
+    color: $text-main-color;
+    font-weight: bold;
   }
 }
 
