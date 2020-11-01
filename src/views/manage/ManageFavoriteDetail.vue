@@ -187,11 +187,10 @@ export default {
 
 <style lang="scss" scoped>
 .manage-detail-wrapper {
+  min-width : 950px;
   width: 92%;
   height: 89.5vh;
   margin: 0 auto;
-
-  /* background-color: #F2F6F7; */
 
   .job-manage-detail-wrapper {
     @include card-border-color;

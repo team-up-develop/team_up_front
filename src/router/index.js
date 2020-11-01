@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import TopPage from '@/views/common/TopPage'
+import About from '@/views/common/About'
 import Jobs from '../views/job/Jobs.vue'
 import JobDetailResponsive from '@/views/job/JobDetailResponsive'
 import Login from '../views/user/Login.vue'
 import Register from '../views/user/Register.vue'
+import SentMailComplete from '@/views/user/SentMailComplete'
 import ProfileUser from '@/views/user/ProfileUser'
 import JobCreate from '../views/job/JobCreate.vue'
 import JobCreateSkill from '../views/job/JobCreateSkill.vue'
@@ -30,6 +32,11 @@ export default new Router({
       path: '/',
       component: TopPage,
       name: 'topPage'
+    },
+    {
+      path: '/about',
+      component: About,
+      name: 'about'
     },
     // * 案件
     {
@@ -117,6 +124,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/register/sent_mail',
+      name: 'SentMailComplete',
+      component: SentMailComplete
     },
     {
       path: '/account/profile/:id/',

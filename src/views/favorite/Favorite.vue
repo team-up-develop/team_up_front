@@ -26,17 +26,17 @@
             </div>
             <div class="job-area-box">
               <span>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~  {{ jobs.devEndDate | moment("YYYY年 M月 D日")}}</span>
-              <p>{{ jobs.devStartDate | moment("YYYY年 M月 D日") }}  ~ </p>
+              <p>{{ jobs.devStartDate | moment("YYYY/M/D") }}  ~  {{ jobs.devEndDate | moment("YYYY/M/D")}}</p>
             </div>
             <div class="job-area-box">
               <div class="lang"
-                v-for="(langage, index) in jobs.job.programingLanguage.slice(0,3)" 
+                v-for="(langage, index) in jobs.job.programingLanguage.slice(0,2)" 
                 :key="`langage-${index}`"
               >
                 {{ langage.programingLanguageName }}  ,
               </div>
               <div class="lang" 
-                v-for="(framework, index) in jobs.job.programingFramework.slice(0,3)" 
+                v-for="(framework, index) in jobs.job.programingFramework.slice(0,2)" 
                 :key="`framework-${index}`"
               >
                 {{ framework.programingFrameworkName }}  ,
@@ -83,7 +83,7 @@ export default {
     },
     //* 案件タイトル レスポンシブ 文字制限
     truncateResponsiveTitle: function(value) {
-      var length = 4;
+      var length = 15;
       var ommision = "...";
       if (value.length <= length) {
         return value;
@@ -95,7 +95,7 @@ export default {
     // * 保存している案件を取得
     if(this.userId) {
       this.loginFlag = true
-      axios.get(`${this.$baseURL}/favorite_job/?user_id=${this.userId}`)
+      axios.get(`http://localhost:8888/api/v1/favorite_job/?user_id=${this.userId}`)
       .then(response => {
           // this.loading = false;
           this.favoriteJobs = response.data
@@ -133,7 +133,6 @@ export default {
     height: calc(90vh - 5rem);
     border-radius: 20px;
     margin: 2rem 2rem;
-    float: right;
     position: relative;
     font-size: 14px;
 
@@ -234,6 +233,7 @@ export default {
     color: $text-main-color;
     display: inline-block;
     pointer-events: none;
+    line-height: 2;
     
     p{
       display: none;
@@ -330,14 +330,13 @@ export default {
     width: 100%;
     height: 89.5vh;
     margin: 0 auto;
+    
     .job-manage-wrapper {
-      width: calc(100% - 4rem);
       height: calc(90vh - 5rem);
-      margin: 2rem 2rem;
-      float: right;
+      margin: 2rem auto;
       position: relative;
       font-size: 14px;
-      }
+    }
     .job-wrapper-area .job-area .job-area-box{
       p{
         display: inline;
@@ -397,30 +396,32 @@ export default {
       padding: 0.8rem 0;
     }
 
-      .job-manage-wrapper {
-        width: calc(100% - 2rem);
-        height: calc(90vh - 5rem);
-        margin: 2rem 1rem;
-        float: right;
-        position: relative;
-        font-size: 14px;
+    .job-manage-wrapper {
+      width: 97%;
+      height: calc(90vh - 5rem);
+      margin: 2rem auto;
+      position: relative;
 
-      .job-area .job-area-box{
-        width: 33.2%;
-        height: calc(48px - 1.6rem);
-        padding: 0.8rem 0;
-        color: $text-main-color;
-        font-size: 14px;
-        display: inline-block;
-        pointer-events: none;
+      .job-area {
+        display:flex;
 
-        p {
-          display: inline;
+        .job-area-box{
+          width: 33.2%;
+          height: 100%;
+          padding: 0.8rem 0;
+          color: $text-main-color;
+          font-size: 14px;
+          display: inline-block;
+          pointer-events: none;
+
+          p {
+            display: inline;
+          }
+          span {
+            display: none;
+            height: calc(48px - 1.6rem);
+          }  
         }
-        span {
-          display: none;
-          height: calc(48px - 1.6rem);
-        }  
       }
     }
   }

@@ -102,6 +102,7 @@ export default {
 
 /* ステータス変更 */
 .job-status-change-area {
+  // min-width : 950px;
   @include card-border-color;
   width: 95%;
   height: 20%;
@@ -137,8 +138,8 @@ export default {
 }
 
 .status-change-right {
-  width: 30%;
-  height: 40%;
+  width: 360px;
+  height: 30%;
   padding-top: 4.6rem;
   padding-right: 2rem;
   position: absolute;
