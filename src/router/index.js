@@ -6,6 +6,7 @@ import Jobs from '../views/job/Jobs.vue'
 import JobDetailResponsive from '@/views/job/JobDetailResponsive'
 import Login from '../views/user/Login.vue'
 import Register from '../views/user/Register.vue'
+import SentMailComplete from '@/views/user/SentMailComplete'
 import ProfileUser from '@/views/user/ProfileUser'
 import JobCreate from '../views/job/JobCreate.vue'
 import JobCreateSkill from '../views/job/JobCreateSkill.vue'
@@ -123,6 +124,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/register/sent_mail',
+      name: 'SentMailComplete',
+      component: SentMailComplete
     },
     {
       path: '/account/profile/:id/',
