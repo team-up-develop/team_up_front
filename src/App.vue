@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header.vue';
-import Footer from '@/components/common/Footer';
-import HeaderLoginFalse from '@/components/common/HeaderLoginFalse';
+import Header from '@/components/common/entire/Header'
+import Footer from '@/components/common/entire/Footer'
+import HeaderLoginFalse from '@/components/common/entire/HeaderLoginFalse'
 // import LeftSideBar from '@/components/LeftSideBar'
 export default {
   name: 'App',

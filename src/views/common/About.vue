@@ -44,7 +44,7 @@
 
 <script>
 import TeamUpImage from '@/assets/images/teamup.jpg'
-import Loading from '@/components/common/Loading'
+import Loading from '@/components/common/loading/Loading'
 export default {
   data() {
     return {
