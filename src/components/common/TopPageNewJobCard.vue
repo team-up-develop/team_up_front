@@ -8,21 +8,21 @@
       <div class="job-card-desktop__center">
         <div class="langage" 
           v-for="(langage, index) in newJob.programingLanguage.slice(0,2)" 
-          :key="`langage-${ index }`"
+          :key="`langageDesktop-${ index }`"
         >
           {{ langage.programingLanguageName }}
         </div> 
         <div 
           class="framework" 
           v-for="(framework, index) in newJob.programingFramework.slice(0,2)" 
-          :key="`framework-${ index }`"
+          :key="`frameworkDesktop-${ index }`"
         >
           {{ framework.programingFrameworkName }}
         </div> 
         <div 
           class="skill" 
           v-for="(skill, index) in newJob.skill.slice(0,2)" 
-          :key="`skill-${ index }`"
+          :key="`skillDesktop-${ index }`"
         >
           {{ skill.skillName }}
         </div> 
