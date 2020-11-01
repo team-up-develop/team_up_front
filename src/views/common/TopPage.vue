@@ -75,9 +75,9 @@
 
 <script>
 import axios from 'axios'
-import TopPageRecommendJobCard from '@/components/common/TopPageRecommendJobCard'
-import TopPageNewJobCard from '@/components/common/TopPageNewJobCard'
-import Loading from '@/components/common/Loading'
+import TopPageRecommendJobCard from '@/components/common/topPage/TopPageRecommendJobCard'
+import TopPageNewJobCard from '@/components/common/topPage/TopPageNewJobCard'
+import Loading from '@/components/common/loading/Loading'
 export default {
   data() {
     return {

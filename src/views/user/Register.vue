@@ -26,7 +26,7 @@
 
 <script>
 import axios from 'axios'
-import Loading from '@/components/common/Loading'
+import Loading from '@/components/common/loading/Loading'
 export default {
   data() {
     return {

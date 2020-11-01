@@ -213,7 +213,7 @@
 // import $ from 'jquery';
 import axios from 'axios'
 import moment from "moment";
-import Loading from '@/components/common/Loading'
+import Loading from '@/components/common/loading/Loading'
 import ApplyModal from '@/components/modal/ApplyModal'
 import Applybtn from '@/components/button/Applybtn'
 import JobRegisterFalse from '@/components/job/JobRegisterFalse'
