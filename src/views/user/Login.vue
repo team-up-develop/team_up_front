@@ -80,6 +80,7 @@ export default {
 
   .login-container {
     width: calc(100% - 12rem);
+    max-width: 500px;
     height: 66vh;
     margin: 0rem auto 3rem auto;
     border: solid 1px #B9B9B9;
@@ -119,7 +120,7 @@ export default {
   }
 
   .btn-area {
-    padding: 20% 0 0 0;
+    padding: 30% 0 0 0;
     height: 30%;
 
     span {
@@ -181,6 +182,17 @@ export default {
     outline: none;
   }
 }
+
+@media (max-width: 1440px) {
+  .login-wrapper 
+  .login-container 
+  .login-box
+  .btn-area {
+    padding: 20% 0 0 0;
+    height: 30%;
+  }
+}
+
 @media (max-width: 1200px) {
   .login-wrapper .login-container {
     width: 80%;
@@ -189,6 +201,12 @@ export default {
     border: solid 1px $card-border-color;
     border-radius: 20px;
     padding: 2rem;
+
+    .login-box
+    .btn-area {
+      padding: 17% 0 0 0;
+      height: 30%;
+    }
   }
 }
 
@@ -205,6 +223,11 @@ export default {
   }
 
   .login-box {
+    .btn-area {
+      padding: 17% 0 0 0;
+      height: 30%;
+    }
+
     span {
       cursor: pointer;
     }
@@ -221,11 +244,17 @@ export default {
   .login-wrapper {
     width: 100%;
   }
-  .login-container .login-box {
+  .login-container 
+  .login-box {
     width: 100%;
     height: 70%;
     margin: 0 auto;
     position: relative;
+
+    .btn-area {
+      padding: 15% 0 0 0;
+      height: 20%;
+    }
   }
 
   .login-box .name-form {

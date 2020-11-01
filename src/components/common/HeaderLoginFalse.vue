@@ -14,7 +14,7 @@
               <div class="nav__body">
                 <ul class="nav__lst">
                   <li class="nav__item"><router-link to="/jobs">案件を探す</router-link></li>
-                  <li class="nav__item"><router-link to="/jobcreate">TeamUpとは</router-link></li>
+                  <li class="nav__item"><router-link to="/about">TeamUPとは</router-link></li>
                   <li class="nav__item"><router-link to="/login">ログイン</router-link></li>
                   <li class="nav__item"><router-link to="/register">登録する</router-link></li>
                 </ul>
@@ -42,7 +42,7 @@
               <div class="menu-list-icon-area">
                 <!-- <font-awesome-icon icon="comments" class="icon"/> -->
               </div>
-              <router-link to="/about" class="router-link-about">TeamUpとは</router-link>
+              <router-link to="/about" class="router-link-about">TeamUPとは</router-link>
             </li>
             <li class="menu-list">
               <div class="menu-list-icon-area">

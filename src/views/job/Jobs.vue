@@ -392,7 +392,7 @@ export default {
       this.$router.push('/register');
     },
     // * 開発言語検索
-    getParams(){
+    getParams() {
       var array = [];
       var languageState = []; //? Stateにフレームワークを複数いれるための配列
       const params = {
@@ -435,7 +435,7 @@ export default {
         })
     },
     // * フレームワーク検索
-    getFramework(){
+    getFramework() {
       var arrayFramework = [];
       var frameworkState = []; //? Stateにフレームワークを複数いれるための配列
       const params = {
@@ -548,7 +548,7 @@ export default {
       }, 1000);
     },
     // * 案件を保存する
-    saveJob(){
+    saveJob() {
       const params = {
         jobId: this.jobDetail.id, 
         userId: 1 
@@ -632,7 +632,7 @@ export default {
     },
 
     // * エントリーが完了したら応募済みにする
-    compliteEntry(){
+    compliteEntry() {
       this.applyFlug = false;
     },
     
@@ -669,7 +669,7 @@ export default {
       this.skillModal = false;
     },
     // * トップに行く
-    scrollTop(){
+    scrollTop() {
       window.scrollTo({
         behavior: 'smooth',
         top: 0,
