@@ -1,5 +1,15 @@
 <template>
   <div class="detail-wrapper">
+  <!-- 応募する モーダル画面 -->
+  <div class="example-modal-window">
+    <ApplyModal @close="closeModal" v-if="modal">
+      <p>応募を完了してよろしいですか？</p>
+      <template slot="footer">
+        <applybtn :jobId='id'></applybtn>
+        <button @click="doSend" class="modal-btn">キャンセル</button>
+      </template>
+    </ApplyModal>
+  </div>
     <div class="detail-post-user-area">
       <div class="detail-tag">投稿者</div>
       <div class="post-user-area">
@@ -110,16 +120,6 @@
             </div>
             <div class="favorite-btn-area">
               <favorite-detail-btn :jobId='id'></favorite-detail-btn>
-            </div>
-            <!-- 応募する モーダル画面 -->
-            <div class="example-modal-window">
-              <ApplyModal @close="closeModal" v-if="modal">
-                <p>応募を完了してよろしいですか？</p>
-                <template slot="footer">
-                  <applybtn :jobId='id'></applybtn>
-                  <button @click="doSend" class="modal-btn">キャンセル</button>
-                </template>
-              </ApplyModal>
             </div>
           </div>
         </div>
