@@ -7,6 +7,9 @@ import JobDetailResponsive from '@/views/job/JobDetailResponsive'
 import Login from '../views/user/Login.vue'
 import Register from '../views/user/Register.vue'
 import SentMailComplete from '@/views/user/SentMailComplete'
+import RegisterStep1 from '@/views/user/register_session/RegisterStep1'
+import RegisterStep2 from '@/views/user/register_session/RegisterStep2'
+import RegisterStep3 from '@/views/user/register_session/RegisterStep3'
 import ProfileUser from '@/views/user/ProfileUser'
 import JobCreate from '../views/job/JobCreate.vue'
 import JobCreateSkill from '../views/job/JobCreateSkill.vue'
@@ -129,6 +132,22 @@ export default new Router({
       path: '/register/sent_mail',
       name: 'SentMailComplete',
       component: SentMailComplete
+    },
+    // * 本登録登録 
+    {
+      path: '/step/1',
+      name: 'RegisterStep1',
+      component: RegisterStep1
+    },
+    {
+      path: '/step/2',
+      name: 'RegisterStep2',
+      component: RegisterStep2
+    },
+    {
+      path: '/step/3',
+      name: 'RegisterStep3',
+      component: RegisterStep3
     },
     {
       path: '/account/profile/:id/',
