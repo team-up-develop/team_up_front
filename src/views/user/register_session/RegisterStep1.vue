@@ -15,23 +15,23 @@
           <div class="box-center">
             <div class="input-area">
               <label for="name" class="label">氏名</label><label for="name" class="label-required">必須</label>
-              <input type="text"  placeholder="例) チームアップ 太郎" maxlength="30" >
+              <input type="text" v-model="userName"  placeholder="例) チームアップ 太郎" maxlength="30" >
             </div>
             <div class="input-area">
               <label for="name" class="label">ユーザー名</label><label for="name" class="label-required">必須</label>
-              <input type="text"  placeholder="例) チームアップ 太郎" maxlength="30" >
+              <input type="text" v-model="nickName"  placeholder="例) チームアップ 太郎" maxlength="30" >
             </div>
             <div class="input-area">
               <label for="name" class="label">生年月日</label><label for="name" class="label-required">必須</label>
-              <input type="date"  placeholder="例) チームアップ 太郎" maxlength="30" >
+              <input type="date" v-model="userBirthday" placeholder="例) チームアップ 太郎" maxlength="30" >
             </div>
             <div class="input-area">
               <label for="name" class="label">学習開始日</label><label for="name" class="label-required">必須</label>
-              <input type="date"  placeholder="例) チームアップ 太郎" maxlength="30" >
+              <input type="date" v-model="learningStartDate" placeholder="例) チームアップ 太郎" maxlength="30" >
             </div>
           </div>
           <div class="box-bottom">
-            <div class="next-btn">次へ1/3</div>
+            <div class="next-btn" @click="nextStep2">次へ1/3</div>
           </div>
         </div>
       </div>
@@ -41,7 +41,36 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      userName: '',
+      nickName: '',
+      userBirthday: null,
+      learningStartDate: null,
+    }
+  },
+  methods: {
+    nextStep2() {
+      if(this.userName && this.nickName && this.userBirthday && this.learningStartDate ) {
+        const params = {
+          userName: this.userName,
+          nickName: this.nickName,
+          userBirthday: this.userBirthday,
+          learningStartDate: this.learningStartDate,
+        }
+        console.log("入力された値は" + params + "です。")
+        sessionStorage.setItem('userName', params.userName);
+        sessionStorage.setItem('nickName', params.nickName);
+        sessionStorage.setItem('userBirthday', params.userBirthday);
+        sessionStorage.setItem('learningStartDate', params.learningStartDate);
+        
+        return this.$router.push('/step/2');
+      }
+      else {
+        console.log("必須が入力されていません")
+      }
+    }
+  }
 }
 </script>
 
