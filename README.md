@@ -1,4 +1,5 @@
 # team_dev
+Ver 1 (Version 2以降のリポジトリは 現在 private)
 
 ## Docker setup
 ```
